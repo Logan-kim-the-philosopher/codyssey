@@ -1,7 +1,6 @@
 # E1-1 환경 세팅
 
 - 발표 링크: [발표용 HTML](https://Logan-kim-the-philosopher.github.io/codyssey/E1-1/)
-- GitHub README: [바로가기](https://github.com/Logan-kim-the-philosopher/codyssey/tree/main/assignments/E1-1)
 
 ## 챕터
 
@@ -1142,32 +1141,4 @@ Container env-bonus-web-1 Removed
 Network env-bonus_default Removed
 ```
 
-
-## 최종 확인
-
-### 검증 완료
-
-- 터미널 기본 조작
-- 파일 권한 실습
-- Docker 설치 및 기본 점검
-- Docker 컨테이너 실행 실습
-- Docker 기본 운영 명령
-- Dockerfile 기반 커스텀 이미지 제작
-- Docker 바인드 마운트 변경 반영
-- Docker 볼륨 영속성 검증
-- Git 설정 및 GitHub 연동
-- GitHub 제출 상태 확인
-- Docker Compose 멀티 컨테이너
-- 환경 변수 활용
-
-### 산출물
-
-- README.md
-- Presentation HTML
-- GitHub Repository
-
-### 최종 확인
-
-- Repository: github.com/Logan-kim-the-philosopher/codyssey
-- Pages: https://Logan-kim-the-philosopher.github.io/codyssey/E1-1/
 
