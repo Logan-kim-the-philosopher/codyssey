@@ -443,11 +443,61 @@
 - 결과 해석: docker logs로 종료된 컨테이너의 과거 표준출력을 재확인했고, docker stats로 실행 중 컨테이너의 CPU/메모리/네트워크/프로세스 사용량을 확인했다. docker rm -f로 실습용 컨테이너를 정리해 운영 명령의 확인과 정리 흐름을 함께 수행했다.
 - 증빙: docker logs practical_perlman 출력, docker stats --no-stream codyssey-stats-test 출력, docker rm -f 출력
 
-### Dockerfile 기반 커스텀 이미지 제작 / NGINX 기반 이미지 빌드
+### Dockerfile 기반 커스텀 이미지 제작 / 웹 서버 소스와 Dockerfile 준비 후 이미지 빌드
 
-- 목적: 직접 작성한 Dockerfile과 정적 웹 콘텐츠를 사용해 NGINX 기반 커스텀 이미지를 빌드한다.
-- 액션: docker build -t codyssey-e1-1-web:1.0 web-server 실행
+- 목적: 커스텀 NGINX 이미지가 어떤 소스와 Dockerfile에서 만들어지는지 먼저 확인하고, 그 파일들을 기반으로 이미지를 빌드한다.
+- 액션: web-server/site/index.html과 Dockerfile을 작성/확인한 뒤 docker build -t codyssey-e1-1-web:1.0 web-server 실행
 - 터미널 로그:
+  - 웹 서버 소스 디렉토리 생성
+    ```bash
+    $ mkdir -p web-server/site
+    ```
+  - 정적 HTML 소스 작성
+    ```bash
+    $ printf '<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>Codyssey E1-1</title>
+</head>
+<body>
+  <h1>Codyssey E1-1 Docker Web Server</h1>
+  <p>NGINX custom image is running.</p>
+</body>
+</html>
+' > web-server/site/index.html
+    ```
+  - 정적 HTML 소스 내용 확인
+    ```bash
+    $ cat web-server/site/index.html
+    <!doctype html>
+    <html lang="ko">
+    <head>
+      <meta charset="utf-8">
+      <title>Codyssey E1-1</title>
+    </head>
+    <body>
+      <h1>Codyssey E1-1 Docker Web Server</h1>
+      <p>NGINX custom image is running.</p>
+    </body>
+    </html>
+    ```
+  - Dockerfile 작성
+    ```bash
+    $ printf 'FROM nginx:alpine
+LABEL org.opencontainers.image.title="codyssey-e1-1-web"
+ENV APP_ENV=practice
+COPY site/ /usr/share/nginx/html/
+' > web-server/Dockerfile
+    ```
+  - Dockerfile 내용 확인
+    ```bash
+    $ cat web-server/Dockerfile
+    FROM nginx:alpine
+    LABEL org.opencontainers.image.title="codyssey-e1-1-web"
+    ENV APP_ENV=practice
+    COPY site/ /usr/share/nginx/html/
+    ```
   - Dockerfile 기반 커스텀 이미지 빌드
     ```bash
     $ docker build -t codyssey-e1-1-web:1.0 web-server
@@ -472,9 +522,9 @@
     REPOSITORY          TAG       IMAGE ID       SIZE
     codyssey-e1-1-web   1.0       925866189032   92MB
     ```
-- 핵심 출력: 빌드 단계에서 Dockerfile 로드, nginx:alpine 메타데이터 확인, 빌드 컨텍스트 전송, FROM nginx:alpine, COPY site/ /usr/share/nginx/html/ 수행. exporting to image 단계에서 codyssey-e1-1-web:1.0으로 naming 및 unpacking 완료. docker images 결과 codyssey-e1-1-web:1.0 이미지가 ID 925866189032, DISK USAGE 92MB, CONTENT SIZE 26MB로 확인됨.
-- 결과 해석: Dockerfile의 베이스 이미지 nginx:alpine과 COPY 지시어가 정상 처리되어 커스텀 이미지가 생성되었다. 이미지 태그 codyssey-e1-1-web:1.0이 로컬 이미지 목록에 표시되므로 이후 docker run으로 실행 가능한 빌드 산출물이 준비된 상태다.
-- 증빙: docker build 출력의 DONE/naming to codyssey-e1-1-web:1.0 및 docker images codyssey-e1-1-web:1.0 출력
+- 핵심 출력: 정적 HTML 소스와 Dockerfile 내용을 먼저 확인한 뒤, Dockerfile의 FROM nginx:alpine, LABEL, ENV, COPY site/ /usr/share/nginx/html/ 구성을 기반으로 codyssey-e1-1-web:1.0 이미지가 빌드됨. docker images 결과 해당 이미지가 로컬에 생성된 것이 확인됨.
+- 결과 해석: cat web-server/site/index.html 출력으로 이후 curl에서 반환될 HTML의 출처를 먼저 확인했다. cat web-server/Dockerfile 출력의 FROM은 베이스 이미지, LABEL/ENV는 이미지 메타데이터와 환경값, COPY는 site/ 정적 파일을 NGINX 웹 루트로 넣는 과정을 의미한다. 이후 docker build 출력에서 COPY 단계와 이미지 naming이 완료되어, 확인한 HTML 소스가 커스텀 이미지 안에 포함되었음을 증명한다.
+- 증빙: web-server/site/index.html 내용 확인, Dockerfile 내용 확인, docker build DONE/naming 출력, docker images codyssey-e1-1-web:1.0 출력
 - 산출물:
   - assignments/E1-1/web-server/Dockerfile
   - assignments/E1-1/web-server/site/index.html

@@ -368,7 +368,7 @@ This message shows that your installation appears to be working correctly.</pre>
       <p class="kicker">Chapter 6</p>
       <h1>Dockerfile 기반 커스텀 이미지 제작</h1>
       <ul class="theme-list">
-        <li>Dockerfile 기반 커스텀 이미지 빌드</li><li>빌드된 이미지와 실행 전 상태 확인</li><li>이미지를 컨테이너로 실행</li><li>호스트 포트와 컨테이너 포트 매핑 확인</li><li>호스트 포트로 웹 서버 접속 확인</li>
+        <li>웹 서버 소스 디렉토리 생성</li><li>정적 HTML 소스 작성</li><li>정적 HTML 소스 내용 확인</li><li>Dockerfile 작성</li><li>Dockerfile 내용 확인</li><li>Dockerfile 기반 커스텀 이미지 빌드</li><li>빌드된 이미지와 실행 전 상태 확인</li><li>이미지를 컨테이너로 실행</li><li>호스트 포트와 컨테이너 포트 매핑 확인</li><li>호스트 포트로 웹 서버 접속 확인</li>
       </ul>
     </section>
     <section class="slide terminal-slide" data-terminal-slide>
@@ -379,6 +379,59 @@ This message shows that your installation appears to be working correctly.</pre>
         </div>
         <div class="terminal-body">
           <div class="terminal-block" data-step-block>
+          <pre class="theme"># 웹 서버 소스 디렉토리 생성</pre>
+          <div data-step-part="command"><pre class="cmd">$ mkdir -p web-server/site</pre></div>
+          <div data-step-part="output"></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># 정적 HTML 소스 작성</pre>
+          <div data-step-part="command"><pre class="cmd">$ printf '&lt;!doctype html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Codyssey E1-1&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Codyssey E1-1 Docker Web Server&lt;/h1&gt;
+  &lt;p&gt;NGINX custom image is running.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+' &gt; web-server/site/index.html</pre></div>
+          <div data-step-part="output"></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># 정적 HTML 소스 내용 확인</pre>
+          <div data-step-part="command"><pre class="cmd">$ cat web-server/site/index.html</pre></div>
+          <div data-step-part="output"><pre class="out">&lt;!doctype html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Codyssey E1-1&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Codyssey E1-1 Docker Web Server&lt;/h1&gt;
+  &lt;p&gt;NGINX custom image is running.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># Dockerfile 작성</pre>
+          <div data-step-part="command"><pre class="cmd">$ printf 'FROM nginx:alpine
+LABEL org.opencontainers.image.title=&quot;codyssey-e1-1-web&quot;
+ENV APP_ENV=practice
+COPY site/ /usr/share/nginx/html/
+' &gt; web-server/Dockerfile</pre></div>
+          <div data-step-part="output"></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># Dockerfile 내용 확인</pre>
+          <div data-step-part="command"><pre class="cmd">$ cat web-server/Dockerfile</pre></div>
+          <div data-step-part="output"><pre class="out">FROM nginx:alpine
+LABEL org.opencontainers.image.title=&quot;codyssey-e1-1-web&quot;
+ENV APP_ENV=practice
+COPY site/ /usr/share/nginx/html/</pre></div>
+        </div>
+<div class="terminal-block" data-step-block>
           <pre class="theme"># Dockerfile 기반 커스텀 이미지 빌드</pre>
           <div data-step-part="command"><pre class="cmd">$ docker build -t codyssey-e1-1-web:1.0 web-server</pre></div>
           <div data-step-part="output"><pre class="out">#0 building with &quot;desktop-linux&quot; instance using docker driver
