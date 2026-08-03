@@ -1169,5 +1169,5 @@ Network env-bonus_default Removed
 ### 최종 확인
 
 - Repository: github.com/Logan-kim-the-philosopher/codyssey
-- Pages: https://logan-kim-the-philosopher.github.io/codyssey/e1-1/
+- Pages: https://Logan-kim-the-philosopher.github.io/codyssey/E1-1/
 
