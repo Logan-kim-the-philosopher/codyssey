@@ -204,23 +204,23 @@
 - 목적: 터미널 기본 명령으로 현재 위치 확인, 숨김 항목 포함 목록 확인, 폴더/파일 생성, 내용 확인, 복사, 이름변경, 삭제를 수행하고 증거를 남긴다.
 - 액션: pwd, ls -la, mkdir -p, touch, printf, cat, cp, mv, rm 수행
 - 터미널 로그:
-  - 작업 폴더 이동
+  - 상대 경로로 작업 폴더 이동
     ```bash
     $ cd codyssey/assignments/e1-1/work
     ```
-  - 현재 위치 확인
+  - 절대 경로로 현재 위치 확인
     ```bash
     $ pwd
     /Users/hskim/.codex/.chatgpt-projects/g-p-6a68a406143081918c0b2c94f50646d9/codyssey/assignments/e1-1/work
     ```
-  - 초기 목록 확인
+  - 숨김 항목 포함 초기 목록 확인
     ```bash
     $ ls -la
     total 0
     drwxr-xr-x@ 2 hskim  staff   64 Aug  3 11:28 .
     drwxr-xr-x@ 6 hskim  staff  192 Aug  3 11:28 ..
     ```
-  - 하위 디렉토리 생성
+  - 프로젝트 디렉토리 구조 생성
     ```bash
     $ mkdir -p terminal-practice/subdir
     ```
@@ -228,28 +228,28 @@
     ```bash
     $ touch terminal-practice/empty.txt
     ```
-  - 메모 파일 작성
+  - 내용 파일 생성과 리다이렉션
     ```bash
     $ printf "Codyssey terminal practice\n" > terminal-practice/note.txt
     ```
-  - 원본 내용 확인
+  - cat으로 파일 내용 확인
     ```bash
     $ cat terminal-practice/note.txt
     Codyssey terminal practice
     ```
-  - 파일 복사
+  - 파일 복사와 원본 보존
     ```bash
     $ cp terminal-practice/note.txt terminal-practice/subdir/note-copy.txt
     ```
-  - 파일 이름변경
+  - mv로 파일 이름변경
     ```bash
     $ mv terminal-practice/subdir/note-copy.txt terminal-practice/subdir/renamed-note.txt
     ```
-  - 빈 파일 삭제
+  - rm으로 파일 삭제
     ```bash
     $ rm terminal-practice/empty.txt
     ```
-  - 실습 폴더 최종 확인
+  - 삭제 후 상위 디렉토리 상태 확인
     ```bash
     $ ls -la terminal-practice
     total 8
@@ -258,7 +258,7 @@
     -rw-r--r--@ 1 hskim  staff   27 Aug  3 11:33 note.txt
     drwxr-xr-x@ 3 hskim  staff   96 Aug  3 11:33 subdir
     ```
-  - 하위 폴더 최종 확인
+  - 복사/이름변경 후 하위 디렉토리 상태 확인
     ```bash
     $ ls -la terminal-practice/subdir
     total 8
@@ -266,7 +266,7 @@
     drwxr-xr-x@ 4 hskim  staff  128 Aug  3 11:33 ..
     -rw-r--r--@ 1 hskim  staff   27 Aug  3 11:33 renamed-note.txt
     ```
-  - 복사본 내용 확인
+  - 복사본 내용 보존 확인
     ```bash
     $ cat terminal-practice/subdir/renamed-note.txt
     Codyssey terminal practice
@@ -282,43 +282,43 @@
 - 목적: 파일 1개와 디렉토리 1개의 권한을 변경하고 ls -ld 출력으로 변경 전후를 비교한다.
 - 액션: chmod 600/700으로 제한 후 chmod 644/755로 복원
 - 터미널 로그:
-  - 권한 실습 폴더 준비
+  - 권한 비교용 디렉토리 준비
     ```bash
     $ mkdir -p permission-practice
     ```
-  - 권한 실습 파일 작성
+  - 권한 비교용 파일 생성
     ```bash
     $ printf "permission test\n" > permission-practice/sample.txt
     ```
-  - 권한 변경 전 확인
+  - 변경 전 755/644 기본 권한 확인
     ```bash
     $ ls -ld permission-practice permission-practice/sample.txt
     drwxr-xr-x@ 3 hskim  staff  96 Aug  3 11:42 permission-practice
     -rw-r--r--@ 1 hskim  staff  16 Aug  3 11:42 permission-practice/sample.txt
     ```
-  - 파일 권한 제한
+  - 600 파일 권한으로 소유자만 허용
     ```bash
     $ chmod 600 permission-practice/sample.txt
     ```
-  - 디렉토리 권한 제한
+  - 700 디렉토리 권한으로 소유자만 허용
     ```bash
     $ chmod 700 permission-practice
     ```
-  - 제한 후 권한 확인
+  - 제한 후 r/w/x 권한 비트 확인
     ```bash
     $ ls -ld permission-practice permission-practice/sample.txt
     drwx------@ 3 hskim  staff  96 Aug  3 11:42 permission-practice
     -rw-------@ 1 hskim  staff  16 Aug  3 11:42 permission-practice/sample.txt
     ```
-  - 파일 권한 복원
+  - 644 파일 권한으로 읽기 권한 복원
     ```bash
     $ chmod 644 permission-practice/sample.txt
     ```
-  - 디렉토리 권한 복원
+  - 755 디렉토리 권한으로 탐색 권한 복원
     ```bash
     $ chmod 755 permission-practice
     ```
-  - 복원 후 권한 확인
+  - 755/644 숫자 권한 최종 비교
     ```bash
     $ ls -ld permission-practice permission-practice/sample.txt
     drwxr-xr-x@ 3 hskim  staff  96 Aug  3 11:42 permission-practice
@@ -340,7 +340,7 @@
     $ docker --version
     Docker version 29.6.2, build dfc4efb
     ```
-  - Docker 엔진 상태 확인
+  - Docker 엔진/데몬 통신 상태 확인
     ```bash
     $ docker info
     Client:
@@ -364,7 +364,7 @@
 - 목적: Docker가 이미지를 내려받고 컨테이너를 생성/실행할 수 있는지 확인한다.
 - 액션: docker run hello-world 실행
 - 터미널 로그:
-  - hello-world 실행
+  - 이미지 pull과 hello-world 컨테이너 실행
     ```bash
     $ docker run hello-world
     Unable to find image 'hello-world:latest' locally
@@ -384,7 +384,7 @@
 - 목적: Ubuntu 컨테이너 내부에서 pwd, ls, echo 명령을 실행해 격리된 Linux 환경을 확인한다.
 - 액션: docker run --rm ubuntu bash -lc "pwd && ls && echo inside-ubuntu" 실행
 - 터미널 로그:
-  - Ubuntu 컨테이너 내부 명령
+  - 호스트와 분리된 Ubuntu 컨테이너 내부 명령
     ```bash
     $ docker run --rm ubuntu bash -lc "pwd && ls && echo inside-ubuntu"
     /
@@ -417,24 +417,24 @@
 - 목적: 종료된 컨테이너 로그를 확인하고 실행 중 컨테이너의 리소스 사용량을 확인한 뒤 실습 컨테이너를 정리한다.
 - 액션: docker logs, docker run -d, docker stats --no-stream, docker rm -f 수행
 - 터미널 로그:
-  - 종료 컨테이너 로그 확인
+  - 종료 컨테이너 표준출력 로그 재확인
     ```bash
     $ docker logs practical_perlman
     Hello from Docker!
     This message shows that your installation appears to be working correctly.
     ```
-  - 상태 확인용 컨테이너 실행
+  - 실행 중 컨테이너 상태 만들기
     ```bash
     $ docker run -d --name codyssey-stats-test ubuntu sleep 60
     4558f0c41588b0fd0f1e4b0a8d8d8316c1a9f3e69e8f7efadbeef0000000000
     ```
-  - 컨테이너 리소스 확인
+  - 실행 중 컨테이너 리소스 사용량 확인
     ```bash
     $ docker stats --no-stream codyssey-stats-test
     CONTAINER ID   NAME                  CPU %     MEM USAGE / LIMIT     MEM %     NET I/O       BLOCK I/O   PIDS
     4558f0c41588   codyssey-stats-test   0.00%     1.633MiB / 7.75GiB   0.02%     872B / 126B   0B / 0B     1
     ```
-  - 실습 컨테이너 정리
+  - 실습 컨테이너 삭제 정리
     ```bash
     $ docker rm -f codyssey-stats-test
     codyssey-stats-test
@@ -448,7 +448,7 @@
 - 목적: 직접 작성한 Dockerfile과 정적 웹 콘텐츠를 사용해 NGINX 기반 커스텀 이미지를 빌드한다.
 - 액션: docker build -t codyssey-e1-1-web:1.0 web-server 실행
 - 터미널 로그:
-  - 커스텀 이미지 빌드
+  - Dockerfile 기반 커스텀 이미지 빌드
     ```bash
     $ docker build -t codyssey-e1-1-web:1.0 web-server
     #0 building with "desktop-linux" instance using docker driver
@@ -466,7 +466,7 @@
     #6 naming to docker.io/library/codyssey-e1-1-web:1.0 done
     #6 DONE 0.0s
     ```
-  - 빌드 이미지 목록 확인
+  - 빌드된 이미지와 실행 전 상태 확인
     ```bash
     $ docker images codyssey-e1-1-web:1.0
     REPOSITORY          TAG       IMAGE ID       SIZE
@@ -484,18 +484,18 @@
 - 목적: 커스텀 NGINX 이미지를 컨테이너로 실행하고 호스트 포트 8080을 컨테이너 포트 80에 매핑해 접속을 확인한다.
 - 액션: docker run -d -p 8080:80 및 curl http://localhost:8080 실행
 - 터미널 로그:
-  - 웹 서버 컨테이너 실행
+  - 이미지를 컨테이너로 실행
     ```bash
     $ docker run -d --name codyssey-web-8080 -p 8080:80 codyssey-e1-1-web:1.0
     112816b77449f08d1e445711d492e4eb42d78ca2ac5e769a341ad7b600000000
     ```
-  - 포트 매핑 상태 확인
+  - 호스트 포트와 컨테이너 포트 매핑 확인
     ```bash
     $ docker ps --filter name=codyssey-web-8080
     CONTAINER ID   IMAGE                    COMMAND                  STATUS        PORTS                                      NAMES
     112816b77449   codyssey-e1-1-web:1.0    "/docker-entrypoint.…"   Up 1 minute   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   codyssey-web-8080
     ```
-  - 호스트 포트 접속 확인
+  - 호스트 포트로 웹 서버 접속 확인
     ```bash
     $ curl http://localhost:8080
     <!doctype html>
@@ -523,11 +523,11 @@
 - 목적: 호스트 디렉토리를 컨테이너 웹 루트에 바인드 마운트해 호스트 파일 변경이 컨테이너 응답에 즉시 반영되는지 확인한다.
 - 액션: 호스트 bind-mount-site를 NGINX 웹 루트에 마운트하고 index.html 변경 전후 curl 비교
 - 터미널 로그:
-  - 바인드 마운트 폴더 준비
+  - 바인드 마운트용 호스트 폴더 준비
     ```bash
     $ mkdir -p bind-mount-site
     ```
-  - 변경 전 HTML 작성
+  - 호스트 파일을 컨테이너 웹 루트로 제공할 준비
     ```bash
     $ printf '<!doctype html>
 <html lang="ko">
@@ -543,12 +543,12 @@
     </body>
     </html>
     ```
-  - 마운트 컨테이너 실행
+  - 읽기 전용 바인드 마운트 컨테이너 실행
     ```bash
     $ docker run -d --name codyssey-bind-8081 -p 8081:80 -v "$PWD/bind-mount-site:/usr/share/nginx/html:ro" nginx:alpine
     bcbc84a0e7964dfb4db66fc3721110dd87ef5e2db1242765a1fe6f0000000000
     ```
-  - 변경 전 접속 확인
+  - 호스트 파일 변경 전 컨테이너 응답 확인
     ```bash
     $ curl http://localhost:8081
     <!doctype html>
@@ -558,7 +558,7 @@
     </body>
     </html>
     ```
-  - 호스트 파일 수정
+  - 호스트 파일 수정과 바인드 마운트 반영 준비
     ```bash
     $ printf '<!doctype html>
 <html lang="ko">
@@ -568,7 +568,7 @@
 </html>
 ' > bind-mount-site/index.html
     ```
-  - 변경 후 접속 확인
+  - 호스트 변경이 컨테이너 응답에 반영됨 확인
     ```bash
     $ curl http://localhost:8081
     <!doctype html>
@@ -593,27 +593,27 @@
 - 목적: Docker 볼륨에 저장한 데이터가 컨테이너 삭제 후에도 유지되는지 확인한다.
 - 액션: docker volume create 후 두 컨테이너에서 같은 볼륨 데이터 확인
 - 터미널 로그:
-  - Docker 볼륨 생성
+  - 컨테이너와 분리된 Docker 볼륨 생성
     ```bash
     $ docker volume create codyssey-volume-data
     codyssey-volume-data
     ```
-  - 첫 컨테이너에서 데이터 쓰기
+  - 첫 컨테이너에서 볼륨 데이터 쓰기
     ```bash
     $ docker run --name codyssey-vol-1 -v codyssey-volume-data:/data ubuntu bash -lc "echo persistent-data > /data/message.txt && cat /data/message.txt"
     persistent-data
     ```
-  - 첫 컨테이너 삭제
+  - 데이터 작성 컨테이너 삭제
     ```bash
     $ docker rm codyssey-vol-1
     codyssey-vol-1
     ```
-  - 새 컨테이너에서 데이터 확인
+  - 컨테이너 삭제 후 볼륨 데이터 보존 확인
     ```bash
     $ docker run --name codyssey-vol-2 -v codyssey-volume-data:/data ubuntu bash -lc "cat /data/message.txt"
     persistent-data
     ```
-  - 두 번째 컨테이너 삭제
+  - 볼륨 검증 컨테이너 정리
     ```bash
     $ docker rm codyssey-vol-2
     codyssey-vol-2
@@ -627,27 +627,27 @@
 - 목적: Git 설치 상태, 사용자 정보, 기본 브랜치 설정을 확인하고 개인정보는 마스킹해 기록한다.
 - 액션: git --version 및 git config --global 확인
 - 터미널 로그:
-  - Git 버전 확인
+  - 로컬 Git 설치 버전 확인
     ```bash
     $ git --version
     git version 2.55.0
     ```
-  - Git 사용자 이름 확인
+  - 로컬 커밋 사용자 이름 설정 확인
     ```bash
     $ git config --global user.name
     hskim
     ```
-  - Git 사용자 이메일 확인
+  - 로컬 커밋 사용자 이메일 설정 확인
     ```bash
     $ git config --global user.email
     y***@gmail.com
     ```
-  - 기본 브랜치 확인
+  - 기본 브랜치 main 설정 확인
     ```bash
     $ git config --global init.defaultBranch
     main
     ```
-  - 전역 설정 목록 확인
+  - Git 전역 설정과 개인정보 마스킹 확인
     ```bash
     $ git config --list --global
     init.defaultbranch=main
@@ -668,7 +668,7 @@
 - 목적: GitHub CLI 로그인 상태와 현재 프로젝트의 Git 저장소/원격 저장소 연결 여부를 확인한다.
 - 액션: gh auth status, git status, git remote -v 실행 및 GitHub CLI 인증 상태 확인
 - 터미널 로그:
-  - GitHub CLI 인증 확인
+  - GitHub 원격 협업 플랫폼 인증 확인
     ```bash
     $ gh auth status
     github.com
@@ -676,12 +676,12 @@
       - Active account: true
       - Git operations protocol: ssh
     ```
-  - Git 저장소 여부 확인
+  - 로컬 repository 초기화 전 상태 확인
     ```bash
     $ git status
     fatal: not a git repository (or any of the parent directories): .git
     ```
-  - 원격 저장소 여부 확인
+  - 원격 repository 연결 전 상태 확인
     ```bash
     $ git remote -v
     fatal: not a git repository (or any of the parent directories): .git
@@ -695,17 +695,17 @@
 - 목적: 현재 과제 산출물 폴더를 로컬 Git 저장소로 초기화하고 제출 파일의 추적 상태를 확인한다.
 - 액션: git init 및 git status 실행
 - 터미널 로그:
-  - 로컬 저장소 초기화
+  - 로컬 repository 초기화
     ```bash
     $ git init
     Initialized empty Git repository in /Users/hskim/.codex/.chatgpt-projects/g-p-6a68a406143081918c0b2c94f50646d9/.git/
     ```
-  - 현재 브랜치 확인
+  - 로컬 main 브랜치 확인
     ```bash
     $ git branch --show-current
     main
     ```
-  - 초기 추적 상태 확인
+  - 커밋 전 untracked 파일 상태 확인
     ```bash
     $ git status --short
     ?? .gitignore
@@ -722,7 +722,7 @@
 - 목적: 제출에 필요한 README, docs, 실습 로그, 작업 산출물, 캡처 증거만 Git 커밋 대상으로 스테이징한다.
 - 액션: .gitignore 작성 후 git add 및 git status --short 확인
 - 터미널 로그:
-  - 제외 규칙 작성
+  - 제출 제외 규칙을 .gitignore로 재현 가능하게 기록
     ```bash
     $ printf '.omx/
 AGENTS.md
@@ -730,11 +730,11 @@ codyssey/
 codyssey-e1-1-checklist.txt
 ' > .gitignore
     ```
-  - 제출 파일 스테이징
+  - 제출 대상 파일을 Git index에 추가
     ```bash
     $ git add README.md docs/ assignments/E1-1 .gitignore
     ```
-  - 스테이징 상태 확인
+  - 스테이징된 제출 파일 확인
     ```bash
     $ git status --short
     A  .gitignore
@@ -759,37 +759,37 @@ codyssey-e1-1-checklist.txt
 - 목적: GitHub 제출물이 공개 저장소에 올라가 있고 발표 HTML이 웹에서 접근 가능한지 보조 증거로 확인한다.
 - 액션: 원격 저장소, 기본 브랜치, Pages 설정, 공개 URL 응답 확인
 - 터미널 로그:
-  - 작업 트리 확인
+  - push 후 작업 트리 정리 상태 확인
     ```bash
     $ git status --short
     ```
-  - 마지막 커밋 확인
+  - 제출 기준 커밋 확인
     ```bash
     $ git log -1 --oneline
     300d1a3 Add E1-1 submission verification
     ```
-  - 원격 저장소 확인
+  - Git 원격 저장소 연결 확인
     ```bash
     $ git remote -v
     origin	git@github.com:Logan-kim-the-philosopher/codyssey.git (fetch)
     origin	git@github.com:Logan-kim-the-philosopher/codyssey.git (push)
     ```
-  - 공개 저장소 확인
+  - GitHub 공개 repository 상태 확인
     ```bash
     $ gh repo view Logan-kim-the-philosopher/codyssey --json nameWithOwner,url,visibility,defaultBranchRef
     {"defaultBranchRef":{"name":"main"},"nameWithOwner":"Logan-kim-the-philosopher/codyssey","url":"https://github.com/Logan-kim-the-philosopher/codyssey","visibility":"PUBLIC"}
     ```
-  - Pages 설정 확인
+  - GitHub Pages 배포 설정 확인
     ```bash
     $ gh api repos/Logan-kim-the-philosopher/codyssey/pages
     {"status":"built","html_url":"https://logan-kim-the-philosopher.github.io/codyssey/","source":{"branch":"main","path":"/docs"},"public":true}
     ```
-  - 허브 URL 응답 확인
+  - GitHub Pages 루트 URL 응답 확인
     ```bash
     $ curl -I https://logan-kim-the-philosopher.github.io/codyssey/
     HTTP/2 200
     ```
-  - E1-1 URL 응답 확인
+  - 과제별 발표 URL 응답 확인
     ```bash
     $ curl -I https://logan-kim-the-philosopher.github.io/codyssey/E1-1/
     HTTP/2 200

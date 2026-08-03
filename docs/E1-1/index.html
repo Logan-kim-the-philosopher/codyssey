@@ -74,7 +74,7 @@
       <p class="kicker">Chapter 1</p>
       <h1>터미널 기본 조작</h1>
       <ul class="theme-list">
-        <li>작업 폴더 이동</li><li>현재 위치 확인</li><li>초기 목록 확인</li><li>하위 디렉토리 생성</li><li>빈 파일 생성</li><li>메모 파일 작성</li><li>원본 내용 확인</li><li>파일 복사</li><li>파일 이름변경</li><li>빈 파일 삭제</li><li>실습 폴더 최종 확인</li><li>하위 폴더 최종 확인</li><li>복사본 내용 확인</li>
+        <li>상대 경로로 작업 폴더 이동</li><li>절대 경로로 현재 위치 확인</li><li>숨김 항목 포함 초기 목록 확인</li><li>프로젝트 디렉토리 구조 생성</li><li>빈 파일 생성</li><li>내용 파일 생성과 리다이렉션</li><li>cat으로 파일 내용 확인</li><li>파일 복사와 원본 보존</li><li>mv로 파일 이름변경</li><li>rm으로 파일 삭제</li><li>삭제 후 상위 디렉토리 상태 확인</li><li>복사/이름변경 후 하위 디렉토리 상태 확인</li><li>복사본 내용 보존 확인</li>
       </ul>
     </section>
     <section class="slide terminal-slide" data-terminal-slide>
@@ -85,24 +85,24 @@
         </div>
         <div class="terminal-body">
           <div class="terminal-block" data-step-block>
-          <pre class="theme"># 작업 폴더 이동</pre>
+          <pre class="theme"># 상대 경로로 작업 폴더 이동</pre>
           <div data-step-part="command"><pre class="cmd">$ cd codyssey/assignments/e1-1/work</pre></div>
           <div data-step-part="output"></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 현재 위치 확인</pre>
+          <pre class="theme"># 절대 경로로 현재 위치 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ pwd</pre></div>
           <div data-step-part="output"><pre class="out">/Users/hskim/.codex/.chatgpt-projects/g-p-6a68a406143081918c0b2c94f50646d9/codyssey/assignments/e1-1/work</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 초기 목록 확인</pre>
+          <pre class="theme"># 숨김 항목 포함 초기 목록 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ ls -la</pre></div>
           <div data-step-part="output"><pre class="out">total 0
 drwxr-xr-x@ 2 hskim  staff   64 Aug  3 11:28 .
 drwxr-xr-x@ 6 hskim  staff  192 Aug  3 11:28 ..</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 하위 디렉토리 생성</pre>
+          <pre class="theme"># 프로젝트 디렉토리 구조 생성</pre>
           <div data-step-part="command"><pre class="cmd">$ mkdir -p terminal-practice/subdir</pre></div>
           <div data-step-part="output"></div>
         </div>
@@ -112,32 +112,32 @@ drwxr-xr-x@ 6 hskim  staff  192 Aug  3 11:28 ..</pre></div>
           <div data-step-part="output"></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 메모 파일 작성</pre>
+          <pre class="theme"># 내용 파일 생성과 리다이렉션</pre>
           <div data-step-part="command"><pre class="cmd">$ printf &quot;Codyssey terminal practice\n&quot; &gt; terminal-practice/note.txt</pre></div>
           <div data-step-part="output"></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 원본 내용 확인</pre>
+          <pre class="theme"># cat으로 파일 내용 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ cat terminal-practice/note.txt</pre></div>
           <div data-step-part="output"><pre class="out">Codyssey terminal practice</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 파일 복사</pre>
+          <pre class="theme"># 파일 복사와 원본 보존</pre>
           <div data-step-part="command"><pre class="cmd">$ cp terminal-practice/note.txt terminal-practice/subdir/note-copy.txt</pre></div>
           <div data-step-part="output"></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 파일 이름변경</pre>
+          <pre class="theme"># mv로 파일 이름변경</pre>
           <div data-step-part="command"><pre class="cmd">$ mv terminal-practice/subdir/note-copy.txt terminal-practice/subdir/renamed-note.txt</pre></div>
           <div data-step-part="output"></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 빈 파일 삭제</pre>
+          <pre class="theme"># rm으로 파일 삭제</pre>
           <div data-step-part="command"><pre class="cmd">$ rm terminal-practice/empty.txt</pre></div>
           <div data-step-part="output"></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 실습 폴더 최종 확인</pre>
+          <pre class="theme"># 삭제 후 상위 디렉토리 상태 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ ls -la terminal-practice</pre></div>
           <div data-step-part="output"><pre class="out">total 8
 drwxr-xr-x@ 4 hskim  staff  128 Aug  3 11:33 .
@@ -146,7 +146,7 @@ drwxr-xr-x@ 3 hskim  staff   96 Aug  3 11:33 ..
 drwxr-xr-x@ 3 hskim  staff   96 Aug  3 11:33 subdir</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 하위 폴더 최종 확인</pre>
+          <pre class="theme"># 복사/이름변경 후 하위 디렉토리 상태 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ ls -la terminal-practice/subdir</pre></div>
           <div data-step-part="output"><pre class="out">total 8
 drwxr-xr-x@ 3 hskim  staff   96 Aug  3 11:33 .
@@ -154,7 +154,7 @@ drwxr-xr-x@ 4 hskim  staff  128 Aug  3 11:33 ..
 -rw-r--r--@ 1 hskim  staff   27 Aug  3 11:33 renamed-note.txt</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 복사본 내용 확인</pre>
+          <pre class="theme"># 복사본 내용 보존 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ cat terminal-practice/subdir/renamed-note.txt</pre></div>
           <div data-step-part="output"><pre class="out">Codyssey terminal practice</pre></div>
         </div>
@@ -167,7 +167,7 @@ drwxr-xr-x@ 4 hskim  staff  128 Aug  3 11:33 ..
       <p class="kicker">Chapter 2</p>
       <h1>파일 권한 실습</h1>
       <ul class="theme-list">
-        <li>권한 실습 폴더 준비</li><li>권한 실습 파일 작성</li><li>권한 변경 전 확인</li><li>파일 권한 제한</li><li>디렉토리 권한 제한</li><li>제한 후 권한 확인</li><li>파일 권한 복원</li><li>디렉토리 권한 복원</li><li>복원 후 권한 확인</li>
+        <li>권한 비교용 디렉토리 준비</li><li>권한 비교용 파일 생성</li><li>변경 전 755/644 기본 권한 확인</li><li>600 파일 권한으로 소유자만 허용</li><li>700 디렉토리 권한으로 소유자만 허용</li><li>제한 후 r/w/x 권한 비트 확인</li><li>644 파일 권한으로 읽기 권한 복원</li><li>755 디렉토리 권한으로 탐색 권한 복원</li><li>755/644 숫자 권한 최종 비교</li>
       </ul>
     </section>
     <section class="slide terminal-slide" data-terminal-slide>
@@ -178,49 +178,49 @@ drwxr-xr-x@ 4 hskim  staff  128 Aug  3 11:33 ..
         </div>
         <div class="terminal-body">
           <div class="terminal-block" data-step-block>
-          <pre class="theme"># 권한 실습 폴더 준비</pre>
+          <pre class="theme"># 권한 비교용 디렉토리 준비</pre>
           <div data-step-part="command"><pre class="cmd">$ mkdir -p permission-practice</pre></div>
           <div data-step-part="output"></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 권한 실습 파일 작성</pre>
+          <pre class="theme"># 권한 비교용 파일 생성</pre>
           <div data-step-part="command"><pre class="cmd">$ printf &quot;permission test\n&quot; &gt; permission-practice/sample.txt</pre></div>
           <div data-step-part="output"></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 권한 변경 전 확인</pre>
+          <pre class="theme"># 변경 전 755/644 기본 권한 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ ls -ld permission-practice permission-practice/sample.txt</pre></div>
           <div data-step-part="output"><pre class="out">drwxr-xr-x@ 3 hskim  staff  96 Aug  3 11:42 permission-practice
 -rw-r--r--@ 1 hskim  staff  16 Aug  3 11:42 permission-practice/sample.txt</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 파일 권한 제한</pre>
+          <pre class="theme"># 600 파일 권한으로 소유자만 허용</pre>
           <div data-step-part="command"><pre class="cmd">$ chmod 600 permission-practice/sample.txt</pre></div>
           <div data-step-part="output"></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 디렉토리 권한 제한</pre>
+          <pre class="theme"># 700 디렉토리 권한으로 소유자만 허용</pre>
           <div data-step-part="command"><pre class="cmd">$ chmod 700 permission-practice</pre></div>
           <div data-step-part="output"></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 제한 후 권한 확인</pre>
+          <pre class="theme"># 제한 후 r/w/x 권한 비트 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ ls -ld permission-practice permission-practice/sample.txt</pre></div>
           <div data-step-part="output"><pre class="out">drwx------@ 3 hskim  staff  96 Aug  3 11:42 permission-practice
 -rw-------@ 1 hskim  staff  16 Aug  3 11:42 permission-practice/sample.txt</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 파일 권한 복원</pre>
+          <pre class="theme"># 644 파일 권한으로 읽기 권한 복원</pre>
           <div data-step-part="command"><pre class="cmd">$ chmod 644 permission-practice/sample.txt</pre></div>
           <div data-step-part="output"></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 디렉토리 권한 복원</pre>
+          <pre class="theme"># 755 디렉토리 권한으로 탐색 권한 복원</pre>
           <div data-step-part="command"><pre class="cmd">$ chmod 755 permission-practice</pre></div>
           <div data-step-part="output"></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 복원 후 권한 확인</pre>
+          <pre class="theme"># 755/644 숫자 권한 최종 비교</pre>
           <div data-step-part="command"><pre class="cmd">$ ls -ld permission-practice permission-practice/sample.txt</pre></div>
           <div data-step-part="output"><pre class="out">drwxr-xr-x@ 3 hskim  staff  96 Aug  3 11:42 permission-practice
 -rw-r--r--@ 1 hskim  staff  16 Aug  3 11:42 permission-practice/sample.txt</pre></div>
@@ -234,7 +234,7 @@ drwxr-xr-x@ 4 hskim  staff  128 Aug  3 11:33 ..
       <p class="kicker">Chapter 3</p>
       <h1>Docker 설치 및 기본 점검</h1>
       <ul class="theme-list">
-        <li>Docker CLI 버전 확인</li><li>Docker 엔진 상태 확인</li>
+        <li>Docker CLI 버전 확인</li><li>Docker 엔진/데몬 통신 상태 확인</li>
       </ul>
     </section>
     <section class="slide terminal-slide" data-terminal-slide>
@@ -250,7 +250,7 @@ drwxr-xr-x@ 4 hskim  staff  128 Aug  3 11:33 ..
           <div data-step-part="output"><pre class="out">Docker version 29.6.2, build dfc4efb</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># Docker 엔진 상태 확인</pre>
+          <pre class="theme"># Docker 엔진/데몬 통신 상태 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ docker info</pre></div>
           <div data-step-part="output"><pre class="out">Client:
  Version:    29.6.2
@@ -273,7 +273,7 @@ Server:
       <p class="kicker">Chapter 4</p>
       <h1>Docker 컨테이너 실행 실습</h1>
       <ul class="theme-list">
-        <li>hello-world 실행</li><li>Ubuntu 컨테이너 내부 명령</li>
+        <li>이미지 pull과 hello-world 컨테이너 실행</li><li>호스트와 분리된 Ubuntu 컨테이너 내부 명령</li>
       </ul>
     </section>
     <section class="slide terminal-slide" data-terminal-slide>
@@ -284,7 +284,7 @@ Server:
         </div>
         <div class="terminal-body">
           <div class="terminal-block" data-step-block>
-          <pre class="theme"># hello-world 실행</pre>
+          <pre class="theme"># 이미지 pull과 hello-world 컨테이너 실행</pre>
           <div data-step-part="command"><pre class="cmd">$ docker run hello-world</pre></div>
           <div data-step-part="output"><pre class="out">Unable to find image 'hello-world:latest' locally
 latest: Pulling from library/hello-world
@@ -295,7 +295,7 @@ Hello from Docker!
 This message shows that your installation appears to be working correctly.</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># Ubuntu 컨테이너 내부 명령</pre>
+          <pre class="theme"># 호스트와 분리된 Ubuntu 컨테이너 내부 명령</pre>
           <div data-step-part="command"><pre class="cmd">$ docker run --rm ubuntu bash -lc &quot;pwd &amp;&amp; ls &amp;&amp; echo inside-ubuntu&quot;</pre></div>
           <div data-step-part="output"><pre class="out">/
 bin
@@ -327,7 +327,7 @@ inside-ubuntu</pre></div>
       <p class="kicker">Chapter 5</p>
       <h1>Docker 기본 운영 명령</h1>
       <ul class="theme-list">
-        <li>종료 컨테이너 로그 확인</li><li>상태 확인용 컨테이너 실행</li><li>컨테이너 리소스 확인</li><li>실습 컨테이너 정리</li>
+        <li>종료 컨테이너 표준출력 로그 재확인</li><li>실행 중 컨테이너 상태 만들기</li><li>실행 중 컨테이너 리소스 사용량 확인</li><li>실습 컨테이너 삭제 정리</li>
       </ul>
     </section>
     <section class="slide terminal-slide" data-terminal-slide>
@@ -338,24 +338,24 @@ inside-ubuntu</pre></div>
         </div>
         <div class="terminal-body">
           <div class="terminal-block" data-step-block>
-          <pre class="theme"># 종료 컨테이너 로그 확인</pre>
+          <pre class="theme"># 종료 컨테이너 표준출력 로그 재확인</pre>
           <div data-step-part="command"><pre class="cmd">$ docker logs practical_perlman</pre></div>
           <div data-step-part="output"><pre class="out">Hello from Docker!
 This message shows that your installation appears to be working correctly.</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 상태 확인용 컨테이너 실행</pre>
+          <pre class="theme"># 실행 중 컨테이너 상태 만들기</pre>
           <div data-step-part="command"><pre class="cmd">$ docker run -d --name codyssey-stats-test ubuntu sleep 60</pre></div>
           <div data-step-part="output"><pre class="out">4558f0c41588b0fd0f1e4b0a8d8d8316c1a9f3e69e8f7efadbeef0000000000</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 컨테이너 리소스 확인</pre>
+          <pre class="theme"># 실행 중 컨테이너 리소스 사용량 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ docker stats --no-stream codyssey-stats-test</pre></div>
           <div data-step-part="output"><pre class="out">CONTAINER ID   NAME                  CPU %     MEM USAGE / LIMIT     MEM %     NET I/O       BLOCK I/O   PIDS
 4558f0c41588   codyssey-stats-test   0.00%     1.633MiB / 7.75GiB   0.02%     872B / 126B   0B / 0B     1</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 실습 컨테이너 정리</pre>
+          <pre class="theme"># 실습 컨테이너 삭제 정리</pre>
           <div data-step-part="command"><pre class="cmd">$ docker rm -f codyssey-stats-test</pre></div>
           <div data-step-part="output"><pre class="out">codyssey-stats-test</pre></div>
         </div>
@@ -368,7 +368,7 @@ This message shows that your installation appears to be working correctly.</pre>
       <p class="kicker">Chapter 6</p>
       <h1>Dockerfile 기반 커스텀 이미지 제작</h1>
       <ul class="theme-list">
-        <li>커스텀 이미지 빌드</li><li>빌드 이미지 목록 확인</li><li>웹 서버 컨테이너 실행</li><li>포트 매핑 상태 확인</li><li>호스트 포트 접속 확인</li>
+        <li>Dockerfile 기반 커스텀 이미지 빌드</li><li>빌드된 이미지와 실행 전 상태 확인</li><li>이미지를 컨테이너로 실행</li><li>호스트 포트와 컨테이너 포트 매핑 확인</li><li>호스트 포트로 웹 서버 접속 확인</li>
       </ul>
     </section>
     <section class="slide terminal-slide" data-terminal-slide>
@@ -379,7 +379,7 @@ This message shows that your installation appears to be working correctly.</pre>
         </div>
         <div class="terminal-body">
           <div class="terminal-block" data-step-block>
-          <pre class="theme"># 커스텀 이미지 빌드</pre>
+          <pre class="theme"># Dockerfile 기반 커스텀 이미지 빌드</pre>
           <div data-step-part="command"><pre class="cmd">$ docker build -t codyssey-e1-1-web:1.0 web-server</pre></div>
           <div data-step-part="output"><pre class="out">#0 building with &quot;desktop-linux&quot; instance using docker driver
 #1 [internal] load build definition from Dockerfile
@@ -397,24 +397,24 @@ This message shows that your installation appears to be working correctly.</pre>
 #6 DONE 0.0s</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 빌드 이미지 목록 확인</pre>
+          <pre class="theme"># 빌드된 이미지와 실행 전 상태 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ docker images codyssey-e1-1-web:1.0</pre></div>
           <div data-step-part="output"><pre class="out">REPOSITORY          TAG       IMAGE ID       SIZE
 codyssey-e1-1-web   1.0       925866189032   92MB</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 웹 서버 컨테이너 실행</pre>
+          <pre class="theme"># 이미지를 컨테이너로 실행</pre>
           <div data-step-part="command"><pre class="cmd">$ docker run -d --name codyssey-web-8080 -p 8080:80 codyssey-e1-1-web:1.0</pre></div>
           <div data-step-part="output"><pre class="out">112816b77449f08d1e445711d492e4eb42d78ca2ac5e769a341ad7b600000000</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 포트 매핑 상태 확인</pre>
+          <pre class="theme"># 호스트 포트와 컨테이너 포트 매핑 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ docker ps --filter name=codyssey-web-8080</pre></div>
           <div data-step-part="output"><pre class="out">CONTAINER ID   IMAGE                    COMMAND                  STATUS        PORTS                                      NAMES
 112816b77449   codyssey-e1-1-web:1.0    &quot;/docker-entrypoint.…&quot;   Up 1 minute   0.0.0.0:8080-&gt;80/tcp, [::]:8080-&gt;80/tcp   codyssey-web-8080</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 호스트 포트 접속 확인</pre>
+          <pre class="theme"># 호스트 포트로 웹 서버 접속 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ curl http://localhost:8080</pre></div>
           <div data-step-part="output"><pre class="out">&lt;!doctype html&gt;
 &lt;html lang=&quot;ko&quot;&gt;
@@ -445,7 +445,7 @@ codyssey-e1-1-web   1.0       925866189032   92MB</pre></div>
       <p class="kicker">Chapter 7</p>
       <h1>Docker 바인드 마운트와 볼륨</h1>
       <ul class="theme-list">
-        <li>바인드 마운트 폴더 준비</li><li>변경 전 HTML 작성</li><li>마운트 컨테이너 실행</li><li>변경 전 접속 확인</li><li>호스트 파일 수정</li><li>변경 후 접속 확인</li><li>Docker 볼륨 생성</li><li>첫 컨테이너에서 데이터 쓰기</li><li>첫 컨테이너 삭제</li><li>새 컨테이너에서 데이터 확인</li><li>두 번째 컨테이너 삭제</li>
+        <li>바인드 마운트용 호스트 폴더 준비</li><li>호스트 파일을 컨테이너 웹 루트로 제공할 준비</li><li>읽기 전용 바인드 마운트 컨테이너 실행</li><li>호스트 파일 변경 전 컨테이너 응답 확인</li><li>호스트 파일 수정과 바인드 마운트 반영 준비</li><li>호스트 변경이 컨테이너 응답에 반영됨 확인</li><li>컨테이너와 분리된 Docker 볼륨 생성</li><li>첫 컨테이너에서 볼륨 데이터 쓰기</li><li>데이터 작성 컨테이너 삭제</li><li>컨테이너 삭제 후 볼륨 데이터 보존 확인</li><li>볼륨 검증 컨테이너 정리</li>
       </ul>
     </section>
     <section class="slide terminal-slide" data-terminal-slide>
@@ -456,12 +456,12 @@ codyssey-e1-1-web   1.0       925866189032   92MB</pre></div>
         </div>
         <div class="terminal-body">
           <div class="terminal-block" data-step-block>
-          <pre class="theme"># 바인드 마운트 폴더 준비</pre>
+          <pre class="theme"># 바인드 마운트용 호스트 폴더 준비</pre>
           <div data-step-part="command"><pre class="cmd">$ mkdir -p bind-mount-site</pre></div>
           <div data-step-part="output"></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 변경 전 HTML 작성</pre>
+          <pre class="theme"># 호스트 파일을 컨테이너 웹 루트로 제공할 준비</pre>
           <div data-step-part="command"><pre class="cmd">$ printf '&lt;!doctype html&gt;
 &lt;html lang=&quot;ko&quot;&gt;
 &lt;body&gt;
@@ -477,12 +477,12 @@ codyssey-e1-1-web   1.0       925866189032   92MB</pre></div>
 &lt;/html&gt;</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 마운트 컨테이너 실행</pre>
+          <pre class="theme"># 읽기 전용 바인드 마운트 컨테이너 실행</pre>
           <div data-step-part="command"><pre class="cmd">$ docker run -d --name codyssey-bind-8081 -p 8081:80 -v &quot;$PWD/bind-mount-site:/usr/share/nginx/html:ro&quot; nginx:alpine</pre></div>
           <div data-step-part="output"><pre class="out">bcbc84a0e7964dfb4db66fc3721110dd87ef5e2db1242765a1fe6f0000000000</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 변경 전 접속 확인</pre>
+          <pre class="theme"># 호스트 파일 변경 전 컨테이너 응답 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ curl http://localhost:8081</pre></div>
           <div data-step-part="output"><pre class="out">&lt;!doctype html&gt;
 &lt;html lang=&quot;ko&quot;&gt;
@@ -492,7 +492,7 @@ codyssey-e1-1-web   1.0       925866189032   92MB</pre></div>
 &lt;/html&gt;</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 호스트 파일 수정</pre>
+          <pre class="theme"># 호스트 파일 수정과 바인드 마운트 반영 준비</pre>
           <div data-step-part="command"><pre class="cmd">$ printf '&lt;!doctype html&gt;
 &lt;html lang=&quot;ko&quot;&gt;
 &lt;body&gt;
@@ -503,7 +503,7 @@ codyssey-e1-1-web   1.0       925866189032   92MB</pre></div>
           <div data-step-part="output"></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 변경 후 접속 확인</pre>
+          <pre class="theme"># 호스트 변경이 컨테이너 응답에 반영됨 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ curl http://localhost:8081</pre></div>
           <div data-step-part="output"><pre class="out">&lt;!doctype html&gt;
 &lt;html lang=&quot;ko&quot;&gt;
@@ -513,27 +513,27 @@ codyssey-e1-1-web   1.0       925866189032   92MB</pre></div>
 &lt;/html&gt;</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># Docker 볼륨 생성</pre>
+          <pre class="theme"># 컨테이너와 분리된 Docker 볼륨 생성</pre>
           <div data-step-part="command"><pre class="cmd">$ docker volume create codyssey-volume-data</pre></div>
           <div data-step-part="output"><pre class="out">codyssey-volume-data</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 첫 컨테이너에서 데이터 쓰기</pre>
+          <pre class="theme"># 첫 컨테이너에서 볼륨 데이터 쓰기</pre>
           <div data-step-part="command"><pre class="cmd">$ docker run --name codyssey-vol-1 -v codyssey-volume-data:/data ubuntu bash -lc &quot;echo persistent-data &gt; /data/message.txt &amp;&amp; cat /data/message.txt&quot;</pre></div>
           <div data-step-part="output"><pre class="out">persistent-data</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 첫 컨테이너 삭제</pre>
+          <pre class="theme"># 데이터 작성 컨테이너 삭제</pre>
           <div data-step-part="command"><pre class="cmd">$ docker rm codyssey-vol-1</pre></div>
           <div data-step-part="output"><pre class="out">codyssey-vol-1</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 새 컨테이너에서 데이터 확인</pre>
+          <pre class="theme"># 컨테이너 삭제 후 볼륨 데이터 보존 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ docker run --name codyssey-vol-2 -v codyssey-volume-data:/data ubuntu bash -lc &quot;cat /data/message.txt&quot;</pre></div>
           <div data-step-part="output"><pre class="out">persistent-data</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 두 번째 컨테이너 삭제</pre>
+          <pre class="theme"># 볼륨 검증 컨테이너 정리</pre>
           <div data-step-part="command"><pre class="cmd">$ docker rm codyssey-vol-2</pre></div>
           <div data-step-part="output"><pre class="out">codyssey-vol-2</pre></div>
         </div>
@@ -563,7 +563,7 @@ codyssey-e1-1-web   1.0       925866189032   92MB</pre></div>
       <p class="kicker">Chapter 8</p>
       <h1>Git 설정 및 GitHub 연동</h1>
       <ul class="theme-list">
-        <li>Git 버전 확인</li><li>Git 사용자 이름 확인</li><li>Git 사용자 이메일 확인</li><li>기본 브랜치 확인</li><li>전역 설정 목록 확인</li><li>GitHub CLI 인증 확인</li><li>Git 저장소 여부 확인</li><li>원격 저장소 여부 확인</li><li>로컬 저장소 초기화</li><li>현재 브랜치 확인</li><li>초기 추적 상태 확인</li><li>제외 규칙 작성</li><li>제출 파일 스테이징</li><li>스테이징 상태 확인</li>
+        <li>로컬 Git 설치 버전 확인</li><li>로컬 커밋 사용자 이름 설정 확인</li><li>로컬 커밋 사용자 이메일 설정 확인</li><li>기본 브랜치 main 설정 확인</li><li>Git 전역 설정과 개인정보 마스킹 확인</li><li>GitHub 원격 협업 플랫폼 인증 확인</li><li>로컬 repository 초기화 전 상태 확인</li><li>원격 repository 연결 전 상태 확인</li><li>로컬 repository 초기화</li><li>로컬 main 브랜치 확인</li><li>커밋 전 untracked 파일 상태 확인</li><li>제출 제외 규칙을 .gitignore로 재현 가능하게 기록</li><li>제출 대상 파일을 Git index에 추가</li><li>스테이징된 제출 파일 확인</li>
       </ul>
     </section>
     <section class="slide terminal-slide" data-terminal-slide>
@@ -574,27 +574,27 @@ codyssey-e1-1-web   1.0       925866189032   92MB</pre></div>
         </div>
         <div class="terminal-body">
           <div class="terminal-block" data-step-block>
-          <pre class="theme"># Git 버전 확인</pre>
+          <pre class="theme"># 로컬 Git 설치 버전 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ git --version</pre></div>
           <div data-step-part="output"><pre class="out">git version 2.55.0</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># Git 사용자 이름 확인</pre>
+          <pre class="theme"># 로컬 커밋 사용자 이름 설정 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ git config --global user.name</pre></div>
           <div data-step-part="output"><pre class="out">hskim</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># Git 사용자 이메일 확인</pre>
+          <pre class="theme"># 로컬 커밋 사용자 이메일 설정 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ git config --global user.email</pre></div>
           <div data-step-part="output"><pre class="out">y***@gmail.com</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 기본 브랜치 확인</pre>
+          <pre class="theme"># 기본 브랜치 main 설정 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ git config --global init.defaultBranch</pre></div>
           <div data-step-part="output"><pre class="out">main</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 전역 설정 목록 확인</pre>
+          <pre class="theme"># Git 전역 설정과 개인정보 마스킹 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ git config --list --global</pre></div>
           <div data-step-part="output"><pre class="out">init.defaultbranch=main
 pull.rebase=false
@@ -603,7 +603,7 @@ user.name=hskim
 user.email=y***@gmail.com</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># GitHub CLI 인증 확인</pre>
+          <pre class="theme"># GitHub 원격 협업 플랫폼 인증 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ gh auth status</pre></div>
           <div data-step-part="output"><pre class="out">github.com
   ✓ Logged in to github.com account Logan-kim-the-philosopher
@@ -611,27 +611,27 @@ user.email=y***@gmail.com</pre></div>
   - Git operations protocol: ssh</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># Git 저장소 여부 확인</pre>
+          <pre class="theme"># 로컬 repository 초기화 전 상태 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ git status</pre></div>
           <div data-step-part="output"><pre class="out">fatal: not a git repository (or any of the parent directories): .git</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 원격 저장소 여부 확인</pre>
+          <pre class="theme"># 원격 repository 연결 전 상태 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ git remote -v</pre></div>
           <div data-step-part="output"><pre class="out">fatal: not a git repository (or any of the parent directories): .git</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 로컬 저장소 초기화</pre>
+          <pre class="theme"># 로컬 repository 초기화</pre>
           <div data-step-part="command"><pre class="cmd">$ git init</pre></div>
           <div data-step-part="output"><pre class="out">Initialized empty Git repository in /Users/hskim/.codex/.chatgpt-projects/g-p-6a68a406143081918c0b2c94f50646d9/.git/</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 현재 브랜치 확인</pre>
+          <pre class="theme"># 로컬 main 브랜치 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ git branch --show-current</pre></div>
           <div data-step-part="output"><pre class="out">main</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 초기 추적 상태 확인</pre>
+          <pre class="theme"># 커밋 전 untracked 파일 상태 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ git status --short</pre></div>
           <div data-step-part="output"><pre class="out">?? .gitignore
 ?? README.md
@@ -639,7 +639,7 @@ user.email=y***@gmail.com</pre></div>
 ?? docs/</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 제외 규칙 작성</pre>
+          <pre class="theme"># 제출 제외 규칙을 .gitignore로 재현 가능하게 기록</pre>
           <div data-step-part="command"><pre class="cmd">$ printf '.omx/
 AGENTS.md
 codyssey/
@@ -648,12 +648,12 @@ codyssey-e1-1-checklist.txt
           <div data-step-part="output"></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 제출 파일 스테이징</pre>
+          <pre class="theme"># 제출 대상 파일을 Git index에 추가</pre>
           <div data-step-part="command"><pre class="cmd">$ git add README.md docs/ assignments/E1-1 .gitignore</pre></div>
           <div data-step-part="output"></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 스테이징 상태 확인</pre>
+          <pre class="theme"># 스테이징된 제출 파일 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ git status --short</pre></div>
           <div data-step-part="output"><pre class="out">A  .gitignore
 A  README.md
@@ -681,7 +681,7 @@ A  docs/index.html</pre></div>
       <p class="kicker">Chapter 9</p>
       <h1>GitHub 제출 상태 확인</h1>
       <ul class="theme-list">
-        <li>작업 트리 확인</li><li>마지막 커밋 확인</li><li>원격 저장소 확인</li><li>공개 저장소 확인</li><li>Pages 설정 확인</li><li>허브 URL 응답 확인</li><li>E1-1 URL 응답 확인</li>
+        <li>push 후 작업 트리 정리 상태 확인</li><li>제출 기준 커밋 확인</li><li>Git 원격 저장소 연결 확인</li><li>GitHub 공개 repository 상태 확인</li><li>GitHub Pages 배포 설정 확인</li><li>GitHub Pages 루트 URL 응답 확인</li><li>과제별 발표 URL 응답 확인</li>
       </ul>
     </section>
     <section class="slide terminal-slide" data-terminal-slide>
@@ -692,38 +692,38 @@ A  docs/index.html</pre></div>
         </div>
         <div class="terminal-body">
           <div class="terminal-block" data-step-block>
-          <pre class="theme"># 작업 트리 확인</pre>
+          <pre class="theme"># push 후 작업 트리 정리 상태 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ git status --short</pre></div>
           <div data-step-part="output"></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 마지막 커밋 확인</pre>
+          <pre class="theme"># 제출 기준 커밋 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ git log -1 --oneline</pre></div>
           <div data-step-part="output"><pre class="out">300d1a3 Add E1-1 submission verification</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 원격 저장소 확인</pre>
+          <pre class="theme"># Git 원격 저장소 연결 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ git remote -v</pre></div>
           <div data-step-part="output"><pre class="out">origin	git@github.com:Logan-kim-the-philosopher/codyssey.git (fetch)
 origin	git@github.com:Logan-kim-the-philosopher/codyssey.git (push)</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 공개 저장소 확인</pre>
+          <pre class="theme"># GitHub 공개 repository 상태 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ gh repo view Logan-kim-the-philosopher/codyssey --json nameWithOwner,url,visibility,defaultBranchRef</pre></div>
           <div data-step-part="output"><pre class="out">{&quot;defaultBranchRef&quot;:{&quot;name&quot;:&quot;main&quot;},&quot;nameWithOwner&quot;:&quot;Logan-kim-the-philosopher/codyssey&quot;,&quot;url&quot;:&quot;https://github.com/Logan-kim-the-philosopher/codyssey&quot;,&quot;visibility&quot;:&quot;PUBLIC&quot;}</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># Pages 설정 확인</pre>
+          <pre class="theme"># GitHub Pages 배포 설정 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ gh api repos/Logan-kim-the-philosopher/codyssey/pages</pre></div>
           <div data-step-part="output"><pre class="out">{&quot;status&quot;:&quot;built&quot;,&quot;html_url&quot;:&quot;https://logan-kim-the-philosopher.github.io/codyssey/&quot;,&quot;source&quot;:{&quot;branch&quot;:&quot;main&quot;,&quot;path&quot;:&quot;/docs&quot;},&quot;public&quot;:true}</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 허브 URL 응답 확인</pre>
+          <pre class="theme"># GitHub Pages 루트 URL 응답 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ curl -I https://logan-kim-the-philosopher.github.io/codyssey/</pre></div>
           <div data-step-part="output"><pre class="out">HTTP/2 200</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># E1-1 URL 응답 확인</pre>
+          <pre class="theme"># 과제별 발표 URL 응답 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ curl -I https://logan-kim-the-philosopher.github.io/codyssey/E1-1/</pre></div>
           <div data-step-part="output"><pre class="out">HTTP/2 200</pre></div>
         </div>
