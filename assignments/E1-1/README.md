@@ -862,6 +862,244 @@ codyssey-e1-1-checklist.txt
 - 결과 해석: GitHub 저장소와 로컬 저장소가 main 브랜치 기준으로 연결되어 있고, 과제 산출물이 공개 저장소에 push된 상태다. GitHub Pages 확인은 과제 필수 Docker 포트 접속 검증이 아니라 제출 산출물의 웹 접근성을 확인하는 보조 검증이다. HTTP 200은 서버가 HTML 파일을 정상적으로 제공한다는 의미이며, 이전 404 문제는 Pages 설정 활성화 후 해소되었다.
 - 증빙: git remote -v, gh repo view, gh pages API status built, curl -I HTTP/2 200 응답
 
+### Docker Compose 멀티 컨테이너 / Compose로 웹 서비스와 보조 서비스 함께 실행
+
+- 목적: Compose 파일 하나로 웹 서비스와 보조 서비스를 함께 실행하고, 서비스 상태와 응답, 로그, 정리 흐름을 확인한다.
+- 액션: compose.yml 작성 후 docker compose up/ps/curl/logs/down 수행
+- 터미널 로그:
+  - Compose 작업 폴더 준비
+    ```bash
+    $ mkdir -p compose-bonus/web
+    ```
+  - 웹 서비스 정적 HTML 작성
+    ```bash
+    $ printf '<!doctype html>
+<html lang="ko">
+<body>
+  <h1>Compose Web</h1>
+  <p>multi-container bonus</p>
+</body>
+</html>
+' > compose-bonus/web/index.html
+    ```
+  - 웹 서비스 정적 HTML 내용 확인
+    ```bash
+    $ cat compose-bonus/web/index.html
+    <!doctype html>
+    <html lang="ko">
+    <body>
+      <h1>Compose Web</h1>
+      <p>multi-container bonus</p>
+    </body>
+    </html>
+    ```
+  - 멀티 서비스 compose.yml 작성
+    ```bash
+    $ printf 'services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "8082:80"
+    volumes:
+      - ./web:/usr/share/nginx/html:ro
+    depends_on:
+      - helper
+  helper:
+    image: ubuntu:latest
+    command: sleep infinity
+' > compose-bonus/compose.yml
+    ```
+  - Compose 설정 내용 확인
+    ```bash
+    $ cat compose-bonus/compose.yml
+    services:
+      web:
+        image: nginx:alpine
+        ports:
+          - "8082:80"
+        volumes:
+          - ./web:/usr/share/nginx/html:ro
+        depends_on:
+          - helper
+      helper:
+        image: ubuntu:latest
+        command: sleep infinity
+    ```
+  - Compose 멀티 컨테이너 실행
+    ```bash
+    $ docker compose -f compose-bonus/compose.yml up -d
+    Network compose-bonus_default Created
+    Container compose-bonus-helper-1 Created
+    Container compose-bonus-web-1 Created
+    Container compose-bonus-helper-1 Started
+    Container compose-bonus-web-1 Started
+    ```
+  - Compose 서비스 상태 확인
+    ```bash
+    $ docker compose -f compose-bonus/compose.yml ps
+    NAME                     IMAGE           COMMAND                  SERVICE   CREATED          STATUS          PORTS
+    compose-bonus-helper-1   ubuntu:latest   "sleep infinity"         helper    27 seconds ago   Up 26 seconds   
+    compose-bonus-web-1      nginx:alpine    "/docker-entrypoint.…"   web       27 seconds ago   Up 26 seconds   0.0.0.0:8082->80/tcp, [::]:8082->80/tcp
+    ```
+  - Compose 웹 서비스 응답 확인
+    ```bash
+    $ curl http://localhost:8082
+    <!doctype html>
+    <html lang="ko">
+    <body>
+      <h1>Compose Web</h1>
+      <p>multi-container bonus</p>
+    </body>
+    </html>
+    ```
+  - Compose 서비스 로그 확인
+    ```bash
+    $ docker compose -f compose-bonus/compose.yml logs --tail=20
+    web-1  | /docker-entrypoint.sh: Configuration complete; ready for start up
+    web-1  | 2026/08/03 10:11:07 [notice] 1#1: nginx/1.31.3
+    web-1  | 192.168.65.1 - - [03/Aug/2026:10:11:57 +0000] "GET / HTTP/1.1" 200 110 "-" "curl/8.7.1" "-"
+    ```
+  - Compose 멀티 컨테이너 정리
+    ```bash
+    $ docker compose -f compose-bonus/compose.yml down
+    Container compose-bonus-web-1 Removed
+    Container compose-bonus-helper-1 Removed
+    Network compose-bonus_default Removed
+    ```
+- 핵심 출력: Compose 파일로 web/helper 두 서비스를 함께 실행하고 up, ps, curl, logs, down 흐름을 검증했다.
+- 결과 해석: compose.yml 하나에 web과 helper 서비스를 선언해 멀티 컨테이너 구성을 문서화했다. docker compose up -d로 전용 네트워크와 두 컨테이너가 함께 생성됐고, ps 출력으로 서비스별 상태와 web 포트 8082 매핑을 확인했다. curl 응답과 logs의 200 요청 기록으로 web 서비스가 실제 요청을 처리했음을 검증했다. down으로 컨테이너와 네트워크가 함께 정리되어 Compose 운영 명령 흐름도 확인됐다.
+- 증빙: compose.yml 내용, docker compose up/ps/logs/down 출력, curl http://localhost:8082 응답
+
+### 환경 변수 활용 / 환경 변수 주입과 응답 반영 확인
+
+- 목적: Compose environment로 주입한 환경 변수 값이 컨테이너 내부에서 실제 웹 응답 생성에 반영되는지 확인한다.
+- 액션: 환경 변수를 포함한 compose.yml 작성 후 up/curl/down 수행
+- 터미널 로그:
+  - 환경 변수 실습 폴더 준비
+    ```bash
+    $ mkdir -p env-bonus
+    ```
+  - 환경 변수 compose.yml 작성
+    ```bash
+    $ printf ... > env-bonus/compose.yml
+    ```
+  - 환경 변수 compose.yml 내용 확인
+    ```bash
+    $ cat env-bonus/compose.yml
+    services:
+      web:
+        image: nginx:alpine
+        ports:
+          - "8083:80"
+        environment:
+          APP_MODE: bonus-env
+        command: /bin/sh -c "printf "<!doctype html>\n<html lang=\"ko\">\n<body>\n  <h1>Env Bonus</h1>\n  <p>APP_MODE=$${APP_MODE}</p>\n</body>\n</html>\n" > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"
+    ```
+  - 초기 Compose 문법 오류 확인
+    ```bash
+    $ docker compose -f env-bonus/compose.yml up -d
+    go-yaml load error in scanner (while scanning a simple key) at L10.C1-L11.C1: could not find expected ":"
+    ```
+  - Compose config로 오류 위치 확인
+    ```bash
+    $ docker compose -f env-bonus/compose.yml config
+    go-yaml load error in scanner (while scanning a simple key) at L10.C1-L11.C1: could not find expected ":"
+    ```
+  - command 한 줄화로 YAML 구조 수정
+    ```bash
+    $ cat env-bonus/compose.yml
+    services:
+      web:
+        image: nginx:alpine
+        ports:
+          - "8083:80"
+        environment:
+          APP_MODE: bonus-env
+        command: /bin/sh -c "printf "<!doctype html>\n<html lang=\"ko\">\n<body>\n  <h1>Env Bonus</h1>\n  <p>APP_MODE=$${APP_MODE}</p>\n</body>\n</html>\n" > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"
+    ```
+  - Compose config로 변수 치환 상태 확인
+    ```bash
+    $ docker compose -f env-bonus/compose.yml config
+    name: env-bonus
+    services:
+      web:
+        command:
+          - /bin/sh
+          - -c
+          - |-
+            printf "<!doctype html>
+            <html lang="ko">
+            <body>
+              <h1>Env Bonus</h1>
+              <p>APP_MODE=$${APP_MODE}</p>
+            </body>
+            </html>
+            " > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'
+        environment:
+          APP_MODE: bonus-env
+        image: nginx:alpine
+        ports:
+          - mode: ingress
+            target: 80
+            published: "8083"
+            protocol: tcp
+    ```
+  - 환경 변수 Compose 서비스 실행
+    ```bash
+    $ docker compose -f env-bonus/compose.yml up -d
+    Network env-bonus_default Created
+    Container env-bonus-web-1 Created
+    Container env-bonus-web-1 Started
+    ```
+  - 초기 웹 응답에서 변수 미확장 확인
+    ```bash
+    $ curl http://localhost:8083
+    <!doctype html>
+    <html lang="ko">
+    <body>
+      <h1>Env Bonus</h1>
+      <p>APP_MODE=${APP_MODE}</p>
+    </body>
+    </html>
+    ```
+  - 셸 변수 확장 가능하도록 command 수정
+    ```bash
+    $ cat env-bonus/compose.yml
+    services:
+      web:
+        image: nginx:alpine
+        ports:
+          - "8083:80"
+        environment:
+          APP_MODE: bonus-env
+        command: /bin/sh -c "printf "<!doctype html>\n<html lang=\"ko\">\n<body>\n  <h1>Env Bonus</h1>\n  <p>APP_MODE=$${APP_MODE}</p>\n</body>\n</html>\n" > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"
+    ```
+  - 설정 수정 후 컨테이너 재생성과 응답 재확인
+    ```bash
+    $ docker compose -f env-bonus/compose.yml down && docker compose -f env-bonus/compose.yml up -d && curl http://localhost:8083
+    Container env-bonus-web-1 Removed
+    Network env-bonus_default Removed
+    Network env-bonus_default Created
+    Container env-bonus-web-1 Created
+    Container env-bonus-web-1 Started
+    <!doctype html>
+    <html lang="ko">
+    <body>
+      <h1>Env Bonus</h1>
+      <p>APP_MODE=bonus-env</p>
+    </body>
+    </html>
+    ```
+  - 환경 변수 Compose 정리
+    ```bash
+    $ docker compose -f env-bonus/compose.yml down
+    Container env-bonus-web-1 Removed
+    Network env-bonus_default Removed
+    ```
+- 핵심 출력: Compose environment로 APP_MODE를 주입했고, 초기 문법/치환 문제를 수정한 뒤 최종 웹 응답에서 APP_MODE=bonus-env를 확인했다.
+- 결과 해석: 처음에는 YAML 줄바꿈 구조 때문에 compose 파일 문법 오류가 났고, 그다음에는 셸 변수 확장이 되지 않아 ${APP_MODE}가 문자 그대로 보였다. docker compose config와 실제 응답을 비교하면서 문제를 진단했고, command 문자열 구조를 고친 뒤 컨테이너를 재생성하자 최종 응답에서 APP_MODE=bonus-env가 출력됐다. 이로써 환경 변수 주입이 실제 서비스 결과에 반영되는 흐름과, 설정 문제를 config와 재실행으로 해결하는 과정까지 함께 검증했다.
+- 증빙: compose.yml 내용, docker compose config 오류/치환 결과, 최종 curl http://localhost:8083 응답, docker compose down 정리 출력
+
 ## 제출 산출물
 
 - README.md

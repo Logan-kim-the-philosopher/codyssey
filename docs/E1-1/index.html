@@ -66,7 +66,7 @@
       <p class="kicker">Codyssey Evidence Presentation</p>
       <h1>E1-1 환경 세팅</h1>
       <ul class="theme-list">
-        <li>터미널 기본 조작</li><li>파일 권한 실습</li><li>Docker 설치 및 기본 점검</li><li>Docker 컨테이너 실행 실습</li><li>Docker 기본 운영 명령</li><li>Dockerfile 기반 커스텀 이미지 제작</li><li>Docker 바인드 마운트 변경 반영</li><li>Docker 볼륨 영속성 검증</li><li>Git 설정 및 GitHub 연동</li><li>GitHub 제출 상태 확인</li>
+        <li>터미널 기본 조작</li><li>파일 권한 실습</li><li>Docker 설치 및 기본 점검</li><li>Docker 컨테이너 실행 실습</li><li>Docker 기본 운영 명령</li><li>Dockerfile 기반 커스텀 이미지 제작</li><li>Docker 바인드 마운트 변경 반영</li><li>Docker 볼륨 영속성 검증</li><li>Git 설정 및 GitHub 연동</li><li>GitHub 제출 상태 확인</li><li>Docker Compose 멀티 컨테이너</li><li>환경 변수 활용</li>
       </ul>
     </section>
     
@@ -818,13 +818,276 @@ origin	git@github.com:Logan-kim-the-philosopher/codyssey.git (push)</pre></div>
       </div>
     </section>
 
+
+    <section class="slide cover-slide">
+      <p class="kicker">Chapter 11</p>
+      <h1>Docker Compose 멀티 컨테이너</h1>
+      <ul class="theme-list">
+        <li>Compose 작업 폴더 준비</li><li>웹 서비스 정적 HTML 작성</li><li>웹 서비스 정적 HTML 내용 확인</li><li>멀티 서비스 compose.yml 작성</li><li>Compose 설정 내용 확인</li><li>Compose 멀티 컨테이너 실행</li><li>Compose 서비스 상태 확인</li><li>Compose 웹 서비스 응답 확인</li><li>Compose 서비스 로그 확인</li><li>Compose 멀티 컨테이너 정리</li>
+      </ul>
+    </section>
+    <section class="slide terminal-slide" data-terminal-slide>
+      <div class="terminal-window">
+        <div class="terminal-bar">
+          <span></span><span></span><span></span>
+          <strong>codyssey-terminal</strong>
+        </div>
+        <div class="terminal-body">
+          <div class="terminal-block" data-step-block>
+          <pre class="theme"># Compose 작업 폴더 준비</pre>
+          <div data-step-part="command"><pre class="cmd">$ mkdir -p compose-bonus/web</pre></div>
+          <div data-step-part="output"></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># 웹 서비스 정적 HTML 작성</pre>
+          <div data-step-part="command"><pre class="cmd">$ printf '&lt;!doctype html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;body&gt;
+  &lt;h1&gt;Compose Web&lt;/h1&gt;
+  &lt;p&gt;multi-container bonus&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+' &gt; compose-bonus/web/index.html</pre></div>
+          <div data-step-part="output"></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># 웹 서비스 정적 HTML 내용 확인</pre>
+          <div data-step-part="command"><pre class="cmd">$ cat compose-bonus/web/index.html</pre></div>
+          <div data-step-part="output"><pre class="out">&lt;!doctype html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;body&gt;
+  &lt;h1&gt;Compose Web&lt;/h1&gt;
+  &lt;p&gt;multi-container bonus&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># 멀티 서비스 compose.yml 작성</pre>
+          <div data-step-part="command"><pre class="cmd">$ printf 'services:
+  web:
+    image: nginx:alpine
+    ports:
+      - &quot;8082:80&quot;
+    volumes:
+      - ./web:/usr/share/nginx/html:ro
+    depends_on:
+      - helper
+  helper:
+    image: ubuntu:latest
+    command: sleep infinity
+' &gt; compose-bonus/compose.yml</pre></div>
+          <div data-step-part="output"></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># Compose 설정 내용 확인</pre>
+          <div data-step-part="command"><pre class="cmd">$ cat compose-bonus/compose.yml</pre></div>
+          <div data-step-part="output"><pre class="out">services:
+  web:
+    image: nginx:alpine
+    ports:
+      - &quot;8082:80&quot;
+    volumes:
+      - ./web:/usr/share/nginx/html:ro
+    depends_on:
+      - helper
+  helper:
+    image: ubuntu:latest
+    command: sleep infinity</pre></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># Compose 멀티 컨테이너 실행</pre>
+          <div data-step-part="command"><pre class="cmd">$ docker compose -f compose-bonus/compose.yml up -d</pre></div>
+          <div data-step-part="output"><pre class="out">Network compose-bonus_default Created
+Container compose-bonus-helper-1 Created
+Container compose-bonus-web-1 Created
+Container compose-bonus-helper-1 Started
+Container compose-bonus-web-1 Started</pre></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># Compose 서비스 상태 확인</pre>
+          <div data-step-part="command"><pre class="cmd">$ docker compose -f compose-bonus/compose.yml ps</pre></div>
+          <div data-step-part="output"><pre class="out">NAME                     IMAGE           COMMAND                  SERVICE   CREATED          STATUS          PORTS
+compose-bonus-helper-1   ubuntu:latest   &quot;sleep infinity&quot;         helper    27 seconds ago   Up 26 seconds   
+compose-bonus-web-1      nginx:alpine    &quot;/docker-entrypoint.…&quot;   web       27 seconds ago   Up 26 seconds   0.0.0.0:8082-&gt;80/tcp, [::]:8082-&gt;80/tcp</pre></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># Compose 웹 서비스 응답 확인</pre>
+          <div data-step-part="command"><pre class="cmd">$ curl http://localhost:8082</pre></div>
+          <div data-step-part="output"><pre class="out">&lt;!doctype html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;body&gt;
+  &lt;h1&gt;Compose Web&lt;/h1&gt;
+  &lt;p&gt;multi-container bonus&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># Compose 서비스 로그 확인</pre>
+          <div data-step-part="command"><pre class="cmd">$ docker compose -f compose-bonus/compose.yml logs --tail=20</pre></div>
+          <div data-step-part="output"><pre class="out">web-1  | /docker-entrypoint.sh: Configuration complete; ready for start up
+web-1  | 2026/08/03 10:11:07 [notice] 1#1: nginx/1.31.3
+web-1  | 192.168.65.1 - - [03/Aug/2026:10:11:57 +0000] &quot;GET / HTTP/1.1&quot; 200 110 &quot;-&quot; &quot;curl/8.7.1&quot; &quot;-&quot;</pre></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># Compose 멀티 컨테이너 정리</pre>
+          <div data-step-part="command"><pre class="cmd">$ docker compose -f compose-bonus/compose.yml down</pre></div>
+          <div data-step-part="output"><pre class="out">Container compose-bonus-web-1 Removed
+Container compose-bonus-helper-1 Removed
+Network compose-bonus_default Removed</pre></div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="slide cover-slide">
+      <p class="kicker">Chapter 12</p>
+      <h1>환경 변수 활용</h1>
+      <ul class="theme-list">
+        <li>환경 변수 실습 폴더 준비</li><li>환경 변수 compose.yml 작성</li><li>환경 변수 compose.yml 내용 확인</li><li>초기 Compose 문법 오류 확인</li><li>Compose config로 오류 위치 확인</li><li>command 한 줄화로 YAML 구조 수정</li><li>Compose config로 변수 치환 상태 확인</li><li>환경 변수 Compose 서비스 실행</li><li>초기 웹 응답에서 변수 미확장 확인</li><li>셸 변수 확장 가능하도록 command 수정</li><li>설정 수정 후 컨테이너 재생성과 응답 재확인</li><li>환경 변수 Compose 정리</li>
+      </ul>
+    </section>
+    <section class="slide terminal-slide" data-terminal-slide>
+      <div class="terminal-window">
+        <div class="terminal-bar">
+          <span></span><span></span><span></span>
+          <strong>codyssey-terminal</strong>
+        </div>
+        <div class="terminal-body">
+          <div class="terminal-block" data-step-block>
+          <pre class="theme"># 환경 변수 실습 폴더 준비</pre>
+          <div data-step-part="command"><pre class="cmd">$ mkdir -p env-bonus</pre></div>
+          <div data-step-part="output"></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># 환경 변수 compose.yml 작성</pre>
+          <div data-step-part="command"><pre class="cmd">$ printf ... &gt; env-bonus/compose.yml</pre></div>
+          <div data-step-part="output"></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># 환경 변수 compose.yml 내용 확인</pre>
+          <div data-step-part="command"><pre class="cmd">$ cat env-bonus/compose.yml</pre></div>
+          <div data-step-part="output"><pre class="out">services:
+  web:
+    image: nginx:alpine
+    ports:
+      - &quot;8083:80&quot;
+    environment:
+      APP_MODE: bonus-env
+    command: /bin/sh -c &quot;printf &quot;&lt;!doctype html&gt;\n&lt;html lang=\&quot;ko\&quot;&gt;\n&lt;body&gt;\n  &lt;h1&gt;Env Bonus&lt;/h1&gt;\n  &lt;p&gt;APP_MODE=$${APP_MODE}&lt;/p&gt;\n&lt;/body&gt;\n&lt;/html&gt;\n&quot; &gt; /usr/share/nginx/html/index.html &amp;&amp; exec nginx -g 'daemon off;'&quot;</pre></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># 초기 Compose 문법 오류 확인</pre>
+          <div data-step-part="command"><pre class="cmd">$ docker compose -f env-bonus/compose.yml up -d</pre></div>
+          <div data-step-part="output"><pre class="out">go-yaml load error in scanner (while scanning a simple key) at L10.C1-L11.C1: could not find expected &quot;:&quot;</pre></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># Compose config로 오류 위치 확인</pre>
+          <div data-step-part="command"><pre class="cmd">$ docker compose -f env-bonus/compose.yml config</pre></div>
+          <div data-step-part="output"><pre class="out">go-yaml load error in scanner (while scanning a simple key) at L10.C1-L11.C1: could not find expected &quot;:&quot;</pre></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># command 한 줄화로 YAML 구조 수정</pre>
+          <div data-step-part="command"><pre class="cmd">$ cat env-bonus/compose.yml</pre></div>
+          <div data-step-part="output"><pre class="out">services:
+  web:
+    image: nginx:alpine
+    ports:
+      - &quot;8083:80&quot;
+    environment:
+      APP_MODE: bonus-env
+    command: /bin/sh -c &quot;printf &quot;&lt;!doctype html&gt;\n&lt;html lang=\&quot;ko\&quot;&gt;\n&lt;body&gt;\n  &lt;h1&gt;Env Bonus&lt;/h1&gt;\n  &lt;p&gt;APP_MODE=$${APP_MODE}&lt;/p&gt;\n&lt;/body&gt;\n&lt;/html&gt;\n&quot; &gt; /usr/share/nginx/html/index.html &amp;&amp; exec nginx -g 'daemon off;'&quot;</pre></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># Compose config로 변수 치환 상태 확인</pre>
+          <div data-step-part="command"><pre class="cmd">$ docker compose -f env-bonus/compose.yml config</pre></div>
+          <div data-step-part="output"><pre class="out">name: env-bonus
+services:
+  web:
+    command:
+      - /bin/sh
+      - -c
+      - |-
+        printf &quot;&lt;!doctype html&gt;
+        &lt;html lang=&quot;ko&quot;&gt;
+        &lt;body&gt;
+          &lt;h1&gt;Env Bonus&lt;/h1&gt;
+          &lt;p&gt;APP_MODE=$${APP_MODE}&lt;/p&gt;
+        &lt;/body&gt;
+        &lt;/html&gt;
+        &quot; &gt; /usr/share/nginx/html/index.html &amp;&amp; exec nginx -g 'daemon off;'
+    environment:
+      APP_MODE: bonus-env
+    image: nginx:alpine
+    ports:
+      - mode: ingress
+        target: 80
+        published: &quot;8083&quot;
+        protocol: tcp</pre></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># 환경 변수 Compose 서비스 실행</pre>
+          <div data-step-part="command"><pre class="cmd">$ docker compose -f env-bonus/compose.yml up -d</pre></div>
+          <div data-step-part="output"><pre class="out">Network env-bonus_default Created
+Container env-bonus-web-1 Created
+Container env-bonus-web-1 Started</pre></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># 초기 웹 응답에서 변수 미확장 확인</pre>
+          <div data-step-part="command"><pre class="cmd">$ curl http://localhost:8083</pre></div>
+          <div data-step-part="output"><pre class="out">&lt;!doctype html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;body&gt;
+  &lt;h1&gt;Env Bonus&lt;/h1&gt;
+  &lt;p&gt;APP_MODE=${APP_MODE}&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># 셸 변수 확장 가능하도록 command 수정</pre>
+          <div data-step-part="command"><pre class="cmd">$ cat env-bonus/compose.yml</pre></div>
+          <div data-step-part="output"><pre class="out">services:
+  web:
+    image: nginx:alpine
+    ports:
+      - &quot;8083:80&quot;
+    environment:
+      APP_MODE: bonus-env
+    command: /bin/sh -c &quot;printf &quot;&lt;!doctype html&gt;\n&lt;html lang=\&quot;ko\&quot;&gt;\n&lt;body&gt;\n  &lt;h1&gt;Env Bonus&lt;/h1&gt;\n  &lt;p&gt;APP_MODE=$${APP_MODE}&lt;/p&gt;\n&lt;/body&gt;\n&lt;/html&gt;\n&quot; &gt; /usr/share/nginx/html/index.html &amp;&amp; exec nginx -g 'daemon off;'&quot;</pre></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># 설정 수정 후 컨테이너 재생성과 응답 재확인</pre>
+          <div data-step-part="command"><pre class="cmd">$ docker compose -f env-bonus/compose.yml down &amp;&amp; docker compose -f env-bonus/compose.yml up -d &amp;&amp; curl http://localhost:8083</pre></div>
+          <div data-step-part="output"><pre class="out">Container env-bonus-web-1 Removed
+Network env-bonus_default Removed
+Network env-bonus_default Created
+Container env-bonus-web-1 Created
+Container env-bonus-web-1 Started
+&lt;!doctype html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;body&gt;
+  &lt;h1&gt;Env Bonus&lt;/h1&gt;
+  &lt;p&gt;APP_MODE=bonus-env&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># 환경 변수 Compose 정리</pre>
+          <div data-step-part="command"><pre class="cmd">$ docker compose -f env-bonus/compose.yml down</pre></div>
+          <div data-step-part="output"><pre class="out">Container env-bonus-web-1 Removed
+Network env-bonus_default Removed</pre></div>
+        </div>
+        </div>
+      </div>
+    </section>
+
     
     <section class="slide completion-slide">
       <h1>E1-1 환경 세팅</h1>
       <div class="completion-grid">
         <section>
           <h2>검증 완료</h2>
-          <ul><li>터미널 기본 조작</li><li>파일 권한 실습</li><li>Docker 설치 및 기본 점검</li><li>Docker 컨테이너 실행 실습</li><li>Docker 기본 운영 명령</li><li>Dockerfile 기반 커스텀 이미지 제작</li><li>Docker 바인드 마운트 변경 반영</li><li>Docker 볼륨 영속성 검증</li><li>Git 설정 및 GitHub 연동</li><li>GitHub 제출 상태 확인</li></ul>
+          <ul><li>터미널 기본 조작</li><li>파일 권한 실습</li><li>Docker 설치 및 기본 점검</li><li>Docker 컨테이너 실행 실습</li><li>Docker 기본 운영 명령</li><li>Dockerfile 기반 커스텀 이미지 제작</li><li>Docker 바인드 마운트 변경 반영</li><li>Docker 볼륨 영속성 검증</li><li>Git 설정 및 GitHub 연동</li><li>GitHub 제출 상태 확인</li><li>Docker Compose 멀티 컨테이너</li><li>환경 변수 활용</li></ul>
         </section>
         <section>
           <h2>산출물</h2>
