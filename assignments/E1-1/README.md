@@ -349,6 +349,15 @@
   - README.md
   - docs/index.html
 
+### GitHub 제출 상태 확인 / 원격 저장소와 GitHub Pages 보조 검증
+
+- 목적: GitHub 제출물이 공개 저장소에 올라가 있고 발표 HTML이 웹에서 접근 가능한지 보조 증거로 확인한다.
+- 액션: 원격 저장소, 기본 브랜치, Pages 설정, 공개 URL 응답 확인
+- 실행 명령: git status --short; git log -1 --oneline; git remote -v; gh repo view Logan-kim-the-philosopher/codyssey --json nameWithOwner,url,visibility,defaultBranchRef; gh api repos/Logan-kim-the-philosopher/codyssey/pages; curl -I https://logan-kim-the-philosopher.github.io/codyssey/; curl -I https://logan-kim-the-philosopher.github.io/codyssey/E1-1/
+- 핵심 출력: 작업 트리는 깨끗함. 마지막 커밋은 f66cb88 Submit E1-1 environment setup. 원격 저장소 origin은 git@github.com:Logan-kim-the-philosopher/codyssey.git. GitHub 저장소는 PUBLIC, 기본 브랜치는 main. GitHub Pages는 status built, source main /docs, html_url https://logan-kim-the-philosopher.github.io/codyssey/. 허브 URL과 E1-1 URL 모두 HTTP/2 200 응답.
+- 결과 해석: GitHub 저장소와 로컬 저장소가 main 브랜치 기준으로 연결되어 있고, 과제 산출물이 공개 저장소에 push된 상태다. GitHub Pages 확인은 과제 필수 Docker 포트 접속 검증이 아니라 제출 산출물의 웹 접근성을 확인하는 보조 검증이다. HTTP 200은 서버가 HTML 파일을 정상적으로 제공한다는 의미이며, 이전 404 문제는 Pages 설정 활성화 후 해소되었다.
+- 증빙: git remote -v, gh repo view, gh pages API status built, curl -I HTTP/2 200 응답
+
 ## 제출 산출물
 
 - README.md

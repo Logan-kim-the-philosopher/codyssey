@@ -385,5 +385,18 @@ hi *</p>
       <p class="note">제출 문서와 발표 HTML, 증거 이미지, Dockerfile/웹 소스, 실습 원본 로그를 커밋 대상으로 올렸다. Codex/워크플로 내부 메타데이터와 중복 생성물은 제외하여 제출 저장소를 과제 중심으로 정리했다.</p>
       <div class="evidence-grid"><a class="artifact-link" href=".gitignore">.gitignore</a><a class="artifact-link" href="README.md">README.md</a><a class="artifact-link" href="docs/index.html">docs/index.html</a></div>
     </section>
+
+    <section class="slide">
+      <p class="kicker">Chapter 15</p>
+      <h1>GitHub 제출 상태 확인</h1>
+      <h2>원격 저장소와 GitHub Pages 보조 검증</h2>
+      <p>GitHub 제출물이 공개 저장소에 올라가 있고 발표 HTML이 웹에서 접근 가능한지 보조 증거로 확인한다.</p>
+      <div class="terminal">
+        <div class="cmd">$ git status --short; git log -1 --oneline; git remote -v; gh repo view Logan-kim-the-philosopher/codyssey --json nameWithOwner,url,visibility,defaultBranchRef; gh api repos/Logan-kim-the-philosopher/codyssey/pages; curl -I https://logan-kim-the-philosopher.github.io/codyssey/; curl -I https://logan-kim-the-philosopher.github.io/codyssey/E1-1/</div>
+        <div class="out">작업 트리는 깨끗함. 마지막 커밋은 f66cb88 Submit E1-1 environment setup. 원격 저장소 origin은 git@github.com:Logan-kim-the-philosopher/codyssey.git. GitHub 저장소는 PUBLIC, 기본 브랜치는 main. GitHub Pages는 status built, source main /docs, html_url https://logan-kim-the-philosopher.github.io/codyssey/. 허브 URL과 E1-1 URL 모두 HTTP/2 200 응답.</div>
+      </div>
+      <p class="note">GitHub 저장소와 로컬 저장소가 main 브랜치 기준으로 연결되어 있고, 과제 산출물이 공개 저장소에 push된 상태다. GitHub Pages 확인은 과제 필수 Docker 포트 접속 검증이 아니라 제출 산출물의 웹 접근성을 확인하는 보조 검증이다. HTTP 200은 서버가 HTML 파일을 정상적으로 제공한다는 의미이며, 이전 404 문제는 Pages 설정 활성화 후 해소되었다.</p>
+      
+    </section>
 </body>
 </html>
