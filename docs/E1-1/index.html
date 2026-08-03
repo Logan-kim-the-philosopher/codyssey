@@ -66,7 +66,7 @@
       <p class="kicker">Codyssey Evidence Presentation</p>
       <h1>E1-1 환경 세팅</h1>
       <ul class="theme-list">
-        <li>터미널 기본 조작</li><li>파일 권한 실습</li><li>Docker 설치 및 기본 점검</li><li>Docker 컨테이너 실행 실습</li><li>Docker 기본 운영 명령</li><li>Dockerfile 기반 커스텀 이미지 제작</li><li>Docker 바인드 마운트와 볼륨</li><li>Git 설정 및 GitHub 연동</li><li>GitHub 제출 상태 확인</li>
+        <li>터미널 기본 조작</li><li>파일 권한 실습</li><li>Docker 설치 및 기본 점검</li><li>Docker 컨테이너 실행 실습</li><li>Docker 기본 운영 명령</li><li>Dockerfile 기반 커스텀 이미지 제작</li><li>Docker 바인드 마운트 변경 반영</li><li>Docker 볼륨 영속성 검증</li><li>Git 설정 및 GitHub 연동</li><li>GitHub 제출 상태 확인</li>
       </ul>
     </section>
     
@@ -496,9 +496,9 @@ codyssey-e1-1-web   1.0       925866189032   92MB</pre></div>
 
     <section class="slide cover-slide">
       <p class="kicker">Chapter 7</p>
-      <h1>Docker 바인드 마운트와 볼륨</h1>
+      <h1>Docker 바인드 마운트 변경 반영</h1>
       <ul class="theme-list">
-        <li>바인드 마운트용 호스트 폴더 준비</li><li>변경 전 호스트 HTML 파일 작성</li><li>변경 전 호스트 HTML 내용 확인</li><li>읽기 전용 바인드 마운트 컨테이너 실행</li><li>호스트 파일 변경 전 컨테이너 응답 확인</li><li>호스트 HTML 파일 수정</li><li>수정 후 호스트 HTML 내용 확인</li><li>호스트 변경이 컨테이너 응답에 반영됨 확인</li><li>컨테이너와 분리된 Docker 볼륨 생성</li><li>첫 컨테이너에서 볼륨 데이터 쓰기</li><li>데이터 작성 컨테이너 삭제</li><li>컨테이너 삭제 후 볼륨 데이터 보존 확인</li><li>볼륨 검증 컨테이너 정리</li>
+        <li>바인드 마운트용 호스트 폴더 준비</li><li>변경 전 호스트 HTML 파일 작성</li><li>변경 전 호스트 HTML 내용 확인</li><li>읽기 전용 바인드 마운트 컨테이너 실행</li><li>호스트 파일 변경 전 컨테이너 응답 확인</li><li>호스트 HTML 파일 수정</li><li>수정 후 호스트 HTML 내용 확인</li><li>호스트 변경이 컨테이너 응답에 반영됨 확인</li>
       </ul>
     </section>
     <section class="slide terminal-slide" data-terminal-slide>
@@ -580,7 +580,43 @@ codyssey-e1-1-web   1.0       925866189032   92MB</pre></div>
 &lt;/body&gt;
 &lt;/html&gt;</pre></div>
         </div>
-<div class="terminal-block" data-step-block>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide image-slide">
+      <p class="kicker">Chapter 7 Evidence</p>
+      <h1>호스트 파일 변경 전후 컨테이너 응답 비교</h1>
+      <figure>
+        <img class="evidence-img" src="assets/log-9-2-bind-mount-before.png" alt="호스트 파일 변경 전후 컨테이너 응답 비교 evidence">
+        <figcaption>assignments/E1-1/evidence/bind-mount-before.png</figcaption>
+      </figure>
+    </section>
+
+    <section class="slide image-slide">
+      <p class="kicker">Chapter 7 Evidence</p>
+      <h1>호스트 파일 변경 전후 컨테이너 응답 비교</h1>
+      <figure>
+        <img class="evidence-img" src="assets/log-9-3-bind-mount-after.png" alt="호스트 파일 변경 전후 컨테이너 응답 비교 evidence">
+        <figcaption>assignments/E1-1/evidence/bind-mount-after.png</figcaption>
+      </figure>
+    </section>
+
+    <section class="slide cover-slide">
+      <p class="kicker">Chapter 8</p>
+      <h1>Docker 볼륨 영속성 검증</h1>
+      <ul class="theme-list">
+        <li>컨테이너와 분리된 Docker 볼륨 생성</li><li>첫 컨테이너에서 볼륨 데이터 쓰기</li><li>데이터 작성 컨테이너 삭제</li><li>새 컨테이너에서 볼륨 데이터 확인</li><li>볼륨 검증 컨테이너 정리</li>
+      </ul>
+    </section>
+    <section class="slide terminal-slide" data-terminal-slide>
+      <div class="terminal-window">
+        <div class="terminal-bar">
+          <span></span><span></span><span></span>
+          <strong>codyssey-terminal</strong>
+        </div>
+        <div class="terminal-body">
+          <div class="terminal-block" data-step-block>
           <pre class="theme"># 컨테이너와 분리된 Docker 볼륨 생성</pre>
           <div data-step-part="command"><pre class="cmd">$ docker volume create codyssey-volume-data</pre></div>
           <div data-step-part="output"><pre class="out">codyssey-volume-data</pre></div>
@@ -596,7 +632,7 @@ codyssey-e1-1-web   1.0       925866189032   92MB</pre></div>
           <div data-step-part="output"><pre class="out">codyssey-vol-1</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 컨테이너 삭제 후 볼륨 데이터 보존 확인</pre>
+          <pre class="theme"># 새 컨테이너에서 볼륨 데이터 확인</pre>
           <div data-step-part="command"><pre class="cmd">$ docker run --name codyssey-vol-2 -v codyssey-volume-data:/data ubuntu bash -lc &quot;cat /data/message.txt&quot;</pre></div>
           <div data-step-part="output"><pre class="out">persistent-data</pre></div>
         </div>
@@ -609,26 +645,9 @@ codyssey-e1-1-web   1.0       925866189032   92MB</pre></div>
       </div>
     </section>
 
-    <section class="slide image-slide">
-      <p class="kicker">Chapter 7 Evidence</p>
-      <h1>바인드 마운트 변경 반영 확인</h1>
-      <figure>
-        <img class="evidence-img" src="assets/log-9-2-bind-mount-before.png" alt="바인드 마운트 변경 반영 확인 evidence">
-        <figcaption>assignments/E1-1/evidence/bind-mount-before.png</figcaption>
-      </figure>
-    </section>
-
-    <section class="slide image-slide">
-      <p class="kicker">Chapter 7 Evidence</p>
-      <h1>바인드 마운트 변경 반영 확인</h1>
-      <figure>
-        <img class="evidence-img" src="assets/log-9-3-bind-mount-after.png" alt="바인드 마운트 변경 반영 확인 evidence">
-        <figcaption>assignments/E1-1/evidence/bind-mount-after.png</figcaption>
-      </figure>
-    </section>
 
     <section class="slide cover-slide">
-      <p class="kicker">Chapter 8</p>
+      <p class="kicker">Chapter 9</p>
       <h1>Git 설정 및 GitHub 연동</h1>
       <ul class="theme-list">
         <li>로컬 Git 설치 버전 확인</li><li>로컬 커밋 사용자 이름 설정 확인</li><li>로컬 커밋 사용자 이메일 설정 확인</li><li>기본 브랜치 main 설정 확인</li><li>Git 전역 설정과 개인정보 마스킹 확인</li><li>GitHub 원격 협업 플랫폼 인증 확인</li><li>로컬 repository 초기화 전 상태 확인</li><li>원격 repository 연결 전 상태 확인</li><li>로컬 repository 초기화</li><li>로컬 main 브랜치 확인</li><li>커밋 전 untracked 파일 상태 확인</li><li>제출 제외 규칙을 .gitignore로 재현 가능하게 기록</li><li>제출 대상 파일을 Git index에 추가</li><li>스테이징된 제출 파일 확인</li>
@@ -737,7 +756,7 @@ A  docs/index.html</pre></div>
     </section>
 
     <section class="slide image-slide">
-      <p class="kicker">Chapter 8 Evidence</p>
+      <p class="kicker">Chapter 9 Evidence</p>
       <h1>Git 버전과 전역 설정 확인</h1>
       <figure>
         <img class="evidence-img" src="assets/log-11-1-vscode-github-link.png" alt="Git 버전과 전역 설정 확인 evidence">
@@ -746,7 +765,7 @@ A  docs/index.html</pre></div>
     </section>
 
     <section class="slide cover-slide">
-      <p class="kicker">Chapter 9</p>
+      <p class="kicker">Chapter 10</p>
       <h1>GitHub 제출 상태 확인</h1>
       <ul class="theme-list">
         <li>push 후 작업 트리 정리 상태 확인</li><li>제출 기준 커밋 확인</li><li>Git 원격 저장소 연결 확인</li><li>GitHub 공개 repository 상태 확인</li><li>GitHub Pages 배포 설정 확인</li><li>GitHub Pages 루트 URL 응답 확인</li><li>과제별 발표 URL 응답 확인</li>
@@ -805,7 +824,7 @@ origin	git@github.com:Logan-kim-the-philosopher/codyssey.git (push)</pre></div>
       <div class="completion-grid">
         <section>
           <h2>검증 완료</h2>
-          <ul><li>터미널 기본 조작</li><li>파일 권한 실습</li><li>Docker 설치 및 기본 점검</li><li>Docker 컨테이너 실행 실습</li><li>Docker 기본 운영 명령</li><li>Dockerfile 기반 커스텀 이미지 제작</li><li>Docker 바인드 마운트와 볼륨</li><li>Git 설정 및 GitHub 연동</li><li>GitHub 제출 상태 확인</li></ul>
+          <ul><li>터미널 기본 조작</li><li>파일 권한 실습</li><li>Docker 설치 및 기본 점검</li><li>Docker 컨테이너 실행 실습</li><li>Docker 기본 운영 명령</li><li>Dockerfile 기반 커스텀 이미지 제작</li><li>Docker 바인드 마운트 변경 반영</li><li>Docker 볼륨 영속성 검증</li><li>Git 설정 및 GitHub 연동</li><li>GitHub 제출 상태 확인</li></ul>
         </section>
         <section>
           <h2>산출물</h2>

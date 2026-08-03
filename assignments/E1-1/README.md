@@ -568,9 +568,9 @@ COPY site/ /usr/share/nginx/html/
   - ![Dockerfile 기반 커스텀 이미지 제작 증거](../../docs/E1-1/assets/log-8-2-port-8080-browser.png)
     - 원본: assignments/E1-1/evidence/port-8080-browser.png
 
-### Docker 바인드 마운트와 볼륨 / 바인드 마운트 변경 반영 확인
+### Docker 바인드 마운트 변경 반영 / 호스트 파일 변경 전후 컨테이너 응답 비교
 
-- 목적: 호스트 디렉토리를 컨테이너 웹 루트에 바인드 마운트해 호스트 파일 변경이 컨테이너 응답에 즉시 반영되는지 확인한다.
+- 목적: 호스트 디렉토리를 컨테이너 웹 루트에 읽기 전용으로 바인드 마운트하고, 호스트 파일 변경이 컨테이너 응답에 즉시 반영되는지 확인한다.
 - 액션: 호스트 bind-mount-site를 NGINX 웹 루트에 마운트하고 index.html 변경 전후 curl 비교
 - 터미널 로그:
   - 바인드 마운트용 호스트 폴더 준비
@@ -647,14 +647,14 @@ COPY site/ /usr/share/nginx/html/
 - 증빙: printf 작성 단계의 무출력, cat bind-mount-site/index.html 내용, curl http://localhost:8081 변경 전/후 응답, 브라우저 캡처
 - 산출물:
   - assignments/E1-1/bind-mount-site/index.html
-  - ![Docker 바인드 마운트와 볼륨 증거](../../docs/E1-1/assets/log-9-2-bind-mount-before.png)
+  - ![Docker 바인드 마운트 변경 반영 증거](../../docs/E1-1/assets/log-9-2-bind-mount-before.png)
     - 원본: assignments/E1-1/evidence/bind-mount-before.png
-  - ![Docker 바인드 마운트와 볼륨 증거](../../docs/E1-1/assets/log-9-3-bind-mount-after.png)
+  - ![Docker 바인드 마운트 변경 반영 증거](../../docs/E1-1/assets/log-9-3-bind-mount-after.png)
     - 원본: assignments/E1-1/evidence/bind-mount-after.png
 
-### Docker 바인드 마운트와 볼륨 / Docker 볼륨 영속성 검증
+### Docker 볼륨 영속성 검증 / 컨테이너 삭제 후 볼륨 데이터 보존 확인
 
-- 목적: Docker 볼륨에 저장한 데이터가 컨테이너 삭제 후에도 유지되는지 확인한다.
+- 목적: Docker 볼륨에 저장한 데이터가 컨테이너 수명과 분리되어 컨테이너 삭제 후에도 유지되는지 확인한다.
 - 액션: docker volume create 후 두 컨테이너에서 같은 볼륨 데이터 확인
 - 터미널 로그:
   - 컨테이너와 분리된 Docker 볼륨 생성
@@ -672,7 +672,7 @@ COPY site/ /usr/share/nginx/html/
     $ docker rm codyssey-vol-1
     codyssey-vol-1
     ```
-  - 컨테이너 삭제 후 볼륨 데이터 보존 확인
+  - 새 컨테이너에서 볼륨 데이터 확인
     ```bash
     $ docker run --name codyssey-vol-2 -v codyssey-volume-data:/data ubuntu bash -lc "cat /data/message.txt"
     persistent-data
