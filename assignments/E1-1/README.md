@@ -1,7 +1,7 @@
 # 환경 세팅
 
 - 과제 코드: E1-1
-- 발표 링크: [발표용 HTML](https://Logan-kim-the-philosopher.github.io/codyssey/)
+- 발표 링크: [발표용 HTML](https://Logan-kim-the-philosopher.github.io/codyssey/E1-1/)
 
 ## 과제 요약
 
