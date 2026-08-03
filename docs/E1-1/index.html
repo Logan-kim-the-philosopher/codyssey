@@ -498,7 +498,7 @@ codyssey-e1-1-web   1.0       925866189032   92MB</pre></div>
       <p class="kicker">Chapter 7</p>
       <h1>Docker 바인드 마운트와 볼륨</h1>
       <ul class="theme-list">
-        <li>바인드 마운트용 호스트 폴더 준비</li><li>호스트 파일을 컨테이너 웹 루트로 제공할 준비</li><li>읽기 전용 바인드 마운트 컨테이너 실행</li><li>호스트 파일 변경 전 컨테이너 응답 확인</li><li>호스트 파일 수정과 바인드 마운트 반영 준비</li><li>호스트 변경이 컨테이너 응답에 반영됨 확인</li><li>컨테이너와 분리된 Docker 볼륨 생성</li><li>첫 컨테이너에서 볼륨 데이터 쓰기</li><li>데이터 작성 컨테이너 삭제</li><li>컨테이너 삭제 후 볼륨 데이터 보존 확인</li><li>볼륨 검증 컨테이너 정리</li>
+        <li>바인드 마운트용 호스트 폴더 준비</li><li>변경 전 호스트 HTML 파일 작성</li><li>변경 전 호스트 HTML 내용 확인</li><li>읽기 전용 바인드 마운트 컨테이너 실행</li><li>호스트 파일 변경 전 컨테이너 응답 확인</li><li>호스트 HTML 파일 수정</li><li>수정 후 호스트 HTML 내용 확인</li><li>호스트 변경이 컨테이너 응답에 반영됨 확인</li><li>컨테이너와 분리된 Docker 볼륨 생성</li><li>첫 컨테이너에서 볼륨 데이터 쓰기</li><li>데이터 작성 컨테이너 삭제</li><li>컨테이너 삭제 후 볼륨 데이터 보존 확인</li><li>볼륨 검증 컨테이너 정리</li>
       </ul>
     </section>
     <section class="slide terminal-slide" data-terminal-slide>
@@ -514,7 +514,7 @@ codyssey-e1-1-web   1.0       925866189032   92MB</pre></div>
           <div data-step-part="output"></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 호스트 파일을 컨테이너 웹 루트로 제공할 준비</pre>
+          <pre class="theme"># 변경 전 호스트 HTML 파일 작성</pre>
           <div data-step-part="command"><pre class="cmd">$ printf '&lt;!doctype html&gt;
 &lt;html lang=&quot;ko&quot;&gt;
 &lt;body&gt;
@@ -522,6 +522,11 @@ codyssey-e1-1-web   1.0       925866189032   92MB</pre></div>
 &lt;/body&gt;
 &lt;/html&gt;
 ' &gt; bind-mount-site/index.html</pre></div>
+          <div data-step-part="output"></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># 변경 전 호스트 HTML 내용 확인</pre>
+          <div data-step-part="command"><pre class="cmd">$ cat bind-mount-site/index.html</pre></div>
           <div data-step-part="output"><pre class="out">&lt;!doctype html&gt;
 &lt;html lang=&quot;ko&quot;&gt;
 &lt;body&gt;
@@ -545,7 +550,7 @@ codyssey-e1-1-web   1.0       925866189032   92MB</pre></div>
 &lt;/html&gt;</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
-          <pre class="theme"># 호스트 파일 수정과 바인드 마운트 반영 준비</pre>
+          <pre class="theme"># 호스트 HTML 파일 수정</pre>
           <div data-step-part="command"><pre class="cmd">$ printf '&lt;!doctype html&gt;
 &lt;html lang=&quot;ko&quot;&gt;
 &lt;body&gt;
@@ -554,6 +559,16 @@ codyssey-e1-1-web   1.0       925866189032   92MB</pre></div>
 &lt;/html&gt;
 ' &gt; bind-mount-site/index.html</pre></div>
           <div data-step-part="output"></div>
+        </div>
+<div class="terminal-block" data-step-block>
+          <pre class="theme"># 수정 후 호스트 HTML 내용 확인</pre>
+          <div data-step-part="command"><pre class="cmd">$ cat bind-mount-site/index.html</pre></div>
+          <div data-step-part="output"><pre class="out">&lt;!doctype html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;body&gt;
+  &lt;h1&gt;Bind Mount After&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
         </div>
 <div class="terminal-block" data-step-block>
           <pre class="theme"># 호스트 변경이 컨테이너 응답에 반영됨 확인</pre>

@@ -577,7 +577,7 @@ COPY site/ /usr/share/nginx/html/
     ```bash
     $ mkdir -p bind-mount-site
     ```
-  - 호스트 파일을 컨테이너 웹 루트로 제공할 준비
+  - 변경 전 호스트 HTML 파일 작성
     ```bash
     $ printf '<!doctype html>
 <html lang="ko">
@@ -586,6 +586,10 @@ COPY site/ /usr/share/nginx/html/
 </body>
 </html>
 ' > bind-mount-site/index.html
+    ```
+  - 변경 전 호스트 HTML 내용 확인
+    ```bash
+    $ cat bind-mount-site/index.html
     <!doctype html>
     <html lang="ko">
     <body>
@@ -608,7 +612,7 @@ COPY site/ /usr/share/nginx/html/
     </body>
     </html>
     ```
-  - 호스트 파일 수정과 바인드 마운트 반영 준비
+  - 호스트 HTML 파일 수정
     ```bash
     $ printf '<!doctype html>
 <html lang="ko">
@@ -617,6 +621,16 @@ COPY site/ /usr/share/nginx/html/
 </body>
 </html>
 ' > bind-mount-site/index.html
+    ```
+  - 수정 후 호스트 HTML 내용 확인
+    ```bash
+    $ cat bind-mount-site/index.html
+    <!doctype html>
+    <html lang="ko">
+    <body>
+      <h1>Bind Mount After</h1>
+    </body>
+    </html>
     ```
   - 호스트 변경이 컨테이너 응답에 반영됨 확인
     ```bash
@@ -628,9 +642,9 @@ COPY site/ /usr/share/nginx/html/
     </body>
     </html>
     ```
-- 핵심 출력: 첫 번째 curl 응답에는 <h1>Bind Mount Before</h1>가 출력됨. 호스트의 bind-mount-site/index.html을 수정한 뒤 두 번째 curl 응답에는 <h1>Bind Mount After</h1>가 출력됨. 컨테이너 재빌드 없이 같은 localhost:8081 접속 결과가 변경됨.
-- 결과 해석: 바인드 마운트는 호스트 디렉토리를 컨테이너 내부 경로에 연결하므로, 호스트 파일 변경이 컨테이너 NGINX 응답에 즉시 반영된다. 이미지에 COPY한 파일과 달리 재빌드 없이 변경 전/후를 확인할 수 있었다. :ro 옵션은 컨테이너에서 해당 마운트를 읽기 전용으로 사용하도록 제한한다.
-- 증빙: curl http://localhost:8081 변경 전 Bind Mount Before 응답 및 변경 후 Bind Mount After 응답 브라우저 주소창 localhost:8081에서 Bind Mount Before와 Bind Mount After가 각각 보이는 전/후 화면 캡처 포함.
+- 핵심 출력: printf로 HTML 파일을 작성하는 단계 자체는 출력이 없고, cat으로 파일 내용을 확인했다. 이후 curl 응답에서 같은 HTML이 반환되었고, 호스트 파일 수정 후 다시 cat/curl 결과가 Bind Mount After로 바뀌었다.
+- 결과 해석: printf 리다이렉션은 표준출력을 파일로 보내므로 터미널 출력이 없다. cat으로 호스트 파일 내용을 확인한 뒤, 읽기 전용 바인드 마운트로 실행한 컨테이너의 NGINX 응답이 같은 내용을 반환하는지 curl로 검증했다. 이후 호스트 파일을 수정하고 cat/curl을 다시 비교해, 컨테이너를 재빌드하지 않아도 바인드 마운트된 호스트 파일 변경이 응답에 반영됨을 확인했다.
+- 증빙: printf 작성 단계의 무출력, cat bind-mount-site/index.html 내용, curl http://localhost:8081 변경 전/후 응답, 브라우저 캡처
 - 산출물:
   - assignments/E1-1/bind-mount-site/index.html
   - ![Docker 바인드 마운트와 볼륨 증거](../../docs/E1-1/assets/log-9-2-bind-mount-before.png)
