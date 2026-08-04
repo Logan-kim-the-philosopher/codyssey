@@ -1,0 +1,8 @@
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "8083:80"
+    environment:
+      APP_MODE: bonus-env
+    command: /bin/sh -c "printf \"<!doctype html>\n<html lang=\\\"ko\\\">\n<body>\n  <h1>Env Bonus</h1>\n  <p>APP_MODE=$${APP_MODE}</p>\n</body>\n</html>\n\" > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"

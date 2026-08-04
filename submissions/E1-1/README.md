@@ -40,14 +40,14 @@
 ### 상대 경로로 작업 폴더 이동
 
 ```bash
-$ cd codyssey/assignments/e1-1/work
+$ cd artifacts/e1-1/work
 ```
 
 ### 절대 경로로 현재 위치 확인
 
 ```bash
 $ pwd
-/Users/hskim/.codex/.chatgpt-projects/g-p-6a68a406143081918c0b2c94f50646d9/codyssey/assignments/e1-1/work
+/Users/hskim/.codex/.chatgpt-projects/g-p-6a68a406143081918c0b2c94f50646d9/artifacts/e1-1/work
 ```
 
 ### 숨김 항목 포함 초기 목록 확인
@@ -132,7 +132,7 @@ Codyssey terminal practice
 
 ### 증빙
 
-- assignments/E1-1/terminal-practice
+- submissions/E1-1/terminal-practice
 
 ## Chapter 2. 파일 권한 실습
 
@@ -210,7 +210,7 @@ drwxr-xr-x@ 3 hskim  staff  96 Aug  3 11:42 permission-practice
 
 ### 증빙
 
-- assignments/E1-1/permission-practice
+- submissions/E1-1/permission-practice
 
 ## Chapter 3. Docker 설치 및 기본 점검
 
@@ -468,14 +468,14 @@ $ curl http://localhost:8080
 
 ### 증빙
 
-- assignments/E1-1/web-server/Dockerfile
-- assignments/E1-1/web-server/site/index.html
+- submissions/E1-1/web-server/Dockerfile
+- submissions/E1-1/web-server/site/index.html
 ### 증빙
 
-- assignments/E1-1/web-server
+- submissions/E1-1/web-server
 ![웹 서버 컨테이너 실행과 포트 매핑 접속 증거](../../docs/E1-1/assets/log-8-2-port-8080-browser.png)
 
-`assignments/E1-1/evidence/port-8080-browser.png`
+`submissions/E1-1/evidence/port-8080-browser.png`
 
 
 ## Chapter 7. Docker 바인드 마운트 변경 반영
@@ -578,14 +578,14 @@ $ curl http://localhost:8081
 
 ### 증빙
 
-- assignments/E1-1/bind-mount-site/index.html
+- submissions/E1-1/bind-mount-site/index.html
 ![호스트 파일 변경 전후 컨테이너 응답 비교 증거](../../docs/E1-1/assets/log-9-2-bind-mount-before.png)
 
-`assignments/E1-1/evidence/bind-mount-before.png`
+`submissions/E1-1/evidence/bind-mount-before.png`
 
 ![호스트 파일 변경 전후 컨테이너 응답 비교 증거](../../docs/E1-1/assets/log-9-3-bind-mount-after.png)
 
-`assignments/E1-1/evidence/bind-mount-after.png`
+`submissions/E1-1/evidence/bind-mount-after.png`
 
 
 ## Chapter 8. Docker 볼륨 영속성 검증
@@ -736,7 +736,7 @@ main
 $ git status --short
 ?? .gitignore
 ?? README.md
-?? assignments/
+?? submissions/
 ?? docs/
 ```
 
@@ -746,14 +746,14 @@ $ git status --short
 $ printf '.omx/
 AGENTS.md
 codyssey/
-codyssey-e1-1-checklist.txt
+submissions/E1-1/checklist.txt
 ' > .gitignore
 ```
 
 ### 제출 대상 파일을 Git index에 추가
 
 ```bash
-$ git add README.md docs/ assignments/E1-1 .gitignore
+$ git add README.md docs/ submissions/E1-1 .gitignore
 ```
 
 ### 스테이징된 제출 파일 확인
@@ -762,10 +762,10 @@ $ git add README.md docs/ assignments/E1-1 .gitignore
 $ git status --short
 A  .gitignore
 A  README.md
-A  assignments/E1-1/README.md
-A  assignments/E1-1/checklist.txt
-A  assignments/E1-1/logs/practice.jsonl
-A  assignments/E1-1/web-server/Dockerfile
+A  submissions/E1-1/README.md
+A  submissions/E1-1/checklist.txt
+A  submissions/E1-1/logs/practice.jsonl
+A  submissions/E1-1/web-server/Dockerfile
 A  docs/E1-1/index.html
 A  docs/index.html
 ```
@@ -774,7 +774,7 @@ A  docs/index.html
 
 ![Git 버전과 전역 설정 확인 증거](../../docs/E1-1/assets/log-11-1-vscode-github-link.png)
 
-`assignments/E1-1/evidence/vscode-github-link.png`
+`submissions/E1-1/evidence/vscode-github-link.png`
 
 ### 증빙
 

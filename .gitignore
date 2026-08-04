@@ -1,4 +1,5 @@
 .omx/
+.codex/
 AGENTS.md
-codyssey/
-codyssey-e1-1-checklist.txt
+artifacts/
+.DS_Store
