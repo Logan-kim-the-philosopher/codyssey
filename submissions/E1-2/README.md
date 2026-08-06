@@ -1,6 +1,6 @@
 # E1-2 파이썬 이해하기
 
-- 발표 링크: 발표용 HTML 링크 준비 중
+- 발표 링크: [발표용 HTML](https://Logan-kim-the-philosopher.github.io/codyssey/E1-2/)
 
 ## 챕터
 
