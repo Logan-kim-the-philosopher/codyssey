@@ -56,5 +56,12 @@
       "hint": "함수 바깥으로 값을 다시 보내는 단어입니다."
     }
   ],
-  "best_score": 0
+  "best_score": 0,
+  "score_history": [
+    {
+      "played_at": "2026-08-06T21:34:24",
+      "total_questions": 1,
+      "score": 0
+    }
+  ]
 }

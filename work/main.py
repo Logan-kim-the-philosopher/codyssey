@@ -1,5 +1,6 @@
 import json
 import random
+from datetime import datetime
 
 
 class Quiz:
@@ -27,10 +28,11 @@ class Quiz:
 
 
 class QuizGame:
-    # 게임 전체에서 퀴즈 목록과 최고 점수를 관리한다.
-    def __init__(self, quizzes, best_score):
+    # 게임 전체에서 퀴즈 목록, 최고 점수, 플레이 기록을 관리한다.
+    def __init__(self, quizzes, best_score, score_history):
         self.quizzes = quizzes
         self.best_score = best_score
+        self.score_history = score_history
 
     # 파일이 없을 때 사용할 기본 퀴즈 목록을 만든다.
     @staticmethod
@@ -80,7 +82,8 @@ class QuizGame:
         print("3. 퀴즈 목록")
         print("4. 퀴즈 삭제")
         print("5. 점수 확인")
-        print("6. 종료")
+        print("6. 플레이 기록")
+        print("7. 종료")
 
     # 메뉴 입력이 비어 있는지 먼저 검사한다.
     def is_blank_choice(self, choice):
@@ -92,11 +95,11 @@ class QuizGame:
 
     # 메뉴 입력이 허용된 번호인지 검사한다.
     def is_valid_menu_choice(self, choice):
-        return choice in ["1", "2", "3", "4", "5", "6"]
+        return choice in ["1", "2", "3", "4", "5", "6", "7"]
 
     # 종료 메뉴를 선택했는지 검사한다.
     def is_exit_choice(self, choice):
-        return choice == "6"
+        return choice == "7"
 
     # 출제할 퀴즈가 1개 이상 있는지 확인한다.
     def has_quizzes(self):
@@ -143,6 +146,15 @@ class QuizGame:
             self.best_score = score
             print("최고 점수가 갱신되었습니다.")
 
+    # 이번 플레이 결과를 날짜/시간과 함께 기록 목록에 추가한다.
+    def record_score_history(self, total_questions, score):
+        self.score_history.append(
+            {
+                "played_at": datetime.now().isoformat(timespec="seconds"),
+                "total_questions": total_questions,
+                "score": score,
+            }
+        )
 
     # 저장된 모든 퀴즈를 순서대로 출제하고 맞은 개수를 센다.
     def play_all_quizzes(self):
@@ -175,6 +187,7 @@ class QuizGame:
 
             print("오답입니다.")
 
+        self.record_score_history(count, score)
         self.update_best_score(score)
         self.save_to_file()
         print(f"이번 점수: {score}")
@@ -226,6 +239,19 @@ class QuizGame:
     def show_best_score(self):
         print(f"현재 최고 점수: {self.best_score}")
 
+    # 저장된 플레이 기록을 최근 순서대로 출력한다.
+    def show_score_history(self):
+        if len(self.score_history) == 0:
+            print("아직 저장된 플레이 기록이 없습니다.")
+            return
+
+        print("플레이 기록")
+        for number, history in enumerate(self.score_history, start=1):
+            print(
+                f"{number}. {history['played_at']} | "
+                f"{history['total_questions']}문제 | "
+                f"{history['score']}점"
+            )
 
     # 번호로 퀴즈 1개를 삭제하고 파일에 저장한다.
     def delete_quiz(self):
@@ -295,6 +321,9 @@ class QuizGame:
                 self.show_best_score()
                 continue
 
+            if choice == "6":
+                self.show_score_history()
+                continue
 
             if self.is_exit_choice(choice):
                 print("프로그램을 종료합니다.")
@@ -313,6 +342,7 @@ class QuizGame:
                 for quiz in self.quizzes
             ],
             "best_score": self.best_score,
+            "score_history": self.score_history,
         }
 
     # 현재 게임 상태를 state.json 파일에 저장한다.
@@ -331,13 +361,13 @@ class QuizGame:
                 data = json.load(file)
         except FileNotFoundError:
             print("저장 파일이 없어 기본 퀴즈로 시작합니다.")
-            return cls(cls.make_default_quizzes(), 0)
+            return cls(cls.make_default_quizzes(), 0, [])
         except json.JSONDecodeError:
             print("저장 파일이 손상되어 기본 퀴즈로 복구합니다.")
-            return cls(cls.make_default_quizzes(), 0)
+            return cls(cls.make_default_quizzes(), 0, [])
         except OSError:
             print("저장 파일을 읽는 중 오류가 발생해 기본 퀴즈로 시작합니다.")
-            return cls(cls.make_default_quizzes(), 0)
+            return cls(cls.make_default_quizzes(), 0, [])
 
         quizzes = [
             Quiz(
@@ -348,7 +378,7 @@ class QuizGame:
             )
             for item in data["quizzes"]
         ]
-        return cls(quizzes, data["best_score"])
+        return cls(quizzes, data["best_score"], data.get("score_history", []))
 
 
 def main():
