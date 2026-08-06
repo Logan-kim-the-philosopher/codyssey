@@ -83,6 +83,40 @@ class QuizGame:
     def is_exit_choice(self, choice):
         return choice == "2"
 
+    # 출제할 퀴즈가 1개 이상 있는지 확인한다.
+    def has_quizzes(self):
+        return len(self.quizzes) > 0
+
+    # 이번 플레이 점수가 더 높으면 최고 점수를 갱신한다.
+    def update_best_score(self, score):
+        if score > self.best_score:
+            self.best_score = score
+            print("최고 점수가 갱신되었습니다.")
+
+    # 저장된 모든 퀴즈를 순서대로 출제하고 맞은 개수를 센다.
+    def play_all_quizzes(self):
+        if not self.has_quizzes():
+            print("등록된 퀴즈가 없어 퀴즈를 시작할 수 없습니다.")
+            return
+
+        score = 0
+
+        for quiz in self.quizzes:
+            quiz.show()
+            answer = int(input("정답 번호: ").strip())
+
+            if quiz.check_answer(answer):
+                print("정답입니다.")
+                score += 1
+                continue
+
+            print("오답입니다.")
+
+        self.update_best_score(score)
+        self.save_to_file()
+        print(f"이번 점수: {score}")
+        print(f"현재 최고 점수: {self.best_score}")
+
     # 메뉴 반복 흐름을 게임 객체 안에서 실행한다.
     def run_menu(self):
         while True:
@@ -101,6 +135,10 @@ class QuizGame:
 
             if not self.is_valid_menu_choice(choice):
                 print("1 또는 2만 입력할 수 있습니다.")
+                continue
+
+            if choice == "1":
+                self.play_all_quizzes()
                 continue
 
             if self.is_exit_choice(choice):
@@ -149,19 +187,23 @@ class QuizGame:
 def main():
     # 저장 파일을 우선 읽고, 없으면 기본 퀴즈로 게임을 시작한다.
     game = QuizGame.load_from_file()
-    quiz1 = game.quizzes[0]
 
     # 객체에 저장된 값과 메서드 동작을 확인한다.
     print("퀴즈 게임 시작")
-    quiz1.show()
-    print(quiz1.check_answer(2))
-    print(quiz1.check_answer(1))
     print(game.quizzes)
     print(game.best_score)
     print(game.to_dict())
     game.save_to_file()
     loaded_game = QuizGame.load_from_file()
     print(loaded_game.to_dict())
+
+    if game.has_quizzes():
+        quiz1 = game.quizzes[0]
+        quiz1.show()
+        print(quiz1.check_answer(2))
+        print(quiz1.check_answer(1))
+    else:
+        print("확인할 기본 퀴즈가 없습니다.")
 
     # 메뉴 반복 흐름도 게임 객체에 맡긴다.
     game.run_menu()
