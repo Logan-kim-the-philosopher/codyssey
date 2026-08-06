@@ -4,9 +4,9 @@
   "key": "e1-2",
   "title": "파이썬 이해하기",
   "runId": "e1-2-20260804-055226Z",
-  "status": "exported",
+  "status": "practicing",
   "createdAt": "2026-08-04T05:52:26.266Z",
-  "updatedAt": "2026-08-06T13:23:07.630Z",
+  "updatedAt": "2026-08-06T13:34:02.157Z",
   "mission": "분야\n입학연수\n구분\n개발 입문\n학습시간\n40시간\n컴퓨터에게 명령 내리는 말(파이썬) 처음 배우기\n문제기술\n기술적 설명\n⁠⁠⁠⁠⁠⁠⁠\n\n1. 미션 소개\n프로그래밍 언어를 배우는 가장 확실한 방법은, 동작하는 프로그램을 처음부터 끝까지 직접 만들어 보는 것입니다.\n\n문법을 아는 것과 그 문법으로 하나의 프로그램을 완성하는 것은 전혀 다른 경험입니다.\n\n이 미션에서는 그 차이를 직접 확인합니다.\n\nPython과 Git은 \"내가 만든 프로그램이 왜 이렇게 동작하는지\"를 설명하고, 그 과정을 기록하며 성장하기 위한 핵심 도구입니다.\n\n이 미션에서는 터미널에서 동작하는 나만의 퀴즈 게임을 처음부터 끝까지 구현합니다.\n\nPython 기본 문법을 사용해 입력/출력 흐름을 만들고, 클래스(객체 지향)로 코드를 역할별로 구조화합니다.\n\n아울러 JSON 파일 저장을 통해 프로그램을 종료해도 퀴즈와 점수가 유지되도록 \"데이터 영속성\"을 경험합니다.\n\n또한, Git으로 변경 이력을 관리합니다.\n\n기능 단위로 커밋하고, 브랜치를 나눠 작업한 뒤 병합하며, GitHub에 저장소를 공개합니다.\n\n이 경험은 이후 팀 협업(브랜치 전략, PR, 코드 리뷰)으로 자연스럽게 확장됩니다.\n\n2. 최종 결과물\n다음 3가지 조건을 만족하는 Python 콘솔 프로그램 1개와 GitHub 저장소 1개를 완성한다.\n\n동작하는 퀴즈 게임\n프로그램 실행 시 메뉴에서 번호를 선택하면, 선택 결과에 따라 퀴즈 출제/등록/목록/점수 확인/종료 화면이 출력된다.\n퀴즈 풀기, 퀴즈 추가, 퀴즈 목록, 점수 확인 기능이 동작한다.\n본인이 선택한 주제의 퀴즈가 5개 이상 포함되어 있다.\n프로그램을 종료하고 다시 실행해도 추가한 퀴즈와 최고 점수가 유지된다. (파일 저장)\n코드 구조\n최소 2개 이상의 클래스가 정의되어 있다. (예: Quiz, QuizGame)\n기능별로 메서드가 분리되어 있다. (입력 처리/게임 진행/저장 로직 등)\n데이터는 프로젝트 루트의 state.json에 UTF-8 인코딩으로 저장하고 불러온다.\nGitHub 저장소\n프로젝트 코드가 GitHub에 업로드되어 있다.\n최소 10개 이상의 의미 있는 커밋이 존재한다.\n최소 1회 이상의 브랜치 생성 및 병합(checkout, merge) 기록이 있다.\nclone과 pull을 각각 1회 이상 사용한 기록이 있다.\nREADME.md에 아래 항목이 포함되어 있다.\n프로젝트 개요\n퀴즈 주제 선정 이유\n실행 방법\n기능 목록\n파일 구조\n데이터 파일 설명(state.json 등)\n3. 과제 목표\n이 과제를 마친 후, 학습자는 아래를 스스로 설명할 수 있어야 한다.\n\nPython 기초\n\n변수가 무엇이고, 왜 사용하는지 설명할 수 있다.\nint, str, bool, list, dict의 차이를 설명할 수 있다.\nif/elif/else로 조건에 따라 다른 동작을 수행할 수 있다.\nfor와 while의 차이를 설명하고 적절히 선택할 수 있다.\n함수를 정의하고, 매개변수와 반환값을 활용할 수 있다.\n클래스와 객체\n\n클래스가 무엇이고, 왜 사용하는지 설명할 수 있다.\n__init__ 메서드와 self의 역할을 설명할 수 있다.\n클래스의 속성(attribute)과 메서드(method)를 정의하고 활용할 수 있다.\n파일 입출력\n\n파일을 열고, 읽고, 쓰는 기본 과정을 설명할 수 있다.\nJSON 형식이 무엇이고, 왜 데이터 저장에 사용하는지 설명할 수 있다.2\ntry/except를 사용하여 오류를 처리할 수 있다.\nGit 기초\n\nGit이 무엇이고 왜 필요한지 설명할 수 있다.\ninit, add, commit, push, pull, checkout, clone이 각각 무엇을 하는지 설명할 수 있다.\n브랜치를 생성하고 병합할 수 있다.\n원격 저장소를 clone하고, pull로 변경사항을 가져올 수 있다.\n4. 기능 요구 사항\n다음 요구사항을 모두 만족해야 한다. 구현 방법과 코드 구조는 스스로 설계한다.\n\nGit 저장소 설정\nGitHub에 새 저장소를 생성한다.\n로컬에 저장소를 설정한다.\n.gitignore, README.md 파일을 생성한다.\nGit: 초기 설정 완료 후 첫 번째 commit과 push를 수행한다.\n메뉴 기능\n프로그램 실행 시 메뉴가 출력되어야 한다.\n사용자가 기능을 선택할 수 있어야 한다.\n종료 기능이 있어야 한다.\n잘못된 입력에 대한 처리가 있어야 한다.\nGit: 메뉴 기능 완성 후 커밋한다.\n공통 입력/예외 처리 기준 (최소 요구)\n숫자 입력이 필요한 곳에서 다음 최소 케이스를 처리해야 한다.\n입력 앞뒤 공백 제거 후 처리한다. (예: 1)\n숫자 변환 실패(예: abc) 시 안내 메시지 출력 후 재입력 흐름으로 복귀한다.\n허용 범위 밖 숫자(예: 메뉴 9, 정답 0) 입력 시 안내 메시지 출력 후 재입력 흐름으로 복귀한다.\n빈 입력(그냥 Enter)인 경우 안내 메시지 출력 후 재입력 흐름으로 복귀한다.\n프로그램 실행 중 Ctrl+C(KeyboardInterrupt) 또는 입력 스트림 종료(EOFError)가 발생해도 “비정상 종료”하지 않도록 처리한다.\n안내 메시지를 출력하고, 가능한 범위에서 저장 후 안전하게 종료한다.\n데이터 파일이 없거나 손상된 경우에도 프로그램이 실행 가능해야 한다.\n파일이 없으면 기본 퀴즈 데이터를 사용한다.\n파일이 손상되었으면 안내 메시지를 출력하고, 기본 퀴즈 데이터로 복구(또는 초기화)한다.\nQuiz 클래스\n개별 퀴즈를 표현하는 Quiz 클래스를 정의한다.\n속성: 문제(question), 선택지(choices), 정답(answer)\n선택지는 4개를 기본으로 한다.\n정답은 1~4 중 하나의 번호로 관리하는 방식을 권장한다. (구현에서 일관성 유지)\n메서드: 퀴즈 출력, 정답 확인 등 필요한 기능을 구현한다.\nGit: Quiz 클래스 작성 후 커밋한다.\n기본 퀴즈 데이터\n본인이 선택한 주제의 퀴즈 5개 이상을 직접 작성한다.\n각 퀴즈는 문제, 선택지(4개), 정답을 포함한다.\nQuiz 클래스의 인스턴스로 퀴즈를 생성한다.\nGit: 기본 퀴즈 데이터 작성 후 커밋한다.\n퀴즈 풀기 (브랜치 활용)\nGit: main 브랜치 이외의 추가 브랜치를 생성하고 작업한다.\n저장된 퀴즈를 출제한다.\n사용자가 정답을 입력할 수 있다.\n정답/오답 여부를 알려준다.\n모든 문제를 풀면 결과를 표시한다.\n퀴즈가 없는 경우를 처리한다.\nGit: 기능 완성 후 커밋하고 main 브랜치로 병합한다.\n퀴즈 추가\n새로운 퀴즈를 등록할 수 있다.\n필요한 정보(문제, 선택지 4개, 정답 번호)를 입력받는다.\n잘못된 입력에 대한 처리가 있어야 한다. (공통 입력/예외 처리 기준 포함)\n추가한 퀴즈를 파일에 저장한다.\nGit: 퀴즈 추가 기능 완성 후 커밋한다.\n퀴즈 목록\n저장된 퀴즈 목록을 확인할 수 있다.\n퀴즈가 없는 경우를 처리한다.\nGit: 퀴즈 목록 기능 완성 후 커밋한다.\n점수 확인\n최고 점수를 확인할 수 있다.\n퀴즈를 풀 때마다 최고 점수와 비교하고 갱신한다.\n최고 점수를 파일에 저장한다.\n아직 퀴즈를 풀지 않은 경우를 처리한다.\nGit: 점수 기능 완성 후 커밋한다.\nQuizGame 클래스\n* 게임 전체를 관리하는 QuizGame 클래스를 정의한다.\n* 속성: 퀴즈 목록, 최고 점수 등\n* 메서드: 메뉴 표시, 퀴즈 풀기, 퀴즈 추가, 목록 보기, 점수 확인, 파일 저장/불러오기 등\n* Git: 클래스 구조 정리 후 커밋한다.\n파일 저장/불러오기 (**state.json**)\n* 퀴즈 데이터와 최고 점수를 프로젝트 루트의 state.json에 저장하는 기능을 구현한다. (UTF-8 인코딩 권장)\n* JSON 파일에서 데이터를 불러오는 기능을 구현한다.\n* 파일이 없는 경우(첫 실행) 기본 퀴즈 데이터를 사용한다.\n* 파일이 손상되었거나 읽기/쓰기 오류가 발생한 경우를 try/except로 처리한다.\n* 최소 스키마 예시(데이터 형태 참고; 키 이름/구조는 일관되게 유지):\n* quizzes: 퀴즈 목록\n* best_score: 최고 점수(또는 최고 정답 수 등)\n* Git: 파일 입출력 기능 완성 후 커밋한다.\nREADME.md 작성\n* README.md에 아래 항목이 포함되어야 한다.\n* 프로젝트 개요\n* 퀴즈 주제와 선정 이유\n* 실행 방법\n* 기능 목록\n* 파일 구조\n* 데이터 파일 설명(state.json 경로/역할/스키마)\n* Git: README 작성 후 최종 푸시한다.\nGit 저장소 복제 실습\n* 이 단계는 clone과 pull 명령어를 자연스럽게 경험하기 위한 실습이다. 퀴즈 게임 개발이 완료된 후 아래 절차를 순서대로 수행한다.\n* 미션 수행 저장소를 clone하여 별도의 로컬 디렉터리에 복제한다.\n* 복제된 저장소에서 간단한 변경(예: README에 한 줄 추가)을 하고 commit → push한다.\n* 기존 로컬 작업 디렉터리에서 pull로 변경사항을 가져온다.\n* pull 받은 내용이 정상적으로 반영되었는지 확인한다.\n5. 보너스 과제 (선택)\n랜덤 출제\n퀴즈 풀기 시 문제 순서를 랜덤하게 섞는다.\nrandom 모듈 사용법을 스스로 학습한다.\n문제 수 선택\n퀴즈 풀기 시 몇 문제를 풀지 선택할 수 있다.\n힌트 기능\nQuiz 클래스에 힌트 속성을 추가한다.\n풀이 중 힌트를 볼 수 있다.\n힌트 사용 시 점수 차감 로직을 구현한다.\n퀴즈 삭제 기능\n등록된 퀴즈를 삭제할 수 있다.\n삭제 후 파일에 반영한다.\n점수 기록 히스토리\n최고 점수뿐 아니라 모든 게임 기록을 저장한다.\n날짜/시간, 푼 문제 수, 점수를 기록한다.\n개발환경\n6. 개발 환경\nPython 3.10 이상을 사용해야 한다.\n외부 라이브러리 없이 기본 문법만 사용해야 한다. (표준 라이브러리 사용 가능)\n제약조건\n7. 제약 사항\n데이터 저장 규칙\n데이터 파일은 프로젝트 루트의 state.json을 기본으로 한다.\n파일 인코딩은 UTF-8을 권장한다.\n코드 구조\n모든 코드를 한 함수에 작성하지 않고, 기능별로 함수를 분리해야 한다.\n최소 2개 이상의 클래스로 역할을 분리해야 한다.\nGit 워크플로우\n최소 10개 이상의 의미 있는 커밋이 있어야 한다.\n기능 단위 커밋(메뉴/Quiz/플레이/추가/저장/README 등) + 커밋 메시지에 변경 요약 포함\n형식적인 커밋 메시지를 피하고, 아래처럼 작업 내용을 드러내는 형식을 권장한다.\nFeat: 퀴즈 출제 기능 구현\nFix: 점수 계산 오류 수정\nDocs: README 실행 방법 추가\nRefactor: QuizGame 책임 분리\nGit 기초 명령어 7종(init, add, commit, push, pull, checkout, clone)을 각각 한 번 이상 사용해야 한다.\n제출물\nGitHub 저장소 URL\n개발 환경 설정 스크린샷(예: VSCode, Python 버전, Git 설정)\n프로그램 실행 결과 스크린샷(퀴즈 추가, 목록, 플레이, 점수)\ngit log --oneline --graph 결과 스크린샷\nTest Case\n8. 결과 예시\n아래는 정답이 아니라 참고 예시다. 실제 문구와 디자인은 달라도 된다.\n\n메뉴 화면(예시)\n\n    ========================================\n            🎯 나만의 퀴즈 게임 🎯\n    ========================================\n    1. 퀴즈 풀기\n    2. 퀴즈 추가\n    3. 퀴즈 목록\n    4. 점수 확인\n    5. 종료\n    ========================================\n    선택:\n\n퀴즈 풀기(예시)\n\n    선택: 1\n\n    📝 퀴즈를 시작합니다! (총 5문제)\n\n    ----------------------------------------\n    [문제 1]\n    마블 시네마틱 유니버스에서 타노스가 모은 인피니티 스톤의 개수는?\n\n    1. 4개\n    2. 5개\n    3. 6개\n    4. 7개\n\n    정답 입력: 3\n    ✅ 정답입니다!\n\n    ----------------------------------------\n    ... (중략) ...\n\n    ========================================\n    🏆 결과: 5문제 중 4문제 정답! (80점)\n    🎉 새로운 최고 점수입니다!\n    ========================================\n\n퀴즈 추가(예시)\n\n선택: 2\n\n📌 새로운 퀴즈를 추가합니다.\n\n문제를 입력하세요: 영화 '기생충'의 감독은?\n선택지 1: 박찬욱\n선택지 2: 봉준호\n선택지 3: 김기덕\n선택지 4: 이창동\n정답 번호 (1-4): 2\n\n✅ 퀴즈가 추가되었습니다!\n\n퀴즈 목록(예시)\n\n    선택: 3\n\n    📋 등록된 퀴즈 목록 (총 6개)\n\n    ----------------------------------------\n    [1] 마블 시네마틱 유니버스에서 타노스가 모은 인피니티 스톤의 개수는?\n    [2] 영화 '인터스텔라'에서 주인공이 방문하지 않은 행성은?\n    ...\n    ----------------------------------------\n\n점수 확인(예시)\n\n    선택: 4\n\n    🏆 최고 점수: 80점 (5문제 중 4문제 정답)\n\n잘못된 입력 처리(예시)\n\n    선택: abc\n    ⚠️ 잘못된 입력입니다. 1-5 사이의 숫자를 입력하세요.\n\n    선택: 9\n    ⚠️ 잘못된 입력입니다. 1-5 사이의 숫자를 입력하세요.\n\n프로그램 재시작 후 데이터 유지 확인(예시)\n\n    ========================================\n            🎯 나만의 퀴즈 게임 🎯\n    ========================================\n    📂 저장된 데이터를 불러왔습니다. (퀴즈 6개, 최고점수 80점)\n    ========================================\n    1. 퀴즈 풀기\n    2. 퀴즈 추가\n    ...\n\nstate.json 예시 (데이터 형태 참고)\n\n{\n    \"quizzes\": [\n        {\n            \"question\": \"Python의 창시자는?\",\n            \"choices\": [\"Guido\", \"Linus\", \"Bjarne\", \"James\"],\n            \"answer\": 1\n        }\n    ],\n    \"best_score\": 3\n}\n\nREADME 제출 체크리스트\n프로젝트 개요\n퀴즈 주제 선정 이유\n실행 방법 (예: python main.py)\n기능 목록(퀴즈 풀기/추가/목록/점수)\n파일 구조\n데이터 파일 설명(state.json 경로/역할/필드 구조)\n실행 화면 스크린샷 구성 예시(학습자 캡처)\ndocs/screenshots/menu.png\ndocs/screenshots/play.png\ndocs/screenshots/add_quiz.png\ndocs/screenshots/score.png",
   "checklist": "",
   "plan": {
@@ -3992,12 +3992,73 @@
       "interpretation": "Python 3.10 이상 요구를 충족하고, work 경로에 main.py와 state.json 계열 파일이 존재해 제출 실행 폴더도 분명하다.",
       "evidence": "python3 --version, git --version, work 디렉터리 pwd/ls 출력",
       "artifacts": []
+    },
+    {
+      "id": "log-38",
+      "at": "2026-08-06T13:34:02.157Z",
+      "chapter": "README, Git 로그, clone/pull 제출 증거",
+      "theme": "GitHub 저장소 연결과 업로드 확인",
+      "action": "공개 GitHub 저장소에 과제 코드 브랜치와 제출 Pages 출력을 업로드했다.",
+      "purpose": "과제 코드를 공개 저장소에 올리고 GitHub Pages 경로가 생성되는지 확인한다.",
+      "workDir": "artifacts/e1-2/work",
+      "frames": [
+        {
+          "type": "terminal-step",
+          "theme": "GitHub 저장소 연결과 업로드 확인",
+          "command": "git -C /Users/hskim/Projects/codyssey/artifacts/e1-2 push origin main:e1-2-submission codex/e1-2-history-rebuild:e1-2-history-rebuild codex/e1-2-readme-evidence:e1-2-readme-evidence",
+          "output": "Everything up-to-date",
+          "cwd": "artifacts/e1-2/work"
+        },
+        {
+          "type": "terminal-step",
+          "theme": "GitHub 저장소 연결과 업로드 확인",
+          "command": "git -C /Users/hskim/Projects/codyssey push origin main",
+          "output": "To github.com:Logan-kim-the-philosopher/codyssey.git\n   2a39fe5..c061820  main -> main",
+          "cwd": "artifacts/e1-2/work"
+        },
+        {
+          "type": "terminal-step",
+          "theme": "GitHub 저장소 연결과 업로드 확인",
+          "command": "gh api repos/Logan-kim-the-philosopher/codyssey/pages",
+          "output": "{\"url\":\"https://api.github.com/repos/Logan-kim-the-philosopher/codyssey/pages\",\"status\":\"building\",\"cname\":null,\"custom_404\":false,\"html_url\":\"https://logan-kim-the-philosopher.github.io/codyssey/\",\"build_type\":\"legacy\",\"source\":{\"branch\":\"main\",\"path\":\"/docs\"},\"public\":true,\"protected_domain_state\":null,\"pending_domain_unverified_at\":null,\"https_enforced\":true}",
+          "cwd": "artifacts/e1-2/work"
+        }
+      ],
+      "editorChanges": [],
+      "terminalSteps": [
+        {
+          "theme": "GitHub 저장소 연결과 업로드 확인",
+          "command": "git -C /Users/hskim/Projects/codyssey/artifacts/e1-2 push origin main:e1-2-submission codex/e1-2-history-rebuild:e1-2-history-rebuild codex/e1-2-readme-evidence:e1-2-readme-evidence",
+          "output": "Everything up-to-date",
+          "cwd": "artifacts/e1-2/work"
+        },
+        {
+          "theme": "GitHub 저장소 연결과 업로드 확인",
+          "command": "git -C /Users/hskim/Projects/codyssey push origin main",
+          "output": "To github.com:Logan-kim-the-philosopher/codyssey.git\n   2a39fe5..c061820  main -> main",
+          "cwd": "artifacts/e1-2/work"
+        },
+        {
+          "theme": "GitHub 저장소 연결과 업로드 확인",
+          "command": "gh api repos/Logan-kim-the-philosopher/codyssey/pages",
+          "output": "{\"url\":\"https://api.github.com/repos/Logan-kim-the-philosopher/codyssey/pages\",\"status\":\"building\",\"cname\":null,\"custom_404\":false,\"html_url\":\"https://logan-kim-the-philosopher.github.io/codyssey/\",\"build_type\":\"legacy\",\"source\":{\"branch\":\"main\",\"path\":\"/docs\"},\"public\":true,\"protected_domain_state\":null,\"pending_domain_unverified_at\":null,\"https_enforced\":true}",
+          "cwd": "artifacts/e1-2/work"
+        }
+      ],
+      "commands": [],
+      "terminalOutputs": [],
+      "outputs": [
+        "기존 공개 저장소 codyssey에 E1-2 브랜치와 Pages 출력을 업로드했다."
+      ],
+      "interpretation": "assignment 저장소의 전용 브랜치들은 공개 codyssey 저장소로 push됐고, 루트 저장소 main도 push되어 /docs 기반 Pages 재빌드가 시작됐다.",
+      "evidence": "assignment repo push, root repo push, gh pages API 출력",
+      "artifacts": []
     }
   ],
   "github": {
-    "owner": null,
-    "repo": null,
-    "pagesUrl": null
+    "owner": "Logan-kim-the-philosopher",
+    "repo": "codyssey",
+    "pagesUrl": "https://logan-kim-the-philosopher.github.io/codyssey/E1-2/"
   },
   "paths": {
     "workDir": "artifacts/e1-2/work",
@@ -4009,7 +4070,7 @@
   "git": {
     "repoRoot": "/Users/hskim/Projects/codyssey/artifacts/e1-2",
     "branch": "main",
-    "head": "a12d1b7a2dfaaf17da38126b1c8424ef4f9489a2"
+    "head": "b6605c98a5b53b21456ef0b4769422ace37222e3"
   },
   "trackedFiles": [
     "submissions/E1-2",
@@ -4361,6 +4422,25 @@
     {
       "at": "2026-08-06T13:23:07.631Z",
       "event": "exported"
+    },
+    {
+      "at": "2026-08-06T13:31:39.571Z",
+      "event": "github_configured",
+      "owner": "Logan-kim-the-philosopher",
+      "repo": "codyssey"
+    },
+    {
+      "at": "2026-08-06T13:31:59.799Z",
+      "event": "rendered"
+    },
+    {
+      "at": "2026-08-06T13:31:59.916Z",
+      "event": "exported"
+    },
+    {
+      "at": "2026-08-06T13:34:02.157Z",
+      "event": "practice_logged",
+      "id": "log-38"
     }
   ],
   "selectedBonuses": [
