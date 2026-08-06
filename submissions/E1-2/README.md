@@ -1,6 +1,6 @@
 # E1-2 파이썬 이해하기
 
-- 발표 링크: [발표용 HTML](https://Logan-kim-the-philosopher.github.io/codyssey/E1-2/)
+- 발표 링크: [발표용 HTML](https://logan-kim-the-philosopher.github.io/codyssey/E1-2/)
 
 ## 챕터
 
@@ -23880,10 +23880,31 @@ drwxr-xr-x@ 3 hskim  staff     96 Aug  6 20:05 __pycache__
 -rw-r--r--@ 1 hskim  staff   1356 Aug  6 19:39 state.pre_hint_backup.json
 ```
 
+### GitHub 저장소 연결과 업로드 확인
+
+```bash
+$ git -C /Users/hskim/Projects/codyssey/artifacts/e1-2 push origin main:e1-2-submission codex/e1-2-history-rebuild:e1-2-history-rebuild codex/e1-2-readme-evidence:e1-2-readme-evidence
+Everything up-to-date
+```
+
+### GitHub 저장소 연결과 업로드 확인
+
+```bash
+$ git -C /Users/hskim/Projects/codyssey push origin main
+To github.com:Logan-kim-the-philosopher/codyssey.git
+   2a39fe5..c061820  main -> main
+```
+
+### GitHub 저장소 연결과 업로드 확인
+
+```bash
+$ gh api repos/Logan-kim-the-philosopher/codyssey/pages
+{"url":"https://api.github.com/repos/Logan-kim-the-philosopher/codyssey/pages","status":"building","cname":null,"custom_404":false,"html_url":"https://logan-kim-the-philosopher.github.io/codyssey/","build_type":"legacy","source":{"branch":"main","path":"/docs"},"public":true,"protected_domain_state":null,"pending_domain_unverified_at":null,"https_enforced":true}
+```
+
 ### 증빙
 
 - artifacts/e1-2/README.md
 ### 증빙
 
 - artifacts/e1-2/README.md
-
