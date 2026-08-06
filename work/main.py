@@ -65,7 +65,11 @@ class QuizGame:
     # 메뉴 문구를 한 곳에서 출력한다.
     def show_menu(self):
         print("1. 퀴즈 풀기")
-        print("2. 종료")
+        print("2. 퀴즈 추가")
+        print("3. 퀴즈 목록")
+        print("4. 퀴즈 삭제")
+        print("5. 점수 확인")
+        print("6. 종료")
 
     # 메뉴 입력이 비어 있는지 먼저 검사한다.
     def is_blank_choice(self, choice):
@@ -77,11 +81,11 @@ class QuizGame:
 
     # 메뉴 입력이 허용된 번호인지 검사한다.
     def is_valid_menu_choice(self, choice):
-        return choice in ["1", "2"]
+        return choice in ["1", "2", "3", "4", "5", "6"]
 
     # 종료 메뉴를 선택했는지 검사한다.
     def is_exit_choice(self, choice):
-        return choice == "2"
+        return choice == "6"
 
     # 출제할 퀴즈가 1개 이상 있는지 확인한다.
     def has_quizzes(self):
@@ -117,6 +121,80 @@ class QuizGame:
         print(f"이번 점수: {score}")
         print(f"현재 최고 점수: {self.best_score}")
 
+    # 새 퀴즈 입력을 받아 목록에 추가하고 파일에 저장한다.
+    def add_quiz(self):
+        question = input("문제를 입력하세요: ").strip()
+        choices = []
+
+        for number in range(1, 5):
+            # 선택지 4개를 순서대로 입력받는다.
+            choice = input(f"선택지 {number}: ").strip()
+            choices.append(choice)
+
+        answer_text = input("정답 번호(1-4): ").strip()
+
+        if answer_text == "":
+            print("정답 번호를 입력해주세요.")
+            return
+
+        if not answer_text.isdigit():
+            print("정답 번호는 숫자로 입력해주세요.")
+            return
+
+        answer = int(answer_text)
+
+        if answer < 1 or answer > 4:
+            print("정답 번호는 1부터 4까지만 입력할 수 있습니다.")
+            return
+
+        self.quizzes.append(Quiz(question, choices, answer))
+        self.save_to_file()
+        print("퀴즈가 추가되었습니다.")
+        print(f"현재 퀴즈 수: {len(self.quizzes)}")
+
+    # 저장된 퀴즈 목록을 번호와 함께 출력한다.
+    def show_quiz_list(self):
+        if not self.has_quizzes():
+            print("등록된 퀴즈가 없습니다.")
+            return
+
+        print(f"등록된 퀴즈 목록 (총 {len(self.quizzes)}개)")
+        for number, quiz in enumerate(self.quizzes, start=1):
+            # 번호와 문제 제목만 먼저 보여준다.
+            print(f"{number}. {quiz.question}")
+
+    # 현재 최고 점수를 출력한다.
+    def show_best_score(self):
+        print(f"현재 최고 점수: {self.best_score}")
+
+    # 번호로 퀴즈 1개를 삭제하고 파일에 저장한다.
+    def delete_quiz(self):
+        if not self.has_quizzes():
+            print("삭제할 퀴즈가 없습니다.")
+            return
+
+        self.show_quiz_list()
+        number_text = input("삭제할 퀴즈 번호: ").strip()
+
+        if number_text == "":
+            print("삭제 번호를 입력해주세요.")
+            return
+
+        if not number_text.isdigit():
+            print("삭제 번호는 숫자로 입력해주세요.")
+            return
+
+        number = int(number_text)
+
+        if number < 1 or number > len(self.quizzes):
+            print("삭제할 수 있는 퀴즈 번호만 입력해주세요.")
+            return
+
+        deleted_quiz = self.quizzes.pop(number - 1)
+        self.save_to_file()
+        print(f"삭제된 퀴즈: {deleted_quiz.question}")
+        print(f"현재 퀴즈 수: {len(self.quizzes)}")
+
     # 메뉴 반복 흐름을 게임 객체 안에서 실행한다.
     def run_menu(self):
         while True:
@@ -139,6 +217,22 @@ class QuizGame:
 
             if choice == "1":
                 self.play_all_quizzes()
+                continue
+
+            if choice == "2":
+                self.add_quiz()
+                continue
+
+            if choice == "3":
+                self.show_quiz_list()
+                continue
+
+            if choice == "4":
+                self.delete_quiz()
+                continue
+
+            if choice == "5":
+                self.show_best_score()
                 continue
 
             if self.is_exit_choice(choice):
