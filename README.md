@@ -6,7 +6,8 @@ Codyssey 과제 제출 저장소입니다. 과제별 README, 발표 HTML, 실습
 
 | 과제 | 제목 | 문서 | 발표 |
 | --- | --- | --- | --- |
-| E1-1 | E1-1 환경 세팅 | [README](submissions/E1-1/README.md) | [Presentation](https://Logan-kim-the-philosopher.github.io/codyssey/E1-1/) |
+| E1-1 | E1-1 환경 세팅 | [README](submissions/E1-1/README.md) | [Presentation](docs/E1-1/index.html) |
+| E1-2 | E1-2 파이썬 이해하기 | [README](submissions/E1-2/README.md) | [Presentation](docs/E1-2/index.html) |
 
 ## 저장소 구조
 

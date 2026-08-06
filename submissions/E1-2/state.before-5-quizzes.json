@@ -1,0 +1,15 @@
+{
+  "quizzes": [
+    {
+      "question": "Python에서 문자열을 저장하는 자료형은?",
+      "choices": [
+        "int",
+        "str",
+        "bool",
+        "list"
+      ],
+      "answer": 2
+    }
+  ],
+  "best_score": 1
+}

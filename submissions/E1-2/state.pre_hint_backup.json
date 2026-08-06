@@ -1,0 +1,60 @@
+{
+  "quizzes": [
+    {
+      "question": "Python에서 문자열을 저장하는 자료형은?",
+      "choices": [
+        "int",
+        "str",
+        "bool",
+        "list"
+      ],
+      "answer": 2,
+      "hint": "아직 등록된 힌트가 없습니다."
+    },
+    {
+      "question": "Python에서 3 > 1의 결과는 무엇인가?",
+      "choices": [
+        "0",
+        "False",
+        "True",
+        "None"
+      ],
+      "answer": 3,
+      "hint": "아직 등록된 힌트가 없습니다."
+    },
+    {
+      "question": "여러 값을 순서대로 저장하는 자료형은 무엇인가?",
+      "choices": [
+        "dict",
+        "list",
+        "str",
+        "int"
+      ],
+      "answer": 2,
+      "hint": "아직 등록된 힌트가 없습니다."
+    },
+    {
+      "question": "같은 동작을 여러 번 반복할 때 주로 사용하는 문법은?",
+      "choices": [
+        "if",
+        "for",
+        "print",
+        "input"
+      ],
+      "answer": 2,
+      "hint": "아직 등록된 힌트가 없습니다."
+    },
+    {
+      "question": "함수 실행 뒤 결과 값을 돌려줄 때 사용하는 키워드는?",
+      "choices": [
+        "break",
+        "class",
+        "return",
+        "import"
+      ],
+      "answer": 3,
+      "hint": "아직 등록된 힌트가 없습니다."
+    }
+  ],
+  "best_score": 2
+}
