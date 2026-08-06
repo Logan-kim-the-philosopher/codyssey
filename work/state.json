@@ -8,7 +8,19 @@
         "bool",
         "list"
       ],
-      "answer": 2
+      "answer": 2,
+      "hint": "문자열은 따옴표로 감싸 자주 표현합니다."
+    },
+    {
+      "question": "Python에서 3 > 1의 결과는 무엇인가?",
+      "choices": [
+        "0",
+        "False",
+        "True",
+        "None"
+      ],
+      "answer": 3,
+      "hint": "비교 연산의 결과는 참 또는 거짓입니다."
     },
     {
       "question": "여러 값을 순서대로 저장하는 자료형은 무엇인가?",
@@ -18,7 +30,8 @@
         "str",
         "int"
       ],
-      "answer": 2
+      "answer": 2,
+      "hint": "대괄호 [] 로 만드는 자료형을 떠올려보세요."
     },
     {
       "question": "같은 동작을 여러 번 반복할 때 주로 사용하는 문법은?",
@@ -28,7 +41,8 @@
         "print",
         "input"
       ],
-      "answer": 2
+      "answer": 2,
+      "hint": "반복문 문법을 고르면 됩니다."
     },
     {
       "question": "함수 실행 뒤 결과 값을 돌려줄 때 사용하는 키워드는?",
@@ -38,17 +52,8 @@
         "return",
         "import"
       ],
-      "answer": 3
-    },
-    {
-      "question": "파이썬 창시자는 누구인가?",
-      "choices": [
-        "Guido van Rossum",
-        "Linus Torvalds",
-        "James Gosling",
-        "Bjarne Stroustrup"
-      ],
-      "answer": 1
+      "answer": 3,
+      "hint": "함수 바깥으로 값을 다시 보내는 단어입니다."
     }
   ],
   "best_score": 0
