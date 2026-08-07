@@ -892,9 +892,10 @@ $ git -C /Users/hskim/Projects/codyssey/artifacts/e1-2 log --oneline --graph --d
 - 퀴즈 1개를 실제로 출제하고 정답 판정하기
 - 모든 퀴즈를 순서대로 출제하고 점수 합산하기
 - 퀴즈가 없는 경우 안내 후 메뉴 복귀
-- 플레이 기능 완성 후 commit 기록
+- 랜덤 출제 테스트 전 기본 퀴즈 상태 복원
 - 랜덤 출제와 문제 수 선택 적용
 - 힌트 사용과 점수 차감 확인
+- 플레이 기능 완성 후 commit 기록
 - 보너스 기능 완성 후 commit 기록
 
 ### 퀴즈 1개를 실제로 출제하고 정답 판정하기
@@ -938,7 +939,7 @@ $ git -C /Users/hskim/Projects/codyssey/artifacts/e1-2 log --oneline --graph --d
 ```
 
 ```bash
-$ python3 main.py
+$ printf '1\n2\n2\n' | python3 main.py
 퀴즈 게임 시작
 Python에서 문자열을 저장하는 자료형은?
 int
@@ -1030,14 +1031,7 @@ list
 ```
 
 ```bash
-$ printf '1
-2
-3
-2
-2
-3
-2
-' | python3 main.py
+$ printf '1\n2\n3\n2\n2\n3\n2\n' | python3 main.py
 퀴즈 게임 시작
 Python에서 문자열을 저장하는 자료형은?
 int
@@ -1143,9 +1137,7 @@ import
 ```
 
 ```bash
-$ printf '1
-2
-' | python3 main.py
+$ printf '1\n2\n' | python3 main.py
 퀴즈 게임 시작
 []
 0
@@ -1155,6 +1147,331 @@ $ printf '1
 1. 퀴즈 풀기
 2. 종료
 선택: 등록된 퀴즈가 없어 퀴즈를 시작할 수 없습니다.
+1. 퀴즈 풀기
+2. 종료
+선택: 프로그램을 종료합니다.
+```
+
+### 랜덤 출제 테스트 전 기본 퀴즈 상태 복원
+
+```bash
+$ cp state.pre_random_round.json state.json
+```
+
+```bash
+$ python3 -c "import json; data=json.load(open('state.json', encoding='utf-8')); print(len(data['quizzes'])); print(data['best_score'])"
+5
+0
+```
+
+### 랜덤 출제와 문제 수 선택 적용
+
+`main.py`
+
+#### 추가된 코드
+
+```python
+import random
+```
+
+`main.py`
+
+#### 추가된 코드
+
+```python
+    # 이번에 풀 문제 수를 입력받고 가능한 범위인지 확인한다.
+    def ask_quiz_count(self):
+        count_text = input(f"몇 문제를 풀까요? (1-{len(self.quizzes)}): ").strip()
+
+        if count_text == "":
+            print("문제 수를 입력해주세요.")
+            return None
+
+        if not count_text.isdigit():
+            print("문제 수는 숫자로 입력해주세요.")
+            return None
+
+        count = int(count_text)
+
+        if count < 1 or count > len(self.quizzes):
+            print("풀 수 있는 문제 수만 입력해주세요.")
+            return None
+
+        return count
+
+    # 저장된 퀴즈 중에서 요청한 개수만큼 랜덤하게 뽑는다.
+    def pick_random_quizzes(self, count):
+        return random.sample(self.quizzes, count)
+```
+
+`main.py`
+
+#### 삭제된 코드
+
+```python
+        for quiz in self.quizzes:
+```
+
+#### 추가된 코드
+
+```python
+        count = self.ask_quiz_count()
+        if count is None:
+            return
+
+        # 사용자가 고른 개수만큼 문제를 섞어서 이번 라운드를 만든다.
+        selected_quizzes = self.pick_random_quizzes(count)
+...
+        print(f"{count}문제를 랜덤으로 출제합니다.")
+
+        for quiz in selected_quizzes:
+```
+
+```bash
+$ printf '1\n2\n2\n2\n2\n' | python3 main.py
+퀴즈 게임 시작
+[<__main__.Quiz object at 0x10a96d7f0>, <__main__.Quiz object at 0x106011f90>, <__main__.Quiz object at 0x106013750>, <__main__.Quiz object at 0x10a928770>, <__main__.Quiz object at 0x10a92ab10>]
+0
+{'quizzes': [{'question': 'Python에서 문자열을 저장하는 자료형은?', 'choices': ['int', 'str', 'bool', 'list'], 'answer': 2}, {'question': 'Python에서 3 > 1의 결과는 무엇인가?', 'choices': ['0', 'False', 'True', 'None'], 'answer': 3}, {'question': '여러 값을 순서대로 저장하는 자료형은 무엇인가?', 'choices': ['dict', 'list', 'str', 'int'], 'answer': 2}, {'question': '같은 동작을 여러 번 반복할 때 주로 사용하는 문법은?', 'choices': ['if', 'for', 'print', 'input'], 'answer': 2}, {'question': '함수 실행 뒤 결과 값을 돌려줄 때 사용하는 키워드는?', 'choices': ['break', 'class', 'return', 'import'], 'answer': 3}], 'best_score': 0}
+{'quizzes': [{'question': 'Python에서 문자열을 저장하는 자료형은?', 'choices': ['int', 'str', 'bool', 'list'], 'answer': 2}, {'question': 'Python에서 3 > 1의 결과는 무엇인가?', 'choices': ['0', 'False', 'True', 'None'], 'answer': 3}, {'question': '여러 값을 순서대로 저장하는 자료형은 무엇인가?', 'choices': ['dict', 'list', 'str', 'int'], 'answer': 2}, {'question': '같은 동작을 여러 번 반복할 때 주로 사용하는 문법은?', 'choices': ['if', 'for', 'print', 'input'], 'answer': 2}, {'question': '함수 실행 뒤 결과 값을 돌려줄 때 사용하는 키워드는?', 'choices': ['break', 'class', 'return', 'import'], 'answer': 3}], 'best_score': 0}
+Python에서 문자열을 저장하는 자료형은?
+int
+str
+bool
+list
+2
+True
+False
+1. 퀴즈 풀기
+2. 종료
+선택: 몇 문제를 풀까요? (1-5): 2문제를 랜덤으로 출제합니다.
+여러 값을 순서대로 저장하는 자료형은 무엇인가?
+dict
+list
+str
+int
+2
+정답 번호: 정답입니다.
+Python에서 문자열을 저장하는 자료형은?
+int
+str
+bool
+list
+2
+정답 번호: 정답입니다.
+최고 점수가 갱신되었습니다.
+이번 점수: 2
+현재 최고 점수: 2
+1. 퀴즈 풀기
+2. 종료
+선택: 프로그램을 종료합니다.
+```
+
+```bash
+$ printf '1\n9\n2\n' | python3 main.py
+퀴즈 게임 시작
+[<__main__.Quiz object at 0x105f757f0>, <__main__.Quiz object at 0x1015e1f90>, <__main__.Quiz object at 0x1015e3750>, <__main__.Quiz object at 0x105f30770>, <__main__.Quiz object at 0x105f32b10>]
+2
+{'quizzes': [{'question': 'Python에서 문자열을 저장하는 자료형은?', 'choices': ['int', 'str', 'bool', 'list'], 'answer': 2}, {'question': 'Python에서 3 > 1의 결과는 무엇인가?', 'choices': ['0', 'False', 'True', 'None'], 'answer': 3}, {'question': '여러 값을 순서대로 저장하는 자료형은 무엇인가?', 'choices': ['dict', 'list', 'str', 'int'], 'answer': 2}, {'question': '같은 동작을 여러 번 반복할 때 주로 사용하는 문법은?', 'choices': ['if', 'for', 'print', 'input'], 'answer': 2}, {'question': '함수 실행 뒤 결과 값을 돌려줄 때 사용하는 키워드는?', 'choices': ['break', 'class', 'return', 'import'], 'answer': 3}], 'best_score': 2}
+{'quizzes': [{'question': 'Python에서 문자열을 저장하는 자료형은?', 'choices': ['int', 'str', 'bool', 'list'], 'answer': 2}, {'question': 'Python에서 3 > 1의 결과는 무엇인가?', 'choices': ['0', 'False', 'True', 'None'], 'answer': 3}, {'question': '여러 값을 순서대로 저장하는 자료형은 무엇인가?', 'choices': ['dict', 'list', 'str', 'int'], 'answer': 2}, {'question': '같은 동작을 여러 번 반복할 때 주로 사용하는 문법은?', 'choices': ['if', 'for', 'print', 'input'], 'answer': 2}, {'question': '함수 실행 뒤 결과 값을 돌려줄 때 사용하는 키워드는?', 'choices': ['break', 'class', 'return', 'import'], 'answer': 3}], 'best_score': 2}
+Python에서 문자열을 저장하는 자료형은?
+int
+str
+bool
+list
+2
+True
+False
+1. 퀴즈 풀기
+2. 종료
+선택: 몇 문제를 풀까요? (1-5): 풀 수 있는 문제 수만 입력해주세요.
+1. 퀴즈 풀기
+2. 종료
+선택: 프로그램을 종료합니다.
+```
+
+```bash
+$ printf '1\nabc\n2\n' | python3 main.py
+퀴즈 게임 시작
+[<__main__.Quiz object at 0x1081b57f0>, <__main__.Quiz object at 0x10385df90>, <__main__.Quiz object at 0x10385f750>, <__main__.Quiz object at 0x108170770>, <__main__.Quiz object at 0x108172b10>]
+2
+{'quizzes': [{'question': 'Python에서 문자열을 저장하는 자료형은?', 'choices': ['int', 'str', 'bool', 'list'], 'answer': 2}, {'question': 'Python에서 3 > 1의 결과는 무엇인가?', 'choices': ['0', 'False', 'True', 'None'], 'answer': 3}, {'question': '여러 값을 순서대로 저장하는 자료형은 무엇인가?', 'choices': ['dict', 'list', 'str', 'int'], 'answer': 2}, {'question': '같은 동작을 여러 번 반복할 때 주로 사용하는 문법은?', 'choices': ['if', 'for', 'print', 'input'], 'answer': 2}, {'question': '함수 실행 뒤 결과 값을 돌려줄 때 사용하는 키워드는?', 'choices': ['break', 'class', 'return', 'import'], 'answer': 3}], 'best_score': 2}
+{'quizzes': [{'question': 'Python에서 문자열을 저장하는 자료형은?', 'choices': ['int', 'str', 'bool', 'list'], 'answer': 2}, {'question': 'Python에서 3 > 1의 결과는 무엇인가?', 'choices': ['0', 'False', 'True', 'None'], 'answer': 3}, {'question': '여러 값을 순서대로 저장하는 자료형은 무엇인가?', 'choices': ['dict', 'list', 'str', 'int'], 'answer': 2}, {'question': '같은 동작을 여러 번 반복할 때 주로 사용하는 문법은?', 'choices': ['if', 'for', 'print', 'input'], 'answer': 2}, {'question': '함수 실행 뒤 결과 값을 돌려줄 때 사용하는 키워드는?', 'choices': ['break', 'class', 'return', 'import'], 'answer': 3}], 'best_score': 2}
+Python에서 문자열을 저장하는 자료형은?
+int
+str
+bool
+list
+2
+True
+False
+1. 퀴즈 풀기
+2. 종료
+선택: 몇 문제를 풀까요? (1-5): 문제 수는 숫자로 입력해주세요.
+1. 퀴즈 풀기
+2. 종료
+선택: 프로그램을 종료합니다.
+```
+
+### 힌트 사용과 점수 차감 확인
+
+`main.py`
+
+#### 삭제된 코드
+
+```python
+    # 퀴즈 1개의 문제, 선택지, 정답을 저장한다.
+    def __init__(self, question, choices, answer):
+```
+
+#### 추가된 코드
+
+```python
+    # 퀴즈 1개의 문제, 선택지, 정답, 힌트를 저장한다.
+    def __init__(self, question, choices, answer, hint):
+...
+        self.hint = hint
+...
+    # 현재 퀴즈의 힌트를 출력한다.
+    def show_hint(self):
+        print(f"힌트: {self.hint}")
+...
+```
+
+`main.py`
+
+#### 추가된 코드
+
+```python
+                "문자열은 따옴표로 감싸 자주 표현합니다.",
+```
+
+`main.py`
+
+#### 추가된 코드
+
+```python
+                "비교 연산의 결과는 참 또는 거짓입니다.",
+```
+
+`main.py`
+
+#### 추가된 코드
+
+```python
+                "대괄호 [] 로 만드는 자료형을 떠올려보세요.",
+```
+
+`main.py`
+
+#### 추가된 코드
+
+```python
+                "반복문 문법을 고르면 됩니다.",
+```
+
+`main.py`
+
+#### 추가된 코드
+
+```python
+                "함수 바깥으로 값을 다시 보내는 단어입니다.",
+```
+
+`main.py`
+
+#### 추가된 코드
+
+```python
+    # 힌트를 볼지 입력받고, 봤다면 점수 차감 여부를 알려준다.
+    def ask_hint_usage(self, quiz):
+        choice = input("힌트를 볼까요? (y/n): ").strip().lower()
+
+        if choice == "y":
+            quiz.show_hint()
+            print("힌트를 사용해 이 문제는 점수를 얻을 수 없습니다.")
+            return True
+
+        return False
+```
+
+`main.py`
+
+#### 삭제된 코드
+
+```python
+                print("정답입니다.")
+                score += 1
+```
+
+#### 추가된 코드
+
+```python
+            used_hint = self.ask_hint_usage(quiz)
+...
+                if used_hint:
+                    print("정답이지만 힌트를 사용해 점수는 올라가지 않습니다.")
+                else:
+                    print("정답입니다.")
+                    score += 1
+```
+
+`main.py`
+
+#### 추가된 코드
+
+```python
+                    "hint": quiz.hint,
+```
+
+`main.py`
+
+#### 삭제된 코드
+
+```python
+            Quiz(item["question"], item["choices"], item["answer"])
+```
+
+#### 추가된 코드
+
+```python
+            Quiz(
+                item["question"],
+                item["choices"],
+                item["answer"],
+                item.get("hint", "아직 등록된 힌트가 없습니다."),
+            )
+```
+
+```bash
+$ printf '1\n1\ny\n3\n2\n' | python3 main.py
+퀴즈 게임 시작
+[<__main__.Quiz object at 0x10406d7f0>, <__main__.Quiz object at 0x103f9df90>, <__main__.Quiz object at 0x103f9f750>, <__main__.Quiz object at 0x104030770>, <__main__.Quiz object at 0x104032b10>]
+0
+{'quizzes': [{'question': 'Python에서 문자열을 저장하는 자료형은?', 'choices': ['int', 'str', 'bool', 'list'], 'answer': 2, 'hint': '문자열은 따옴표로 감싸 자주 표현합니다.'}, {'question': 'Python에서 3 > 1의 결과는 무엇인가?', 'choices': ['0', 'False', 'True', 'None'], 'answer': 3, 'hint': '비교 연산의 결과는 참 또는 거짓입니다.'}, {'question': '여러 값을 순서대로 저장하는 자료형은 무엇인가?', 'choices': ['dict', 'list', 'str', 'int'], 'answer': 2, 'hint': '대괄호 [] 로 만드는 자료형을 떠올려보세요.'}, {'question': '같은 동작을 여러 번 반복할 때 주로 사용하는 문법은?', 'choices': ['if', 'for', 'print', 'input'], 'answer': 2, 'hint': '반복문 문법을 고르면 됩니다.'}, {'question': '함수 실행 뒤 결과 값을 돌려줄 때 사용하는 키워드는?', 'choices': ['break', 'class', 'return', 'import'], 'answer': 3, 'hint': '함수 바깥으로 값을 다시 보내는 단어입니다.'}], 'best_score': 0}
+{'quizzes': [{'question': 'Python에서 문자열을 저장하는 자료형은?', 'choices': ['int', 'str', 'bool', 'list'], 'answer': 2, 'hint': '문자열은 따옴표로 감싸 자주 표현합니다.'}, {'question': 'Python에서 3 > 1의 결과는 무엇인가?', 'choices': ['0', 'False', 'True', 'None'], 'answer': 3, 'hint': '비교 연산의 결과는 참 또는 거짓입니다.'}, {'question': '여러 값을 순서대로 저장하는 자료형은 무엇인가?', 'choices': ['dict', 'list', 'str', 'int'], 'answer': 2, 'hint': '대괄호 [] 로 만드는 자료형을 떠올려보세요.'}, {'question': '같은 동작을 여러 번 반복할 때 주로 사용하는 문법은?', 'choices': ['if', 'for', 'print', 'input'], 'answer': 2, 'hint': '반복문 문법을 고르면 됩니다.'}, {'question': '함수 실행 뒤 결과 값을 돌려줄 때 사용하는 키워드는?', 'choices': ['break', 'class', 'return', 'import'], 'answer': 3, 'hint': '함수 바깥으로 값을 다시 보내는 단어입니다.'}], 'best_score': 0}
+Python에서 문자열을 저장하는 자료형은?
+int
+str
+bool
+list
+2
+True
+False
+1. 퀴즈 풀기
+2. 종료
+선택: 몇 문제를 풀까요? (1-5): 1문제를 랜덤으로 출제합니다.
+함수 실행 뒤 결과 값을 돌려줄 때 사용하는 키워드는?
+break
+class
+return
+import
+3
+힌트를 볼까요? (y/n): 힌트: 함수 바깥으로 값을 다시 보내는 단어입니다.
+힌트를 사용해 이 문제는 점수를 얻을 수 없습니다.
+정답 번호: 정답이지만 힌트를 사용해 점수는 올라가지 않습니다.
+이번 점수: 0
+현재 최고 점수: 0
 1. 퀴즈 풀기
 2. 종료
 선택: 프로그램을 종료합니다.
@@ -1183,461 +1500,6 @@ $ git -C /Users/hskim/Projects/codyssey/artifacts/e1-2 log --oneline --graph --d
 * 9a48940 (HEAD -> codex/e1-2-history-rebuild) Feat: 퀴즈 플레이와 점수 계산 구현
 * a5d5759 Feat: state.json 저장과 복구 처리 추가
 * 054e3c8 Refactor: QuizGame으로 메뉴 책임 분리
-```
-
-### 랜덤 출제와 문제 수 선택 적용
-
-`main.py`
-
-#### 삭제된 코드
-
-```python
-        print("2. 종료")
-...
-        return choice in ["1", "2"]
-...
-        return choice == "2"
-...
-        for quiz in self.quizzes:
-...
-        with open("state.json", "w", encoding="utf-8") as file:
-            json.dump(self.to_dict(), file, ensure_ascii=False, indent=2)
-...
-            Quiz(item["question"], item["choices"], item["answer"])
-...
-    # 저장 파일을 우선 읽고, 없으면 기본 퀴즈로 게임을 시작한다.
-    game = QuizGame.load_from_file()
-...
-    # 객체에 저장된 값과 메서드 동작을 확인한다.
-    print("퀴즈 게임 시작")
-    print(game.quizzes)
-    print(game.best_score)
-    print(game.to_dict())
-    game.save_to_file()
-    loaded_game = QuizGame.load_from_file()
-    print(loaded_game.to_dict())
-...
-    if game.has_quizzes():
-        quiz1 = game.quizzes[0]
-        quiz1.show()
-        print(quiz1.check_answer(2))
-        print(quiz1.check_answer(1))
-    else:
-        print("확인할 기본 퀴즈가 없습니다.")
-...
-    # 메뉴 반복 흐름도 게임 객체에 맡긴다.
-    game.run_menu()
-```
-
-#### 추가된 코드
-
-```python
-import random
-...
-
-...
-        print("2. 퀴즈 추가")
-        print("3. 퀴즈 목록")
-        print("4. 퀴즈 삭제")
-        print("5. 점수 확인")
-        print("6. 종료")
-...
-        return choice in ["1", "2", "3", "4", "5", "6"]
-...
-        return choice == "6"
-...
-    # 이번에 풀 문제 수를 입력받고 가능한 범위인지 확인한다.
-    def ask_quiz_count(self):
-        count_text = input(f"몇 문제를 풀까요? (1-{len(self.quizzes)}): ").strip()
-
-        if count_text == "":
-            print("문제 수를 입력해주세요.")
-            return None
-
-        if not count_text.isdigit():
-            print("문제 수는 숫자로 입력해주세요.")
-            return None
-
-        count = int(count_text)
-
-        if count < 1 or count > len(self.quizzes):
-            print("풀 수 있는 문제 수만 입력해주세요.")
-            return None
-
-        return count
-
-    # 저장된 퀴즈 중에서 요청한 개수만큼 랜덤하게 뽑는다.
-    def pick_random_quizzes(self, count):
-        return random.sample(self.quizzes, count)
-
-
-...
-
-...
-        count = self.ask_quiz_count()
-        if count is None:
-            return
-
-        # 사용자가 고른 개수만큼 문제를 섞어서 이번 라운드를 만든다.
-        selected_quizzes = self.pick_random_quizzes(count)
-...
-        print(f"{count}문제를 랜덤으로 출제합니다.")
-
-        for quiz in selected_quizzes:
-...
-    # 새 퀴즈 입력을 받아 목록에 추가하고 파일에 저장한다.
-    def add_quiz(self):
-        question = input("문제를 입력하세요: ").strip()
-        choices = []
-
-        for number in range(1, 5):
-            # 선택지 4개를 순서대로 입력받는다.
-            choice = input(f"선택지 {number}: ").strip()
-            choices.append(choice)
-
-        answer_text = input("정답 번호(1-4): ").strip()
-
-        if answer_text == "":
-            print("정답 번호를 입력해주세요.")
-            return
-
-        if not answer_text.isdigit():
-            print("정답 번호는 숫자로 입력해주세요.")
-            return
-
-        answer = int(answer_text)
-
-        if answer < 1 or answer > 4:
-            print("정답 번호는 1부터 4까지만 입력할 수 있습니다.")
-            return
-
-        self.quizzes.append(Quiz(question, choices, answer))
-        self.save_to_file()
-        print("퀴즈가 추가되었습니다.")
-        print(f"현재 퀴즈 수: {len(self.quizzes)}")
-
-    # 저장된 퀴즈 목록을 번호와 함께 출력한다.
-    def show_quiz_list(self):
-        if not self.has_quizzes():
-            print("등록된 퀴즈가 없습니다.")
-            return
-
-        print(f"등록된 퀴즈 목록 (총 {len(self.quizzes)}개)")
-        for number, quiz in enumerate(self.quizzes, start=1):
-            # 번호와 문제 제목만 먼저 보여준다.
-            print(f"{number}. {quiz.question}")
-
-    # 현재 최고 점수를 출력한다.
-    def show_best_score(self):
-        print(f"현재 최고 점수: {self.best_score}")
-
-
-    # 번호로 퀴즈 1개를 삭제하고 파일에 저장한다.
-    def delete_quiz(self):
-        if not self.has_quizzes():
-            print("삭제할 퀴즈가 없습니다.")
-            return
-
-        self.show_quiz_list()
-        number_text = input("삭제할 퀴즈 번호: ").strip()
-
-        if number_text == "":
-            print("삭제 번호를 입력해주세요.")
-            return
-
-        if not number_text.isdigit():
-            print("삭제 번호는 숫자로 입력해주세요.")
-            return
-
-        number = int(number_text)
-
-        if number < 1 or number > len(self.quizzes):
-            print("삭제할 수 있는 퀴즈 번호만 입력해주세요.")
-            return
-
-        deleted_quiz = self.quizzes.pop(number - 1)
-        self.save_to_file()
-        print(f"삭제된 퀴즈: {deleted_quiz.question}")
-        print(f"현재 퀴즈 수: {len(self.quizzes)}")
-
-...
-            if choice == "2":
-                self.add_quiz()
-                continue
-
-            if choice == "3":
-                self.show_quiz_list()
-                continue
-
-            if choice == "4":
-                self.delete_quiz()
-                continue
-
-            if choice == "5":
-                self.show_best_score()
-                continue
-
-
-...
-        try:
-            with open("state.json", "w", encoding="utf-8") as file:
-                json.dump(self.to_dict(), file, ensure_ascii=False, indent=2)
-        except OSError:
-            print("저장 파일을 쓰는 중 오류가 발생했습니다.")
-...
-        except OSError:
-            print("저장 파일을 읽는 중 오류가 발생해 기본 퀴즈로 시작합니다.")
-            return cls(cls.make_default_quizzes(), 0)
-...
-            Quiz(
-                item["question"],
-                item["choices"],
-                item["answer"],
-            )
-...
-    game = None
-...
-    try:
-        # 저장 파일을 우선 읽고, 없으면 기본 퀴즈로 게임을 시작한다.
-        game = QuizGame.load_from_file()
-...
-        # 객체에 저장된 값과 메서드 동작을 확인한다.
-        print("퀴즈 게임 시작")
-        print(game.quizzes)
-        print(game.best_score)
-        print(game.to_dict())
-        game.save_to_file()
-        loaded_game = QuizGame.load_from_file()
-        print(loaded_game.to_dict())
-...
-        if game.has_quizzes():
-            quiz1 = game.quizzes[0]
-            quiz1.show()
-            print(quiz1.check_answer(2))
-            print(quiz1.check_answer(1))
-        else:
-            print("확인할 기본 퀴즈가 없습니다.")
-...
-        # 메뉴 반복 흐름도 게임 객체에 맡긴다.
-        game.run_menu()
-    except (KeyboardInterrupt, EOFError):
-        print("\n입력이 중단되어 프로그램을 안전하게 종료합니다.")
-        if game is not None:
-            game.save_to_file()
-...
-```
-
-```bash
-$ printf '1\n2\n2\n2\n6\n' | python3 main.py
-퀴즈 게임 시작
-[<__main__.Quiz object at 0x10a96d7f0>, <__main__.Quiz object at 0x106011f90>, <__main__.Quiz object at 0x106013750>, <__main__.Quiz object at 0x10a928770>, <__main__.Quiz object at 0x10a92ab10>]
-0
-{'quizzes': [{'question': 'Python에서 문자열을 저장하는 자료형은?', 'choices': ['int', 'str', 'bool', 'list'], 'answer': 2}, {'question': 'Python에서 3 > 1의 결과는 무엇인가?', 'choices': ['0', 'False', 'True', 'None'], 'answer': 3}, {'question': '여러 값을 순서대로 저장하는 자료형은 무엇인가?', 'choices': ['dict', 'list', 'str', 'int'], 'answer': 2}, {'question': '같은 동작을 여러 번 반복할 때 주로 사용하는 문법은?', 'choices': ['if', 'for', 'print', 'input'], 'answer': 2}, {'question': '함수 실행 뒤 결과 값을 돌려줄 때 사용하는 키워드는?', 'choices': ['break', 'class', 'return', 'import'], 'answer': 3}], 'best_score': 0}
-{'quizzes': [{'question': 'Python에서 문자열을 저장하는 자료형은?', 'choices': ['int', 'str', 'bool', 'list'], 'answer': 2}, {'question': 'Python에서 3 > 1의 결과는 무엇인가?', 'choices': ['0', 'False', 'True', 'None'], 'answer': 3}, {'question': '여러 값을 순서대로 저장하는 자료형은 무엇인가?', 'choices': ['dict', 'list', 'str', 'int'], 'answer': 2}, {'question': '같은 동작을 여러 번 반복할 때 주로 사용하는 문법은?', 'choices': ['if', 'for', 'print', 'input'], 'answer': 2}, {'question': '함수 실행 뒤 결과 값을 돌려줄 때 사용하는 키워드는?', 'choices': ['break', 'class', 'return', 'import'], 'answer': 3}], 'best_score': 0}
-Python에서 문자열을 저장하는 자료형은?
-int
-str
-bool
-list
-2
-True
-False
-1. 퀴즈 풀기
-2. 퀴즈 추가
-3. 퀴즈 목록
-4. 퀴즈 삭제
-5. 점수 확인
-6. 종료
-선택: 몇 문제를 풀까요? (1-5): 2문제를 랜덤으로 출제합니다.
-여러 값을 순서대로 저장하는 자료형은 무엇인가?
-dict
-list
-str
-int
-2
-정답 번호: 정답입니다.
-Python에서 문자열을 저장하는 자료형은?
-int
-str
-bool
-list
-2
-정답 번호: 정답입니다.
-최고 점수가 갱신되었습니다.
-이번 점수: 2
-현재 최고 점수: 2
-1. 퀴즈 풀기
-2. 퀴즈 추가
-3. 퀴즈 목록
-4. 퀴즈 삭제
-5. 점수 확인
-6. 종료
-선택: 프로그램을 종료합니다.
-```
-
-```bash
-$ printf '1\n9\n6\n' | python3 main.py
-퀴즈 게임 시작
-[<__main__.Quiz object at 0x105f757f0>, <__main__.Quiz object at 0x1015e1f90>, <__main__.Quiz object at 0x1015e3750>, <__main__.Quiz object at 0x105f30770>, <__main__.Quiz object at 0x105f32b10>]
-2
-{'quizzes': [{'question': 'Python에서 문자열을 저장하는 자료형은?', 'choices': ['int', 'str', 'bool', 'list'], 'answer': 2}, {'question': 'Python에서 3 > 1의 결과는 무엇인가?', 'choices': ['0', 'False', 'True', 'None'], 'answer': 3}, {'question': '여러 값을 순서대로 저장하는 자료형은 무엇인가?', 'choices': ['dict', 'list', 'str', 'int'], 'answer': 2}, {'question': '같은 동작을 여러 번 반복할 때 주로 사용하는 문법은?', 'choices': ['if', 'for', 'print', 'input'], 'answer': 2}, {'question': '함수 실행 뒤 결과 값을 돌려줄 때 사용하는 키워드는?', 'choices': ['break', 'class', 'return', 'import'], 'answer': 3}], 'best_score': 2}
-{'quizzes': [{'question': 'Python에서 문자열을 저장하는 자료형은?', 'choices': ['int', 'str', 'bool', 'list'], 'answer': 2}, {'question': 'Python에서 3 > 1의 결과는 무엇인가?', 'choices': ['0', 'False', 'True', 'None'], 'answer': 3}, {'question': '여러 값을 순서대로 저장하는 자료형은 무엇인가?', 'choices': ['dict', 'list', 'str', 'int'], 'answer': 2}, {'question': '같은 동작을 여러 번 반복할 때 주로 사용하는 문법은?', 'choices': ['if', 'for', 'print', 'input'], 'answer': 2}, {'question': '함수 실행 뒤 결과 값을 돌려줄 때 사용하는 키워드는?', 'choices': ['break', 'class', 'return', 'import'], 'answer': 3}], 'best_score': 2}
-Python에서 문자열을 저장하는 자료형은?
-int
-str
-bool
-list
-2
-True
-False
-1. 퀴즈 풀기
-2. 퀴즈 추가
-3. 퀴즈 목록
-4. 퀴즈 삭제
-5. 점수 확인
-6. 종료
-선택: 몇 문제를 풀까요? (1-5): 풀 수 있는 문제 수만 입력해주세요.
-1. 퀴즈 풀기
-2. 퀴즈 추가
-3. 퀴즈 목록
-4. 퀴즈 삭제
-5. 점수 확인
-6. 종료
-선택: 프로그램을 종료합니다.
-```
-
-```bash
-$ printf '1\nabc\n6\n' | python3 main.py
-퀴즈 게임 시작
-[<__main__.Quiz object at 0x1081b57f0>, <__main__.Quiz object at 0x10385df90>, <__main__.Quiz object at 0x10385f750>, <__main__.Quiz object at 0x108170770>, <__main__.Quiz object at 0x108172b10>]
-2
-{'quizzes': [{'question': 'Python에서 문자열을 저장하는 자료형은?', 'choices': ['int', 'str', 'bool', 'list'], 'answer': 2}, {'question': 'Python에서 3 > 1의 결과는 무엇인가?', 'choices': ['0', 'False', 'True', 'None'], 'answer': 3}, {'question': '여러 값을 순서대로 저장하는 자료형은 무엇인가?', 'choices': ['dict', 'list', 'str', 'int'], 'answer': 2}, {'question': '같은 동작을 여러 번 반복할 때 주로 사용하는 문법은?', 'choices': ['if', 'for', 'print', 'input'], 'answer': 2}, {'question': '함수 실행 뒤 결과 값을 돌려줄 때 사용하는 키워드는?', 'choices': ['break', 'class', 'return', 'import'], 'answer': 3}], 'best_score': 2}
-{'quizzes': [{'question': 'Python에서 문자열을 저장하는 자료형은?', 'choices': ['int', 'str', 'bool', 'list'], 'answer': 2}, {'question': 'Python에서 3 > 1의 결과는 무엇인가?', 'choices': ['0', 'False', 'True', 'None'], 'answer': 3}, {'question': '여러 값을 순서대로 저장하는 자료형은 무엇인가?', 'choices': ['dict', 'list', 'str', 'int'], 'answer': 2}, {'question': '같은 동작을 여러 번 반복할 때 주로 사용하는 문법은?', 'choices': ['if', 'for', 'print', 'input'], 'answer': 2}, {'question': '함수 실행 뒤 결과 값을 돌려줄 때 사용하는 키워드는?', 'choices': ['break', 'class', 'return', 'import'], 'answer': 3}], 'best_score': 2}
-Python에서 문자열을 저장하는 자료형은?
-int
-str
-bool
-list
-2
-True
-False
-1. 퀴즈 풀기
-2. 퀴즈 추가
-3. 퀴즈 목록
-4. 퀴즈 삭제
-5. 점수 확인
-6. 종료
-선택: 몇 문제를 풀까요? (1-5): 문제 수는 숫자로 입력해주세요.
-1. 퀴즈 풀기
-2. 퀴즈 추가
-3. 퀴즈 목록
-4. 퀴즈 삭제
-5. 점수 확인
-6. 종료
-선택: 프로그램을 종료합니다.
-```
-
-### 힌트 사용과 점수 차감 확인
-
-`main.py`
-
-#### 삭제된 코드
-
-```python
-    # 퀴즈 1개의 문제, 선택지, 정답을 저장한다.
-    def __init__(self, question, choices, answer):
-...
-                print("정답입니다.")
-                score += 1
-```
-
-#### 추가된 코드
-
-```python
-    # 퀴즈 1개의 문제, 선택지, 정답, 힌트를 저장한다.
-    def __init__(self, question, choices, answer, hint):
-...
-        self.hint = hint
-...
-    # 현재 퀴즈의 힌트를 출력한다.
-    def show_hint(self):
-        print(f"힌트: {self.hint}")
-...
-                "문자열은 따옴표로 감싸 자주 표현합니다.",
-...
-                "비교 연산의 결과는 참 또는 거짓입니다.",
-...
-                "대괄호 [] 로 만드는 자료형을 떠올려보세요.",
-...
-                "반복문 문법을 고르면 됩니다.",
-...
-                "함수 바깥으로 값을 다시 보내는 단어입니다.",
-...
-    # 힌트를 볼지 입력받고, 봤다면 점수 차감 여부를 알려준다.
-    def ask_hint_usage(self, quiz):
-        choice = input("힌트를 볼까요? (y/n): ").strip().lower()
-...
-        if choice == "y":
-            quiz.show_hint()
-            print("힌트를 사용해 이 문제는 점수를 얻을 수 없습니다.")
-            return True
-
-        return False
-
-...
-            used_hint = self.ask_hint_usage(quiz)
-...
-                if used_hint:
-                    print("정답이지만 힌트를 사용해 점수는 올라가지 않습니다.")
-                else:
-                    print("정답입니다.")
-                    score += 1
-...
-                    "hint": quiz.hint,
-...
-                item.get("hint", "아직 등록된 힌트가 없습니다."),
-```
-
-```bash
-$ printf '1\n1\ny\n3\n6\n' | python3 main.py
-퀴즈 게임 시작
-[<__main__.Quiz object at 0x10406d7f0>, <__main__.Quiz object at 0x103f9df90>, <__main__.Quiz object at 0x103f9f750>, <__main__.Quiz object at 0x104030770>, <__main__.Quiz object at 0x104032b10>]
-0
-{'quizzes': [{'question': 'Python에서 문자열을 저장하는 자료형은?', 'choices': ['int', 'str', 'bool', 'list'], 'answer': 2, 'hint': '문자열은 따옴표로 감싸 자주 표현합니다.'}, {'question': 'Python에서 3 > 1의 결과는 무엇인가?', 'choices': ['0', 'False', 'True', 'None'], 'answer': 3, 'hint': '비교 연산의 결과는 참 또는 거짓입니다.'}, {'question': '여러 값을 순서대로 저장하는 자료형은 무엇인가?', 'choices': ['dict', 'list', 'str', 'int'], 'answer': 2, 'hint': '대괄호 [] 로 만드는 자료형을 떠올려보세요.'}, {'question': '같은 동작을 여러 번 반복할 때 주로 사용하는 문법은?', 'choices': ['if', 'for', 'print', 'input'], 'answer': 2, 'hint': '반복문 문법을 고르면 됩니다.'}, {'question': '함수 실행 뒤 결과 값을 돌려줄 때 사용하는 키워드는?', 'choices': ['break', 'class', 'return', 'import'], 'answer': 3, 'hint': '함수 바깥으로 값을 다시 보내는 단어입니다.'}], 'best_score': 0}
-{'quizzes': [{'question': 'Python에서 문자열을 저장하는 자료형은?', 'choices': ['int', 'str', 'bool', 'list'], 'answer': 2, 'hint': '문자열은 따옴표로 감싸 자주 표현합니다.'}, {'question': 'Python에서 3 > 1의 결과는 무엇인가?', 'choices': ['0', 'False', 'True', 'None'], 'answer': 3, 'hint': '비교 연산의 결과는 참 또는 거짓입니다.'}, {'question': '여러 값을 순서대로 저장하는 자료형은 무엇인가?', 'choices': ['dict', 'list', 'str', 'int'], 'answer': 2, 'hint': '대괄호 [] 로 만드는 자료형을 떠올려보세요.'}, {'question': '같은 동작을 여러 번 반복할 때 주로 사용하는 문법은?', 'choices': ['if', 'for', 'print', 'input'], 'answer': 2, 'hint': '반복문 문법을 고르면 됩니다.'}, {'question': '함수 실행 뒤 결과 값을 돌려줄 때 사용하는 키워드는?', 'choices': ['break', 'class', 'return', 'import'], 'answer': 3, 'hint': '함수 바깥으로 값을 다시 보내는 단어입니다.'}], 'best_score': 0}
-Python에서 문자열을 저장하는 자료형은?
-int
-str
-bool
-list
-2
-True
-False
-1. 퀴즈 풀기
-2. 퀴즈 추가
-3. 퀴즈 목록
-4. 퀴즈 삭제
-5. 점수 확인
-6. 종료
-선택: 몇 문제를 풀까요? (1-5): 1문제를 랜덤으로 출제합니다.
-함수 실행 뒤 결과 값을 돌려줄 때 사용하는 키워드는?
-break
-class
-return
-import
-3
-힌트를 볼까요? (y/n): 힌트: 함수 바깥으로 값을 다시 보내는 단어입니다.
-힌트를 사용해 이 문제는 점수를 얻을 수 없습니다.
-정답 번호: 정답이지만 힌트를 사용해 점수는 올라가지 않습니다.
-이번 점수: 0
-현재 최고 점수: 0
-1. 퀴즈 풀기
-2. 퀴즈 추가
-3. 퀴즈 목록
-4. 퀴즈 삭제
-5. 점수 확인
-6. 종료
-선택: 프로그램을 종료합니다.
 ```
 
 ### 보너스 기능 완성 후 commit 기록
@@ -1685,24 +1547,14 @@ $ git -C /Users/hskim/Projects/codyssey/artifacts/e1-2 log --oneline --graph --d
 #### 삭제된 코드
 
 ```python
-    # 메뉴 문구를 한 곳에서 출력한다.
-    def show_menu(self):
-        print("1. 퀴즈 풀기")
         print("2. 종료")
-
-    # 메뉴 입력이 비어 있는지 먼저 검사한다.
 ```
 
 #### 추가된 코드
 
 ```python
-    # 메뉴 문구를 한 곳에서 출력한다.
-    def show_menu(self):
-        print("1. 퀴즈 풀기")
         print("2. 퀴즈 추가")
         print("3. 종료")
-
-    # 메뉴 입력이 비어 있는지 먼저 검사한다.
 ```
 
 `main.py`
@@ -1710,46 +1562,24 @@ $ git -C /Users/hskim/Projects/codyssey/artifacts/e1-2 log --oneline --graph --d
 #### 삭제된 코드
 
 ```python
-    # 메뉴 입력이 허용된 번호인지 검사한다.
-    def is_valid_menu_choice(self, choice):
         return choice in ["1", "2"]
-
-    # 종료 메뉴를 선택했는지 검사한다.
-    def is_exit_choice(self, choice):
+...
         return choice == "2"
 ```
 
 #### 추가된 코드
 
 ```python
-    # 메뉴 입력이 허용된 번호인지 검사한다.
-    def is_valid_menu_choice(self, choice):
         return choice in ["1", "2", "3"]
-
-    # 종료 메뉴를 선택했는지 검사한다.
-    def is_exit_choice(self, choice):
+...
         return choice == "3"
 ```
 
 `main.py`
 
-#### 삭제된 코드
-
-```python
-        self.save_to_file()
-        print(f"이번 점수: {score}")
-        print(f"현재 최고 점수: {self.best_score}")
-
-    # 메뉴 반복 흐름을 게임 객체 안에서 실행한다.
-```
-
 #### 추가된 코드
 
 ```python
-        self.save_to_file()
-        print(f"이번 점수: {score}")
-        print(f"현재 최고 점수: {self.best_score}")
-
     # 새 퀴즈 입력을 받아 목록에 추가하고 파일에 저장한다.
     def add_quiz(self):
         question = input("문제를 입력하세요: ").strip()
@@ -1765,34 +1595,16 @@ $ git -C /Users/hskim/Projects/codyssey/artifacts/e1-2 log --oneline --graph --d
         self.save_to_file()
         print("퀴즈가 추가되었습니다.")
         print(f"현재 퀴즈 수: {len(self.quizzes)}")
-
-    # 메뉴 반복 흐름을 게임 객체 안에서 실행한다.
 ```
 
 `main.py`
 
-#### 삭제된 코드
-
-```python
-            if choice == "1":
-                self.play_all_quizzes()
-                continue
-
-            if self.is_exit_choice(choice):
-```
-
 #### 추가된 코드
 
 ```python
-            if choice == "1":
-                self.play_all_quizzes()
-                continue
-
             if choice == "2":
                 self.add_quiz()
                 continue
-
-            if self.is_exit_choice(choice):
 ```
 
 ```bash
@@ -1822,15 +1634,7 @@ False
 ```
 
 ```bash
-$ python3 - <<'PY'
-import json
-from pathlib import Path
-path = Path('state.json')
-data = json.loads(path.read_text(encoding='utf-8'))
-print(len(data['quizzes']))
-print(data['quizzes'][-1]['question'])
-print(data['quizzes'][-1]['answer'])
-PY
+$ python3 - <<'PY'\nimport json\nfrom pathlib import Path\npath = Path('state.json')\ndata = json.loads(path.read_text(encoding='utf-8'))\nprint(len(data['quizzes']))\nprint(data['quizzes'][-1]['question'])\nprint(data['quizzes'][-1]['answer'])\nPY
 6
 파이썬 창시자는 누구인가?
 1
@@ -1843,20 +1647,12 @@ PY
 #### 삭제된 코드
 
 ```python
-    # 메뉴 문구를 한 곳에서 출력한다.
-    def show_menu(self):
-        print("1. 퀴즈 풀기")
-        print("2. 퀴즈 추가")
         print("3. 종료")
 ```
 
 #### 추가된 코드
 
 ```python
-    # 메뉴 문구를 한 곳에서 출력한다.
-    def show_menu(self):
-        print("1. 퀴즈 풀기")
-        print("2. 퀴즈 추가")
         print("3. 퀴즈 목록")
         print("4. 점수 확인")
         print("5. 종료")
@@ -1867,24 +1663,16 @@ PY
 #### 삭제된 코드
 
 ```python
-    # 메뉴 입력이 허용된 번호인지 검사한다.
-    def is_valid_menu_choice(self, choice):
         return choice in ["1", "2", "3"]
-
-    # 종료 메뉴를 선택했는지 검사한다.
-    def is_exit_choice(self, choice):
+...
         return choice == "3"
 ```
 
 #### 추가된 코드
 
 ```python
-    # 메뉴 입력이 허용된 번호인지 검사한다.
-    def is_valid_menu_choice(self, choice):
         return choice in ["1", "2", "3", "4", "5"]
-
-    # 종료 메뉴를 선택했는지 검사한다.
-    def is_exit_choice(self, choice):
+...
         return choice == "5"
 ```
 
@@ -1911,23 +1699,9 @@ PY
 
 `main.py`
 
-#### 삭제된 코드
-
-```python
-            if choice == "2":
-                self.add_quiz()
-                continue
-
-            if self.is_exit_choice(choice):
-```
-
 #### 추가된 코드
 
 ```python
-            if choice == "2":
-                self.add_quiz()
-                continue
-
             if choice == "3":
                 self.show_quiz_list()
                 continue
@@ -1935,8 +1709,6 @@ PY
             if choice == "4":
                 self.show_best_score()
                 continue
-
-            if self.is_exit_choice(choice):
 ```
 
 ```bash
@@ -1975,11 +1747,6 @@ False
 #### 삭제된 코드
 
 ```python
-    # 메뉴 문구를 한 곳에서 출력한다.
-    def show_menu(self):
-        print("1. 퀴즈 풀기")
-        print("2. 퀴즈 추가")
-        print("3. 퀴즈 목록")
         print("4. 점수 확인")
         print("5. 종료")
 ```
@@ -1987,11 +1754,6 @@ False
 #### 추가된 코드
 
 ```python
-    # 메뉴 문구를 한 곳에서 출력한다.
-    def show_menu(self):
-        print("1. 퀴즈 풀기")
-        print("2. 퀴즈 추가")
-        print("3. 퀴즈 목록")
         print("4. 퀴즈 삭제")
         print("5. 점수 확인")
         print("6. 종료")
@@ -2002,24 +1764,16 @@ False
 #### 삭제된 코드
 
 ```python
-    # 메뉴 입력이 허용된 번호인지 검사한다.
-    def is_valid_menu_choice(self, choice):
         return choice in ["1", "2", "3", "4", "5"]
-
-    # 종료 메뉴를 선택했는지 검사한다.
-    def is_exit_choice(self, choice):
+...
         return choice == "5"
 ```
 
 #### 추가된 코드
 
 ```python
-    # 메뉴 입력이 허용된 번호인지 검사한다.
-    def is_valid_menu_choice(self, choice):
         return choice in ["1", "2", "3", "4", "5", "6"]
-
-    # 종료 메뉴를 선택했는지 검사한다.
-    def is_exit_choice(self, choice):
+...
         return choice == "6"
 ```
 
@@ -2044,32 +1798,13 @@ False
 
 `main.py`
 
-#### 삭제된 코드
-
-```python
-            if choice == "3":
-                self.show_quiz_list()
-                continue
-
-            if choice == "4":
-                self.show_best_score()
-                continue
-```
-
 #### 추가된 코드
 
 ```python
-            if choice == "3":
-                self.show_quiz_list()
-                continue
-
-            if choice == "4":
                 self.delete_quiz()
                 continue
 
             if choice == "5":
-                self.show_best_score()
-                continue
 ```
 
 ```bash
@@ -2112,14 +1847,7 @@ False
 ```
 
 ```bash
-$ python3 - <<'PY'
-import json
-from pathlib import Path
-path = Path('state.json')
-data = json.loads(path.read_text(encoding='utf-8'))
-print(len(data['quizzes']))
-print(data['quizzes'][-1]['question'])
-PY
+$ python3 - <<'PY'\nimport json\nfrom pathlib import Path\npath = Path('state.json')\ndata = json.loads(path.read_text(encoding='utf-8'))\nprint(len(data['quizzes']))\nprint(data['quizzes'][-1]['question'])\nPY
 5
 함수 실행 뒤 결과 값을 돌려줄 때 사용하는 키워드는?
 ```
@@ -2291,57 +2019,37 @@ $ git -C /Users/hskim/Projects/codyssey/artifacts/e1-2 log --oneline --graph --d
 ...
         return choice == "6"
 ...
-
-    # 번호로 퀴즈 1개를 삭제하고 파일에 저장한다.
-    def delete_quiz(self):
-        if not self.has_quizzes():
-            print("삭제할 퀴즈가 없습니다.")
-...
-        self.show_quiz_list()
-        number_text = input("삭제할 퀴즈 번호: ").strip()
-...
-        if number_text == "":
-            print("삭제 번호를 입력해주세요.")
-            return
-
-        if not number_text.isdigit():
-            print("삭제 번호는 숫자로 입력해주세요.")
-            return
-
-        number = int(number_text)
-
-        if number < 1 or number > len(self.quizzes):
-            print("삭제할 수 있는 퀴즈 번호만 입력해주세요.")
-            return
-
-        deleted_quiz = self.quizzes.pop(number - 1)
-        self.save_to_file()
-        print(f"삭제된 퀴즈: {deleted_quiz.question}")
-        print(f"현재 퀴즈 수: {len(self.quizzes)}")
-
-    # 저장된 퀴즈 목록을 번호와 함께 출력한다.
-    def show_quiz_list(self):
-        if not self.has_quizzes():
-            print("등록된 퀴즈가 없습니다.")
-            return
-
-        print(f"등록된 퀴즈 목록 (총 {len(self.quizzes)}개)")
-        for number, quiz in enumerate(self.quizzes, start=1):
-            # 번호와 문제 제목만 먼저 보여준다.
-            print(f"{number}. {quiz.question}")
-
-    # 현재 최고 점수를 출력한다.
-    def show_best_score(self):
-        print(f"현재 최고 점수: {self.best_score}")
-
-...
-            return cls(cls.make_default_quizzes(), 0)
+        with open("state.json", "w", encoding="utf-8") as file:
+            json.dump(self.to_dict(), file, ensure_ascii=False, indent=2)
 ...
             return cls(cls.make_default_quizzes(), 0)
 ...
             return cls(cls.make_default_quizzes(), 0)
 ...
         return cls(quizzes, data["best_score"])
+...
+    # 저장 파일을 우선 읽고, 없으면 기본 퀴즈로 게임을 시작한다.
+    game = QuizGame.load_from_file()
+...
+    # 객체에 저장된 값과 메서드 동작을 확인한다.
+    print("퀴즈 게임 시작")
+    print(game.quizzes)
+    print(game.best_score)
+    print(game.to_dict())
+    game.save_to_file()
+    loaded_game = QuizGame.load_from_file()
+    print(loaded_game.to_dict())
+...
+    if game.has_quizzes():
+        quiz1 = game.quizzes[0]
+        quiz1.show()
+        print(quiz1.check_answer(2))
+        print(quiz1.check_answer(1))
+    else:
+        print("확인할 기본 퀴즈가 없습니다.")
+...
+    # 메뉴 반복 흐름도 게임 객체에 맡긴다.
+    game.run_menu()
 ```
 
 #### 추가된 코드
@@ -2370,6 +2078,7 @@ from datetime import datetime
                 "score": score,
             }
         )
+
 ...
         self.record_score_history(count, score)
 ...
@@ -2377,7 +2086,8 @@ from datetime import datetime
     def show_score_history(self):
         if len(self.score_history) == 0:
             print("아직 저장된 플레이 기록이 없습니다.")
-...
+            return
+
         print("플레이 기록")
         for number, history in enumerate(self.score_history, start=1):
             print(
@@ -2385,20 +2095,60 @@ from datetime import datetime
                 f"{history['total_questions']}문제 | "
                 f"{history['score']}점"
             )
+
 ...
             if choice == "6":
                 self.show_score_history()
                 continue
+
 ...
             "score_history": self.score_history,
 ...
-            return cls(cls.make_default_quizzes(), 0, [])
+        try:
+            with open("state.json", "w", encoding="utf-8") as file:
+                json.dump(self.to_dict(), file, ensure_ascii=False, indent=2)
+        except OSError:
+            print("저장 파일을 쓰는 중 오류가 발생했습니다.")
 ...
             return cls(cls.make_default_quizzes(), 0, [])
 ...
+            return cls(cls.make_default_quizzes(), 0, [])
+        except OSError:
+            print("저장 파일을 읽는 중 오류가 발생해 기본 퀴즈로 시작합니다.")
             return cls(cls.make_default_quizzes(), 0, [])
 ...
         return cls(quizzes, data["best_score"], data.get("score_history", []))
+...
+    game = None
+...
+    try:
+        # 저장 파일을 우선 읽고, 없으면 기본 퀴즈로 게임을 시작한다.
+        game = QuizGame.load_from_file()
+...
+        # 객체에 저장된 값과 메서드 동작을 확인한다.
+        print("퀴즈 게임 시작")
+        print(game.quizzes)
+        print(game.best_score)
+        print(game.to_dict())
+        game.save_to_file()
+        loaded_game = QuizGame.load_from_file()
+        print(loaded_game.to_dict())
+...
+        if game.has_quizzes():
+            quiz1 = game.quizzes[0]
+            quiz1.show()
+            print(quiz1.check_answer(2))
+            print(quiz1.check_answer(1))
+        else:
+            print("확인할 기본 퀴즈가 없습니다.")
+...
+        # 메뉴 반복 흐름도 게임 객체에 맡긴다.
+        game.run_menu()
+    except (KeyboardInterrupt, EOFError):
+        print("\n입력이 중단되어 프로그램을 안전하게 종료합니다.")
+        if game is not None:
+            game.save_to_file()
+...
 ```
 
 ```bash
@@ -2587,14 +2337,19 @@ $ git -C /Users/hskim/Projects/codyssey/artifacts/e1-2 log --oneline --graph --d
 ### README 필수 항목 작성
 
 ```bash
-$ cat README.md
+$ sed -n '1,80p' /Users/hskim/Projects/codyssey/artifacts/e1-2/README.md
 [README 본문 출력은 중복 방지를 위해 생략]
 [핵심 검증은 아래 제목/파일 크기 로그로 확인]
 ```
 
 ```bash
-$ ls -la README.md
--rw-r--r--@ 1 hskim  staff  397412 Aug  6 22:21 /Users/hskim/Projects/codyssey/artifacts/e1-2/README.md
+$ rg -n '^## ' /Users/hskim/Projects/codyssey/artifacts/e1-2/README.md
+3:## 프로젝트 개요
+8:## 퀴즈 주제 선정 이유
+13:## 실행 방법
+22:## 기능 목록
+39:## 파일 구조
+56:## 데이터 파일 설명
 ```
 
 ### git log --oneline --graph와 커밋 수 확인
