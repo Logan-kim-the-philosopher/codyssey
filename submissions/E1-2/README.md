@@ -893,8 +893,15 @@ $ git -C /Users/hskim/Projects/codyssey/artifacts/e1-2 log --oneline --graph --d
 - 모든 퀴즈를 순서대로 출제하고 점수 합산하기
 - 퀴즈가 없는 경우 안내 후 메뉴 복귀
 - 랜덤 출제 테스트 전 기본 퀴즈 상태 복원
-- 랜덤 출제와 문제 수 선택 적용
-- 힌트 사용과 점수 차감 확인
+- random 모듈 가져오기
+- 문제 수 입력 검증 함수 추가
+- 랜덤 문제 선택 함수 추가
+- 랜덤 출제를 플레이 흐름에 연결
+- Quiz에 hint 속성 추가
+- 기본 퀴즈에 힌트 문구 채우기
+- 힌트 입력과 점수 차감 연결
+- state.json 저장 복원에 hint 반영
+- 힌트 사용과 점수 차감 실행 확인
 - 플레이 기능 완성 후 commit 기록
 - 보너스 기능 완성 후 commit 기록
 
@@ -1164,7 +1171,7 @@ $ python3 -c "import json; data=json.load(open('state.json', encoding='utf-8'));
 0
 ```
 
-### 랜덤 출제와 문제 수 선택 적용
+### random 모듈 가져오기
 
 `main.py`
 
@@ -1173,6 +1180,8 @@ $ python3 -c "import json; data=json.load(open('state.json', encoding='utf-8'));
 ```python
 import random
 ```
+
+### 문제 수 입력 검증 함수 추가
 
 `main.py`
 
@@ -1198,11 +1207,21 @@ import random
             return None
 
         return count
+```
 
+### 랜덤 문제 선택 함수 추가
+
+`main.py`
+
+#### 추가된 코드
+
+```python
     # 저장된 퀴즈 중에서 요청한 개수만큼 랜덤하게 뽑는다.
     def pick_random_quizzes(self, count):
         return random.sample(self.quizzes, count)
 ```
+
+### 랜덤 출제를 플레이 흐름에 연결
 
 `main.py`
 
@@ -1219,12 +1238,30 @@ import random
         if count is None:
             return
 
+        selected_quizzes = self.quizzes[:count]
+...
+        print(f"{count}문제를 순서대로 출제합니다.")
+
+        for quiz in selected_quizzes:
+```
+
+`main.py`
+
+#### 삭제된 코드
+
+```python
+        selected_quizzes = self.quizzes[:count]
+...
+        print(f"{count}문제를 순서대로 출제합니다.")
+```
+
+#### 추가된 코드
+
+```python
         # 사용자가 고른 개수만큼 문제를 섞어서 이번 라운드를 만든다.
         selected_quizzes = self.pick_random_quizzes(count)
 ...
         print(f"{count}문제를 랜덤으로 출제합니다.")
-
-        for quiz in selected_quizzes:
 ```
 
 ```bash
@@ -1313,7 +1350,7 @@ False
 선택: 프로그램을 종료합니다.
 ```
 
-### 힌트 사용과 점수 차감 확인
+### Quiz에 hint 속성 추가
 
 `main.py`
 
@@ -1337,6 +1374,8 @@ False
         print(f"힌트: {self.hint}")
 ...
 ```
+
+### 기본 퀴즈에 힌트 문구 채우기
 
 `main.py`
 
@@ -1378,6 +1417,8 @@ False
                 "함수 바깥으로 값을 다시 보내는 단어입니다.",
 ```
 
+### 힌트 입력과 점수 차감 연결
+
 `main.py`
 
 #### 추가된 코드
@@ -1416,6 +1457,8 @@ False
                     score += 1
 ```
 
+### state.json 저장 복원에 hint 반영
+
 `main.py`
 
 #### 추가된 코드
@@ -1442,6 +1485,8 @@ False
                 item.get("hint", "아직 등록된 힌트가 없습니다."),
             )
 ```
+
+### 힌트 사용과 점수 차감 실행 확인
 
 ```bash
 $ printf '1\n1\ny\n3\n2\n' | python3 main.py
