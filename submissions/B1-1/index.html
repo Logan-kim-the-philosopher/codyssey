@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나를 소개하는 웹페이지</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <button id="menu-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="main-nav">
+        ☰
+      </button>
+      <nav id="main-nav" aria-label="주요 메뉴">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+        <button id="theme-toggle" type="button">다크 모드</button>
+      </nav>
+    </header>
+
+    <main>
+      <section id="hero">
+        <img src="images/profile.svg" alt="홍길동을 상징하는 초상화 일러스트">
+        <h1>안녕하세요, 저는 홍길동입니다.</h1>
+        <p id="typing-text" data-text="웹 개발을 배우고 있습니다." aria-live="polite">웹 개발을 배우고 있습니다.</p>
+        <p>
+          <a href="#projects">프로젝트 보기</a>
+          <a href="#contact">연락하기</a>
+        </p>
+      </section>
+
+      <section id="about">
+        <h2>About</h2>
+        <p>저를 소개하는 내용입니다.</p>
+      </section>
+
+      <section id="skills">
+        <h2>Skills</h2>
+      </section>
+
+      <section id="projects">
+        <h2>Projects</h2>
+        <label for="project-filter">프로젝트 검색</label>
+        <input id="project-filter" name="project-filter" type="search" placeholder="저장소 이름 검색">
+        <label for="language-filter">언어 필터</label>
+        <select id="language-filter" name="language-filter">
+          <option value="">모든 언어</option>
+          <option value="JavaScript">JavaScript</option>
+          <option value="HTML">HTML</option>
+          <option value="CSS">CSS</option>
+        </select>
+        <p id="projects-status">GitHub 저장소를 불러오는 중입니다.</p>
+        <div id="project-list" aria-live="polite"></div>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <form action="https://formspree.io/f/mqpkrzyv" method="POST">
+          <label for="name">이름</label>
+          <input id="name" name="name" type="text" required>
+
+          <label for="email">이메일</label>
+          <input id="email" name="email" type="email" required>
+
+          <label for="message">메시지</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+          <p id="form-status" role="status" aria-live="polite"></p>
+          <button type="submit">보내기</button>
+        </form>
+      </section>
+    </main>
+
+    <button id="top-button" type="button" aria-label="맨 위로 이동">
+      ↑
+    </button>
+
+    <footer>
+      <p>&copy; 2026 홍길동</p>
+      <p>
+        <a href="https://github.com/Logan-kim-the-philosopher">GitHub</a>
+        <a href="https://www.linkedin.com/in/hong-gildong">LinkedIn</a>
+      </p>
+    </footer>
+  </body>
+</html>
