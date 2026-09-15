@@ -201,6 +201,7 @@
 - 프로젝트 카드 HTML 요소 추가
 - 카드와 버튼의 hover 시각 피드백 보완
 - 전체 너비 네비게이션 여백 제거
+- 데스크톱 미디어 쿼리의 헤더 폭 제한 제거
 
 ### CSS 변수와 기본 레이아웃 연결
 
@@ -460,6 +461,16 @@ header {
   margin-inline: 0;
   padding-inline: 1rem;
   position: sticky;
+```
+
+### 데스크톱 미디어 쿼리의 헤더 폭 제한 제거
+
+`css/style.css`
+
+#### 삭제된 코드
+
+```css
+  header,
 ```
 
 ### 증빙

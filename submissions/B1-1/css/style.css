@@ -194,7 +194,6 @@ footer {
 }
 
 @media (min-width: 768px) {
-  header,
   main,
   footer {
     width: min(100% - 4rem, var(--content-width));
