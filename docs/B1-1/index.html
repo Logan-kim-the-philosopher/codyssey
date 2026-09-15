@@ -113,7 +113,7 @@
       <p class="kicker">Codyssey Evidence Presentation</p>
       <h1>B1-1 자기소개 웹사이트 만들기</h1>
       <ul class="theme-list">
-        <li>프로젝트 구조와 시맨틱 HTML 뼈대</li><li>CSS 변수, Flexbox/Grid, 반응형 레이아웃</li><li>DOM 선택과 이벤트 기반 인터랙션</li><li>다크 모드 상태와 localStorage 유지</li><li>Contact 폼 검증과 오류/성공 렌더링</li><li>GitHub API 비동기 호출과 상태별 Projects 렌더링</li><li>브라우저 검증과 스크린샷 증거</li><li>프로젝트 필터링</li><li>타이핑 효과</li><li>폼 실제 전송</li><li>시스템 다크 모드 감지</li>
+        <li>프로젝트 구조와 시맨틱 HTML 뼈대</li><li>CSS 변수, Flexbox/Grid, 반응형 레이아웃</li><li>DOM 선택과 이벤트 기반 인터랙션</li><li>다크 모드 상태와 localStorage 유지</li><li>Contact 폼 검증과 오류/성공 렌더링</li><li>GitHub API 비동기 호출과 상태별 Projects 렌더링</li><li>브라우저 검증과 스크린샷 증거</li><li>README, GitHub 저장소, GitHub Pages 제출</li><li>프로젝트 필터링</li><li>타이핑 효과</li><li>폼 실제 전송</li><li>시스템 다크 모드 감지</li>
       </ul>
     </section>
     
@@ -934,6 +934,73 @@ About 메뉴 active 상태: false</pre></div>
 
 
     <section class="slide cover-slide">
+      <p class="kicker">Chapter 8</p>
+      <h1>README, GitHub 저장소, GitHub Pages 제출</h1>
+      <ul class="theme-list">
+        <li>Pages 배포 대상 구조 확인</li><li>GitHub Pages 상태 확인</li><li>배포 URL HTTP 확인</li>
+      </ul>
+    </section>
+    
+    <section class="slide terminal-slide" data-terminal-slide>
+      <p class="kicker">Chapter 8 · Pages 배포 대상 구조 확인</p>
+      <div class="terminal-window">
+        <div class="terminal-bar">
+          <div class="window-dots" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <strong>터미널</strong>
+        </div>
+        <div class="terminal-body">
+          <div class="terminal-block" data-step-block>
+            <div data-step-part="command"><pre class="cmd">$ find docs/B1-1/site -maxdepth 2 -type f -print</pre></div>
+            <div data-step-part="output"><pre class="out">docs/B1-1/site/index.html
+docs/B1-1/site/css/style.css
+docs/B1-1/site/js/main.js
+docs/B1-1/site/images/profile.svg</pre></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide terminal-slide" data-terminal-slide>
+      <p class="kicker">Chapter 8 · GitHub Pages 상태 확인</p>
+      <div class="terminal-window">
+        <div class="terminal-bar">
+          <div class="window-dots" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <strong>터미널</strong>
+        </div>
+        <div class="terminal-body">
+          <div class="terminal-block" data-step-block>
+            <div data-step-part="command"><pre class="cmd">$ gh api repos/Logan-kim-the-philosopher/codyssey/pages --jq '{status,html_url}'</pre></div>
+            <div data-step-part="output"><pre class="out">{&quot;html_url&quot;:&quot;https://logan-kim-the-philosopher.github.io/codyssey/&quot;,&quot;status&quot;:&quot;built&quot;}</pre></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide terminal-slide" data-terminal-slide>
+      <p class="kicker">Chapter 8 · 배포 URL HTTP 확인</p>
+      <div class="terminal-window">
+        <div class="terminal-bar">
+          <div class="window-dots" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <strong>터미널</strong>
+        </div>
+        <div class="terminal-body">
+          <div class="terminal-block" data-step-block>
+            <div data-step-part="command"><pre class="cmd">$ curl -I -L https://logan-kim-the-philosopher.github.io/codyssey/B1-1/site/</pre></div>
+            <div data-step-part="output"><pre class="out">HTTP/2 200
+content-type: text/html</pre></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="slide cover-slide">
       <p class="kicker">Chapter 9</p>
       <h1>프로젝트 필터링</h1>
       <ul class="theme-list">
@@ -1137,7 +1204,7 @@ About 메뉴 active 상태: false</pre></div>
       <div class="completion-grid">
         <section>
           <h2>검증 완료</h2>
-          <ul><li>프로젝트 구조와 시맨틱 HTML 뼈대</li><li>챕터 2: CSS 스타일링과 반응형 레이아웃</li><li>챕터 3: DOM 선택과 이벤트 기반 인터랙션</li><li>챕터 3</li><li>챕터 4: 다크 모드 상태와 localStorage 유지</li><li>챕터 5: Contact 폼 검증과 오류/성공 렌더링</li><li>챕터 6: GitHub API 데이터 불러오기</li><li>챕터 7: 보너스 프로젝트 필터링</li><li>챕터 10: 타이핑 효과</li><li>챕터 11: 보너스 폼 실제 전송</li><li>챕터 12: 보너스 시스템 다크 모드 감지</li></ul>
+          <ul><li>프로젝트 구조와 시맨틱 HTML 뼈대</li><li>챕터 2: CSS 스타일링과 반응형 레이아웃</li><li>챕터 3: DOM 선택과 이벤트 기반 인터랙션</li><li>챕터 3</li><li>챕터 4: 다크 모드 상태와 localStorage 유지</li><li>챕터 5: Contact 폼 검증과 오류/성공 렌더링</li><li>챕터 6: GitHub API 데이터 불러오기</li><li>챕터 7: 보너스 프로젝트 필터링</li><li>챕터 10: 타이핑 효과</li><li>챕터 11: 보너스 폼 실제 전송</li><li>챕터 12: 보너스 시스템 다크 모드 감지</li><li>README, GitHub 저장소, GitHub Pages 제출</li></ul>
         </section>
         <section>
           <h2>산출물</h2>

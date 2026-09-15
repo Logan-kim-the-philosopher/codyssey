@@ -15,6 +15,7 @@
 - Chapter 9. 챕터 7: 보너스 프로젝트 필터링
 - Chapter 10. 챕터 11: 보너스 폼 실제 전송
 - Chapter 11. 챕터 12: 보너스 시스템 다크 모드 감지
+- Chapter 12. README, GitHub 저장소, GitHub Pages 제출
 
 ## 실습 로그
 
@@ -1378,4 +1379,41 @@ const savedTheme = localStorage.getItem("theme") || systemTheme;
 
 `artifacts/b1-1/logs/screenshots/final-dark-mode.png`
 
+
+## Chapter 12. README, GitHub 저장소, GitHub Pages 제출
+
+### 테마
+
+- Pages 배포 대상 구조 확인
+- GitHub Pages 상태 확인
+- 배포 URL HTTP 확인
+
+### Pages 배포 대상 구조 확인
+
+```bash
+$ find docs/B1-1/site -maxdepth 2 -type f -print
+docs/B1-1/site/index.html
+docs/B1-1/site/css/style.css
+docs/B1-1/site/js/main.js
+docs/B1-1/site/images/profile.svg
+```
+
+### GitHub Pages 상태 확인
+
+```bash
+$ gh api repos/Logan-kim-the-philosopher/codyssey/pages --jq '{status,html_url}'
+{"html_url":"https://logan-kim-the-philosopher.github.io/codyssey/","status":"built"}
+```
+
+### 배포 URL HTTP 확인
+
+```bash
+$ curl -I -L https://logan-kim-the-philosopher.github.io/codyssey/B1-1/site/
+HTTP/2 200
+content-type: text/html
+```
+
+### 증빙
+
+- docs/B1-1/site/index.html
 
