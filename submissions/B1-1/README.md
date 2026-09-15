@@ -200,6 +200,7 @@
 - 다크 테마 토큰
 - 프로젝트 카드 HTML 요소 추가
 - 카드와 버튼의 hover 시각 피드백 보완
+- 전체 너비 네비게이션 여백 제거
 
 ### CSS 변수와 기본 레이아웃 연결
 
@@ -425,6 +426,40 @@ button:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 24px rgba(23, 32, 51, 0.14);
 }
+```
+
+### 전체 너비 네비게이션 여백 제거
+
+`css/style.css`
+
+#### 삭제된 코드
+
+```css
+header,
+main,
+footer {
+  width: min(100% - 2rem, var(--content-width));
+  margin-inline: auto;
+}
+
+header {
+  position: sticky;
+```
+
+#### 추가된 코드
+
+```css
+main,
+footer {
+  width: min(100% - 2rem, var(--content-width));
+  margin-inline: auto;
+}
+
+header {
+  width: 100%;
+  margin-inline: 0;
+  padding-inline: 1rem;
+  position: sticky;
 ```
 
 ### 증빙
