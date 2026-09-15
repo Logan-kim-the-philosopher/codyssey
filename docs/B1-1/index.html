@@ -1215,7 +1215,7 @@ About 메뉴 active 상태: false</pre></div>
       <p class="kicker">Chapter 12</p>
       <h1>README, GitHub 저장소, GitHub Pages 제출</h1>
       <ul class="theme-list">
-        <li>Pages 배포 대상 구조 확인</li><li>GitHub Pages 상태 확인</li><li>배포 URL HTTP 확인</li><li>배포 파일 변경 확인</li><li>배포 커밋 확인</li><li>GitHub Pages 소스와 상태 확인</li><li>자기소개 페이지 공개 URL 확인</li>
+        <li>Pages 배포 대상 구조 확인</li><li>배포 커밋 확인</li><li>GitHub Pages 소스와 상태 확인</li><li>자기소개 페이지 공개 URL 확인</li>
       </ul>
     </section>
     
@@ -1235,61 +1235,6 @@ About 메뉴 active 상태: false</pre></div>
 docs/B1-1/site/css/style.css
 docs/B1-1/site/js/main.js
 docs/B1-1/site/images/profile.svg</pre></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide terminal-slide" data-terminal-slide>
-      <p class="kicker">Chapter 12 · GitHub Pages 상태 확인</p>
-      <div class="terminal-window">
-        <div class="terminal-bar">
-          <div class="window-dots" aria-hidden="true">
-            <span></span><span></span><span></span>
-          </div>
-          <strong>터미널</strong>
-        </div>
-        <div class="terminal-body">
-          <div class="terminal-block" data-step-block>
-            <div data-step-part="command"><pre class="cmd">$ gh api repos/Logan-kim-the-philosopher/codyssey/pages --jq '{status,html_url}'</pre></div>
-            <div data-step-part="output"><pre class="out">{&quot;html_url&quot;:&quot;https://logan-kim-the-philosopher.github.io/codyssey/&quot;,&quot;status&quot;:&quot;built&quot;}</pre></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide terminal-slide" data-terminal-slide>
-      <p class="kicker">Chapter 12 · 배포 URL HTTP 확인</p>
-      <div class="terminal-window">
-        <div class="terminal-bar">
-          <div class="window-dots" aria-hidden="true">
-            <span></span><span></span><span></span>
-          </div>
-          <strong>터미널</strong>
-        </div>
-        <div class="terminal-body">
-          <div class="terminal-block" data-step-block>
-            <div data-step-part="command"><pre class="cmd">$ curl -I -L https://logan-kim-the-philosopher.github.io/codyssey/B1-1/site/</pre></div>
-            <div data-step-part="output"><pre class="out">HTTP/2 200
-content-type: text/html</pre></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide terminal-slide" data-terminal-slide>
-      <p class="kicker">Chapter 12 · 배포 파일 변경 확인</p>
-      <div class="terminal-window">
-        <div class="terminal-bar">
-          <div class="window-dots" aria-hidden="true">
-            <span></span><span></span><span></span>
-          </div>
-          <strong>터미널</strong>
-        </div>
-        <div class="terminal-body">
-          <div class="terminal-block" data-step-block>
-            <div data-step-part="command"><pre class="cmd">$ git status --short -- docs/B1-1/site</pre></div>
-            <div data-step-part="output"><pre class="out">?? docs/B1-1/site/</pre></div>
           </div>
         </div>
       </div>

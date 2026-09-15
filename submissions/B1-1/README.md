@@ -1474,9 +1474,6 @@ const savedTheme = localStorage.getItem("theme") || systemTheme;
 ### 테마
 
 - Pages 배포 대상 구조 확인
-- GitHub Pages 상태 확인
-- 배포 URL HTTP 확인
-- 배포 파일 변경 확인
 - 배포 커밋 확인
 - GitHub Pages 소스와 상태 확인
 - 자기소개 페이지 공개 URL 확인
@@ -1489,28 +1486,6 @@ docs/B1-1/site/index.html
 docs/B1-1/site/css/style.css
 docs/B1-1/site/js/main.js
 docs/B1-1/site/images/profile.svg
-```
-
-### GitHub Pages 상태 확인
-
-```bash
-$ gh api repos/Logan-kim-the-philosopher/codyssey/pages --jq '{status,html_url}'
-{"html_url":"https://logan-kim-the-philosopher.github.io/codyssey/","status":"built"}
-```
-
-### 배포 URL HTTP 확인
-
-```bash
-$ curl -I -L https://logan-kim-the-philosopher.github.io/codyssey/B1-1/site/
-HTTP/2 200
-content-type: text/html
-```
-
-### 배포 파일 변경 확인
-
-```bash
-$ git status --short -- docs/B1-1/site
-?? docs/B1-1/site/
 ```
 
 ### 배포 커밋 확인
