@@ -33,7 +33,6 @@ body {
   line-height: 1.6;
 }
 
-header,
 main,
 footer {
   width: min(100% - 2rem, var(--content-width));
@@ -41,7 +40,19 @@ footer {
 }
 
 header {
+  width: 100%;
+  margin-inline: 0;
+  padding-inline: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
   padding-block: 1.25rem;
+  background: var(--color-bg);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+header.scrolled {
+  box-shadow: 0 0.5rem 1.5rem rgba(23, 32, 51, 0.12);
 }
 
 nav {
