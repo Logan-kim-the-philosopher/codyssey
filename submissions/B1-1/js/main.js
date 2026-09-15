@@ -1,4 +1,5 @@
 const navigation = document.querySelector("nav");
+const header = document.querySelector("header");
 const navigationLinks = document.querySelectorAll("nav a");
 const projectsSection = document.querySelector("#projects");
 const menuToggle = document.querySelector("#menu-toggle");
@@ -54,6 +55,7 @@ window.addEventListener("scroll", () => {
   const passedHero = window.scrollY >= 300;
 
   navigation.classList.toggle("scrolled", isScrolled);
+  header.classList.toggle("scrolled", isScrolled);
   document.body.classList.toggle("passed-hero", passedHero);
 
   console.log(`scrolled: ${isScrolled}, passedHero: ${passedHero}`);

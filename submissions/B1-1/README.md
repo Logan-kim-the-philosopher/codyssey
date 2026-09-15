@@ -448,6 +448,7 @@ button:hover {
 - 스크롤 탑 버튼 표시와 최상단 이동
 - IntersectionObserver visible 클래스와 섹션 등장 애니메이션
 - 메뉴 링크의 preventDefault와 부드러운 섹션 이동
+- 스크롤 시 sticky 헤더 고정과 상태 스타일 연결
 
 ### querySelector 선택과 DOM 참조 만들기
 
@@ -700,6 +701,48 @@ main section.visible {
 
     const target = document.querySelector(link.getAttribute("href"));
     target.scrollIntoView({ behavior: "smooth" });
+```
+
+### 스크롤 시 sticky 헤더 고정과 상태 스타일 연결
+
+`css/style.css`
+
+#### 추가된 코드
+
+```css
+  position: sticky;
+  top: 0;
+  z-index: 10;
+...
+  background: var(--color-bg);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+...
+header.scrolled {
+  box-shadow: 0 0.5rem 1.5rem rgba(23, 32, 51, 0.12);
+}
+```
+
+`js/main.js`
+
+#### 추가된 코드
+
+```javascript
+const header = document.querySelector("header");
+```
+
+`js/main.js`
+
+#### 삭제된 코드
+
+```javascript
+  navigation.classList.toggle("scrolled", isScrolled);
+```
+
+#### 추가된 코드
+
+```javascript
+  navigation.classList.toggle("scrolled", isScrolled);
+  header.classList.toggle("scrolled", isScrolled);
 ```
 
 
