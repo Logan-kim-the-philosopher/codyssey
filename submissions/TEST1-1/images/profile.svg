@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title desc">
+  <title id="title">프로필 일러스트</title>
+  <desc id="desc">단순한 색상 면으로 표현한 사람 얼굴 일러스트</desc>
+  <rect width="240" height="240" rx="120" fill="#dbeafe"/>
+  <circle cx="120" cy="94" r="45" fill="#172033"/>
+  <path d="M52 207c8-42 35-66 68-66s60 24 68 66" fill="#2563eb"/>
+  <circle cx="104" cy="94" r="5" fill="#fff"/>
+  <circle cx="136" cy="94" r="5" fill="#fff"/>
+  <path d="M101 116c12 10 26 10 38 0" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5"/>
+</svg>
