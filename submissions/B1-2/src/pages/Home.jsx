@@ -1,0 +1,2 @@
+import {Link} from 'react-router-dom';
+export default function Home(){return <section className="hero"><p className="eyebrow">A SMALL PLACE FOR BIG THOUGHTS</p><h1>오늘의 감각을<br/><em>천천히 기록해요.</em></h1><p className="lead">짧은 문장 하나가 하루의 결을 바꿀 때가 있습니다.</p><Link className="btn primary" to="/items">기록 둘러보기 <span>↗</span></Link><div className="hero-foot"><span>01 / 04</span><span>SCROLL TO EXPLORE ↓</span></div></section>}
