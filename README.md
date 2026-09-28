@@ -14,7 +14,6 @@ submissions/
     logs/
     ...
 docs/
-  index.html
   <과제코드>/
     index.html
     assets/
@@ -25,9 +24,9 @@ docs/
 
 | 과제 | 제목 | 문서 | 발표 |
 |---|---|---|---|
-| B1-1 | 자기소개 웹사이트 만들기 | [README](submissions/B1-1/README.md) | [Presentation](docs/B1-1/) |
-| B1-2 | 요즘 웹사이트 만들기 | [README](submissions/B1-2/README.md) | [Presentation](docs/B1-2/) |
-| E1-1 | 환경 세팅 | [README](submissions/E1-1/README.md) | [Presentation](docs/E1-1/) |
-| E1-2 | 파이썬 이해하기 | [README](submissions/E1-2/README.md) | [Presentation](docs/E1-2/) |
-| E1-3 | 작은 계산기 만들기 | [README](submissions/E1-3/README.md) | [Presentation](docs/E1-3/) |
+| B1-1 | 자기소개 웹사이트 만들기 | [README](submissions/B1-1/README.md) | [Presentation](https://logan-kim-the-philosopher.github.io/codyssey/B1-1/) |
+| B1-2 | 요즘 웹사이트 만들기 | [README](submissions/B1-2/README.md) | [Presentation](https://logan-kim-the-philosopher.github.io/codyssey/B1-2/) |
+| E1-1 | 환경 세팅 | [README](submissions/E1-1/README.md) | [Presentation](https://logan-kim-the-philosopher.github.io/codyssey/E1-1/) |
+| E1-2 | 파이썬 이해하기 | [README](submissions/E1-2/README.md) | [Presentation](https://logan-kim-the-philosopher.github.io/codyssey/E1-2/) |
+| E1-3 | 작은 계산기 만들기 | [README](submissions/E1-3/README.md) | [Presentation](https://logan-kim-the-philosopher.github.io/codyssey/E1-3/) |
 <!-- CODEYSSEY-HARNESS:END -->
