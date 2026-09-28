@@ -2,14 +2,7 @@
 
 Codyssey 과제 제출 저장소입니다. 과제별 README, 발표 HTML, 실습 파일, 증거 이미지를 과제 코드별로 정리합니다.
 
-## 과제 목록
 
-| 과제 | 제목 | 문서 | 발표 |
-| --- | --- | --- | --- |
-| B1-1 | B1-1 자기소개 웹사이트 만들기 | [README](submissions/B1-1/README.md) | [Presentation](https://Logan-kim-the-philosopher.github.io/codyssey/B1-1/) |
-| E1-1 | E1-1 환경 세팅 | [README](submissions/E1-1/README.md) | [Presentation](https://Logan-kim-the-philosopher.github.io/codyssey/E1-1/) |
-| E1-2 | E1-2 파이썬 이해하기 | [README](submissions/E1-2/README.md) | [Presentation](https://Logan-kim-the-philosopher.github.io/codyssey/E1-2/) |
-| E1-3 | E1-3 작은 계산기 만들기 | [README](submissions/E1-3/README.md) | [Presentation](https://Logan-kim-the-philosopher.github.io/codyssey/E1-3/) |
 
 ## 저장소 구조
 
@@ -26,3 +19,15 @@ docs/
     index.html
     assets/
 ```
+
+<!-- CODEYSSEY-HARNESS:START -->
+## 과제 목록
+
+| 과제 | 제목 | 문서 | 발표 |
+|---|---|---|---|
+| B1-1 | B1-1 자기소개 웹사이트 만들기 | [README](submissions/B1-1/README.md) | [Presentation](docs/B1-1/) |
+| B1-2 | pulse·note | [README](submissions/B1-2/README.md) | [Presentation](docs/B1-2/) |
+| E1-1 | E1-1 환경 세팅 | [README](submissions/E1-1/README.md) | [Presentation](docs/E1-1/) |
+| E1-2 | E1-2 파이썬 이해하기 | [README](submissions/E1-2/README.md) | [Presentation](docs/E1-2/) |
+| E1-3 | E1-3 작은 계산기 만들기 | [README](submissions/E1-3/README.md) | [Presentation](docs/E1-3/) |
+<!-- CODEYSSEY-HARNESS:END -->
