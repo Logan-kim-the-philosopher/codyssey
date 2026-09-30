@@ -2,19 +2,10 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import useItems from "../hooks/useItems.js";
 import Status from "../components/Status.jsx";
-function Card({ item }) {
-  return (
-    <Link className="card" to={"/items/" + item.id}>
-      <div className="card-top">
-        <span className="tag">{item.tag}</span>
-        <span>{item.updated}</span>
-      </div>
-      <h3>{item.title}</h3>
-      <p>{item.body}</p>
-      <span className="arrow">↗</span>
-    </Link>
-  );
-}
+import ItemList from "../components/ItemList.jsx";
+import SearchField from "../components/SearchField.jsx";
+import SectionHeading from "../components/SectionHeading.jsx";
+
 export default function Items() {
   const { items, busy, loadError } = useItems();
   const [q, setQ] = useState("");
@@ -27,33 +18,31 @@ export default function Items() {
   );
   return (
     <section>
-      <div className="page-head">
-        <div>
-          <p className="eyebrow">YOUR COLLECTION</p>
-          <h2>모든 기록</h2>
-        </div>
-        <Link className="btn primary" to="/items/new">
+      <SectionHeading
+        className="page-head"
+        eyebrow="YOUR COLLECTION"
+        title="모든 기록"
+        action={
+          <Link className="btn primary" to="/items/new">
           + 새 기록
-        </Link>
-      </div>
-      <input
-        className="search"
-        placeholder="기록을 검색하세요"
+          </Link>
+        }
+      />
+      <SearchField
         value={q}
         onChange={(e) => setQ(e.target.value)}
+        placeholder="기록을 검색하세요"
       />
-      {loadError && <Status type="error">{loadError}</Status>}
-      {busy && <Status type="loading">저장 중...</Status>}
-      {!loadError && !filtered.length ? (
-        <Status type="empty">표시할 기록이 없습니다.</Status>
+      {loadError ? (
+        <Status type="error">{loadError}</Status>
+      ) : busy ? (
+        <Status type="loading">기록을 불러오는 중...</Status>
+      ) : filtered.length ? (
+        <ItemList items={filtered} />
       ) : (
-        !loadError && (
-          <div className="grid">
-            {filtered.map((item) => (
-              <Card key={item.id} item={item} />
-            ))}
-          </div>
-        )
+        <Status type="empty">
+          {items.length ? "검색 결과가 없습니다." : "표시할 기록이 없습니다."}
+        </Status>
       )}
     </section>
   );

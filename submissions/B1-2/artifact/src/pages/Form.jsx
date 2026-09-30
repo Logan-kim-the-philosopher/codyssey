@@ -3,6 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import useItems from "../hooks/useItems.js";
 import Button from "../components/Button.jsx";
 import Status from "../components/Status.jsx";
+import FormField from "../components/FormField.jsx";
+import SectionHeading from "../components/SectionHeading.jsx";
 export default function Form() {
   const { id } = useParams(),
     { items, save, busy, error } = useItems(),
@@ -24,20 +26,21 @@ export default function Form() {
   };
   return (
     <section className="form-wrap">
-      <p className="eyebrow">{existing ? "EDIT ENTRY" : "NEW ENTRY"}</p>
-      <h2>{existing ? "기록을 다듬어요" : "새로운 기록"}</h2>
+      <SectionHeading
+        className="form-heading"
+        eyebrow={existing ? "EDIT ENTRY" : "NEW ENTRY"}
+        title={existing ? "기록을 다듬어요" : "새로운 기록"}
+      />
       <form onSubmit={submit}>
         {(err || error) && <Status type="error">{err || error}</Status>}
-        <label>
-          제목
+        <FormField label="제목">
           <input
             value={form.title}
             onChange={(e) => setForm({ ...form, title: e.target.value })}
             placeholder="오늘의 제목"
           />
-        </label>
-        <label>
-          분류
+        </FormField>
+        <FormField label="분류">
           <select
             value={form.tag}
             onChange={(e) => setForm({ ...form, tag: e.target.value })}
@@ -46,16 +49,15 @@ export default function Form() {
             <option>아이디어</option>
             <option>배움</option>
           </select>
-        </label>
-        <label>
-          내용
+        </FormField>
+        <FormField label="내용">
           <textarea
             rows="8"
             value={form.body}
             onChange={(e) => setForm({ ...form, body: e.target.value })}
             placeholder="무슨 일이 있었나요?"
           />
-        </label>
+        </FormField>
         <Button disabled={busy}>{busy ? "저장 중..." : "기록 저장"}</Button>
       </form>
     </section>

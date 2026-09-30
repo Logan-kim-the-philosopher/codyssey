@@ -2,6 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import useItems from "../hooks/useItems.js";
 import Button from "../components/Button.jsx";
 import Status from "../components/Status.jsx";
+import ItemMeta from "../components/ItemMeta.jsx";
 export default function Detail() {
   const { id } = useParams(),
     { items, remove, busy } = useItems(),
@@ -14,9 +15,7 @@ export default function Detail() {
       <Link to="/items" className="back">
         ← 모든 기록
       </Link>
-      <p className="eyebrow">
-        {item.tag} · {item.updated}
-      </p>
+      <ItemMeta tag={item.tag} updated={item.updated} variant="detail" />
       <h2>{item.title}</h2>
       <p className="detail-body">{item.body}</p>
       <div className="actions">
