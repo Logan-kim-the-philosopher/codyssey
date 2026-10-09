@@ -1,11 +1,11 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import useItems from "../hooks/useItems.js";
+import useStore from "../hooks/useStore.js";
 import Button from "../components/Button.jsx";
 import Status from "../components/Status.jsx";
 import ItemMeta from "../components/ItemMeta.jsx";
 export default function Detail() {
   const { id } = useParams(),
-    { items, remove, busy } = useItems(),
+    { items, remove, busy, error } = useStore(),
     nav = useNavigate(),
     item = items.find((x) => x.id === id);
   if (!item)
@@ -18,6 +18,7 @@ export default function Detail() {
       <ItemMeta tag={item.tag} updated={item.updated} variant="detail" />
       <h2>{item.title}</h2>
       <p className="detail-body">{item.body}</p>
+      {error && <Status type="error">{error}</Status>}
       <div className="actions">
         <Link className="btn secondary" to={"/items/" + id + "/edit"}>
           수정
@@ -26,8 +27,7 @@ export default function Detail() {
           kind="danger"
           disabled={busy}
           onClick={async () => {
-            await remove(id);
-            nav("/items");
+            if (await remove(id)) nav("/items");
           }}
         >
           삭제

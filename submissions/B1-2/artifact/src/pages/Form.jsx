@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import useItems from "../hooks/useItems.js";
+import useStore from "../hooks/useStore.js";
 import Button from "../components/Button.jsx";
 import Status from "../components/Status.jsx";
 import FormField from "../components/FormField.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
 export default function Form() {
   const { id } = useParams(),
-    { items, save, busy, error } = useItems(),
+    { items, save, busy, error } = useStore(),
     nav = useNavigate(),
     existing = items.find((x) => x.id === id);
   const [form, setForm] = useState(

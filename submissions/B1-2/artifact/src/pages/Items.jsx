@@ -1,13 +1,13 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import useItems from "../hooks/useItems.js";
+import useStore from "../hooks/useStore.js";
 import Status from "../components/Status.jsx";
 import ItemList from "../components/ItemList.jsx";
 import SearchField from "../components/SearchField.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
 
 export default function Items() {
-  const { items, busy, loadError } = useItems();
+  const { items, busy, loadError } = useStore();
   const [q, setQ] = useState("");
   const filtered = useMemo(
     () =>
