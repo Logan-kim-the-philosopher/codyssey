@@ -6,7 +6,7 @@
 ## 로컬 실행
 
 ```bash
-cd /Users/hskim/Projects/codyssey/artifacts/b2-1/web-demo
+cd submissions/B2-1/web-demo
 python3 prepare.py
 python3 dev.py
 ```
