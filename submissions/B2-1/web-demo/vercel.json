@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "python3 prepare.py",
+  "outputDirectory": "public",
+  "functions": {"api/budget.py": {"maxDuration": 30, "excludeFiles": "{public/**,tests/**}"}}
+}

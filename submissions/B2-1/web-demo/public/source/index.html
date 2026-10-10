@@ -1,0 +1,960 @@
+<!doctype html><html lang="ko"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>용돈 기입장 소스코드</title>
+<style>body{background:#08152b;color:#e6efff;font:16px/1.6 system-ui;max-width:1000px;margin:40px auto;padding:0 24px}a{color:#9cddff}details{margin:16px 0;border:1px solid #34516d;border-radius:8px;padding:16px}summary{cursor:pointer;font-weight:600}pre{overflow:auto;font:13px/1.6 monospace}</style>
+<h1>용돈 기입장 소스코드</h1><p>콘솔 프로그램의 Python 원본입니다.</p>
+<p><a href="budget_app.zip" download>전체 소스 다운로드</a> · <a href="/">서비스 체험</a> · <a href="/presentation/index.html#15">발표자료</a></p>
+<p>다운로드한 ZIP을 풀고 해당 폴더에서 <code>python3 -m budget_app --help</code>로 실행하세요.</p>
+<details><summary>__init__.py</summary><pre><code>&quot;&quot;&quot;A small, file-backed command-line budget tracker.&quot;&quot;&quot;
+
+__version__ = &quot;1.0.0&quot;
+</code></pre></details><details><summary>__main__.py</summary><pre><code>from .cli import main
+
+
+if __name__ == &quot;__main__&quot;:
+    raise SystemExit(main())
+</code></pre></details><details><summary>cli.py</summary><pre><code>from __future__ import annotations
+
+import argparse
+import logging
+import sys
+from functools import wraps
+from pathlib import Path
+from typing import Any, Callable, TypeVar
+
+from .errors import BudgetError
+from .models import Transaction
+from .service import BudgetService
+from .storage import JsonlBudgetStore
+
+F = TypeVar(&quot;F&quot;, bound=Callable[..., int])
+
+
+class FriendlyArgumentParser(argparse.ArgumentParser):
+    def __init__(self, *args: Any, **kwargs: Any) -&gt; None:
+        kwargs[&quot;add_help&quot;] = False
+        super().__init__(*args, **kwargs)
+        self.add_argument(&quot;--help&quot;, action=&quot;help&quot;, help=&quot;사용 방법 표시&quot;)
+
+    def error(self, message: str) -&gt; None:
+        raise BudgetError(f&quot;명령 인자가 올바르지 않습니다: {message}&quot;, &quot;해당 명령에 --help를 붙여 사용법을 확인하세요.&quot;)
+
+
+def friendly_errors(function: F) -&gt; F:
+    @wraps(function)
+    def wrapper(*args: Any, **kwargs: Any) -&gt; int:
+        try:
+            return function(*args, **kwargs)
+        except BudgetError as error:
+            print(f&quot;[오류] {error}&quot;, file=sys.stderr)
+            print(f&quot;[힌트] {error.hint}&quot;, file=sys.stderr)
+            return 2
+        except OSError as error:
+            print(f&quot;[오류] 파일 작업을 완료하지 못했습니다: {error}&quot;, file=sys.stderr)
+            print(&quot;[힌트] 파일 경로와 권한을 확인하세요.&quot;, file=sys.stderr)
+            return 2
+        except EOFError as error:
+            print(&quot;[오류] 입력이 중단되었습니다.&quot;, file=sys.stderr)
+            print(&quot;[힌트] add 명령의 입력을 끝까지 완료하세요.&quot;, file=sys.stderr)
+            return 2
+
+    return wrapper  # type: ignore[return-value]
+
+
+def _add_data_dir(parser: argparse.ArgumentParser) -&gt; None:
+    parser.add_argument(&quot;--data-dir&quot;, default=argparse.SUPPRESS, help=&quot;데이터 폴더 (기본값: ./data)&quot;)
+
+
+def build_parser() -&gt; FriendlyArgumentParser:
+    parser = FriendlyArgumentParser(
+        prog=&quot;python -m budget_app&quot;,
+        description=&quot;JSONL 파일 기반 콘솔 용돈 기입장&quot;,
+    )
+    parser.add_argument(&quot;--data-dir&quot;, default=&quot;./data&quot;, help=&quot;데이터 폴더 (기본값: ./data)&quot;)
+    commands = parser.add_subparsers(dest=&quot;command&quot;, required=True, parser_class=FriendlyArgumentParser)
+
+    add = commands.add_parser(&quot;add&quot;, help=&quot;대화형으로 거래 추가&quot;)
+    _add_data_dir(add)
+
+    listing = commands.add_parser(&quot;list&quot;, help=&quot;최신 거래 목록&quot;)
+    _add_data_dir(listing)
+    listing.add_argument(&quot;--limit&quot;, type=int, default=20, help=&quot;표시할 최대 거래 수 (기본값: 20)&quot;)
+
+    search = commands.add_parser(&quot;search&quot;, help=&quot;조건에 맞는 거래 검색&quot;)
+    _add_data_dir(search)
+    search.add_argument(&quot;--from&quot;, dest=&quot;from_date&quot;, help=&quot;시작일 YYYY-MM-DD&quot;)
+    search.add_argument(&quot;--to&quot;, dest=&quot;to_date&quot;, help=&quot;종료일 YYYY-MM-DD&quot;)
+    search.add_argument(&quot;--category&quot;, help=&quot;카테고리&quot;)
+    search.add_argument(&quot;--type&quot;, dest=&quot;transaction_type&quot;, choices=(&quot;income&quot;, &quot;expense&quot;), help=&quot;income 또는 expense&quot;)
+    search.add_argument(&quot;--q&quot;, help=&quot;메모 키워드&quot;)
+    search.add_argument(&quot;--tag&quot;, help=&quot;태그&quot;)
+    search.add_argument(&quot;--limit&quot;, type=int, default=100, help=&quot;표시할 최대 거래 수 (기본값: 100)&quot;)
+
+    summary = commands.add_parser(&quot;summary&quot;, help=&quot;월별 수입·지출 요약&quot;)
+    _add_data_dir(summary)
+    summary.add_argument(&quot;--month&quot;, required=True, help=&quot;요약할 월 YYYY-MM&quot;)
+    summary.add_argument(&quot;--top&quot;, type=int, default=5, help=&quot;지출 카테고리 표시 개수 (기본값: 5)&quot;)
+
+    budget = commands.add_parser(&quot;budget&quot;, help=&quot;월 예산 설정과 조회&quot;)
+    budget_commands = budget.add_subparsers(dest=&quot;budget_command&quot;, required=True, parser_class=FriendlyArgumentParser)
+    budget_set = budget_commands.add_parser(&quot;set&quot;, help=&quot;월 예산 설정&quot;)
+    _add_data_dir(budget_set)
+    budget_set.add_argument(&quot;--month&quot;, required=True, help=&quot;예산 월 YYYY-MM&quot;)
+    budget_set.add_argument(&quot;--amount&quot;, required=True, type=int, help=&quot;양수 정수 금액&quot;)
+    budget_show = budget_commands.add_parser(&quot;show&quot;, help=&quot;월 예산 조회&quot;)
+    _add_data_dir(budget_show)
+    budget_show.add_argument(&quot;--month&quot;, required=True, help=&quot;조회할 월 YYYY-MM&quot;)
+    budget_list = budget_commands.add_parser(&quot;list&quot;, help=&quot;전체 예산 조회&quot;)
+    _add_data_dir(budget_list)
+
+    category = commands.add_parser(&quot;category&quot;, help=&quot;카테고리 관리&quot;)
+    category_commands = category.add_subparsers(dest=&quot;category_command&quot;, required=True, parser_class=FriendlyArgumentParser)
+    for name, help_text in ((&quot;add&quot;, &quot;카테고리 추가&quot;), (&quot;list&quot;, &quot;카테고리 목록&quot;), (&quot;remove&quot;, &quot;카테고리 삭제&quot;)):
+        subcommand = category_commands.add_parser(name, help=help_text)
+        _add_data_dir(subcommand)
+        if name in {&quot;add&quot;, &quot;remove&quot;}:
+            subcommand.add_argument(&quot;--name&quot;, help=&quot;카테고리명&quot;)
+
+    update = commands.add_parser(&quot;update&quot;, help=&quot;옵션 방식으로 거래 수정&quot;)
+    _add_data_dir(update)
+    update.add_argument(&quot;--id&quot;, required=True, help=&quot;거래 id&quot;)
+    update.add_argument(&quot;--date&quot;, dest=&quot;transaction_date&quot;, help=&quot;날짜 YYYY-MM-DD&quot;)
+    update.add_argument(&quot;--type&quot;, dest=&quot;transaction_type&quot;, choices=(&quot;income&quot;, &quot;expense&quot;), help=&quot;income 또는 expense&quot;)
+    update.add_argument(&quot;--category&quot;, help=&quot;카테고리&quot;)
+    update.add_argument(&quot;--amount&quot;, type=int, help=&quot;양수 정수 금액&quot;)
+    update.add_argument(&quot;--memo&quot;, help=&quot;메모 (빈 문자열이면 비움)&quot;)
+    update.add_argument(&quot;--tags&quot;, help=&quot;쉼표로 구분한 태그&quot;)
+
+    delete = commands.add_parser(&quot;delete&quot;, help=&quot;거래 삭제&quot;)
+    _add_data_dir(delete)
+    delete.add_argument(&quot;--id&quot;, required=True, help=&quot;삭제할 거래 id&quot;)
+
+    import_parser = commands.add_parser(&quot;import&quot;, help=&quot;CSV 거래 가져오기&quot;)
+    _add_data_dir(import_parser)
+    import_parser.add_argument(&quot;--from&quot;, dest=&quot;source&quot;, required=True, help=&quot;가져올 CSV 경로&quot;)
+
+    export = commands.add_parser(&quot;export&quot;, help=&quot;조건에 맞는 거래를 CSV로 내보내기&quot;)
+    _add_data_dir(export)
+    export.add_argument(&quot;--out&quot;, required=True, help=&quot;출력 CSV 경로&quot;)
+    export.add_argument(&quot;--month&quot;, help=&quot;월 YYYY-MM&quot;)
+    export.add_argument(&quot;--from&quot;, dest=&quot;from_date&quot;, help=&quot;시작일 YYYY-MM-DD&quot;)
+    export.add_argument(&quot;--to&quot;, dest=&quot;to_date&quot;, help=&quot;종료일 YYYY-MM-DD&quot;)
+
+    backup = commands.add_parser(&quot;backup&quot;, help=&quot;저장 데이터를 타임스탬프 백업&quot;)
+    _add_data_dir(backup)
+
+    recurring = commands.add_parser(&quot;recurring&quot;, help=&quot;반복 거래 규칙 관리&quot;)
+    recurring_commands = recurring.add_subparsers(dest=&quot;recurring_command&quot;, required=True, parser_class=FriendlyArgumentParser)
+    recurring_add = recurring_commands.add_parser(&quot;add&quot;, help=&quot;반복 규칙 추가&quot;)
+    _add_data_dir(recurring_add)
+    recurring_add.add_argument(&quot;--type&quot;, dest=&quot;transaction_type&quot;, required=True, choices=(&quot;income&quot;, &quot;expense&quot;))
+    recurring_add.add_argument(&quot;--day&quot;, required=True, type=int, help=&quot;매월 실행일 1~31&quot;)
+    recurring_add.add_argument(&quot;--amount&quot;, required=True, type=int, help=&quot;양수 정수 금액&quot;)
+    recurring_add.add_argument(&quot;--category&quot;, required=True, help=&quot;등록된 카테고리&quot;)
+    recurring_add.add_argument(&quot;--memo&quot;, default=&quot;&quot;, help=&quot;메모&quot;)
+    recurring_add.add_argument(&quot;--tags&quot;, default=&quot;&quot;, help=&quot;쉼표로 구분한 태그&quot;)
+    recurring_list = recurring_commands.add_parser(&quot;list&quot;, help=&quot;반복 규칙 목록&quot;)
+    _add_data_dir(recurring_list)
+    recurring_generate = recurring_commands.add_parser(&quot;generate&quot;, help=&quot;특정 월의 반복 거래 생성&quot;)
+    _add_data_dir(recurring_generate)
+    recurring_generate.add_argument(&quot;--month&quot;, required=True, help=&quot;생성할 월 YYYY-MM&quot;)
+
+    return parser
+
+
+def _prompt(label: str, optional: bool = False) -&gt; str:
+    suffix = &quot; (선택)&quot; if optional else &quot;&quot;
+    return input(f&quot;{label}{suffix}: &quot;).strip()
+
+
+def _positive_limit(value: int, option: str) -&gt; None:
+    if value &lt;= 0:
+        raise BudgetError(f&quot;{option}은 1 이상의 정수여야 합니다.&quot;, f&quot;{option} 값을 1 이상으로 입력하세요.&quot;)
+
+
+def _table(headers: list[str], rows: list[list[str]]) -&gt; None:
+    if not rows:
+        print(&quot;데이터 없음&quot;)
+        return
+    widths = [max(len(headers[index]), *(len(row[index]) for row in rows)) for index in range(len(headers))]
+    print(&quot; | &quot;.join(header.ljust(widths[index]) for index, header in enumerate(headers)))
+    print(&quot;-+-&quot;.join(&quot;-&quot; * width for width in widths))
+    for row in rows:
+        print(&quot; | &quot;.join(value.ljust(widths[index]) for index, value in enumerate(row)))
+
+
+def _transaction_row(item: Transaction) -&gt; list[str]:
+    return [item.id, item.date, item.type, item.category, f&quot;{item.amount:,}&quot;, item.memo, &quot;,&quot;.join(item.tags)]
+
+
+def _print_transactions(items: list[Transaction]) -&gt; None:
+    _table([&quot;ID&quot;, &quot;DATE&quot;, &quot;TYPE&quot;, &quot;CATEGORY&quot;, &quot;AMOUNT&quot;, &quot;MEMO&quot;, &quot;TAGS&quot;], [_transaction_row(item) for item in items])
+
+
+def _category_name(args: argparse.Namespace) -&gt; str:
+    name = args.name.strip() if args.name is not None else _prompt(&quot;카테고리명&quot;)
+    if not name:
+        raise BudgetError(&quot;카테고리명을 입력하세요.&quot;, &quot;예: food&quot;)
+    return name
+
+
+def _execute(args: argparse.Namespace, service: BudgetService, store: JsonlBudgetStore) -&gt; int:
+    if args.command == &quot;add&quot;:
+        transaction_date = _prompt(&quot;날짜(YYYY-MM-DD)&quot;)
+        transaction_type = _prompt(&quot;타입(income/expense)&quot;)
+        category_name = _prompt(&quot;카테고리&quot;)
+        amount_text = _prompt(&quot;금액(양수 정수)&quot;)
+        if not amount_text.isdecimal():
+            raise BudgetError(&quot;금액은 양수 정수여야 합니다.&quot;, &quot;예: 15000&quot;)
+        memo = _prompt(&quot;메모&quot;, optional=True)
+        tags = _prompt(&quot;태그(쉼표로 구분)&quot;, optional=True)
+        transaction = service.add_transaction(transaction_type, transaction_date, category_name, int(amount_text), memo, tags)
+        print(f&quot;[저장 완료] id={transaction.id}&quot;)
+    elif args.command == &quot;list&quot;:
+        _positive_limit(args.limit, &quot;--limit&quot;)
+        from itertools import islice
+        _print_transactions(list(islice(service.iter_transactions(), args.limit)))
+    elif args.command == &quot;search&quot;:
+        _positive_limit(args.limit, &quot;--limit&quot;)
+        from itertools import islice
+        matches = service.search(args.from_date, args.to_date, args.category, args.transaction_type, args.q, args.tag)
+        _print_transactions(list(islice(matches, args.limit)))
+    elif args.command == &quot;summary&quot;:
+        _positive_limit(args.top, &quot;--top&quot;)
+        result = service.summary(args.month)
+        if result[&quot;count&quot;] == 0:
+            print(f&quot;데이터 없음 ({result[&#x27;month&#x27;]})&quot;)
+        print(f&quot;총 수입: {result[&#x27;income&#x27;]:,}원&quot;)
+        print(f&quot;총 지출: {result[&#x27;expense&#x27;]:,}원&quot;)
+        print(f&quot;잔액: {result[&#x27;balance&#x27;]:,}원&quot;)
+        budget = result[&quot;budget&quot;]
+        if budget:
+            ratio = result[&quot;expense&quot;] / budget.amount * 100
+            print(f&quot;예산: {budget.amount:,}원 (사용률 {ratio:.1f}%)&quot;)
+            if result[&quot;expense&quot;] &gt; budget.amount:
+                print(&quot;[경고] 월 예산을 초과했습니다.&quot;)
+        print(f&quot;\n지출 TOP {args.top}&quot;)
+        for position, (category_name, amount) in enumerate(result[&quot;category_totals&quot;][:args.top], start=1):
+            print(f&quot;{position}) {category_name} {amount:,}원&quot;)
+        if not result[&quot;category_totals&quot;]:
+            print(&quot;지출 내역 없음&quot;)
+    elif args.command == &quot;budget&quot;:
+        if args.budget_command == &quot;set&quot;:
+            budget = service.set_budget(args.month, args.amount)
+            print(f&quot;[저장 완료] {budget.month} 예산 {budget.amount:,}원&quot;)
+        elif args.budget_command == &quot;show&quot;:
+            budget = next((item for item in store.iter_budgets() if item.month == args.month), None)
+            if budget is None:
+                raise BudgetError(f&quot;{args.month} 예산이 없습니다.&quot;, &quot;budget set으로 월 예산을 먼저 등록하세요.&quot;)
+            print(f&quot;{budget.month} 예산: {budget.amount:,}원&quot;)
+        else:
+            rows = [[item.month, f&quot;{item.amount:,}원&quot;] for item in sorted(store.iter_budgets(), key=lambda value: value.month)]
+            _table([&quot;MONTH&quot;, &quot;BUDGET&quot;], rows)
+    elif args.command == &quot;category&quot;:
+        if args.category_command == &quot;list&quot;:
+            _table([&quot;CATEGORY&quot;], [[name] for name in service.categories()])
+        elif args.category_command == &quot;add&quot;:
+            name = _category_name(args)
+            if name in service.categories():
+                raise BudgetError(f&quot;이미 등록된 카테고리입니다: {name}&quot;, &quot;category list로 기존 목록을 확인하세요.&quot;)
+            store.write_categories([*service.categories(), name])
+            print(f&quot;[저장 완료] category={name}&quot;)
+        else:
+            name = _category_name(args)
+            service.remove_category(name)
+            print(f&quot;[삭제 완료] category={name}&quot;)
+    elif args.command == &quot;update&quot;:
+        transaction = service.update_transaction(
+            args.id, transaction_date=args.transaction_date,
+            transaction_type=args.transaction_type, category=args.category,
+            amount=args.amount, memo=args.memo, tags=args.tags,
+        )
+        print(f&quot;[수정 완료] id={transaction.id}&quot;)
+    elif args.command == &quot;delete&quot;:
+        service.delete_transaction(args.id)
+        print(f&quot;[삭제 완료] id={args.id}&quot;)
+    elif args.command == &quot;import&quot;:
+        imported, skipped, errors = service.import_csv(Path(args.source))
+        print(f&quot;[완료] imported={imported}, skipped={skipped}&quot;)
+        for error in errors[:10]:
+            print(f&quot;[건너뜀] {error}&quot;, file=sys.stderr)
+        if len(errors) &gt; 10:
+            print(f&quot;[안내] 나머지 {len(errors) - 10}건의 오류는 표시하지 않았습니다.&quot;, file=sys.stderr)
+    elif args.command == &quot;export&quot;:
+        count = service.export_csv(Path(args.out), month=args.month, from_date=args.from_date, to_date=args.to_date)
+        print(f&quot;[완료] {Path(args.out)} ({count} records)&quot;)
+    elif args.command == &quot;backup&quot;:
+        destination = service.backup()
+        print(f&quot;[백업 완료] {destination}&quot;)
+    elif args.command == &quot;recurring&quot;:
+        if args.recurring_command == &quot;add&quot;:
+            rule = service.add_recurring(args.transaction_type, args.day, args.amount, args.category, args.memo, args.tags)
+            print(f&quot;[저장 완료] recurring_id={rule.id}&quot;)
+        elif args.recurring_command == &quot;list&quot;:
+            rules = sorted(store.iter_recurring(), key=lambda value: (value.day, value.id))
+            rows = [[rule.id, rule.type, str(rule.day), rule.category, f&quot;{rule.amount:,}&quot;, rule.memo, &quot;,&quot;.join(rule.tags)] for rule in rules]
+            _table([&quot;ID&quot;, &quot;TYPE&quot;, &quot;DAY&quot;, &quot;CATEGORY&quot;, &quot;AMOUNT&quot;, &quot;MEMO&quot;, &quot;TAGS&quot;], rows)
+        else:
+            created = service.generate_recurring(args.month)
+            print(f&quot;[완료] {args.month} generated={created}&quot;)
+    return 0
+
+
+@friendly_errors
+def main() -&gt; int:
+    parser = build_parser()
+    args = parser.parse_args()
+    store = JsonlBudgetStore(Path(args.data_dir))
+    store.ensure_files()
+    logging.basicConfig(
+        filename=str(store.directory / &quot;budget.log&quot;),
+        level=logging.INFO,
+        format=&quot;%(asctime)s %(levelname)s %(name)s %(message)s&quot;,
+    )
+    return _execute(args, BudgetService(store), store)
+</code></pre></details><details><summary>decorators.py</summary><pre><code>from __future__ import annotations
+
+import logging
+from functools import wraps
+from time import perf_counter
+from typing import Any, Callable, TypeVar
+
+F = TypeVar(&quot;F&quot;, bound=Callable[..., Any])
+
+
+def logged_and_timed(function: F) -&gt; F:
+    &quot;&quot;&quot;Log operation outcomes and elapsed time without mixing logs into CLI output.&quot;&quot;&quot;
+
+    @wraps(function)
+    def wrapper(*args: Any, **kwargs: Any) -&gt; Any:
+        started = perf_counter()
+        try:
+            result = function(*args, **kwargs)
+        except Exception:
+            logging.getLogger(&quot;budget_app&quot;).exception(&quot;%s failed&quot;, function.__name__)
+            raise
+        logging.getLogger(&quot;budget_app&quot;).info(&quot;%s completed in %.4fs&quot;, function.__name__, perf_counter() - started)
+        return result
+
+    return wrapper  # type: ignore[return-value]
+</code></pre></details><details><summary>errors.py</summary><pre><code>class BudgetError(Exception):
+    def __init__(self, message: str, hint: str = &quot;입력값과 --help 안내를 확인하세요.&quot;) -&gt; None:
+        super().__init__(message)
+        self.hint = hint
+
+
+class DataError(BudgetError):
+    pass
+</code></pre></details><details><summary>models.py</summary><pre><code>from __future__ import annotations
+
+from dataclasses import asdict, dataclass, field
+from datetime import date, datetime, timezone
+from typing import Any
+from uuid import uuid4
+
+from .errors import BudgetError
+
+
+def new_id(prefix: str) -&gt; str:
+    return f&quot;{prefix}-{uuid4().hex[:12].upper()}&quot;
+
+
+def parse_date(value: str) -&gt; date:
+    try:
+        parsed = date.fromisoformat(value)
+    except (TypeError, ValueError) as error:
+        raise BudgetError(&quot;날짜 형식이 올바르지 않습니다 (YYYY-MM-DD).&quot;, &quot;예: 2026-09-30&quot;) from error
+    if parsed.isoformat() != value:
+        raise BudgetError(&quot;날짜 형식이 올바르지 않습니다 (YYYY-MM-DD).&quot;, &quot;예: 2026-09-30&quot;)
+    return parsed
+
+
+def validate_month(value: str) -&gt; str:
+    try:
+        parsed = datetime.strptime(value, &quot;%Y-%m&quot;)
+    except (TypeError, ValueError) as error:
+        raise BudgetError(&quot;월 형식이 올바르지 않습니다 (YYYY-MM).&quot;, &quot;예: 2026-09&quot;) from error
+    if parsed.strftime(&quot;%Y-%m&quot;) != value:
+        raise BudgetError(&quot;월 형식이 올바르지 않습니다 (YYYY-MM).&quot;, &quot;예: 2026-09&quot;)
+    return value
+
+
+def parse_tags(value: str | list[str] | tuple[str, ...] | None) -&gt; tuple[str, ...]:
+    if value is None:
+        return ()
+    if isinstance(value, str):
+        items = value.split(&quot;,&quot;)
+    else:
+        items = value
+    return tuple(dict.fromkeys(tag.strip() for tag in items if tag.strip()))
+
+
+@dataclass(frozen=True)
+class Transaction:
+    id: str
+    type: str
+    date: str
+    amount: int
+    category: str
+    memo: str = &quot;&quot;
+    tags: tuple[str, ...] = field(default_factory=tuple)
+    created_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat(timespec=&quot;microseconds&quot;))
+    recurring_rule_id: str | None = None
+    recurring_month: str | None = None
+
+    def __post_init__(self) -&gt; None:
+        parse_date(self.date)
+        if self.type not in {&quot;income&quot;, &quot;expense&quot;}:
+            raise BudgetError(&quot;타입은 income 또는 expense여야 합니다.&quot;, &quot;타입 입력을 확인하세요.&quot;)
+        if isinstance(self.amount, bool) or not isinstance(self.amount, int) or self.amount &lt;= 0:
+            raise BudgetError(&quot;금액은 양수 정수여야 합니다.&quot;, &quot;예: 15000&quot;)
+        if not self.category.strip():
+            raise BudgetError(&quot;카테고리를 입력해야 합니다.&quot;, &quot;category list로 등록된 항목을 확인하세요.&quot;)
+        object.__setattr__(self, &quot;tags&quot;, parse_tags(self.tags))
+
+    @property
+    def sort_key(self) -&gt; tuple[str, str, str]:
+        return self.date, self.created_at, self.id
+
+    def to_dict(self) -&gt; dict[str, Any]:
+        return asdict(self)
+
+    @classmethod
+    def from_dict(cls, row: dict[str, Any]) -&gt; Transaction:
+        return cls(
+            id=str(row[&quot;id&quot;]),
+            type=str(row[&quot;type&quot;]),
+            date=str(row[&quot;date&quot;]),
+            amount=int(row[&quot;amount&quot;]),
+            category=str(row[&quot;category&quot;]),
+            memo=str(row.get(&quot;memo&quot;, &quot;&quot;)),
+            tags=parse_tags(row.get(&quot;tags&quot;)),
+            created_at=str(row.get(&quot;created_at&quot;) or datetime.now(timezone.utc).isoformat(timespec=&quot;microseconds&quot;)),
+            recurring_rule_id=row.get(&quot;recurring_rule_id&quot;),
+            recurring_month=row.get(&quot;recurring_month&quot;),
+        )
+
+
+@dataclass(frozen=True)
+class Budget:
+    month: str
+    amount: int
+
+    def __post_init__(self) -&gt; None:
+        validate_month(self.month)
+        if isinstance(self.amount, bool) or not isinstance(self.amount, int) or self.amount &lt;= 0:
+            raise BudgetError(&quot;예산은 양수 정수여야 합니다.&quot;, &quot;예: --amount 500000&quot;)
+
+    def to_dict(self) -&gt; dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(frozen=True)
+class RecurringRule:
+    id: str
+    type: str
+    day: int
+    amount: int
+    category: str
+    memo: str = &quot;&quot;
+    tags: tuple[str, ...] = field(default_factory=tuple)
+
+    def __post_init__(self) -&gt; None:
+        if self.type not in {&quot;income&quot;, &quot;expense&quot;}:
+            raise BudgetError(&quot;타입은 income 또는 expense여야 합니다.&quot;, &quot;--type income 또는 --type expense를 사용하세요.&quot;)
+        if not 1 &lt;= self.day &lt;= 31:
+            raise BudgetError(&quot;반복 날짜는 1에서 31 사이여야 합니다.&quot;, &quot;--day 값은 1~31로 입력하세요.&quot;)
+        if isinstance(self.amount, bool) or not isinstance(self.amount, int) or self.amount &lt;= 0:
+            raise BudgetError(&quot;금액은 양수 정수여야 합니다.&quot;, &quot;예: --amount 15000&quot;)
+        object.__setattr__(self, &quot;tags&quot;, parse_tags(self.tags))
+
+    def to_dict(self) -&gt; dict[str, Any]:
+        return asdict(self)
+
+    @classmethod
+    def from_dict(cls, row: dict[str, Any]) -&gt; RecurringRule:
+        return cls(
+            id=str(row[&quot;id&quot;]), type=str(row[&quot;type&quot;]), day=int(row[&quot;day&quot;]),
+            amount=int(row[&quot;amount&quot;]), category=str(row[&quot;category&quot;]),
+            memo=str(row.get(&quot;memo&quot;, &quot;&quot;)), tags=parse_tags(row.get(&quot;tags&quot;)),
+        )
+</code></pre></details><details><summary>service.py</summary><pre><code>from __future__ import annotations
+
+import calendar
+import csv
+import os
+import shutil
+import tempfile
+from dataclasses import replace
+from datetime import date, datetime
+from pathlib import Path
+from typing import Any, Iterator
+
+from .decorators import logged_and_timed
+from .errors import BudgetError
+from .models import Budget, RecurringRule, Transaction, new_id, parse_date, parse_tags, validate_month
+from .storage import JsonlBudgetStore
+
+CSV_COLUMNS = (&quot;date&quot;, &quot;type&quot;, &quot;category&quot;, &quot;amount&quot;, &quot;memo&quot;, &quot;tags&quot;)
+
+
+class BudgetService:
+    def __init__(self, store: JsonlBudgetStore) -&gt; None:
+        self.store = store
+
+    def categories(self) -&gt; list[str]:
+        return sorted(set(self.store.iter_categories()), key=str.casefold)
+
+    def _require_category(self, category: str) -&gt; None:
+        if category not in set(self.store.iter_categories()):
+            raise BudgetError(
+                f&quot;등록되지 않은 카테고리입니다: {category}&quot;,
+                &quot;category list로 확인하거나 category add로 먼저 등록하세요.&quot;,
+            )
+
+    @logged_and_timed
+    def add_transaction(
+        self,
+        transaction_type: str,
+        transaction_date: str,
+        category: str,
+        amount: int,
+        memo: str = &quot;&quot;,
+        tags: str | tuple[str, ...] = &quot;&quot;,
+    ) -&gt; Transaction:
+        self._require_category(category)
+        transaction = Transaction(
+            id=new_id(&quot;TX&quot;), type=transaction_type, date=transaction_date,
+            amount=amount, category=category, memo=memo, tags=parse_tags(tags),
+        )
+        self.store.insert_transaction(transaction)
+        return transaction
+
+    def iter_transactions(self) -&gt; Iterator[Transaction]:
+        yield from self.store.iter_transactions()
+
+    def search(
+        self,
+        from_date: str | None = None,
+        to_date: str | None = None,
+        category: str | None = None,
+        transaction_type: str | None = None,
+        query: str | None = None,
+        tag: str | None = None,
+    ) -&gt; Iterator[Transaction]:
+        if from_date:
+            parse_date(from_date)
+        if to_date:
+            parse_date(to_date)
+        if from_date and to_date and from_date &gt; to_date:
+            raise BudgetError(&quot;검색 시작일이 종료일보다 늦습니다.&quot;, &quot;--from 날짜를 --to 날짜보다 앞서게 입력하세요.&quot;)
+        if transaction_type and transaction_type not in {&quot;income&quot;, &quot;expense&quot;}:
+            raise BudgetError(&quot;타입은 income 또는 expense여야 합니다.&quot;, &quot;--type income 또는 --type expense를 사용하세요.&quot;)
+        folded_query = query.casefold() if query else None
+        for transaction in self.store.iter_transactions():
+            if from_date and transaction.date &lt; from_date:
+                continue
+            if to_date and transaction.date &gt; to_date:
+                continue
+            if category and transaction.category != category:
+                continue
+            if transaction_type and transaction.type != transaction_type:
+                continue
+            if folded_query and folded_query not in transaction.memo.casefold():
+                continue
+            if tag and tag not in transaction.tags:
+                continue
+            yield transaction
+
+    def update_transaction(
+        self,
+        transaction_id: str,
+        *,
+        transaction_date: str | None = None,
+        transaction_type: str | None = None,
+        category: str | None = None,
+        amount: int | None = None,
+        memo: str | None = None,
+        tags: str | None = None,
+    ) -&gt; Transaction:
+        changes = {
+            key: value for key, value in {
+                &quot;transaction_date&quot;: transaction_date,
+                &quot;transaction_type&quot;: transaction_type,
+                &quot;category&quot;: category,
+                &quot;amount&quot;: amount,
+                &quot;memo&quot;: memo,
+                &quot;tags&quot;: tags,
+            }.items() if value is not None
+        }
+        if not changes:
+            raise BudgetError(&quot;수정할 필드를 하나 이상 지정하세요.&quot;, &quot;update --help에서 수정 옵션을 확인하세요.&quot;)
+        transactions = list(self.store.iter_transactions())
+        current = next((item for item in transactions if item.id == transaction_id), None)
+        if current is None:
+            raise BudgetError(f&quot;거래 id를 찾을 수 없습니다: {transaction_id}&quot;, &quot;list로 거래 id를 확인하세요.&quot;)
+        if category is not None:
+            self._require_category(category)
+        updated = replace(
+            current,
+            date=transaction_date if transaction_date is not None else current.date,
+            type=transaction_type if transaction_type is not None else current.type,
+            category=category if category is not None else current.category,
+            amount=amount if amount is not None else current.amount,
+            memo=memo if memo is not None else current.memo,
+            tags=parse_tags(tags) if tags is not None else current.tags,
+        )
+        self.store.replace_transactions(updated if item.id == current.id else item for item in transactions)
+        return updated
+
+    def delete_transaction(self, transaction_id: str) -&gt; None:
+        transactions = list(self.store.iter_transactions())
+        remaining = [item for item in transactions if item.id != transaction_id]
+        if len(remaining) == len(transactions):
+            raise BudgetError(f&quot;거래 id를 찾을 수 없습니다: {transaction_id}&quot;, &quot;list로 거래 id를 확인하세요.&quot;)
+        self.store.replace_transactions(remaining)
+
+    def summary(self, month: str) -&gt; dict[str, Any]:
+        validate_month(month)
+        income = 0
+        expense = 0
+        category_totals: dict[str, int] = {}
+        count = 0
+        for transaction in self.store.iter_transactions():
+            if transaction.date[:7] != month:
+                continue
+            count += 1
+            if transaction.type == &quot;income&quot;:
+                income += transaction.amount
+            else:
+                expense += transaction.amount
+                category_totals[transaction.category] = category_totals.get(transaction.category, 0) + transaction.amount
+        budget = next((item for item in self.store.iter_budgets() if item.month == month), None)
+        return {
+            &quot;month&quot;: month,
+            &quot;count&quot;: count,
+            &quot;income&quot;: income,
+            &quot;expense&quot;: expense,
+            &quot;balance&quot;: income - expense,
+            &quot;category_totals&quot;: sorted(category_totals.items(), key=lambda pair: (-pair[1], pair[0].casefold())),
+            &quot;budget&quot;: budget,
+        }
+
+    def set_budget(self, month: str, amount: int) -&gt; Budget:
+        budget = Budget(month=month, amount=amount)
+        budgets = [item for item in self.store.iter_budgets() if item.month != month]
+        budgets.append(budget)
+        self.store.write_budgets(budgets)
+        return budget
+
+    def remove_category(self, category: str) -&gt; None:
+        categories = self.categories()
+        if category not in categories:
+            raise BudgetError(f&quot;카테고리를 찾을 수 없습니다: {category}&quot;, &quot;category list로 등록된 카테고리를 확인하세요.&quot;)
+        if any(item.category == category for item in self.store.iter_transactions()):
+            raise BudgetError(f&quot;거래에서 사용 중인 카테고리는 삭제할 수 없습니다: {category}&quot;, &quot;해당 거래의 카테고리를 먼저 변경하세요.&quot;)
+        if any(item.category == category for item in self.store.iter_recurring()):
+            raise BudgetError(f&quot;반복 내역에서 사용 중인 카테고리는 삭제할 수 없습니다: {category}&quot;, &quot;반복 규칙을 먼저 제거하거나 다른 카테고리로 변경하세요.&quot;)
+        self.store.write_categories(name for name in categories if name != category)
+
+    @logged_and_timed
+    def import_csv(self, source: Path) -&gt; tuple[int, int, list[str]]:
+        categories = set(self.store.iter_categories())
+        imported = 0
+        skipped = 0
+        errors: list[str] = []
+        try:
+            with source.open(&quot;r&quot;, encoding=&quot;utf-8-sig&quot;, newline=&quot;&quot;) as csv_file:
+                reader = csv.DictReader(csv_file)
+                headers = set(reader.fieldnames or [])
+                missing = {&quot;date&quot;, &quot;type&quot;, &quot;category&quot;, &quot;amount&quot;} - headers
+                if missing:
+                    raise BudgetError(
+                        f&quot;CSV 필수 열이 없습니다: {&#x27;, &#x27;.join(sorted(missing))}&quot;,
+                        &quot;date,type,category,amount 헤더를 포함해 UTF-8 CSV로 저장하세요.&quot;,
+                    )
+                for line_number, row in enumerate(reader, start=2):
+                    try:
+                        category = (row.get(&quot;category&quot;) or &quot;&quot;).strip()
+                        if category not in categories:
+                            raise BudgetError(f&quot;등록되지 않은 카테고리: {category}&quot;, &quot;먼저 category add로 등록하세요.&quot;)
+                        raw_amount = (row.get(&quot;amount&quot;) or &quot;&quot;).strip()
+                        if not raw_amount.isdecimal():
+                            raise BudgetError(&quot;금액은 양수 정수여야 합니다.&quot;, &quot;amount 열에 0보다 큰 정수를 입력하세요.&quot;)
+                        transaction = Transaction(
+                            id=new_id(&quot;TX&quot;),
+                            type=(row.get(&quot;type&quot;) or &quot;&quot;).strip(),
+                            date=(row.get(&quot;date&quot;) or &quot;&quot;).strip(),
+                            amount=int(raw_amount),
+                            category=category,
+                            memo=(row.get(&quot;memo&quot;) or &quot;&quot;).strip(),
+                            tags=parse_tags(row.get(&quot;tags&quot;) or &quot;&quot;),
+                        )
+                        self.store.insert_transaction(transaction)
+                        imported += 1
+                    except BudgetError as error:
+                        skipped += 1
+                        errors.append(f&quot;{line_number}행: {error}&quot;)
+        except (OSError, UnicodeError, csv.Error) as error:
+            raise BudgetError(f&quot;CSV 파일을 읽지 못했습니다: {source}&quot;, &quot;파일 경로와 UTF-8 인코딩을 확인하세요.&quot;) from error
+        return imported, skipped, errors
+
+    @logged_and_timed
+    def export_csv(
+        self,
+        destination: Path,
+        *,
+        month: str | None = None,
+        from_date: str | None = None,
+        to_date: str | None = None,
+    ) -&gt; int:
+        if month:
+            validate_month(month)
+        if from_date:
+            parse_date(from_date)
+        if to_date:
+            parse_date(to_date)
+        if not month and not (from_date and to_date):
+            raise BudgetError(&quot;내보내기 조건이 필요합니다.&quot;, &quot;--month 또는 --from과 --to를 함께 지정하세요.&quot;)
+        if from_date and to_date and from_date &gt; to_date:
+            raise BudgetError(&quot;시작일이 종료일보다 늦습니다.&quot;, &quot;--from 날짜를 --to 날짜보다 앞서게 입력하세요.&quot;)
+        destination = destination.expanduser().resolve()
+        protected_paths = {
+            self.store.transactions_path.resolve(),
+            self.store.categories_path.resolve(),
+            self.store.budgets_path.resolve(),
+            self.store.recurring_path.resolve(),
+        }
+        if destination in protected_paths:
+            raise BudgetError(&quot;내보내기 경로가 내부 저장 파일과 겹칩니다.&quot;, &quot;데이터 폴더 밖의 CSV 경로를 지정하세요.&quot;)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        temporary: Path | None = None
+        count = 0
+        try:
+            with tempfile.NamedTemporaryFile(
+                mode=&quot;w&quot;, encoding=&quot;utf-8&quot;, newline=&quot;&quot;, dir=destination.parent,
+                prefix=f&quot;.{destination.name}.&quot;, suffix=&quot;.tmp&quot;, delete=False,
+            ) as output:
+                temporary = Path(output.name)
+                writer = csv.DictWriter(output, fieldnames=CSV_COLUMNS)
+                writer.writeheader()
+                for transaction in self.store.iter_transactions():
+                    if month and transaction.date[:7] != month:
+                        continue
+                    if from_date and transaction.date &lt; from_date:
+                        continue
+                    if to_date and transaction.date &gt; to_date:
+                        continue
+                    writer.writerow({
+                        &quot;date&quot;: transaction.date,
+                        &quot;type&quot;: transaction.type,
+                        &quot;category&quot;: transaction.category,
+                        &quot;amount&quot;: transaction.amount,
+                        &quot;memo&quot;: transaction.memo,
+                        &quot;tags&quot;: &quot;,&quot;.join(transaction.tags),
+                    })
+                    count += 1
+                output.flush()
+                os.fsync(output.fileno())
+            os.replace(temporary, destination)
+            temporary = None
+        except OSError as error:
+            raise BudgetError(f&quot;CSV 파일을 저장하지 못했습니다: {destination}&quot;, &quot;출력 폴더의 경로와 쓰기 권한을 확인하세요.&quot;) from error
+        finally:
+            if temporary is not None:
+                temporary.unlink(missing_ok=True)
+        return count
+
+    def add_recurring(
+        self,
+        transaction_type: str,
+        day: int,
+        amount: int,
+        category: str,
+        memo: str = &quot;&quot;,
+        tags: str = &quot;&quot;,
+    ) -&gt; RecurringRule:
+        self._require_category(category)
+        rule = RecurringRule(
+            id=new_id(&quot;RR&quot;), type=transaction_type, day=day, amount=amount,
+            category=category, memo=memo, tags=parse_tags(tags),
+        )
+        self.store.write_recurring([*self.store.iter_recurring(), rule])
+        return rule
+
+    def generate_recurring(self, month: str) -&gt; int:
+        validate_month(month)
+        already_created = {
+            (item.recurring_rule_id, item.recurring_month)
+            for item in self.store.iter_transactions()
+            if item.recurring_rule_id is not None
+        }
+        last_day = calendar.monthrange(int(month[:4]), int(month[5:7]))[1]
+        created = 0
+        for rule in self.store.iter_recurring():
+            if (rule.id, month) in already_created:
+                continue
+            transaction = Transaction(
+                id=new_id(&quot;TX&quot;), type=rule.type,
+                date=date(int(month[:4]), int(month[5:7]), min(rule.day, last_day)).isoformat(),
+                amount=rule.amount, category=rule.category, memo=rule.memo,
+                tags=rule.tags, recurring_rule_id=rule.id, recurring_month=month,
+            )
+            self.store.insert_transaction(transaction)
+            created += 1
+        return created
+
+    def backup(self) -&gt; Path:
+        stamp = datetime.now().strftime(&quot;%Y%m%d-%H%M%S-%f&quot;)
+        destination = self.store.directory / &quot;backups&quot; / f&quot;backup-{stamp}&quot;
+        try:
+            destination.mkdir(parents=True, exist_ok=False)
+            for source in (
+                self.store.transactions_path,
+                self.store.categories_path,
+                self.store.budgets_path,
+                self.store.recurring_path,
+            ):
+                shutil.copy2(source, destination / source.name)
+        except OSError as error:
+            raise BudgetError(&quot;백업 파일을 생성하지 못했습니다.&quot;, &quot;저장 폴더의 여유 공간과 쓰기 권한을 확인하세요.&quot;) from error
+        return destination
+</code></pre></details><details><summary>storage.py</summary><pre><code>from __future__ import annotations
+
+import json
+import os
+import tempfile
+from pathlib import Path
+from typing import Any, Iterable, Iterator
+
+from .errors import BudgetError, DataError
+from .models import Budget, RecurringRule, Transaction
+
+DEFAULT_CATEGORIES = (
+    &quot;food&quot;, &quot;transport&quot;, &quot;rent&quot;, &quot;salary&quot;, &quot;shopping&quot;, &quot;medical&quot;, &quot;education&quot;, &quot;other&quot;,
+)
+
+
+class JsonlBudgetStore:
+    &quot;&quot;&quot;JSONL persistence with streaming reads and atomic whole-file replacement.&quot;&quot;&quot;
+
+    def __init__(self, directory: Path) -&gt; None:
+        self.directory = directory.expanduser().resolve()
+        self.transactions_path = self.directory / &quot;transactions.jsonl&quot;
+        self.categories_path = self.directory / &quot;categories.jsonl&quot;
+        self.budgets_path = self.directory / &quot;budgets.jsonl&quot;
+        self.recurring_path = self.directory / &quot;recurring.jsonl&quot;
+
+    def ensure_files(self) -&gt; None:
+        self.directory.mkdir(parents=True, exist_ok=True)
+        for path in (self.transactions_path, self.budgets_path, self.recurring_path):
+            path.touch(exist_ok=True)
+        if not self.categories_path.exists():
+            self._atomic_write(self.categories_path, ({&quot;name&quot;: name} for name in DEFAULT_CATEGORIES))
+
+    def _iter_rows(self, path: Path) -&gt; Iterator[dict[str, Any]]:
+        try:
+            with path.open(&quot;r&quot;, encoding=&quot;utf-8&quot;) as source:
+                for line_number, line in enumerate(source, start=1):
+                    if not line.strip():
+                        continue
+                    try:
+                        row = json.loads(line)
+                    except json.JSONDecodeError as error:
+                        raise DataError(
+                            f&quot;{path.name} {line_number}번째 줄의 JSON 데이터가 손상되었습니다.&quot;,
+                            &quot;해당 줄을 복구하거나 백업 파일에서 복원하세요.&quot;,
+                        ) from error
+                    if not isinstance(row, dict):
+                        raise DataError(
+                            f&quot;{path.name} {line_number}번째 줄이 객체 형식이 아닙니다.&quot;,
+                            &quot;JSONL 파일의 각 줄을 JSON 객체로 저장하세요.&quot;,
+                        )
+                    yield row
+        except (OSError, UnicodeError) as error:
+            raise BudgetError(f&quot;{path} 파일을 읽을 수 없습니다.&quot;, &quot;저장 경로와 파일 권한을 확인하세요.&quot;) from error
+
+    def iter_transactions(self) -&gt; Iterator[Transaction]:
+        for line_number, row in enumerate(self._iter_rows(self.transactions_path), start=1):
+            try:
+                yield Transaction.from_dict(row)
+            except (KeyError, TypeError, ValueError, BudgetError) as error:
+                raise DataError(
+                    f&quot;transactions.jsonl {line_number}번째 줄의 거래 데이터가 올바르지 않습니다.&quot;,
+                    &quot;잘못된 거래 줄을 수정하거나 백업에서 복원하세요.&quot;,
+                ) from error
+
+    def iter_categories(self) -&gt; Iterator[str]:
+        for row in self._iter_rows(self.categories_path):
+            name = row.get(&quot;name&quot;)
+            if isinstance(name, str) and name.strip():
+                yield name.strip()
+
+    def iter_budgets(self) -&gt; Iterator[Budget]:
+        for row in self._iter_rows(self.budgets_path):
+            try:
+                yield Budget(month=str(row[&quot;month&quot;]), amount=int(row[&quot;amount&quot;]))
+            except (KeyError, TypeError, ValueError, BudgetError) as error:
+                raise DataError(&quot;budgets.jsonl에 올바르지 않은 예산 데이터가 있습니다.&quot;, &quot;해당 줄을 수정하거나 백업에서 복원하세요.&quot;) from error
+
+    def iter_recurring(self) -&gt; Iterator[RecurringRule]:
+        for row in self._iter_rows(self.recurring_path):
+            try:
+                yield RecurringRule.from_dict(row)
+            except (KeyError, TypeError, ValueError, BudgetError) as error:
+                raise DataError(&quot;recurring.jsonl에 올바르지 않은 반복 내역 데이터가 있습니다.&quot;, &quot;해당 줄을 수정하거나 백업에서 복원하세요.&quot;) from error
+
+    def insert_transaction(self, transaction: Transaction) -&gt; None:
+        &quot;&quot;&quot;Merge one transaction into the date-descending JSONL stream.&quot;&quot;&quot;
+        self._atomic_write(
+            self.transactions_path,
+            self._merged_transactions(transaction),
+        )
+
+    def _merged_transactions(self, transaction: Transaction) -&gt; Iterator[dict[str, Any]]:
+        inserted = False
+        for current in self.iter_transactions():
+            if current.id == transaction.id:
+                raise BudgetError(&quot;이미 사용 중인 거래 id입니다.&quot;, &quot;다시 시도하면 새 id가 생성됩니다.&quot;)
+            if not inserted and transaction.sort_key &gt;= current.sort_key:
+                yield transaction.to_dict()
+                inserted = True
+            yield current.to_dict()
+        if not inserted:
+            yield transaction.to_dict()
+
+    def replace_transactions(self, transactions: Iterable[Transaction]) -&gt; None:
+        ordered = sorted(transactions, key=lambda item: item.sort_key, reverse=True)
+        self._atomic_write(self.transactions_path, (item.to_dict() for item in ordered))
+
+    def write_categories(self, categories: Iterable[str]) -&gt; None:
+        self._atomic_write(self.categories_path, ({&quot;name&quot;: name} for name in sorted(set(categories), key=str.casefold)))
+
+    def write_budgets(self, budgets: Iterable[Budget]) -&gt; None:
+        ordered = sorted(budgets, key=lambda item: item.month)
+        self._atomic_write(self.budgets_path, (item.to_dict() for item in ordered))
+
+    def write_recurring(self, rules: Iterable[RecurringRule]) -&gt; None:
+        ordered = sorted(rules, key=lambda item: item.id)
+        self._atomic_write(self.recurring_path, (item.to_dict() for item in ordered))
+
+    def _atomic_write(self, path: Path, rows: Iterable[dict[str, Any]]) -&gt; None:
+        temporary: Path | None = None
+        try:
+            with tempfile.NamedTemporaryFile(
+                mode=&quot;w&quot;, encoding=&quot;utf-8&quot;, dir=self.directory,
+                prefix=f&quot;.{path.name}.&quot;, suffix=&quot;.tmp&quot;, delete=False,
+            ) as target:
+                temporary = Path(target.name)
+                for row in rows:
+                    target.write(json.dumps(row, ensure_ascii=False, separators=(&quot;,&quot;, &quot;:&quot;)))
+                    target.write(&quot;\n&quot;)
+                target.flush()
+                os.fsync(target.fileno())
+            os.replace(temporary, path)
+            temporary = None
+        except OSError as error:
+            raise BudgetError(f&quot;{path.name} 파일을 저장하지 못했습니다.&quot;, &quot;저장 폴더의 경로와 쓰기 권한을 확인하세요.&quot;) from error
+        finally:
+            if temporary is not None:
+                temporary.unlink(missing_ok=True)
+</code></pre></details></html>
