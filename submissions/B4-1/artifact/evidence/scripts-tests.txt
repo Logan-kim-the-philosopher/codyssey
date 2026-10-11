@@ -1,0 +1,11 @@
+[WARNING] Firewall inactive or status unavailable
+[WARNING] MEM 20.00% exceeds 10%
+[2026-10-11 15:38:55] PID:123 CPU:0.00% MEM:20.00% DISK_USED:2%
+Samples: 2
+CPU AVG:20.00% MAX:30.00% MIN:10.00%
+Samples: 1
+Samples: 0
+Archived: 2
+Archived: 0
+[WARNING] Log directory missing or not writable
+PASS: scripts fixtures

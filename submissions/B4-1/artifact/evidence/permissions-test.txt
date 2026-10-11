@@ -1,0 +1,3 @@
+upload-write=PASS
+key-denied=PASS
+log-denied=PASS

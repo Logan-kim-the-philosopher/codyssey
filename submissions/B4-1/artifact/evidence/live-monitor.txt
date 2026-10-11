@@ -1,0 +1,34 @@
+>>> Starting Agent Boot Sequence...
+[1/5] Checking User Account               [OK]
+   ... Running as service user 'agent-admin' (uid=1001)
+[2/5] Verifying Environment Variables     [OK]
+   ... All required Envs correct
+[3/5] Checking Required Files             [OK]
+   ... Verified 'secret.key' with correct key string.
+[4/5] Checking Port Availability          [OK]
+   ... Port 15034 is available.
+[5/5] Verifying Log Permission            [OK]
+   ... Log directory is writable: /var/log/agent-app
+------------------------------------------------------------
+All Boot Checks Passed!
+Agent READY
+2026-10-11 15:38:51,706 [INFO] [SafetyGuard] Process priority lowered (nice=10).
+2026-10-11 15:38:51,706 [INFO] Agent listening at port 15034
+2026-10-11 15:38:51,706 [INFO] === Agent Worker Started ===
+2026-10-11 15:38:51,706 [INFO]    > Cycle: 0 -> 256MB/Lv10 -> 0
+2026-10-11 15:38:51,706 [INFO] --- Step Info: Mode=UP, CPU Lv=1, Mem=0MB ---
+2026-10-11 15:38:51,708 [INFO] [Memory] Increasing... (+25 MB) Total: 25 MB
+2026-10-11 15:38:51,708 [INFO] [CPU] Occupy core for 1s (Level 1)
+2026-10-11 15:38:53,713 [INFO] --- Step Info: Mode=UP, CPU Lv=2, Mem=25MB ---
+2026-10-11 15:38:53,718 [INFO] [Memory] Increasing... (+25 MB) Total: 50 MB
+2026-10-11 15:38:53,719 [INFO] [CPU] Occupy core for 2s (Level 2)
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                        
+LISTEN 0      128          0.0.0.0:20022      0.0.0.0:*    users:(("sshd",pid=4593,fd=6))
+LISTEN 0      1            0.0.0.0:15034      0.0.0.0:*                                  
+LISTEN 0      128             [::]:20022         [::]:*    users:(("sshd",pid=4593,fd=7))
+[2026-10-11 15:38:55] PID:5094 CPU:1.24% MEM:9.07% DISK_USED:2%
+Samples: 1
+CPU AVG:1.24% MAX:1.24% MIN:1.24%
+MEM AVG:9.07% MAX:9.07% MIN:9.07%
+DISK AVG:2.00% MAX:2.00% MIN:2.00%
+1 /var/log/agent-app/monitor.log

@@ -1,0 +1,16 @@
+{
+  "slides": 12,
+  "codeTabs": 18,
+  "evaluationQuestionsCovered": 19,
+  "gaps": [],
+  "checks": {
+    "localHtmlEqualsExport": true,
+    "missingAssets": [],
+    "browser": "대표 다이어그램, W 코드 열기/닫기, Down 블록 선택, Right 탭 전환, E 목차 열기 확인"
+  },
+  "limitations": [
+    "이미지 슬라이드가 없어 이미지 popup 동작은 적용 대상 없음",
+    "키 경로 호환은 사용자 승인 해석",
+    "바이너리 앱 내부 소스는 제공되지 않아 실행 결과로만 검증"
+  ]
+}

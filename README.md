@@ -30,6 +30,7 @@ docs/
 | B2-2 | 친구 3~5명과 함께 프로그램 만드는 법 | [README](submissions/B2-2/README.md) | [Presentation](https://logan-kim-the-philosopher.github.io/codyssey/B2-2/) |
 | B3-1 | 웹사이트를 인터넷에 올려 누구나 쓰게 하기 | [README](submissions/B3-1/README.md) | [Presentation](https://logan-kim-the-philosopher.github.io/codyssey/B3-1/) |
 | B3-2 | 내가 고친 코드 설명을 AI가 대신 써주는 도우미 만들기 | [README](submissions/B3-2/README.md) | [Presentation](https://logan-kim-the-philosopher.github.io/codyssey/B3-2/) |
+| B4-1 | 컴퓨터가 알아서 자기 상태를 점검하게 만들기 | [README](submissions/B4-1/README.md) | [Presentation](https://logan-kim-the-philosopher.github.io/codyssey/B4-1/) |
 | E1-1 | 환경 세팅 | [README](submissions/E1-1/README.md) | [Presentation](https://logan-kim-the-philosopher.github.io/codyssey/E1-1/) |
 | E1-2 | 파이썬 이해하기 | [README](submissions/E1-2/README.md) | [Presentation](https://logan-kim-the-philosopher.github.io/codyssey/E1-2/) |
 | E1-3 | 작은 계산기 만들기 | [README](submissions/E1-3/README.md) | [Presentation](https://logan-kim-the-philosopher.github.io/codyssey/E1-3/) |

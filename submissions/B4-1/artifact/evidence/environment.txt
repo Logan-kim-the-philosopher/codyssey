@@ -1,0 +1,84 @@
+PRETTY_NAME="Ubuntu 26.04 LTS"
+NAME="Ubuntu"
+VERSION_ID="26.04"
+VERSION="26.04 LTS (Resolute Raccoon)"
+VERSION_CODENAME=resolute
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=resolute
+LOGO=ubuntu-logo
+port 20022
+permitrootlogin no
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                        
+LISTEN 0      128          0.0.0.0:20022      0.0.0.0:*    users:(("sshd",pid=4593,fd=6))
+LISTEN 0      128             [::]:20022         [::]:*    users:(("sshd",pid=4593,fd=7))
+Status: active
+Logging: on (low)
+Default: deny (incoming), allow (outgoing), deny (routed)
+New profiles: skip
+
+To                         Action      From
+--                         ------      ----
+20022/tcp                  ALLOW IN    Anywhere                  
+15034/tcp                  ALLOW IN    Anywhere                  
+20022/tcp (v6)             ALLOW IN    Anywhere (v6)             
+15034/tcp (v6)             ALLOW IN    Anywhere (v6)             
+
+uid=1001(agent-admin) gid=1003(agent-admin) groups=1003(agent-admin),1001(agent-common),1002(agent-core)
+uid=1002(agent-dev) gid=1004(agent-dev) groups=1004(agent-dev),1001(agent-common),1002(agent-core)
+uid=1003(agent-test) gid=1005(agent-test) groups=1005(agent-test),1001(agent-common)
+getfacl: Removing leading '/' from absolute path names
+# file: opt/agent-app/upload_files
+# owner: agent-admin
+# group: agent-common
+# flags: -s-
+user::rwx
+group::rwx
+mask::rwx
+other::---
+default:user::rwx
+default:group::rwx
+default:mask::rwx
+default:other::---
+
+# file: opt/agent-app/api_keys
+# owner: agent-admin
+# group: agent-core
+# flags: -s-
+user::rwx
+group::rwx
+mask::rwx
+other::---
+default:user::rwx
+default:group::rwx
+default:mask::rwx
+default:other::---
+
+# file: var/log/agent-app
+# owner: agent-admin
+# group: agent-core
+# flags: -s-
+user::rwx
+group::rwx
+mask::rwx
+other::---
+default:user::rwx
+default:group::rwx
+default:mask::rwx
+default:other::---
+
+agent-dev agent-core 750 /opt/agent-app/bin/monitor.sh
+agent-dev agent-core 750 /opt/agent-app/bin/report.sh
+agent-dev agent-core 750 /opt/agent-app/bin/retention.sh
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+* * * * * . /etc/profile.d/agent-app.sh; /opt/agent-app/bin/monitor.sh >> /var/log/agent-app/cron.log 2>&1
+5 0 * * * . /etc/profile.d/agent-app.sh; /opt/agent-app/bin/retention.sh >> /var/log/agent-app/retention.log 2>&1
+test upload write=1
+test key read=1 (1 expected)
+[ERROR] App process absent: agent-leak-app-arm64
+absent app health exit=1 (1 expected)
