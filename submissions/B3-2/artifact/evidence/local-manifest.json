@@ -1,0 +1,19 @@
+{
+  "runtime": "3.14.6",
+  "testsExitCode": 0,
+  "actualApiCalls": 0,
+  "evidenceKinds": {
+    "unit-tests.txt": "real Git fixtures and mocked HTTP",
+    "safety-comparison.md": "real preprocessing of synthetic input",
+    "mock-commit.txt": "mock response formatting",
+    "mock-pr.txt": "mock response formatting",
+    "convention-comparison.md": "mock response formatting"
+  },
+  "pending": [
+    "real OpenAI generation",
+    "parameter experiment",
+    "AI convention comparison",
+    "GitHub source push",
+    "previous mission PR and 5-10 line revision summary"
+  ]
+}
