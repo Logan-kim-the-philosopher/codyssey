@@ -1,0 +1,5 @@
+[INFO] Git status 수집 완료: 2개 파일 변경 감지
+[INFO] Git diff 수집 완료: 21줄 (staged + unstaged)
+[INFO] AI API 요청 중...
+[ERROR] HTTP 400: 모델·파라미터 확인. 서버 오류 원문은 출력하지 않습니다.
+[INFO] API 호출 횟수: 1

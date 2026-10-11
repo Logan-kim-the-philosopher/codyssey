@@ -1,0 +1,2 @@
+[REDACTED INCIDENT LOG]
+이전 직접 OpenAI 호출: HTTP 401, 호출 시도 1회. 서버 오류 원문은 폐기했고 키는 사용자가 회전했습니다.

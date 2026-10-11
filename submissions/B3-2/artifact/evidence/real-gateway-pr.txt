@@ -1,0 +1,25 @@
+[INFO] Git status 수집 완료: 2개 파일 변경 감지
+[INFO] Git diff 수집 완료: 21줄 (staged + unstaged)
+[INFO] AI API 요청 중...
+[DONE] 초안 생성 완료
+--- Change Summary ---
+README와 subtotal 로직에 입력 검증을 추가해 음수 가격과 0 이하 수량을 거부하도록 변경했습니다. 합계 계산의 잘못된 결과를 막기 위한 조치로 보입니다.
+
+--- PR Title ---
+fix: subtotal 입력 검증 추가
+
+--- PR Body ---
+## Why
+- 음수 가격과 0 이하 수량으로 잘못된 합계가 생성되는 것을 방지합니다.
+- 문서에 허용되지 않는 입력 조건을 명시해 사용자가 동작을 쉽게 이해하도록 합니다.
+
+## What
+- calculator.py의 subtotal에 price < 0 및 quantity <= 0 검사를 추가하고 각각 ValueError를 발생시킵니다.
+- README.md에 음수 가격과 비양수 수량에서 ValueError가 발생한다는 설명을 추가했습니다.
+
+## How to Test
+- subtotal(10, 2)가 20을 반환하는지 확인합니다.
+- subtotal(-1, 2)와 subtotal(10, 0)이 각각 ValueError를 발생시키는지 확인합니다.
+----------------------
+[REVIEW] AI 초안입니다. 변경 사실·제목·테스트 방법을 검토 후 적용하세요.
+[INFO] API 호출 횟수: 1

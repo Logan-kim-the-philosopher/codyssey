@@ -1,0 +1,15 @@
+[INFO] Git status 수집 완료: 2개 파일 변경 감지
+[INFO] Git diff 수집 완료: 21줄 (staged + unstaged)
+[INFO] AI API 요청 중...
+[DONE] 초안 생성 완료
+--- Change Summary ---
+음수 가격과 0 이하 수량을 검증해 `ValueError`를 발생시키도록 계산 로직과 문서를 갱신했습니다.
+
+--- Commit Message ---
+fix: 입력값 검증 추가
+
+- `subtotal`에서 price가 음수이면 `ValueError`를 발생시키고, quantity가 0 이하이면 `ValueError`를 발생시키도록 추가했습니다.
+- README에 음수 가격과 0 이하 수량이 허용되지 않는 동작을 문서화했습니다.
+----------------------
+[REVIEW] AI 초안입니다. 변경 사실·제목·테스트 방법을 검토 후 적용하세요.
+[INFO] API 호출 횟수: 1

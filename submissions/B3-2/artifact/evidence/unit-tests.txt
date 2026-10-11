@@ -1,0 +1,46 @@
+test_bridge_alias_and_removal (test_bws.BwsTests.test_bridge_alias_and_removal) ... ok
+test_environment_allowlist (test_bws.BwsTests.test_environment_allowlist) ... ok
+test_error_body_never_echoed (test_bws.BwsTests.test_error_body_never_echoed) ... ok
+test_exception_not_printed (test_bws.BwsTests.test_exception_not_printed) ... ok
+test_gateway_compatibility_payload (test_bws.BwsTests.test_gateway_compatibility_payload) ... ok
+test_gateway_payload_idempotent (test_bws.BwsTests.test_gateway_payload_idempotent) ... ok
+test_launch_failure_closes_pipe (test_bws.BwsTests.test_launch_failure_closes_pipe) ... ok
+test_missing_bws_secret (test_bws.BwsTests.test_missing_bws_secret) ... ok
+test_secret_output_discarded (test_bws.BwsTests.test_secret_output_discarded) ... ok
+test_timeout_kills_process_group (test_bws.BwsTests.test_timeout_kills_process_group) ... ok
+test_unapproved_endpoint (test_bws.BwsTests.test_unapproved_endpoint) ... ok
+test_git_does_not_inherit_secret (test_bws.GitSecretTests.test_git_does_not_inherit_secret) ... ok
+test_bad_response (test_gitgen.Api.test_bad_response) ... ok
+test_http (test_gitgen.Api.test_http) ... ok
+test_network (test_gitgen.Api.test_network) ... ok
+test_response (test_gitgen.Api.test_response) ... ok
+test_bad_convention (test_gitgen.FormatPrompt.test_bad_convention) ... ok
+test_controls (test_gitgen.FormatPrompt.test_controls) ... ok
+test_empty (test_gitgen.FormatPrompt.test_empty) ... ok
+test_length (test_gitgen.FormatPrompt.test_length) ... ok
+test_long_scope_rejected (test_gitgen.FormatPrompt.test_long_scope_rejected) ... ok
+test_prompt (test_gitgen.FormatPrompt.test_prompt) ... ok
+test_scope (test_gitgen.FormatPrompt.test_scope) ... ok
+test_scope_preserved_when_shortening (test_gitgen.FormatPrompt.test_scope_preserved_when_shortening) ... ok
+test_clean (test_gitgen.GitCli.test_clean) ... ok
+test_commit (test_gitgen.GitCli.test_commit) ... ok
+test_dryrun (test_gitgen.GitCli.test_dryrun) ... ok
+test_invalid_temperature (test_gitgen.GitCli.test_invalid_temperature) ... ok
+test_missing_key (test_gitgen.GitCli.test_missing_key) ... ok
+test_no_overwrite (test_gitgen.GitCli.test_no_overwrite) ... ok
+test_nonroot (test_gitgen.GitCli.test_nonroot) ... ok
+test_pr (test_gitgen.GitCli.test_pr) ... ok
+test_protected (test_gitgen.GitCli.test_protected) ... ok
+test_rename (test_gitgen.GitCli.test_rename) ... ok
+test_staged_unstaged (test_gitgen.GitCli.test_staged_unstaged) ... ok
+test_untracked (test_gitgen.GitCli.test_untracked) ... ok
+test_limits (test_gitgen.Safety.test_limits) ... ok
+test_masks (test_gitgen.Safety.test_masks) ... ok
+test_off (test_gitgen.Safety.test_off) ... ok
+test_private_before_limit (test_gitgen.Safety.test_private_before_limit) ... ok
+test_protected_files (test_gitgen.Safety.test_protected_files) ... ok
+
+----------------------------------------------------------------------
+Ran 41 tests in 0.856s
+
+OK
