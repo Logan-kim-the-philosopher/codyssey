@@ -121,7 +121,7 @@ AI가 변경 배경·테스트 결과를 추측할 수 있으므로 `--why`·`--
 - 한국어로 구체적인 변경 동사 사용.
 - PR Why/What/How to Test 유지, 미수행 테스트를 완료로 표현하지 않음.
 
-`--convention examples/b3-1-convention.json`으로 적용한다. 기본 컨벤션은 scope를 강제하지 않는다. 예제 JSON은 실제 키나 비밀을 포함하지 않는다. 형식 적용 전후의 **모의 응답 비교**는 `evidence/convention-comparison.md`에 있다. 실제 생성 전후 비교는 `evidence/real-convention-comparison.md`에 있다. **이전 미션 실제 PR 링크는 아직 필요하다.**
+`--convention examples/b3-1-convention.json`으로 적용한다. 기본 컨벤션은 scope를 강제하지 않는다. 예제 JSON은 실제 키나 비밀을 포함하지 않는다. 형식 적용 전후의 **모의 응답 비교**는 `evidence/convention-comparison.md`에 있다. 실제 생성 전후 비교는 `evidence/real-convention-comparison.md`에 있다. 실제 이전 미션 PR은 아래 제출 섹션에 기록했다.
 
 ## 검증·남은 제출 증빙
 
@@ -130,7 +130,7 @@ python3 -m unittest discover -s tests -v
 python3 -m compileall -q main.py gitgen tests
 ```
 
-테스트는 실제 임시 Git 저장소와 모의 HTTP 응답으로 동작하며 실제 API 비용을 발생시키지 않는다. 안전 모드 ON/OFF **실제 전처리 비교**는 `evidence/safety-comparison.md`에 있다. Codyssey 게이트웨이의 실제 모델 호출·파라미터 비교·컨벤션 비교는 검증했다. GitHub push와 이전 미션 실제 PR은 아직 별도 증빙이 필요하다. 테스트 통과를 실제 API 성공이나 보너스 PR 완료로 간주하지 않는다.
+테스트는 실제 임시 Git 저장소와 모의 HTTP 응답으로 동작하며 실제 API 비용을 발생시키지 않는다. 안전 모드 ON/OFF **실제 전처리 비교**는 `evidence/safety-comparison.md`에 있다. Codyssey 게이트웨이의 실제 모델 호출·파라미터 비교·컨벤션 비교는 검증했다. GitHub push와 이전 미션 실제 PR 증빙은 `evidence/github-delivery.md`와 `evidence/actual-pr-revisions.md`에 있다. 테스트 통과를 실제 API 성공이나 보너스 PR 완료로 간주하지 않는다.
 
 공식 API 근거: [Chat Completions](https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create), [GPT-4.1 mini](https://developers.openai.com/api/docs/models/gpt-4.1-mini).
 
@@ -157,3 +157,11 @@ python3 /Users/hskim/Projects/codyssey/artifacts/b3-2/artifact/tools/bws_run.py 
 실제 증거: `evidence/real-gateway-commit.txt`, `evidence/real-gateway-pr.txt`, `evidence/real-parameter-comparison.md`, `evidence/real-convention-comparison.md`. 합성 테스트 저장소의 검토된 두 파일 diff만 전송했다. 성공 4회, 요청 형식 확인 과정에서 HTTP400 실패 4회; 각 명령은 최대 1회 호출했다. 과거 OpenAI 직접 주소의 HTTP401 시도 1회는 별도다. 해당 서버 오류 일부가 남은 로그는 폐기했고 사용자가 키를 회전했다.
 
 정규표현식과 출력 검사가 모든 유출 경로를 차단한다고 보장하지 않는다. 비밀은 실행 중 프로세스 메모리·환경에 존재한다. 디버깅, 환경 덤프, 코어 덤프, 외부 오류 원문 기록을 사용하지 않는다.
+
+## GitHub 제출 및 실제 이전 미션 적용
+
+- [B3-2 소스 제출 PR](https://github.com/Logan-kim-the-philosopher/codyssey/pull/2)
+- [B3-1 실제 문서 개선 PR](https://github.com/Logan-kim-the-philosopher/codyssey/pull/1)
+- [AI 초안 → 최종 PR 수정 기록](evidence/actual-pr-revisions.md)
+
+두 PR은 OPEN 상태이며 main 병합 및 발표 자료 게시 단계는 아직 수행하지 않았다.

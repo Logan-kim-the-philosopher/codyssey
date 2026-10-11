@@ -17,10 +17,12 @@
   ],
   "parameterComparison": "real-parameter-comparison.md",
   "conventionComparison": "real-convention-comparison.md",
-  "pending": [
-    "GitHub source push",
-    "previous mission real PR and 5-10 line revision summary"
-  ],
+  "pending": [],
   "localTestsPassed": 41,
-  "finalBwsDryRunCalls": 0
+  "finalBwsDryRunCalls": 0,
+  "pendingGitHub": false,
+  "pendingPreviousPR": false,
+  "actualPreviousMissionCalls": 2,
+  "submissionPr": "https://github.com/Logan-kim-the-philosopher/codyssey/pull/2",
+  "previousMissionPr": "https://github.com/Logan-kim-the-philosopher/codyssey/pull/1"
 }

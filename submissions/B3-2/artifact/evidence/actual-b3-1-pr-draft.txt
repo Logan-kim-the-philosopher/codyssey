@@ -1,0 +1,24 @@
+[INFO] Git status 수집 완료: 1개 파일 변경 감지
+[INFO] Git diff 수집 완료: 18줄 (staged + unstaged)
+[INFO] AI API 요청 중...
+[DONE] 초안 생성 완료
+--- Change Summary ---
+README의 외부 접속 증빙을 최초 배포와 재검증으로 구분하는 표를 추가하고, 현재 운영 서비스로 오해하지 않도록 안내 문구를 보강했다.
+
+--- PR Title ---
+docs(b3-1): 외부 접속 증빙 구분 명시
+
+--- PR Body ---
+## Why
+- 삭제된 실습 주소를 현재 서비스 주소로 오해하지 않도록 최초 배포 증빙과 별도 재검증을 구분해야 하기 때문으로 보인다.
+
+## What
+- README의 외부 접속 증빙 섹션에 최초 배포와 별도 재검증을 구분하는 안내 문구를 추가했다.
+- 증거 구분, 당시 공용 IP, 상태·상세를 담은 표를 넣고, 재검증 항목에서 `docs/evidence-provenance.md`를 참조하도록 정리했다.
+
+## How to Test
+- README 표의 IP와 `evidence-provenance.md`, `cleanup-checklist.md`의 내용이 서로 일치하는지 대조한다.
+- `git diff --check`를 실행해 문서 수정에 형식 오류가 없는지 확인한다.
+----------------------
+[REVIEW] AI 초안입니다. 변경 사실·제목·테스트 방법을 검토 후 적용하세요.
+[INFO] API 호출 횟수: 1
