@@ -1,0 +1,28 @@
+{
+  "verifiedAt": "2026-10-11T14:57:39.802335+00:00",
+  "gateway": "https://copa.codyssey.kr/v1",
+  "model": "gpt-5.4-mini",
+  "credentialSource": "BWS CODEYSSEY_LLM_API via Keychain-backed bws run",
+  "actualGatewayRequestAttempts": 8,
+  "successfulGatewayRequests": 4,
+  "failedGatewayRequests": 4,
+  "failedStatus": 400,
+  "historicalDirectOpenAI401": 1,
+  "secretsStored": false,
+  "successEvidence": [
+    "real-gateway-commit.txt",
+    "real-gateway-pr.txt",
+    "real-gateway-pr-800.txt",
+    "real-gateway-convention-commit.txt"
+  ],
+  "parameterComparison": "real-parameter-comparison.md",
+  "conventionComparison": "real-convention-comparison.md",
+  "pending": [],
+  "localTestsPassed": 41,
+  "finalBwsDryRunCalls": 0,
+  "pendingGitHub": false,
+  "pendingPreviousPR": false,
+  "actualPreviousMissionCalls": 2,
+  "submissionPr": "https://github.com/Logan-kim-the-philosopher/codyssey/pull/2",
+  "previousMissionPr": "https://github.com/Logan-kim-the-philosopher/codyssey/pull/1"
+}

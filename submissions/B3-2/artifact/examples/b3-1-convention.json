@@ -1,0 +1,7 @@
+{
+  "name": "B3-1 문서 개선 컨벤션",
+  "prefixes": ["docs", "fix", "feat", "refactor", "test", "chore"],
+  "scope": "b3-1",
+  "language": "Korean",
+  "tone": "구체적인 변경 동사를 사용하고 수행하지 않은 검증을 완료했다고 쓰지 않는다"
+}

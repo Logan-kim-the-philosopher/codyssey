@@ -1,0 +1,15 @@
+[INFO] Git status 수집 완료: 2개 파일 변경 감지
+[INFO] Git diff 수집 완료: 21줄 (staged + unstaged)
+[INFO] AI API 요청 중...
+[DONE] 초안 생성 완료
+--- Change Summary ---
+README에 검증 규칙을 문서화하고 calculator.py에서 음수 가격과 0 이하 수량을 ValueError로 거부하도록 추가함. 이 변경은 음수 가격과 0 이하 수량을 거부하려는 의도로 해석된다.
+
+--- Commit Message ---
+docs(b3-1): 입력 검증 규칙 문서화
+
+- README에 음수 가격과 0 이하 수량이 ValueError를 발생시킨다는 설명을 추가했다.
+- subtotal()에서 price < 0, quantity <= 0인 경우 각각 ValueError를 발생시키도록 입력 검증을 넣었다.
+----------------------
+[REVIEW] AI 초안입니다. 변경 사실·제목·테스트 방법을 검토 후 적용하세요.
+[INFO] API 호출 횟수: 1
