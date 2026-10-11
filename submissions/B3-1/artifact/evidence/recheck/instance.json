@@ -1,0 +1,169 @@
+{
+    "Reservations": [
+        {
+            "ReservationId": "r-02e577a1b3b4f2d22",
+            "OwnerId": "888782968605",
+            "Groups": [],
+            "Instances": [
+                {
+                    "Architecture": "x86_64",
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/xvda",
+                            "Ebs": {
+                                "AttachTime": "2026-10-10T12:29:09+00:00",
+                                "DeleteOnTermination": true,
+                                "Status": "attached",
+                                "VolumeId": "vol-03f67c783ae5ba30f",
+                                "EbsCardIndex": 0
+                            }
+                        }
+                    ],
+                    "ClientToken": "f943f5a0-75ab-4e1d-8512-cda53f149919",
+                    "EbsOptimized": false,
+                    "EnaSupport": true,
+                    "Hypervisor": "xen",
+                    "NetworkInterfaces": [
+                        {
+                            "Association": {
+                                "IpOwnerId": "amazon",
+                                "PublicDnsName": "ec2-3-106-167-194.ap-southeast-2.compute.amazonaws.com",
+                                "PublicIp": "3.106.167.194"
+                            },
+                            "Attachment": {
+                                "AttachTime": "2026-10-10T12:29:08+00:00",
+                                "AttachmentId": "eni-attach-0fee47243ee0c6323",
+                                "DeleteOnTermination": true,
+                                "DeviceIndex": 0,
+                                "Status": "attached",
+                                "NetworkCardIndex": 0
+                            },
+                            "Description": "",
+                            "Groups": [
+                                {
+                                    "GroupId": "sg-0c72c40bab7bdcfc2",
+                                    "GroupName": "codyssey-b3-1"
+                                }
+                            ],
+                            "Ipv6Addresses": [],
+                            "MacAddress": "02:ff:d1:4b:74:47",
+                            "NetworkInterfaceId": "eni-08104264608073c6a",
+                            "OwnerId": "888782968605",
+                            "PrivateDnsName": "ip-10-31-1-5.ap-southeast-2.compute.internal",
+                            "PrivateIpAddress": "10.31.1.5",
+                            "PrivateIpAddresses": [
+                                {
+                                    "Association": {
+                                        "IpOwnerId": "amazon",
+                                        "PublicDnsName": "ec2-3-106-167-194.ap-southeast-2.compute.amazonaws.com",
+                                        "PublicIp": "3.106.167.194"
+                                    },
+                                    "Primary": true,
+                                    "PrivateDnsName": "ip-10-31-1-5.ap-southeast-2.compute.internal",
+                                    "PrivateIpAddress": "10.31.1.5"
+                                }
+                            ],
+                            "SourceDestCheck": true,
+                            "Status": "in-use",
+                            "SubnetId": "subnet-0b4e532934ed4ff21",
+                            "VpcId": "vpc-0bb7ce55d20cd2499",
+                            "InterfaceType": "interface",
+                            "Operator": {
+                                "Managed": false
+                            }
+                        }
+                    ],
+                    "RootDeviceName": "/dev/xvda",
+                    "RootDeviceType": "ebs",
+                    "SecurityGroups": [
+                        {
+                            "GroupId": "sg-0c72c40bab7bdcfc2",
+                            "GroupName": "codyssey-b3-1"
+                        }
+                    ],
+                    "SourceDestCheck": true,
+                    "Tags": [
+                        {
+                            "Key": "Assignment",
+                            "Value": "B3-1"
+                        },
+                        {
+                            "Key": "Name",
+                            "Value": "codyssey-b3-1"
+                        }
+                    ],
+                    "VirtualizationType": "hvm",
+                    "CpuOptions": {
+                        "CoreCount": 1,
+                        "ThreadsPerCore": 2
+                    },
+                    "CapacityReservationSpecification": {
+                        "CapacityReservationPreference": "open"
+                    },
+                    "HibernationOptions": {
+                        "Configured": false
+                    },
+                    "MetadataOptions": {
+                        "State": "applied",
+                        "HttpTokens": "required",
+                        "HttpPutResponseHopLimit": 1,
+                        "HttpEndpoint": "enabled",
+                        "HttpProtocolIpv6": "disabled",
+                        "InstanceMetadataTags": "disabled"
+                    },
+                    "EnclaveOptions": {
+                        "Enabled": false
+                    },
+                    "BootMode": "uefi-preferred",
+                    "PlatformDetails": "Linux/UNIX",
+                    "UsageOperation": "RunInstances",
+                    "UsageOperationUpdateTime": "2026-10-10T12:29:08+00:00",
+                    "PrivateDnsNameOptions": {
+                        "HostnameType": "ip-name",
+                        "EnableResourceNameDnsARecord": false,
+                        "EnableResourceNameDnsAAAARecord": false
+                    },
+                    "MaintenanceOptions": {
+                        "AutoRecovery": "default",
+                        "RebootMigration": "default"
+                    },
+                    "CurrentInstanceBootMode": "uefi",
+                    "NetworkPerformanceOptions": {
+                        "BandwidthWeighting": "default"
+                    },
+                    "Operator": {
+                        "Managed": false,
+                        "HiddenByDefault": false
+                    },
+                    "InstanceId": "i-0cf8f875fa410d4b2",
+                    "ImageId": "ami-083a7457bdb2d0548",
+                    "State": {
+                        "Code": 16,
+                        "Name": "running"
+                    },
+                    "PrivateDnsName": "ip-10-31-1-5.ap-southeast-2.compute.internal",
+                    "PublicDnsName": "ec2-3-106-167-194.ap-southeast-2.compute.amazonaws.com",
+                    "StateTransitionReason": "",
+                    "KeyName": "codyssey-b3-1",
+                    "AmiLaunchIndex": 0,
+                    "ProductCodes": [],
+                    "InstanceType": "t3.micro",
+                    "LaunchTime": "2026-10-10T12:29:08+00:00",
+                    "Placement": {
+                        "AvailabilityZoneId": "apse2-az1",
+                        "GroupName": "",
+                        "Tenancy": "default",
+                        "AvailabilityZone": "ap-southeast-2a"
+                    },
+                    "Monitoring": {
+                        "State": "disabled"
+                    },
+                    "SubnetId": "subnet-0b4e532934ed4ff21",
+                    "VpcId": "vpc-0bb7ce55d20cd2499",
+                    "PrivateIpAddress": "10.31.1.5",
+                    "PublicIpAddress": "3.106.167.194"
+                }
+            ]
+        }
+    ]
+}

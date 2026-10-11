@@ -1,0 +1,9 @@
+{
+  "startedAt": 1791635327.523296,
+  "endedAt": 1791635349.245653,
+  "command": [
+    "python3",
+    "artifacts/b3-1/recheck/infra/provision.py"
+  ],
+  "exitCode": 0
+}

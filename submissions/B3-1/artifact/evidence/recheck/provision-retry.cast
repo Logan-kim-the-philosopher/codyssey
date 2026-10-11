@@ -1,0 +1,10 @@
+{"version": 2, "width": 160, "height": 45, "timestamp": 1791635327, "env": {"TERM": "xterm-256color"}, "command": ["python3", "artifacts/b3-1/recheck/infra/provision.py"]}
+[1.213448, "o", "sshCidr 220.65.239.203/32\r\n"]
+[2.251501, "o", "keyPair codyssey-b3-1\r\n"]
+[3.582092, "o", "vpc vpc-0bb7ce55d20cd2499\r\n"]
+[6.830912, "o", "subnet subnet-0b4e532934ed4ff21\r\n"]
+[8.774647, "o", "igw igw-07c4695e109436fba\r\n"]
+[11.641846, "o", "routeTable rtb-017be5fa2950c8c46\r\n"]
+[14.6627, "o", "routeAssociation rtbassoc-0e3847fa39a8f5196\r\n"]
+[15.846696, "o", "securityGroup sg-0c72c40bab7bdcfc2\r\n"]
+[21.718737, "o", "instance i-0cf8f875fa410d4b2\r\nProvisioned. Readiness and web deployment require subsequent verification.\r\n"]

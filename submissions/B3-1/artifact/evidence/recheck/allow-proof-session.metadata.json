@@ -1,0 +1,9 @@
+{
+  "startedAt": 1791635728.0742242,
+  "endedAt": 1791635732.945809,
+  "command": [
+    "/bin/bash",
+    "artifacts/b3-1/recheck/allow-proof-session.sh"
+  ],
+  "exitCode": 0
+}

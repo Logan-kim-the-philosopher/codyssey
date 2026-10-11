@@ -1,0 +1,13 @@
+:root{font-family:system-ui,sans-serif;color:#e9eef8;background:#101a2a}
+body{margin:0;padding:32px 20px}
+main{max-width:780px;margin:40px auto}
+.eyebrow{color:#93c5fd;letter-spacing:.12em}
+h1{font-size:clamp(3rem,9vw,5rem);margin:16px 0}
+h2{font-size:1.2rem}
+section{border:1px solid #35465e;border-radius:16px;padding:24px;margin:24px 0;background:#19263a}
+ol{display:flex;flex-wrap:wrap;gap:24px;padding-left:24px}
+button{background:#93c5fd;color:#101a2a;border:0;border-radius:8px;padding:12px 18px;font:inherit;cursor:pointer}
+button:disabled{opacity:.6}
+button:focus-visible{outline:3px solid white;outline-offset:4px}
+footer{color:#b3c2d8}
+

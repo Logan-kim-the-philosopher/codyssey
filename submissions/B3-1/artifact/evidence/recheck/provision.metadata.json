@@ -1,0 +1,9 @@
+{
+  "startedAt": 1791635282.9981492,
+  "endedAt": 1791635286.8346188,
+  "command": [
+    "/bin/bash",
+    "artifacts/b3-1/recheck/prepare.sh"
+  ],
+  "exitCode": 1
+}

@@ -1,0 +1,46 @@
+Unable to find image 'nginx:1.28-alpine' locally
+1.28-alpine: Pulling from library/nginx
+589002ba0eae: Pulling fs layer
+1d9cbdb003be: Pulling fs layer
+e914c6e98e37: Pulling fs layer
+d631a49fb4f7: Pulling fs layer
+8f7c784e2471: Pulling fs layer
+44fa0a5a779f: Pulling fs layer
+98104829f3fe: Pulling fs layer
+0151c82f84a9: Pulling fs layer
+d631a49fb4f7: Waiting
+8f7c784e2471: Waiting
+44fa0a5a779f: Waiting
+98104829f3fe: Waiting
+0151c82f84a9: Waiting
+e914c6e98e37: Verifying Checksum
+e914c6e98e37: Download complete
+1d9cbdb003be: Verifying Checksum
+1d9cbdb003be: Download complete
+589002ba0eae: Verifying Checksum
+589002ba0eae: Download complete
+d631a49fb4f7: Verifying Checksum
+d631a49fb4f7: Download complete
+8f7c784e2471: Verifying Checksum
+8f7c784e2471: Download complete
+44fa0a5a779f: Verifying Checksum
+44fa0a5a779f: Download complete
+98104829f3fe: Verifying Checksum
+98104829f3fe: Download complete
+589002ba0eae: Pull complete
+0151c82f84a9: Verifying Checksum
+0151c82f84a9: Download complete
+1d9cbdb003be: Pull complete
+e914c6e98e37: Pull complete
+d631a49fb4f7: Pull complete
+8f7c784e2471: Pull complete
+44fa0a5a779f: Pull complete
+98104829f3fe: Pull complete
+0151c82f84a9: Pull complete
+Digest: sha256:a8b39bd9cf0f83869a2162827a0caf6137ddf759d50a171451b335cecc87d236
+Status: Downloaded newer image for nginx:1.28-alpine
+f49305c0fcf26846e23b6ee188626fa3d97a6fe44349f8240444c6ad314730e4
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0
+curl: (56) Recv failure: Connection reset by peer

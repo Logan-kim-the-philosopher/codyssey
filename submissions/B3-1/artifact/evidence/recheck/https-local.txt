@@ -1,0 +1,10 @@
+HTTP/2 200 
+[1malt-svc[0m: h3=":443"; ma=2592000
+[1mcache-control[0m: no-store
+[1mcontent-type[0m: text/plain
+[1mdate[0m: Sat, 10 Oct 2026 12:38:45 GMT
+[1mserver[0m: nginx/1.28.3
+[1mvia[0m: 1.1 Caddy
+[1mcontent-length[0m: 3
+
+OK

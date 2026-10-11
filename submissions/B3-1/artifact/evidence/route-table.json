@@ -1,0 +1,45 @@
+{
+    "RouteTables": [
+        {
+            "Associations": [
+                {
+                    "Main": false,
+                    "RouteTableAssociationId": "rtbassoc-0cc2942577c89d12b",
+                    "RouteTableId": "rtb-089f0beddcee0d9f5",
+                    "SubnetId": "subnet-024d97e8392af0caf",
+                    "AssociationState": {
+                        "State": "associated"
+                    }
+                }
+            ],
+            "PropagatingVgws": [],
+            "RouteTableId": "rtb-089f0beddcee0d9f5",
+            "Routes": [
+                {
+                    "DestinationCidrBlock": "10.31.0.0/16",
+                    "GatewayId": "local",
+                    "Origin": "CreateRouteTable",
+                    "State": "active"
+                },
+                {
+                    "DestinationCidrBlock": "0.0.0.0/0",
+                    "GatewayId": "igw-0e03888798bd7cb74",
+                    "Origin": "CreateRoute",
+                    "State": "active"
+                }
+            ],
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "codyssey-b3-1"
+                },
+                {
+                    "Key": "Assignment",
+                    "Value": "B3-1"
+                }
+            ],
+            "VpcId": "vpc-021a8020c1b4c2f6c",
+            "OwnerId": "888782968605"
+        }
+    ]
+}

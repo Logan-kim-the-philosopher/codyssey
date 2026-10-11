@@ -1,0 +1,320 @@
+{
+  "captureMethod": "Unedited screenshots of AWS official console and live CloudShell; PTY bytes captured directly from real command subprocesses",
+  "run": "evidence-recheck",
+  "account": "888782968605",
+  "region": "ap-southeast-2",
+  "instanceId": "i-0cf8f875fa410d4b2",
+  "publicIp": "3.106.167.194",
+  "hostname": "b3-1.3-106-167-194.sslip.io",
+  "awsConsoleOrigin": "https://888782968605-xlkqborw.ap-southeast-2.console.aws.amazon.com",
+  "originalRunInstanceId": "i-00d9faeaebdfcbb1f",
+  "cleanup": "terminated; tagged EBS/address/VPC/IGW inventories empty; lab IAM policy/role deleted",
+  "files": [
+    {
+      "path": "allow-proof-session.cast",
+      "sha256": "788c8e256dac4f6afcd9de12666370ebb91d0dba375ddeb26d49defa73904cd1",
+      "bytes": 1311,
+      "savedAtUtc": "2026-10-10T12:35:29.983536+00:00"
+    },
+    {
+      "path": "allow-proof-session.metadata.json",
+      "sha256": "4e3afa1482633c03bb93c247b498c79c7b4555f38d4aaeb0dd22ad1e6203afb5",
+      "bytes": 176,
+      "savedAtUtc": "2026-10-10T12:35:32.946473+00:00"
+    },
+    {
+      "path": "allow-proof-session.txt",
+      "sha256": "da5145460c8958b71c40b5faa71f92fe3b1acd38e6384e3c759be9de5abcb91a",
+      "bytes": 999,
+      "savedAtUtc": "2026-10-10T12:35:29.983464+00:00"
+    },
+    {
+      "path": "bootstrap-diagnosis.cast",
+      "sha256": "79583a31a2de61df6f512f4adbc8ffb80718bce0bad1ed09f6d3e08d3224d3e1",
+      "bytes": 8810,
+      "savedAtUtc": "2026-10-10T12:30:25.264282+00:00"
+    },
+    {
+      "path": "bootstrap-diagnosis.metadata.json",
+      "sha256": "8433b8c7b3b8c72607ecd583883ea9bfe321eb4f38ff8dc506c7196468270607",
+      "bytes": 385,
+      "savedAtUtc": "2026-10-10T12:30:25.309199+00:00"
+    },
+    {
+      "path": "bootstrap-diagnosis.txt",
+      "sha256": "3519c91df0a83db5155525772ac045133cabf73f68c2c5937c42dc47b1d3afb5",
+      "bytes": 8148,
+      "savedAtUtc": "2026-10-10T12:30:25.264259+00:00"
+    },
+    {
+      "path": "bootstrap-retry.cast",
+      "sha256": "de4313b772cb16ed82eafeed75430c5a0e1e34a9a6830dc9a4e2dbf91a18dea6",
+      "bytes": 8259,
+      "savedAtUtc": "2026-10-10T12:35:15.577491+00:00"
+    },
+    {
+      "path": "bootstrap-retry.metadata.json",
+      "sha256": "d0fc26df54b81d47cb384a76882fd261d78bb940e1f31d263eeef5e188e880a1",
+      "bytes": 372,
+      "savedAtUtc": "2026-10-10T12:35:28.464043+00:00"
+    },
+    {
+      "path": "bootstrap-retry.txt",
+      "sha256": "3d22767fcdeef55e6f408bc6d5e7cf56a181b7011bbfb8463dfd815a0c8d2f70",
+      "bytes": 6631,
+      "savedAtUtc": "2026-10-10T12:35:15.577317+00:00"
+    },
+    {
+      "path": "cleanup-result.json",
+      "sha256": "da011d59a204f734af04ca7e2bb1273057af1a56026152ac1fd21d9c6b63f682",
+      "bytes": 1350,
+      "savedAtUtc": "2026-10-10T12:40:26.078325+00:00"
+    },
+    {
+      "path": "cleanup.cast",
+      "sha256": "3ca4555ea4e5080bfa05cdd6233f15c2ef967cf8efe6af0233ffc6a21f336409",
+      "bytes": 2141,
+      "savedAtUtc": "2026-10-10T12:40:32.897020+00:00"
+    },
+    {
+      "path": "cleanup.metadata.json",
+      "sha256": "7e0595575362bd35ba94ba9e2cc84d4d7731e79e29c1b4ea55873f1896431ac4",
+      "bytes": 174,
+      "savedAtUtc": "2026-10-10T12:40:32.897922+00:00"
+    },
+    {
+      "path": "cleanup.txt",
+      "sha256": "3512bbee120ab6b23d7194846d15ab1aceb2ad729d7bd3e298147e81d66588eb",
+      "bytes": 1580,
+      "savedAtUtc": "2026-10-10T12:40:32.897013+00:00"
+    },
+    {
+      "path": "cloudshell-cleanup.jpg",
+      "sha256": "e9181a393c2afa3aededf045f0491f01a9476620f57bf6285c89cd610fc83928",
+      "bytes": 51276,
+      "savedAtUtc": "2026-10-10T12:42:30.099321+00:00"
+    },
+    {
+      "path": "cloudshell-docker-health.jpg",
+      "sha256": "35fc044acc81262d83de59311f4b30333d909cf8e3e8edb9e21daabf8509f818",
+      "bytes": 102789,
+      "savedAtUtc": "2026-10-10T12:37:39.317737+00:00"
+    },
+    {
+      "path": "cloudshell-external-https.jpg",
+      "sha256": "e3530edb0b5e58a8bc6a3c5c172537386836a719cc4ea6483c2620696b6159f9",
+      "bytes": 59939,
+      "savedAtUtc": "2026-10-10T12:37:54.967430+00:00"
+    },
+    {
+      "path": "cloudshell-identity.jpg",
+      "sha256": "dc50564fb2053697b90dffec7a655d032470881dce171d412c3d6b1ff47e4159",
+      "bytes": 42525,
+      "savedAtUtc": "2026-10-10T12:29:16.853008+00:00"
+    },
+    {
+      "path": "cloudshell-instance.jpg",
+      "sha256": "6e344389abadc1de842351a77b73729a6b80507644550b06f2dce34a3730610b",
+      "bytes": 98507,
+      "savedAtUtc": "2026-10-10T12:30:29.462769+00:00"
+    },
+    {
+      "path": "cloudshell-route-table.jpg",
+      "sha256": "1e91d0cf3d4bcc356b6e461ee64a3c311585e47b8b76266e1df96f9733716a11",
+      "bytes": 44546,
+      "savedAtUtc": "2026-10-10T12:39:36.169413+00:00"
+    },
+    {
+      "path": "cloudshell-security-group.jpg",
+      "sha256": "9f8228be1c50f39c40345c10ec2cdfa80d1845f8babe0f7275615aabd6cfb636",
+      "bytes": 38906,
+      "savedAtUtc": "2026-10-10T12:39:06.122869+00:00"
+    },
+    {
+      "path": "configuration/Caddyfile",
+      "sha256": "76a192f8410f03d2bb83fea84cd172dda87be05e5e036fa5f42f808dab5f5611",
+      "bytes": 265,
+      "savedAtUtc": "2026-10-10T12:35:40.060024+00:00"
+    },
+    {
+      "path": "configuration/bootstrap.sh",
+      "sha256": "e53494d04f76bed80a9b1d7f4e2b86006aafb7f6bce02b3e8aeef369f020b51b",
+      "bytes": 249,
+      "savedAtUtc": "2026-10-10T12:28:02.952722+00:00"
+    },
+    {
+      "path": "configuration/start-https.sh",
+      "sha256": "449ab9bd16ebad6fb47e1af29d8d4fce445b8dcedf9d5954023de86a84bdaec4",
+      "bytes": 354,
+      "savedAtUtc": "2026-10-10T12:28:02.953725+00:00"
+    },
+    {
+      "path": "configuration/start-web.sh",
+      "sha256": "12c71531e684d38b7eeca24eb9421598d0b887985987b451ea893ec5d036831e",
+      "bytes": 580,
+      "savedAtUtc": "2026-10-10T12:28:02.953188+00:00"
+    },
+    {
+      "path": "deploy-retry.cast",
+      "sha256": "d18b97d64adb9072a9c0702b22841aa80b526d8a541e332bb51f2a74675dbfcd",
+      "bytes": 8614,
+      "savedAtUtc": "2026-10-10T12:37:05.499060+00:00"
+    },
+    {
+      "path": "deploy-retry.metadata.json",
+      "sha256": "74ce3574be57e5680a0d35d003326c4ba05b1d8b9e9d9ab9447109b7b329bc1f",
+      "bytes": 162,
+      "savedAtUtc": "2026-10-10T12:37:05.502318+00:00"
+    },
+    {
+      "path": "deploy-retry.txt",
+      "sha256": "35461d7d3c4cae238e3ec8cf161b63f30b895238ef612a10b24261d5315aaae8",
+      "bytes": 6634,
+      "savedAtUtc": "2026-10-10T12:37:05.498946+00:00"
+    },
+    {
+      "path": "deploy.cast",
+      "sha256": "6c64cd301387234a0c70ed86d94b39fc276898632a6e92dde4e697b2dda05f57",
+      "bytes": 2252,
+      "savedAtUtc": "2026-10-10T12:29:58.542934+00:00"
+    },
+    {
+      "path": "deploy.metadata.json",
+      "sha256": "4201a0898386537d396f3948f429ecebfb265dde76d9607c7cacaa25e20fd65f",
+      "bytes": 163,
+      "savedAtUtc": "2026-10-10T12:29:58.691236+00:00"
+    },
+    {
+      "path": "deploy.txt",
+      "sha256": "bb27c0cecaaf3831e533ce0305048357b3a9e5902bd70a0729a3317afb2f6d75",
+      "bytes": 1733,
+      "savedAtUtc": "2026-10-10T12:29:58.542878+00:00"
+    },
+    {
+      "path": "ec2-console-running.jpg",
+      "sha256": "670a6c86bf2f104a44f6e3fd822cd4e38aaabb0e78a2fc8a527f0c5bcf451dc1",
+      "bytes": 96207,
+      "savedAtUtc": "2026-10-10T12:32:38.872466+00:00"
+    },
+    {
+      "path": "https-browser.jpg",
+      "sha256": "845702733bba9df7d26a4861ce5232901c7384331996fef97e985cc3b2c23c28",
+      "bytes": 34464,
+      "savedAtUtc": "2026-10-10T12:38:30.455195+00:00"
+    },
+    {
+      "path": "https-local.cast",
+      "sha256": "b3eb0f430d7f0e61f91d36258dcbb80d809c9e7ffa48df764248db38a6d8a47e",
+      "bytes": 604,
+      "savedAtUtc": "2026-10-10T12:38:45.314596+00:00"
+    },
+    {
+      "path": "https-local.metadata.json",
+      "sha256": "a6345ab14b7be65c95d9a7aaedaf00347daddd8eb42b651c3354189831108257",
+      "bytes": 240,
+      "savedAtUtc": "2026-10-10T12:38:45.316125+00:00"
+    },
+    {
+      "path": "https-local.txt",
+      "sha256": "5b9e0413356a4f43848a8fe223787fcde1c14fa9d0df49e101928e183bfc2662",
+      "bytes": 261,
+      "savedAtUtc": "2026-10-10T12:38:45.314428+00:00"
+    },
+    {
+      "path": "instance.json",
+      "sha256": "b8bbce2baece18b2a598b8db24b9af7815fe21ebe9146e884615bf8e7fd596c0",
+      "bytes": 7694,
+      "savedAtUtc": "2026-10-10T12:35:39.898511+00:00"
+    },
+    {
+      "path": "provision-retry.cast",
+      "sha256": "f0c03adb69ce4caf3625a98e283c64e2b512e504ea87fbfa4a76f04b1eed5cdf",
+      "bytes": 732,
+      "savedAtUtc": "2026-10-10T12:29:09.242059+00:00"
+    },
+    {
+      "path": "provision-retry.metadata.json",
+      "sha256": "103dab9074b1c41f0c393044e8e25c04fbc149509c8dbcfd18095ea56f92eda3",
+      "bytes": 169,
+      "savedAtUtc": "2026-10-10T12:29:09.245810+00:00"
+    },
+    {
+      "path": "provision-retry.txt",
+      "sha256": "8c4ce905a451af25bfd270407651b2772602c05fbe6374dbf53321e837be40de",
+      "bytes": 358,
+      "savedAtUtc": "2026-10-10T12:29:09.242031+00:00"
+    },
+    {
+      "path": "provision.cast",
+      "sha256": "64a345c44caba513432cadfe75dfedf97db3787cff7b73674df5b19bcdb70a5b",
+      "bytes": 4094,
+      "savedAtUtc": "2026-10-10T12:28:06.829115+00:00"
+    },
+    {
+      "path": "provision.metadata.json",
+      "sha256": "acf9849814099e03f66ed80e79883be63d6eb7e81db6566bc5fd4cca21df2564",
+      "bytes": 165,
+      "savedAtUtc": "2026-10-10T12:28:06.834871+00:00"
+    },
+    {
+      "path": "provision.txt",
+      "sha256": "18549f010681eb66455e9a662ab82a758c92e06aab3d808d92ec46a3b0d8c968",
+      "bytes": 3502,
+      "savedAtUtc": "2026-10-10T12:28:06.829101+00:00"
+    },
+    {
+      "path": "remaining-addresses.json",
+      "sha256": "c10929734eafab17e4a6c3b40b98348ac69eb9355e4a6ca93d816611e60824e8",
+      "bytes": 24,
+      "savedAtUtc": "2026-10-10T12:40:30.762269+00:00"
+    },
+    {
+      "path": "remaining-igws.json",
+      "sha256": "6ffb23bb8f46092eb4143c1343cbbff48ec7a31403dbade89e8057087d1f66d5",
+      "bytes": 31,
+      "savedAtUtc": "2026-10-10T12:40:29.828367+00:00"
+    },
+    {
+      "path": "remaining-volumes.json",
+      "sha256": "5bb1ef67ec6cda7a24020d0c0ddfa919d96f348d36e16bd083f5960efd321a3e",
+      "bytes": 22,
+      "savedAtUtc": "2026-10-10T12:40:27.876365+00:00"
+    },
+    {
+      "path": "remaining-vpcs.json",
+      "sha256": "febc26acd3cc7f614d2f85c8b9474cd664d1826d04de7dc5b814a56bee0f06de",
+      "bytes": 19,
+      "savedAtUtc": "2026-10-10T12:40:28.931608+00:00"
+    },
+    {
+      "path": "resources.json",
+      "sha256": "44d6ff476eeb095b99413131b0a7c72f2e1b969d8b3118c664dd87e77690ae04",
+      "bytes": 435,
+      "savedAtUtc": "2026-10-10T12:29:09.241911+00:00"
+    },
+    {
+      "path": "revoke-proof-session.cast",
+      "sha256": "09100a18104183c4d747c0fc9cf0255c31f6ebdcf79316f22cd26c9aaab199da",
+      "bytes": 619,
+      "savedAtUtc": "2026-10-10T12:38:10.309576+00:00"
+    },
+    {
+      "path": "revoke-proof-session.metadata.json",
+      "sha256": "fd1d32329e2368d387d376d4e088ccbb61a5c96521b03c702c43b9734c664fbc",
+      "bytes": 177,
+      "savedAtUtc": "2026-10-10T12:38:10.388892+00:00"
+    },
+    {
+      "path": "revoke-proof-session.txt",
+      "sha256": "02a27cd5bd7ce5b16baa449ead902a6055cdbeb534abfb668b7f08cc29300e49",
+      "bytes": 366,
+      "savedAtUtc": "2026-10-10T12:38:10.309449+00:00"
+    },
+    {
+      "path": "terminated-instance.json",
+      "sha256": "c23416b0b35e623ec37e748d2607fa96dcd836c45ca3103d24f266c2a9bfafa5",
+      "bytes": 83,
+      "savedAtUtc": "2026-10-10T12:40:26.924758+00:00"
+    }
+  ]
+}

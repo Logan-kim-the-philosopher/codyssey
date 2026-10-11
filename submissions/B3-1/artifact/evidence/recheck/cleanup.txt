@@ -1,0 +1,30 @@
++ date -u
+Sat Oct 10 12:39:27 UTC 2026
++ python3 infra/cleanup.py
+Recorded network and instance removed. Verify EBS/address inventory and then remove the lab IAM role.
++ /Users/hskim/.local/bin/aws ec2 describe-instances --instance-ids i-0cf8f875fa410d4b2 --profile codyssey --region ap-southeast-2 --query 'Reservations[].Instances[].{Id:InstanceId,State:State.Name}'
++ /Users/hskim/.local/bin/aws ec2 describe-volumes --filters Name=tag:Assignment,Values=B3-1 --profile codyssey --region ap-southeast-2
++ /Users/hskim/.local/bin/aws ec2 describe-vpcs --filters Name=tag:Assignment,Values=B3-1 --profile codyssey --region ap-southeast-2
++ /Users/hskim/.local/bin/aws ec2 describe-internet-gateways --filters Name=tag:Assignment,Values=B3-1 --profile codyssey --region ap-southeast-2
++ /Users/hskim/.local/bin/aws ec2 describe-addresses --filters Name=tag:Assignment,Values=B3-1 --profile codyssey --region ap-southeast-2
++ /Users/hskim/.local/bin/aws iam delete-role-policy --role-name codyssey-b3-1-deployer --policy-name B3-1-Ec2VpcOnly --profile codyssey --region ap-southeast-2
++ /Users/hskim/.local/bin/aws iam delete-role --role-name codyssey-b3-1-deployer --profile codyssey --region ap-southeast-2
++ cat evidence/terminated-instance.json evidence/remaining-volumes.json evidence/remaining-vpcs.json evidence/remaining-igws.json evidence/remaining-addresses.json
+[
+    {
+        "Id": "i-0cf8f875fa410d4b2",
+        "State": "terminated"
+    }
+]
+{
+    "Volumes": []
+}
+{
+    "Vpcs": []
+}
+{
+    "InternetGateways": []
+}
+{
+    "Addresses": []
+}

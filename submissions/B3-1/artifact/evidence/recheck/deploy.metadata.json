@@ -1,0 +1,9 @@
+{
+  "startedAt": 1791635383.4431958,
+  "endedAt": 1791635398.690794,
+  "command": [
+    "/bin/bash",
+    "artifacts/b3-1/recheck/deploy.sh"
+  ],
+  "exitCode": 1
+}

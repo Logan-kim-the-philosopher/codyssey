@@ -1,0 +1,60 @@
+ci-info: |   3   |  multicast  |    ::   |    ens5   |   U   |
+ci-info: +-------+-------------+---------+-----------+-------+
+2026-10-10 12:29:19,737 - url_helper.py[WARNING]: Exception(s) [UrlError("HTTPConnectionPool(host='169.254.169.254', port=80): Max retries exceeded with url: /latest/api/token (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fa06ef17dc0>: Failed to establish a new connection: [Errno 111] Connection refused'))"), UrlError("HTTPConnectionPool(host='fd00:ec2::254', port=80): Max retries exceeded with url: /latest/api/token (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fa06ef357c0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))")] during request to http://[fd00:ec2::254]:80/latest/api/token, raising last exception
+2026-10-10 12:29:19,737 - url_helper.py[WARNING]: Calling 'None' failed [0/240s]: request error [HTTPConnectionPool(host='fd00:ec2::254', port=80): Max retries exceeded with url: /latest/api/token (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fa06ef357c0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))]
+2026-10-10 12:29:20,143 - url_helper.py[WARNING]: Exception(s) [UrlError("HTTPConnectionPool(host='169.254.169.254', port=80): Max retries exceeded with url: /latest/api/token (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fa06eec5b80>: Failed to establish a new connection: [Errno 111] Connection refused'))"), UrlError("HTTPConnectionPool(host='fd00:ec2::254', port=80): Max retries exceeded with url: /latest/api/token (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fa06eecf520>: Failed to establish a new connection: [Errno 101] Network is unreachable'))")] during request to http://[fd00:ec2::254]:80/latest/api/token, raising last exception
+2026-10-10 12:29:20,143 - url_helper.py[WARNING]: Calling 'None' failed [0/240s]: request error [HTTPConnectionPool(host='fd00:ec2::254', port=80): Max retries exceeded with url: /latest/api/token (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fa06eecf520>: Failed to establish a new connection: [Errno 101] Network is unreachable'))]
+2026-10-10 12:29:20,546 - url_helper.py[WARNING]: Exception(s) [UrlError("HTTPConnectionPool(host='169.254.169.254', port=80): Max retries exceeded with url: /latest/api/token (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fa06eec5970>: Failed to establish a new connection: [Errno 111] Connection refused'))"), UrlError("HTTPConnectionPool(host='fd00:ec2::254', port=80): Max retries exceeded with url: /latest/api/token (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fa06eec50d0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))")] during request to http://[fd00:ec2::254]:80/latest/api/token, raising last exception
+2026-10-10 12:29:20,546 - url_helper.py[WARNING]: Calling 'None' failed [0/240s]: request error [HTTPConnectionPool(host='fd00:ec2::254', port=80): Max retries exceeded with url: /latest/api/token (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fa06eec50d0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))]
+2026-10-10 12:29:20,949 - url_helper.py[WARNING]: Exception(s) [UrlError("HTTPConnectionPool(host='169.254.169.254', port=80): Max retries exceeded with url: /latest/api/token (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fa06eeda8e0>: Failed to establish a new connection: [Errno 111] Connection refused'))"), UrlError("HTTPConnectionPool(host='fd00:ec2::254', port=80): Max retries exceeded with url: /latest/api/token (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fa06eee4280>: Failed to establish a new connection: [Errno 101] Network is unreachable'))")] during request to http://[fd00:ec2::254]:80/latest/api/token, raising last exception
+2026-10-10 12:29:20,949 - url_helper.py[WARNING]: Calling 'None' failed [1/240s]: request error [HTTPConnectionPool(host='fd00:ec2::254', port=80): Max retries exceeded with url: /latest/api/token (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fa06eee4280>: Failed to establish a new connection: [Errno 101] Network is unreachable'))]
+Generating public/private ed25519 key pair.
+Your identification has been saved in /etc/ssh/ssh_host_ed25519_key
+Your public key has been saved in /etc/ssh/ssh_host_ed25519_key.pub
+The key fingerprint is:
+SHA256:8HhSlcsclaPpQqs5gHb3N3G4UXgzGfYQ684ovJn/oiY root@ip-10-31-1-5.ap-southeast-2.compute.internal
+The key's randomart image is:
++--[ED25519 256]--+
+|          .ooo   |
+|         .o *.   |
+|      . .o B.*   |
+|       =. B.* .  |
+|   .  o.So +.o   |
+|  o o .+o =+.    |
+| . . o +o..=o    |
+|      E o==      |
+|       +=+.+.    |
++----[SHA256]-----+
+Generating public/private ecdsa key pair.
+Your identification has been saved in /etc/ssh/ssh_host_ecdsa_key
+Your public key has been saved in /etc/ssh/ssh_host_ecdsa_key.pub
+The key fingerprint is:
+SHA256:pZ9L6+Fk3hOB3Q7N9gvpsAu2IiRZ2hVnNX1Dr2KeGeM root@ip-10-31-1-5.ap-southeast-2.compute.internal
+The key's randomart image is:
++---[ECDSA 256]---+
+|          .o. .. |
+|       . o  .. o.|
+|        + .o +. o|
+|     . . o. + =. |
+|    = . S   ==o. |
+|   + o   . *.O. .|
+|    o    oB E.. .|
+|     . ..*o*.. . |
+|      . .o*.o.   |
++----[SHA256]-----+
+Cloud-init v. 22.2.2 running 'modules:config' at Sat, 10 Oct 2026 12:29:22 +0000. Up 9.51 seconds.
+Cloud-init v. 22.2.2 running 'modules:final' at Sat, 10 Oct 2026 12:29:23 +0000. Up 10.16 seconds.
+Amazon Linux 2023 repository                    0.0  B/s |   0  B     00:00    
+Errors during downloading metadata for repository 'amazonlinux':
+  - Curl error (6): Could not resolve hostname for https://al2023-repos-ap-southeast-2-de612dc2.s3.dualstack.ap-southeast-2.amazonaws.com/core/mirrors/2023.12.20260930/x86_64/mirror.list?instance_id=i-0cf8f875fa410d4b2 [Could not resolve host: al2023-repos-ap-southeast-2-de612dc2.s3.dualstack.ap-southeast-2.amazonaws.com]
+Error: Failed to download metadata for repo 'amazonlinux': Cannot prepare internal mirrorlist: Curl error (6): Could not resolve hostname for https://al2023-repos-ap-southeast-2-de612dc2.s3.dualstack.ap-southeast-2.amazonaws.com/core/mirrors/2023.12.20260930/x86_64/mirror.list?instance_id=i-0cf8f875fa410d4b2 [Could not resolve host: al2023-repos-ap-southeast-2-de612dc2.s3.dualstack.ap-southeast-2.amazonaws.com]
+Amazon Linux 2023 Kernel Livepatch repository   0.0  B/s |   0  B     00:00    
+Errors during downloading metadata for repository 'kernel-livepatch':
+  - Curl error (6): Could not resolve hostname for https://al2023-repos-ap-southeast-2-de612dc2.s3.dualstack.ap-southeast-2.amazonaws.com/kernel-livepatch/mirrors/al2023/x86_64/mirror.list?instance_id=i-0cf8f875fa410d4b2 [Could not resolve host: al2023-repos-ap-southeast-2-de612dc2.s3.dualstack.ap-southeast-2.amazonaws.com]
+Error: Failed to download metadata for repo 'kernel-livepatch': Cannot prepare internal mirrorlist: Curl error (6): Could not resolve hostname for https://al2023-repos-ap-southeast-2-de612dc2.s3.dualstack.ap-southeast-2.amazonaws.com/kernel-livepatch/mirrors/al2023/x86_64/mirror.list?instance_id=i-0cf8f875fa410d4b2 [Could not resolve host: al2023-repos-ap-southeast-2-de612dc2.s3.dualstack.ap-southeast-2.amazonaws.com]
+Ignoring repositories: amazonlinux, kernel-livepatch
+No match for argument: docker
+Error: Unable to find a match: docker
+2026-10-10 12:29:24,733 - cc_scripts_user.py[WARNING]: Failed to run module scripts-user (scripts in /var/lib/cloud/instance/scripts)
+2026-10-10 12:29:24,734 - util.py[WARNING]: Running module scripts-user (<module 'cloudinit.config.cc_scripts_user' from '/usr/lib/python3.9/site-packages/cloudinit/config/cc_scripts_user.py'>) failed
+Cloud-init v. 22.2.2 finished at Sat, 10 Oct 2026 12:29:24 +0000. Datasource DataSourceEc2.  Up 11.48 seconds

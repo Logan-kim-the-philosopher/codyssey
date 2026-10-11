@@ -1,0 +1,18 @@
++ /Users/hskim/.local/bin/aws ec2 authorize-security-group-ingress --group-id sg-0c72c40bab7bdcfc2 --protocol tcp --port 22 --cidr 15.134.86.41/32 --profile codyssey --region ap-southeast-2
+{
+    "Return": true,
+    "SecurityGroupRules": [
+        {
+            "SecurityGroupRuleId": "sgr-0a5b79b17c25cb581",
+            "GroupId": "sg-0c72c40bab7bdcfc2",
+            "GroupOwnerId": "888782968605",
+            "IsEgress": false,
+            "IpProtocol": "tcp",
+            "FromPort": 22,
+            "ToPort": 22,
+            "CidrIpv4": "15.134.86.41/32",
+            "SecurityGroupRuleArn": "arn:aws:ec2:ap-southeast-2:888782968605:security-group-rule/sgr-0a5b79b17c25cb581"
+        }
+    ]
+}
++ ssh -i /private/tmp/codyssey-b3-1-key -o UserKnownHostsFile=/private/tmp/b3-1-recheck-known-hosts ec2-user@3.106.167.194 'printf '\''%s\n'\'' '\''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMeLjuAKX41XQHj3/MhYRVlcEkazFrEh90fC9QWEtytp b31-cloudshell-proof'\'' >> ~/.ssh/authorized_keys'

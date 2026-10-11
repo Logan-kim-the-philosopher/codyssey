@@ -1,0 +1,10 @@
+{
+    "accountId": "888782968605",
+    "accountPlanType": "FREE",
+    "accountPlanStatus": "ACTIVE",
+    "accountPlanRemainingCredits": {
+        "amount": 100.0,
+        "unit": "USD"
+    },
+    "accountPlanExpirationDate": "2027-04-09T12:14:00.628000+00:00"
+}

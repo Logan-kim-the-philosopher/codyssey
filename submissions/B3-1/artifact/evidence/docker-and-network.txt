@@ -1,0 +1,38 @@
+CONTAINER ID   IMAGE               COMMAND                  CREATED              STATUS              PORTS                                                              NAMES
+8e5535359fff   caddy:2.10-alpine   "caddy run --config …"   56 seconds ago       Up 51 seconds       80/tcp, 2019/tcp, 443/udp, 0.0.0.0:443->443/tcp, :::443->443/tcp   b3-1-https
+f49305c0fcf2   nginx:1.28-alpine   "/docker-entrypoint.…"   About a minute ago   Up About a minute   0.0.0.0:80->80/tcp, :::80->80/tcp                                  b3-1-web
+["nginx@sha256:a8b39bd9cf0f83869a2162827a0caf6137ddf759d50a171451b335cecc87d236"]
+["caddy@sha256:4c6e91c6ed0e2fa03efd5b44747b625fec79bc9cd06ac5235a779726618e530d"]
+HTTP/1.1 200 OK
+Server: nginx/1.28.3
+Date: Sat, 10 Oct 2026 06:08:04 GMT
+Content-Type: text/plain
+Content-Length: 3
+Connection: keep-alive
+Cache-Control: no-store
+
+OK
+HTTP/2 200 
+date: Sat, 10 Oct 2026 06:08:04 GMT
+content-type: text/html; charset=utf-8
+server: cloudflare
+last-modified: Fri, 09 Oct 2026 20:18:28 GMT
+allow: GET, HEAD
+accept-ranges: bytes
+age: 4673
+cf-cache-status: HIT
+cf-ray: a48372cbab41d5df-SYD
+alt-svc: h3=":443"; ma=86400
+
+{"level":"info","ts":1791612435.7779713,"logger":"tls","msg":"served key authentication certificate","server_name":"b3-1.13-236-1-62.sslip.io","challenge":"tls-alpn-01","remote":"34.208.82.176:41542","distributed":false}
+{"level":"info","ts":1791612435.8577156,"logger":"tls","msg":"served key authentication certificate","server_name":"b3-1.13-236-1-62.sslip.io","challenge":"tls-alpn-01","remote":"18.143.175.75:49070","distributed":false}
+{"level":"info","ts":1791612436.0015,"logger":"tls","msg":"served key authentication certificate","server_name":"b3-1.13-236-1-62.sslip.io","challenge":"tls-alpn-01","remote":"13.59.167.162:54816","distributed":false}
+{"level":"info","ts":1791612436.258051,"logger":"tls","msg":"served key authentication certificate","server_name":"b3-1.13-236-1-62.sslip.io","challenge":"tls-alpn-01","remote":"13.62.56.167:22914","distributed":false}
+{"level":"info","ts":1791612437.5371323,"msg":"authorization finalized","identifier":"b3-1.13-236-1-62.sslip.io","authz_status":"valid"}
+{"level":"info","ts":1791612437.5371835,"msg":"validations succeeded; finalizing order","order":"https://acme-v02.api.letsencrypt.org/acme/order/3847006386/567613169476"}
+{"level":"info","ts":1791612438.8603897,"msg":"got renewal info","names":["b3-1.13-236-1-62.sslip.io"],"window_start":1796716371,"window_end":1796871821,"selected_time":1796746905,"recheck_after":1791630278.8603728,"explanation_url":""}
+{"level":"info","ts":1791612439.28335,"msg":"got renewal info","names":["b3-1.13-236-1-62.sslip.io"],"window_start":1796716371,"window_end":1796871821,"selected_time":1796746774,"recheck_after":1791630369.2833414,"explanation_url":""}
+{"level":"info","ts":1791612439.6693377,"msg":"got renewal info","names":["b3-1.13-236-1-62.sslip.io"],"window_start":1796716371,"window_end":1796871821,"selected_time":1796861825,"recheck_after":1791636519.6693296,"explanation_url":""}
+{"level":"info","ts":1791612439.6974823,"msg":"successfully downloaded available certificate chains","count":3,"first_url":"https://acme-v02.api.letsencrypt.org/acme/cert/056a32f6b93314b38e5b4b829aa7c6432597"}
+{"level":"info","ts":1791612439.7047312,"logger":"tls.obtain","msg":"certificate obtained successfully","identifier":"b3-1.13-236-1-62.sslip.io","issuer":"acme-v02.api.letsencrypt.org-directory"}
+{"level":"info","ts":1791612439.7048924,"logger":"tls.obtain","msg":"releasing lock","identifier":"b3-1.13-236-1-62.sslip.io"}

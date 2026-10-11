@@ -1,0 +1,19 @@
++ /Users/hskim/.local/bin/aws ec2 wait instance-running --instance-ids i-0cf8f875fa410d4b2 --profile codyssey --region ap-southeast-2
++ /Users/hskim/.local/bin/aws ec2 describe-instances --instance-ids i-0cf8f875fa410d4b2 --profile codyssey --region ap-southeast-2
++ set +x
++ for attempt in '{1..30}'
++ ssh -i /private/tmp/codyssey-b3-1-key -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/private/tmp/b3-1-recheck-known-hosts -o ConnectTimeout=8 ec2-user@3.106.167.194 true
+Warning: Permanently added '3.106.167.194' (ED25519) to the list of known hosts.
++ break
++ ssh -i /private/tmp/codyssey-b3-1-key -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/private/tmp/b3-1-recheck-known-hosts -o ConnectTimeout=8 ec2-user@3.106.167.194 'sudo cloud-init status --wait; sudo systemctl is-active docker; sudo install -d -o ec2-user -g ec2-user /opt/b3-1/web'
+
+status: error
+inactive
++ scp -i /private/tmp/codyssey-b3-1-key -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/private/tmp/b3-1-recheck-known-hosts web/app.js web/index.html web/nginx.conf web/style.css ec2-user@3.106.167.194:/opt/b3-1/web/
++ scp -i /private/tmp/codyssey-b3-1-key -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/private/tmp/b3-1-recheck-known-hosts infra/start-web.sh infra/start-https.sh infra/Caddyfile ec2-user@3.106.167.194:/opt/b3-1/
+scp: dest open "/opt/b3-1/start-web.sh": Permission denied
+scp: failed to upload file infra/start-web.sh to /opt/b3-1/
+scp: dest open "/opt/b3-1/start-https.sh": Permission denied
+scp: failed to upload file infra/start-https.sh to /opt/b3-1/
+scp: dest open "/opt/b3-1/Caddyfile": Permission denied
+scp: failed to upload file infra/Caddyfile to /opt/b3-1/

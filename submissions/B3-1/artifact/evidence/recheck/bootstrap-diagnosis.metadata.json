@@ -1,0 +1,14 @@
+{
+  "startedAt": 1791635423.114916,
+  "endedAt": 1791635425.308973,
+  "command": [
+    "ssh",
+    "-i",
+    "/private/tmp/codyssey-b3-1-key",
+    "-o",
+    "UserKnownHostsFile=/private/tmp/b3-1-recheck-known-hosts",
+    "ec2-user@3.106.167.194",
+    "sudo tail -60 /var/log/cloud-init-output.log; sudo install -d -o ec2-user -g ec2-user /opt/b3-1 /opt/b3-1/web"
+  ],
+  "exitCode": 0
+}

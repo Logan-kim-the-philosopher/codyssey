@@ -1,0 +1,9 @@
+{
+  "startedAt": 1791635967.6748722,
+  "endedAt": 1791636032.897701,
+  "command": [
+    "/bin/bash",
+    "artifacts/b3-1/recheck/cleanup-and-check.sh"
+  ],
+  "exitCode": 0
+}

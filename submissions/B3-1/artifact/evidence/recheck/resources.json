@@ -1,0 +1,14 @@
+{
+  "region": "ap-southeast-2",
+  "project": "cdsy",
+  "role": "codyssey-b3-1-deployer",
+  "sshCidr": "220.65.239.203/32",
+  "keyPair": "codyssey-b3-1",
+  "vpc": "vpc-0bb7ce55d20cd2499",
+  "subnet": "subnet-0b4e532934ed4ff21",
+  "igw": "igw-07c4695e109436fba",
+  "routeTable": "rtb-017be5fa2950c8c46",
+  "routeAssociation": "rtbassoc-0e3847fa39a8f5196",
+  "securityGroup": "sg-0c72c40bab7bdcfc2",
+  "instance": "i-0cf8f875fa410d4b2"
+}

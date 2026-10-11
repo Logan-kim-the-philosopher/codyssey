@@ -1,0 +1,29 @@
+{
+    "Role": {
+        "Path": "/",
+        "RoleName": "codyssey-b3-1-deployer",
+        "RoleId": "AROA4534X24O5DFLC3K67",
+        "Arn": "arn:aws:iam::888782968605:role/codyssey-b3-1-deployer",
+        "CreateDate": "2026-10-10T05:59:23+00:00",
+        "AssumeRolePolicyDocument": {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Effect": "Allow",
+                    "Principal": {
+                        "AWS": "arn:aws:iam::888782968605:role/managed/AccountFullAccessRole"
+                    },
+                    "Action": "sts:AssumeRole"
+                }
+            ]
+        },
+        "MaxSessionDuration": 43200,
+        "Tags": [
+            {
+                "Key": "Assignment",
+                "Value": "B3-1"
+            }
+        ],
+        "RoleLastUsed": {}
+    }
+}

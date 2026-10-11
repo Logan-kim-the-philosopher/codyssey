@@ -1,0 +1,14 @@
+{
+    "Return": true,
+    "RevokedSecurityGroupRules": [
+        {
+            "SecurityGroupRuleId": "sgr-0a5b79b17c25cb581",
+            "GroupId": "sg-0c72c40bab7bdcfc2",
+            "IsEgress": false,
+            "IpProtocol": "tcp",
+            "FromPort": 22,
+            "ToPort": 22,
+            "CidrIpv4": "15.134.86.41/32"
+        }
+    ]
+}

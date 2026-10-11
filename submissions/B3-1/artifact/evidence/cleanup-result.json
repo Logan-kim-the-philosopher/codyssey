@@ -1,0 +1,87 @@
+[
+  {
+    "action": "terminate-instances",
+    "args": [
+      "--instance-ids",
+      "i-00d9faeaebdfcbb1f"
+    ],
+    "result": "success"
+  },
+  {
+    "action": "delete-security-group",
+    "args": [
+      "--group-id",
+      "sg-02d673c31ea48e148"
+    ],
+    "result": "success"
+  },
+  {
+    "action": "delete-key-pair",
+    "args": [
+      "--key-name",
+      "codyssey-b3-1"
+    ],
+    "result": "success"
+  },
+  {
+    "action": "disassociate-route-table",
+    "args": [
+      "--association-id",
+      "rtbassoc-0cc2942577c89d12b"
+    ],
+    "result": "success"
+  },
+  {
+    "action": "delete-subnet",
+    "args": [
+      "--subnet-id",
+      "subnet-024d97e8392af0caf"
+    ],
+    "result": "success"
+  },
+  {
+    "action": "delete-route-table",
+    "args": [
+      "--route-table-id",
+      "rtb-089f0beddcee0d9f5"
+    ],
+    "result": "success"
+  },
+  {
+    "action": "detach-internet-gateway",
+    "args": [
+      "--internet-gateway-id",
+      "igw-0e03888798bd7cb74",
+      "--vpc-id",
+      "vpc-021a8020c1b4c2f6c"
+    ],
+    "result": "success"
+  },
+  {
+    "action": "delete-internet-gateway",
+    "args": [
+      "--internet-gateway-id",
+      "igw-0e03888798bd7cb74"
+    ],
+    "result": "success"
+  },
+  {
+    "action": "delete-vpc",
+    "args": [
+      "--vpc-id",
+      "vpc-021a8020c1b4c2f6c"
+    ],
+    "result": "success"
+  },
+  {
+    "action": "iam:DeleteRolePolicy",
+    "role": "codyssey-b3-1-deployer",
+    "policy": "B3-1-Ec2VpcOnly",
+    "result": "success"
+  },
+  {
+    "action": "iam:DeleteRole",
+    "role": "codyssey-b3-1-deployer",
+    "result": "success"
+  }
+]

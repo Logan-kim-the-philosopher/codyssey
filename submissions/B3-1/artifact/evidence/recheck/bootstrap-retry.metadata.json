@@ -1,0 +1,14 @@
+{
+  "startedAt": 1791635449.542672,
+  "endedAt": 1791635728.463884,
+  "command": [
+    "ssh",
+    "-i",
+    "/private/tmp/codyssey-b3-1-key",
+    "-o",
+    "UserKnownHostsFile=/private/tmp/b3-1-recheck-known-hosts",
+    "ec2-user@3.106.167.194",
+    "set -ex; getent hosts amazon.com; sudo dnf install -y docker; sudo systemctl enable --now docker"
+  ],
+  "exitCode": 0
+}

@@ -1,0 +1,117 @@
++ /Users/hskim/.local/bin/aws ec2 wait instance-running --instance-ids i-0cf8f875fa410d4b2 --profile codyssey --region ap-southeast-2
++ /Users/hskim/.local/bin/aws ec2 describe-instances --instance-ids i-0cf8f875fa410d4b2 --profile codyssey --region ap-southeast-2
++ set +x
++ for attempt in '{1..30}'
++ ssh -i /private/tmp/codyssey-b3-1-key -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/private/tmp/b3-1-recheck-known-hosts -o ConnectTimeout=8 ec2-user@3.106.167.194 true
++ break
++ ssh -i /private/tmp/codyssey-b3-1-key -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/private/tmp/b3-1-recheck-known-hosts -o ConnectTimeout=8 ec2-user@3.106.167.194 'sudo cloud-init status --wait; sudo systemctl is-active docker; sudo install -d -o ec2-user -g ec2-user /opt/b3-1/web'
+
+status: error
+active
++ scp -i /private/tmp/codyssey-b3-1-key -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/private/tmp/b3-1-recheck-known-hosts web/app.js web/index.html web/nginx.conf web/style.css ec2-user@3.106.167.194:/opt/b3-1/web/
++ scp -i /private/tmp/codyssey-b3-1-key -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/private/tmp/b3-1-recheck-known-hosts infra/start-web.sh infra/start-https.sh infra/Caddyfile ec2-user@3.106.167.194:/opt/b3-1/
++ ssh -i /private/tmp/codyssey-b3-1-key -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/private/tmp/b3-1-recheck-known-hosts -o ConnectTimeout=8 ec2-user@3.106.167.194 'sudo bash /opt/b3-1/start-web.sh; sudo bash /opt/b3-1/start-https.sh; date -u; sudo docker ps; curl -i http://localhost/health; sudo docker image inspect nginx:1.28-alpine --format "{{json .RepoDigests}}"'
+Unable to find image 'nginx:1.28-alpine' locally
+1.28-alpine: Pulling from library/nginx
+589002ba0eae: Pulling fs layer
+1d9cbdb003be: Pulling fs layer
+e914c6e98e37: Pulling fs layer
+d631a49fb4f7: Pulling fs layer
+8f7c784e2471: Pulling fs layer
+44fa0a5a779f: Pulling fs layer
+98104829f3fe: Pulling fs layer
+0151c82f84a9: Pulling fs layer
+d631a49fb4f7: Waiting
+8f7c784e2471: Waiting
+44fa0a5a779f: Waiting
+98104829f3fe: Waiting
+0151c82f84a9: Waiting
+e914c6e98e37: Verifying Checksum
+e914c6e98e37: Download complete
+1d9cbdb003be: Verifying Checksum
+1d9cbdb003be: Download complete
+589002ba0eae: Verifying Checksum
+589002ba0eae: Download complete
+d631a49fb4f7: Verifying Checksum
+d631a49fb4f7: Download complete
+8f7c784e2471: Verifying Checksum
+8f7c784e2471: Download complete
+44fa0a5a779f: Verifying Checksum
+44fa0a5a779f: Download complete
+98104829f3fe: Verifying Checksum
+98104829f3fe: Download complete
+0151c82f84a9: Verifying Checksum
+0151c82f84a9: Download complete
+589002ba0eae: Pull complete
+1d9cbdb003be: Pull complete
+e914c6e98e37: Pull complete
+d631a49fb4f7: Pull complete
+8f7c784e2471: Pull complete
+44fa0a5a779f: Pull complete
+98104829f3fe: Pull complete
+0151c82f84a9: Pull complete
+Digest: sha256:a8b39bd9cf0f83869a2162827a0caf6137ddf759d50a171451b335cecc87d236
+Status: Downloaded newer image for nginx:1.28-alpine
+c1a55b49d4968b94fa80a1b5ab11b68f6772bc38b83245a9437db4e81b591aa6
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0  0      0   0      0   0      0      0      0                              0  0      0   0      0   0      0      0      0                              0  0      0   0      0   0      0      0      0                              0
+curl: (52) Empty reply from server
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0OK
+100      3 100      3   0      0     41      0                              0100      3 100      3   0      0     41      0                              0100      3 100      3   0      0     41      0                              0
+Unable to find image 'caddy:2.10-alpine' locally
+2.10-alpine: Pulling from library/caddy
+d49a2dee86fb: Pulling fs layer
+15dab9c57989: Pulling fs layer
+c108b7dc59eb: Pulling fs layer
+0f5b24603697: Pulling fs layer
+4f4fb700ef54: Pulling fs layer
+0f5b24603697: Waiting
+4f4fb700ef54: Waiting
+c108b7dc59eb: Verifying Checksum
+c108b7dc59eb: Download complete
+15dab9c57989: Verifying Checksum
+15dab9c57989: Download complete
+d49a2dee86fb: Verifying Checksum
+d49a2dee86fb: Download complete
+4f4fb700ef54: Verifying Checksum
+4f4fb700ef54: Download complete
+0f5b24603697: Verifying Checksum
+0f5b24603697: Download complete
+d49a2dee86fb: Pull complete
+15dab9c57989: Pull complete
+c108b7dc59eb: Pull complete
+0f5b24603697: Pull complete
+4f4fb700ef54: Pull complete
+Digest: sha256:4c6e91c6ed0e2fa03efd5b44747b625fec79bc9cd06ac5235a779726618e530d
+Status: Downloaded newer image for caddy:2.10-alpine
+fc25bf885014f99c1b36496ac60005d4f67487616465694ef4040a222685cce6
+Sat Oct 10 12:37:02 UTC 2026
+CONTAINER ID   IMAGE               COMMAND                  CREATED          STATUS          PORTS                                                              NAMES
+fc25bf885014   caddy:2.10-alpine   "caddy run --config …"   5 seconds ago    Up 1 second     80/tcp, 2019/tcp, 443/udp, 0.0.0.0:443->443/tcp, :::443->443/tcp   b3-1-https
+c1a55b49d496   nginx:1.28-alpine   "/docker-entrypoint.…"   30 seconds ago   Up 26 seconds   0.0.0.0:80->80/tcp, :::80->80/tcp                                  b3-1-web
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  TotalHTTP/1.1 200 OK
+Server: nginx/1.28.3
+Date: Sat, 10 Oct 2026 12:37:04 GMT
+Content-Type: text/plain
+Content-Length: 3
+Connection: keep-alive
+Cache-Control: no-store
+
+OK
+   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0100      3 100      3   0      0     38      0                              0100      3 100      3   0      0     38      0                              0100      3 100      3   0      0     38      0                              0
+["nginx@sha256:a8b39bd9cf0f83869a2162827a0caf6137ddf759d50a171451b335cecc87d236"]
++ curl --fail --show-error -i http://3.106.167.194/health
+HTTP/1.1 200 OK
+[1mServer[0m: nginx/1.28.3
+[1mDate[0m: Sat, 10 Oct 2026 12:37:05 GMT
+[1mContent-Type[0m: text/plain
+[1mContent-Length[0m: 3
+[1mConnection[0m: keep-alive
+[1mCache-Control[0m: no-store
+
+OK
