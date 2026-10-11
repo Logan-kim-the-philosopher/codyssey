@@ -559,3 +559,543 @@ Agent READY
 2026-10-11 15:52:42,931 [INFO] --- Step Info: Mode=UP, CPU Lv=5, Mem=100MB ---
 2026-10-11 15:52:42,933 [INFO] [Memory] Increasing... (+25 MB) Total: 125 MB
 2026-10-11 15:52:42,934 [INFO] [CPU] Occupy core for 5s (Level 5)
+2026-10-11 15:52:48,939 [INFO] --- Step Info: Mode=UP, CPU Lv=6, Mem=125MB ---
+2026-10-11 15:52:48,944 [INFO] [Memory] Increasing... (+25 MB) Total: 150 MB
+2026-10-11 15:52:48,944 [INFO] [CPU] Occupy core for 5s (Level 6)
+2026-10-11 15:52:54,947 [INFO] --- Step Info: Mode=UP, CPU Lv=7, Mem=150MB ---
+2026-10-11 15:52:54,951 [INFO] [Memory] Increasing... (+25 MB) Total: 175 MB
+2026-10-11 15:52:54,952 [INFO] [CPU] Occupy core for 5s (Level 7)
+2026-10-11 15:53:00,957 [INFO] --- Step Info: Mode=UP, CPU Lv=8, Mem=175MB ---
+2026-10-11 15:53:00,960 [INFO] [Memory] Increasing... (+25 MB) Total: 200 MB
+2026-10-11 15:53:00,961 [INFO] [CPU] Occupy core for 5s (Level 8)
+2026-10-11 15:53:06,964 [INFO] --- Step Info: Mode=UP, CPU Lv=9, Mem=200MB ---
+2026-10-11 15:53:06,967 [INFO] [Memory] Increasing... (+25 MB) Total: 225 MB
+2026-10-11 15:53:06,967 [INFO] [CPU] Occupy core for 5s (Level 9)
+2026-10-11 15:53:12,973 [INFO] --- Step Info: Mode=UP, CPU Lv=10, Mem=225MB ---
+2026-10-11 15:53:12,978 [INFO] [Memory] Increasing... (+25 MB) Total: 250 MB
+2026-10-11 15:53:12,978 [INFO] [CPU] Occupy core for 5s (Level 10)
+2026-10-11 15:53:18,985 [INFO] --- Step Info: Mode=UP, CPU Lv=10, Mem=250MB ---
+2026-10-11 15:53:18,991 [INFO] [Memory] Increasing... (+25 MB) Total: 275 MB
+2026-10-11 15:53:18,991 [INFO] [CPU] Occupy core for 5s (Level 10)
+2026-10-11 15:53:24,997 [INFO] >>> PEAK REACHED (Max Load). Switching to RAMP DOWN. ▼ <<<
+2026-10-11 15:53:24,999 [INFO] --- Step Info: Mode=DOWN, CPU Lv=9, Mem=275MB ---
+2026-10-11 15:53:24,999 [INFO] [Memory] Releasing... (-25MB) Total: 250MB
+2026-10-11 15:53:24,999 [INFO] [CPU] Occupy core for 5s (Level 9)
+2026-10-11 15:53:31,003 [INFO] --- Step Info: Mode=DOWN, CPU Lv=8, Mem=250MB ---
+2026-10-11 15:53:31,003 [INFO] [Memory] Releasing... (-25MB) Total: 225MB
+2026-10-11 15:53:31,003 [INFO] [CPU] Occupy core for 5s (Level 8)
+2026-10-11 15:53:37,009 [INFO] --- Step Info: Mode=DOWN, CPU Lv=7, Mem=225MB ---
+2026-10-11 15:53:37,010 [INFO] [Memory] Releasing... (-25MB) Total: 200MB
+2026-10-11 15:53:37,010 [INFO] [CPU] Occupy core for 5s (Level 7)
+2026-10-11 15:53:43,015 [INFO] --- Step Info: Mode=DOWN, CPU Lv=6, Mem=200MB ---
+2026-10-11 15:53:43,016 [INFO] [Memory] Releasing... (-25MB) Total: 175MB
+2026-10-11 15:53:43,016 [INFO] [CPU] Occupy core for 5s (Level 6)
+2026-10-11 15:53:49,021 [INFO] --- Step Info: Mode=DOWN, CPU Lv=5, Mem=175MB ---
+2026-10-11 15:53:49,022 [INFO] [Memory] Releasing... (-25MB) Total: 150MB
+2026-10-11 15:53:49,022 [INFO] [CPU] Occupy core for 5s (Level 5)
+2026-10-11 15:53:55,023 [INFO] --- Step Info: Mode=DOWN, CPU Lv=4, Mem=150MB ---
+2026-10-11 15:53:55,023 [INFO] [Memory] Releasing... (-25MB) Total: 125MB
+2026-10-11 15:53:55,023 [INFO] [CPU] Occupy core for 4s (Level 4)
+2026-10-11 15:54:00,029 [INFO] --- Step Info: Mode=DOWN, CPU Lv=3, Mem=125MB ---
+2026-10-11 15:54:00,029 [INFO] [Memory] Releasing... (-25MB) Total: 100MB
+2026-10-11 15:54:00,030 [INFO] [CPU] Occupy core for 3s (Level 3)
+2026-10-11 15:54:04,033 [INFO] --- Step Info: Mode=DOWN, CPU Lv=2, Mem=100MB ---
+2026-10-11 15:54:04,034 [INFO] [Memory] Releasing... (-25MB) Total: 75MB
+2026-10-11 15:54:04,034 [INFO] [CPU] Occupy core for 2s (Level 2)
+2026-10-11 15:54:07,040 [INFO] --- Step Info: Mode=DOWN, CPU Lv=1, Mem=75MB ---
+2026-10-11 15:54:07,041 [INFO] [Memory] Releasing... (-25MB) Total: 50MB
+2026-10-11 15:54:07,041 [INFO] [CPU] Occupy core for 1s (Level 1)
+2026-10-11 15:54:09,046 [INFO] --- Step Info: Mode=DOWN, CPU Lv=0, Mem=50MB ---
+2026-10-11 15:54:09,047 [INFO] [Memory] Releasing... (-25MB) Total: 25MB
+2026-10-11 15:54:10,052 [INFO] --- Step Info: Mode=DOWN, CPU Lv=0, Mem=25MB ---
+2026-10-11 15:54:10,052 [INFO] [Memory] Releasing... (-25MB) Total: 0MB
+2026-10-11 15:54:11,057 [INFO] >>> BOTTOM REACHED (Idle). Switching to RAMP UP. ▲ <<<
+2026-10-11 15:54:11,057 [INFO] --- Step Info: Mode=UP, CPU Lv=1, Mem=0MB ---
+2026-10-11 15:54:11,060 [INFO] [Memory] Increasing... (+25 MB) Total: 25 MB
+2026-10-11 15:54:11,061 [INFO] [CPU] Occupy core for 1s (Level 1)
+2026-10-11 15:54:13,062 [INFO] --- Step Info: Mode=UP, CPU Lv=2, Mem=25MB ---
+2026-10-11 15:54:13,065 [INFO] [Memory] Increasing... (+25 MB) Total: 50 MB
+2026-10-11 15:54:13,065 [INFO] [CPU] Occupy core for 2s (Level 2)
+2026-10-11 15:54:16,071 [INFO] --- Step Info: Mode=UP, CPU Lv=3, Mem=50MB ---
+2026-10-11 15:54:16,075 [INFO] [Memory] Increasing... (+25 MB) Total: 75 MB
+2026-10-11 15:54:16,076 [INFO] [CPU] Occupy core for 3s (Level 3)
+2026-10-11 15:54:20,079 [INFO] --- Step Info: Mode=UP, CPU Lv=4, Mem=75MB ---
+2026-10-11 15:54:20,082 [INFO] [Memory] Increasing... (+25 MB) Total: 100 MB
+2026-10-11 15:54:20,083 [INFO] [CPU] Occupy core for 4s (Level 4)
+2026-10-11 15:54:25,085 [INFO] --- Step Info: Mode=UP, CPU Lv=5, Mem=100MB ---
+2026-10-11 15:54:25,090 [INFO] [Memory] Increasing... (+25 MB) Total: 125 MB
+2026-10-11 15:54:25,090 [INFO] [CPU] Occupy core for 5s (Level 5)
+2026-10-11 15:54:31,097 [INFO] --- Step Info: Mode=UP, CPU Lv=6, Mem=125MB ---
+2026-10-11 15:54:31,100 [INFO] [Memory] Increasing... (+25 MB) Total: 150 MB
+2026-10-11 15:54:31,100 [INFO] [CPU] Occupy core for 5s (Level 6)
+2026-10-11 15:54:37,103 [INFO] --- Step Info: Mode=UP, CPU Lv=7, Mem=150MB ---
+2026-10-11 15:54:37,107 [INFO] [Memory] Increasing... (+25 MB) Total: 175 MB
+2026-10-11 15:54:37,107 [INFO] [CPU] Occupy core for 5s (Level 7)
+2026-10-11 15:54:43,113 [INFO] --- Step Info: Mode=UP, CPU Lv=8, Mem=175MB ---
+2026-10-11 15:54:43,118 [INFO] [Memory] Increasing... (+25 MB) Total: 200 MB
+2026-10-11 15:54:43,119 [INFO] [CPU] Occupy core for 5s (Level 8)
+2026-10-11 15:54:49,124 [INFO] --- Step Info: Mode=UP, CPU Lv=9, Mem=200MB ---
+2026-10-11 15:54:49,127 [INFO] [Memory] Increasing... (+25 MB) Total: 225 MB
+2026-10-11 15:54:49,128 [INFO] [CPU] Occupy core for 5s (Level 9)
+2026-10-11 15:54:55,131 [INFO] --- Step Info: Mode=UP, CPU Lv=10, Mem=225MB ---
+2026-10-11 15:54:55,136 [INFO] [Memory] Increasing... (+25 MB) Total: 250 MB
+2026-10-11 15:54:55,136 [INFO] [CPU] Occupy core for 5s (Level 10)
+2026-10-11 15:55:01,139 [INFO] --- Step Info: Mode=UP, CPU Lv=10, Mem=250MB ---
+2026-10-11 15:55:01,141 [INFO] [Memory] Increasing... (+25 MB) Total: 275 MB
+2026-10-11 15:55:01,141 [INFO] [CPU] Occupy core for 5s (Level 10)
+2026-10-11 15:55:07,149 [INFO] >>> PEAK REACHED (Max Load). Switching to RAMP DOWN. ▼ <<<
+2026-10-11 15:55:07,150 [INFO] --- Step Info: Mode=DOWN, CPU Lv=9, Mem=275MB ---
+2026-10-11 15:55:07,152 [INFO] [Memory] Releasing... (-25MB) Total: 250MB
+2026-10-11 15:55:07,153 [INFO] [CPU] Occupy core for 5s (Level 9)
+2026-10-11 15:55:13,158 [INFO] --- Step Info: Mode=DOWN, CPU Lv=8, Mem=250MB ---
+2026-10-11 15:55:13,159 [INFO] [Memory] Releasing... (-25MB) Total: 225MB
+2026-10-11 15:55:13,159 [INFO] [CPU] Occupy core for 5s (Level 8)
+2026-10-11 15:55:19,164 [INFO] --- Step Info: Mode=DOWN, CPU Lv=7, Mem=225MB ---
+2026-10-11 15:55:19,165 [INFO] [Memory] Releasing... (-25MB) Total: 200MB
+2026-10-11 15:55:19,165 [INFO] [CPU] Occupy core for 5s (Level 7)
+2026-10-11 15:55:25,170 [INFO] --- Step Info: Mode=DOWN, CPU Lv=6, Mem=200MB ---
+2026-10-11 15:55:25,171 [INFO] [Memory] Releasing... (-25MB) Total: 175MB
+2026-10-11 15:55:25,171 [INFO] [CPU] Occupy core for 5s (Level 6)
+2026-10-11 15:55:31,172 [INFO] --- Step Info: Mode=DOWN, CPU Lv=5, Mem=175MB ---
+2026-10-11 15:55:31,172 [INFO] [Memory] Releasing... (-25MB) Total: 150MB
+2026-10-11 15:55:31,173 [INFO] [CPU] Occupy core for 5s (Level 5)
+2026-10-11 15:55:37,179 [INFO] --- Step Info: Mode=DOWN, CPU Lv=4, Mem=150MB ---
+2026-10-11 15:55:37,180 [INFO] [Memory] Releasing... (-25MB) Total: 125MB
+2026-10-11 15:55:37,181 [INFO] [CPU] Occupy core for 4s (Level 4)
+2026-10-11 15:55:42,209 [INFO] --- Step Info: Mode=DOWN, CPU Lv=3, Mem=125MB ---
+2026-10-11 15:55:42,209 [INFO] [Memory] Releasing... (-25MB) Total: 100MB
+2026-10-11 15:55:42,210 [INFO] [CPU] Occupy core for 3s (Level 3)
+2026-10-11 15:55:46,217 [INFO] --- Step Info: Mode=DOWN, CPU Lv=2, Mem=100MB ---
+2026-10-11 15:55:46,218 [INFO] [Memory] Releasing... (-25MB) Total: 75MB
+2026-10-11 15:55:46,218 [INFO] [CPU] Occupy core for 2s (Level 2)
+2026-10-11 15:55:49,224 [INFO] --- Step Info: Mode=DOWN, CPU Lv=1, Mem=75MB ---
+2026-10-11 15:55:49,224 [INFO] [Memory] Releasing... (-25MB) Total: 50MB
+2026-10-11 15:55:49,224 [INFO] [CPU] Occupy core for 1s (Level 1)
+2026-10-11 15:55:51,229 [INFO] --- Step Info: Mode=DOWN, CPU Lv=0, Mem=50MB ---
+2026-10-11 15:55:51,231 [INFO] [Memory] Releasing... (-25MB) Total: 25MB
+2026-10-11 15:55:52,235 [INFO] --- Step Info: Mode=DOWN, CPU Lv=0, Mem=25MB ---
+2026-10-11 15:55:52,236 [INFO] [Memory] Releasing... (-25MB) Total: 0MB
+2026-10-11 15:55:53,237 [INFO] >>> BOTTOM REACHED (Idle). Switching to RAMP UP. ▲ <<<
+2026-10-11 15:55:53,238 [INFO] --- Step Info: Mode=UP, CPU Lv=1, Mem=0MB ---
+2026-10-11 15:55:53,243 [INFO] [Memory] Increasing... (+25 MB) Total: 25 MB
+2026-10-11 15:55:53,244 [INFO] [CPU] Occupy core for 1s (Level 1)
+2026-10-11 15:55:55,250 [INFO] --- Step Info: Mode=UP, CPU Lv=2, Mem=25MB ---
+2026-10-11 15:55:55,257 [INFO] [Memory] Increasing... (+25 MB) Total: 50 MB
+2026-10-11 15:55:55,258 [INFO] [CPU] Occupy core for 2s (Level 2)
+2026-10-11 15:55:58,260 [INFO] --- Step Info: Mode=UP, CPU Lv=3, Mem=50MB ---
+2026-10-11 15:55:58,266 [INFO] [Memory] Increasing... (+25 MB) Total: 75 MB
+2026-10-11 15:55:58,267 [INFO] [CPU] Occupy core for 3s (Level 3)
+2026-10-11 15:56:02,273 [INFO] --- Step Info: Mode=UP, CPU Lv=4, Mem=75MB ---
+2026-10-11 15:56:02,280 [INFO] [Memory] Increasing... (+25 MB) Total: 100 MB
+2026-10-11 15:56:02,281 [INFO] [CPU] Occupy core for 4s (Level 4)
+2026-10-11 15:56:07,291 [INFO] --- Step Info: Mode=UP, CPU Lv=5, Mem=100MB ---
+2026-10-11 15:56:07,294 [INFO] [Memory] Increasing... (+25 MB) Total: 125 MB
+2026-10-11 15:56:07,295 [INFO] [CPU] Occupy core for 5s (Level 5)
+2026-10-11 15:56:13,302 [INFO] --- Step Info: Mode=UP, CPU Lv=6, Mem=125MB ---
+2026-10-11 15:56:13,305 [INFO] [Memory] Increasing... (+25 MB) Total: 150 MB
+2026-10-11 15:56:13,305 [INFO] [CPU] Occupy core for 5s (Level 6)
+2026-10-11 15:56:19,310 [INFO] --- Step Info: Mode=UP, CPU Lv=7, Mem=150MB ---
+2026-10-11 15:56:19,315 [INFO] [Memory] Increasing... (+25 MB) Total: 175 MB
+2026-10-11 15:56:19,316 [INFO] [CPU] Occupy core for 5s (Level 7)
+2026-10-11 15:56:25,320 [INFO] --- Step Info: Mode=UP, CPU Lv=8, Mem=175MB ---
+2026-10-11 15:56:25,328 [INFO] [Memory] Increasing... (+25 MB) Total: 200 MB
+2026-10-11 15:56:25,329 [INFO] [CPU] Occupy core for 5s (Level 8)
+2026-10-11 15:56:31,335 [INFO] --- Step Info: Mode=UP, CPU Lv=9, Mem=200MB ---
+2026-10-11 15:56:31,341 [INFO] [Memory] Increasing... (+25 MB) Total: 225 MB
+2026-10-11 15:56:31,341 [INFO] [CPU] Occupy core for 5s (Level 9)
+2026-10-11 15:56:37,345 [INFO] --- Step Info: Mode=UP, CPU Lv=10, Mem=225MB ---
+2026-10-11 15:56:37,350 [INFO] [Memory] Increasing... (+25 MB) Total: 250 MB
+2026-10-11 15:56:37,350 [INFO] [CPU] Occupy core for 5s (Level 10)
+2026-10-11 15:56:43,357 [INFO] --- Step Info: Mode=UP, CPU Lv=10, Mem=250MB ---
+2026-10-11 15:56:43,362 [INFO] [Memory] Increasing... (+25 MB) Total: 275 MB
+2026-10-11 15:56:43,363 [INFO] [CPU] Occupy core for 5s (Level 10)
+2026-10-11 15:56:49,369 [INFO] >>> PEAK REACHED (Max Load). Switching to RAMP DOWN. ▼ <<<
+2026-10-11 15:56:49,370 [INFO] --- Step Info: Mode=DOWN, CPU Lv=9, Mem=275MB ---
+2026-10-11 15:56:49,370 [INFO] [Memory] Releasing... (-25MB) Total: 250MB
+2026-10-11 15:56:49,371 [INFO] [CPU] Occupy core for 5s (Level 9)
+2026-10-11 15:56:55,374 [INFO] --- Step Info: Mode=DOWN, CPU Lv=8, Mem=250MB ---
+2026-10-11 15:56:55,375 [INFO] [Memory] Releasing... (-25MB) Total: 225MB
+2026-10-11 15:56:55,375 [INFO] [CPU] Occupy core for 5s (Level 8)
+2026-10-11 15:57:01,378 [INFO] --- Step Info: Mode=DOWN, CPU Lv=7, Mem=225MB ---
+2026-10-11 15:57:01,379 [INFO] [Memory] Releasing... (-25MB) Total: 200MB
+2026-10-11 15:57:01,379 [INFO] [CPU] Occupy core for 5s (Level 7)
+2026-10-11 15:57:07,386 [INFO] --- Step Info: Mode=DOWN, CPU Lv=6, Mem=200MB ---
+2026-10-11 15:57:07,388 [INFO] [Memory] Releasing... (-25MB) Total: 175MB
+2026-10-11 15:57:07,390 [INFO] [CPU] Occupy core for 5s (Level 6)
+2026-10-11 15:57:13,397 [INFO] --- Step Info: Mode=DOWN, CPU Lv=5, Mem=175MB ---
+2026-10-11 15:57:13,398 [INFO] [Memory] Releasing... (-25MB) Total: 150MB
+2026-10-11 15:57:13,398 [INFO] [CPU] Occupy core for 5s (Level 5)
+2026-10-11 15:57:19,404 [INFO] --- Step Info: Mode=DOWN, CPU Lv=4, Mem=150MB ---
+2026-10-11 15:57:19,406 [INFO] [Memory] Releasing... (-25MB) Total: 125MB
+2026-10-11 15:57:19,406 [INFO] [CPU] Occupy core for 4s (Level 4)
+2026-10-11 15:57:24,413 [INFO] --- Step Info: Mode=DOWN, CPU Lv=3, Mem=125MB ---
+2026-10-11 15:57:24,414 [INFO] [Memory] Releasing... (-25MB) Total: 100MB
+2026-10-11 15:57:24,414 [INFO] [CPU] Occupy core for 3s (Level 3)
+2026-10-11 15:57:28,418 [INFO] --- Step Info: Mode=DOWN, CPU Lv=2, Mem=100MB ---
+2026-10-11 15:57:28,419 [INFO] [Memory] Releasing... (-25MB) Total: 75MB
+2026-10-11 15:57:28,420 [INFO] [CPU] Occupy core for 2s (Level 2)
+2026-10-11 15:57:31,421 [INFO] --- Step Info: Mode=DOWN, CPU Lv=1, Mem=75MB ---
+2026-10-11 15:57:31,421 [INFO] [Memory] Releasing... (-25MB) Total: 50MB
+2026-10-11 15:57:31,422 [INFO] [CPU] Occupy core for 1s (Level 1)
+2026-10-11 15:57:33,428 [INFO] --- Step Info: Mode=DOWN, CPU Lv=0, Mem=50MB ---
+2026-10-11 15:57:33,429 [INFO] [Memory] Releasing... (-25MB) Total: 25MB
+2026-10-11 15:57:34,434 [INFO] --- Step Info: Mode=DOWN, CPU Lv=0, Mem=25MB ---
+2026-10-11 15:57:34,435 [INFO] [Memory] Releasing... (-25MB) Total: 0MB
+2026-10-11 15:57:35,438 [INFO] >>> BOTTOM REACHED (Idle). Switching to RAMP UP. ▲ <<<
+2026-10-11 15:57:35,439 [INFO] --- Step Info: Mode=UP, CPU Lv=1, Mem=0MB ---
+2026-10-11 15:57:35,443 [INFO] [Memory] Increasing... (+25 MB) Total: 25 MB
+2026-10-11 15:57:35,443 [INFO] [CPU] Occupy core for 1s (Level 1)
+2026-10-11 15:57:37,449 [INFO] --- Step Info: Mode=UP, CPU Lv=2, Mem=25MB ---
+2026-10-11 15:57:37,456 [INFO] [Memory] Increasing... (+25 MB) Total: 50 MB
+2026-10-11 15:57:37,456 [INFO] [CPU] Occupy core for 2s (Level 2)
+2026-10-11 15:57:40,458 [INFO] --- Step Info: Mode=UP, CPU Lv=3, Mem=50MB ---
+2026-10-11 15:57:40,464 [INFO] [Memory] Increasing... (+25 MB) Total: 75 MB
+2026-10-11 15:57:40,465 [INFO] [CPU] Occupy core for 3s (Level 3)
+2026-10-11 15:57:44,468 [INFO] --- Step Info: Mode=UP, CPU Lv=4, Mem=75MB ---
+2026-10-11 15:57:44,474 [INFO] [Memory] Increasing... (+25 MB) Total: 100 MB
+2026-10-11 15:57:44,475 [INFO] [CPU] Occupy core for 4s (Level 4)
+2026-10-11 15:57:49,478 [INFO] --- Step Info: Mode=UP, CPU Lv=5, Mem=100MB ---
+2026-10-11 15:57:49,484 [INFO] [Memory] Increasing... (+25 MB) Total: 125 MB
+2026-10-11 15:57:49,485 [INFO] [CPU] Occupy core for 5s (Level 5)
+2026-10-11 15:57:55,491 [INFO] --- Step Info: Mode=UP, CPU Lv=6, Mem=125MB ---
+2026-10-11 15:57:55,499 [INFO] [Memory] Increasing... (+25 MB) Total: 150 MB
+2026-10-11 15:57:55,500 [INFO] [CPU] Occupy core for 5s (Level 6)
+2026-10-11 15:58:01,507 [INFO] --- Step Info: Mode=UP, CPU Lv=7, Mem=150MB ---
+2026-10-11 15:58:01,512 [INFO] [Memory] Increasing... (+25 MB) Total: 175 MB
+2026-10-11 15:58:01,513 [INFO] [CPU] Occupy core for 5s (Level 7)
+2026-10-11 15:58:07,514 [INFO] --- Step Info: Mode=UP, CPU Lv=8, Mem=175MB ---
+2026-10-11 15:58:07,519 [INFO] [Memory] Increasing... (+25 MB) Total: 200 MB
+2026-10-11 15:58:07,520 [INFO] [CPU] Occupy core for 5s (Level 8)
+2026-10-11 15:58:13,527 [INFO] --- Step Info: Mode=UP, CPU Lv=9, Mem=200MB ---
+2026-10-11 15:58:13,531 [INFO] [Memory] Increasing... (+25 MB) Total: 225 MB
+2026-10-11 15:58:13,532 [INFO] [CPU] Occupy core for 5s (Level 9)
+2026-10-11 15:58:19,538 [INFO] --- Step Info: Mode=UP, CPU Lv=10, Mem=225MB ---
+2026-10-11 15:58:19,543 [INFO] [Memory] Increasing... (+25 MB) Total: 250 MB
+2026-10-11 15:58:19,544 [INFO] [CPU] Occupy core for 5s (Level 10)
+2026-10-11 15:58:25,549 [INFO] --- Step Info: Mode=UP, CPU Lv=10, Mem=250MB ---
+2026-10-11 15:58:25,558 [INFO] [Memory] Increasing... (+25 MB) Total: 275 MB
+2026-10-11 15:58:25,559 [INFO] [CPU] Occupy core for 5s (Level 10)
+2026-10-11 15:58:31,565 [INFO] >>> PEAK REACHED (Max Load). Switching to RAMP DOWN. ▼ <<<
+2026-10-11 15:58:31,566 [INFO] --- Step Info: Mode=DOWN, CPU Lv=9, Mem=275MB ---
+2026-10-11 15:58:31,566 [INFO] [Memory] Releasing... (-25MB) Total: 250MB
+2026-10-11 15:58:31,567 [INFO] [CPU] Occupy core for 5s (Level 9)
+2026-10-11 15:58:37,571 [INFO] --- Step Info: Mode=DOWN, CPU Lv=8, Mem=250MB ---
+2026-10-11 15:58:37,572 [INFO] [Memory] Releasing... (-25MB) Total: 225MB
+2026-10-11 15:58:37,572 [INFO] [CPU] Occupy core for 5s (Level 8)
+2026-10-11 15:58:43,579 [INFO] --- Step Info: Mode=DOWN, CPU Lv=7, Mem=225MB ---
+2026-10-11 15:58:43,579 [INFO] [Memory] Releasing... (-25MB) Total: 200MB
+2026-10-11 15:58:43,579 [INFO] [CPU] Occupy core for 5s (Level 7)
+2026-10-11 15:58:49,586 [INFO] --- Step Info: Mode=DOWN, CPU Lv=6, Mem=200MB ---
+2026-10-11 15:58:49,587 [INFO] [Memory] Releasing... (-25MB) Total: 175MB
+2026-10-11 15:58:49,587 [INFO] [CPU] Occupy core for 5s (Level 6)
+2026-10-11 15:58:55,591 [INFO] --- Step Info: Mode=DOWN, CPU Lv=5, Mem=175MB ---
+2026-10-11 15:58:55,593 [INFO] [Memory] Releasing... (-25MB) Total: 150MB
+2026-10-11 15:58:55,593 [INFO] [CPU] Occupy core for 5s (Level 5)
+2026-10-11 15:59:01,596 [INFO] --- Step Info: Mode=DOWN, CPU Lv=4, Mem=150MB ---
+2026-10-11 15:59:01,597 [INFO] [Memory] Releasing... (-25MB) Total: 125MB
+2026-10-11 15:59:01,597 [INFO] [CPU] Occupy core for 4s (Level 4)
+2026-10-11 15:59:06,604 [INFO] --- Step Info: Mode=DOWN, CPU Lv=3, Mem=125MB ---
+2026-10-11 15:59:06,605 [INFO] [Memory] Releasing... (-25MB) Total: 100MB
+2026-10-11 15:59:06,605 [INFO] [CPU] Occupy core for 3s (Level 3)
+2026-10-11 15:59:10,611 [INFO] --- Step Info: Mode=DOWN, CPU Lv=2, Mem=100MB ---
+2026-10-11 15:59:10,612 [INFO] [Memory] Releasing... (-25MB) Total: 75MB
+2026-10-11 15:59:10,613 [INFO] [CPU] Occupy core for 2s (Level 2)
+2026-10-11 15:59:13,614 [INFO] --- Step Info: Mode=DOWN, CPU Lv=1, Mem=75MB ---
+2026-10-11 15:59:13,615 [INFO] [Memory] Releasing... (-25MB) Total: 50MB
+2026-10-11 15:59:13,615 [INFO] [CPU] Occupy core for 1s (Level 1)
+2026-10-11 15:59:15,617 [INFO] --- Step Info: Mode=DOWN, CPU Lv=0, Mem=50MB ---
+2026-10-11 15:59:15,618 [INFO] [Memory] Releasing... (-25MB) Total: 25MB
+2026-10-11 15:59:16,622 [INFO] --- Step Info: Mode=DOWN, CPU Lv=0, Mem=25MB ---
+2026-10-11 15:59:16,623 [INFO] [Memory] Releasing... (-25MB) Total: 0MB
+2026-10-11 15:59:17,628 [INFO] >>> BOTTOM REACHED (Idle). Switching to RAMP UP. ▲ <<<
+2026-10-11 15:59:17,629 [INFO] --- Step Info: Mode=UP, CPU Lv=1, Mem=0MB ---
+2026-10-11 15:59:17,636 [INFO] [Memory] Increasing... (+25 MB) Total: 25 MB
+2026-10-11 15:59:17,637 [INFO] [CPU] Occupy core for 1s (Level 1)
+2026-10-11 15:59:19,641 [INFO] --- Step Info: Mode=UP, CPU Lv=2, Mem=25MB ---
+2026-10-11 15:59:19,646 [INFO] [Memory] Increasing... (+25 MB) Total: 50 MB
+2026-10-11 15:59:19,646 [INFO] [CPU] Occupy core for 2s (Level 2)
+2026-10-11 15:59:22,652 [INFO] --- Step Info: Mode=UP, CPU Lv=3, Mem=50MB ---
+2026-10-11 15:59:22,654 [INFO] [Memory] Increasing... (+25 MB) Total: 75 MB
+2026-10-11 15:59:22,654 [INFO] [CPU] Occupy core for 3s (Level 3)
+2026-10-11 15:59:26,660 [INFO] --- Step Info: Mode=UP, CPU Lv=4, Mem=75MB ---
+2026-10-11 15:59:26,665 [INFO] [Memory] Increasing... (+25 MB) Total: 100 MB
+2026-10-11 15:59:26,666 [INFO] [CPU] Occupy core for 4s (Level 4)
+2026-10-11 15:59:31,669 [INFO] --- Step Info: Mode=UP, CPU Lv=5, Mem=100MB ---
+2026-10-11 15:59:31,674 [INFO] [Memory] Increasing... (+25 MB) Total: 125 MB
+2026-10-11 15:59:31,674 [INFO] [CPU] Occupy core for 5s (Level 5)
+2026-10-11 15:59:37,680 [INFO] --- Step Info: Mode=UP, CPU Lv=6, Mem=125MB ---
+2026-10-11 15:59:37,685 [INFO] [Memory] Increasing... (+25 MB) Total: 150 MB
+2026-10-11 15:59:37,685 [INFO] [CPU] Occupy core for 5s (Level 6)
+2026-10-11 15:59:43,687 [INFO] --- Step Info: Mode=UP, CPU Lv=7, Mem=150MB ---
+2026-10-11 15:59:43,693 [INFO] [Memory] Increasing... (+25 MB) Total: 175 MB
+2026-10-11 15:59:43,693 [INFO] [CPU] Occupy core for 5s (Level 7)
+2026-10-11 15:59:49,696 [INFO] --- Step Info: Mode=UP, CPU Lv=8, Mem=175MB ---
+2026-10-11 15:59:49,701 [INFO] [Memory] Increasing... (+25 MB) Total: 200 MB
+2026-10-11 15:59:49,701 [INFO] [CPU] Occupy core for 5s (Level 8)
+2026-10-11 15:59:55,708 [INFO] --- Step Info: Mode=UP, CPU Lv=9, Mem=200MB ---
+2026-10-11 15:59:55,713 [INFO] [Memory] Increasing... (+25 MB) Total: 225 MB
+2026-10-11 15:59:55,714 [INFO] [CPU] Occupy core for 5s (Level 9)
+2026-10-11 16:00:01,720 [INFO] --- Step Info: Mode=UP, CPU Lv=10, Mem=225MB ---
+2026-10-11 16:00:01,722 [INFO] [Memory] Increasing... (+25 MB) Total: 250 MB
+2026-10-11 16:00:01,723 [INFO] [CPU] Occupy core for 5s (Level 10)
+2026-10-11 16:00:07,728 [INFO] --- Step Info: Mode=UP, CPU Lv=10, Mem=250MB ---
+2026-10-11 16:00:07,730 [INFO] [Memory] Increasing... (+25 MB) Total: 275 MB
+2026-10-11 16:00:07,731 [INFO] [CPU] Occupy core for 5s (Level 10)
+2026-10-11 16:00:13,737 [INFO] >>> PEAK REACHED (Max Load). Switching to RAMP DOWN. ▼ <<<
+2026-10-11 16:00:13,737 [INFO] --- Step Info: Mode=DOWN, CPU Lv=9, Mem=275MB ---
+2026-10-11 16:00:13,738 [INFO] [Memory] Releasing... (-25MB) Total: 250MB
+2026-10-11 16:00:13,738 [INFO] [CPU] Occupy core for 5s (Level 9)
+2026-10-11 16:00:19,744 [INFO] --- Step Info: Mode=DOWN, CPU Lv=8, Mem=250MB ---
+2026-10-11 16:00:19,745 [INFO] [Memory] Releasing... (-25MB) Total: 225MB
+2026-10-11 16:00:19,745 [INFO] [CPU] Occupy core for 5s (Level 8)
+2026-10-11 16:00:25,751 [INFO] --- Step Info: Mode=DOWN, CPU Lv=7, Mem=225MB ---
+2026-10-11 16:00:25,751 [INFO] [Memory] Releasing... (-25MB) Total: 200MB
+2026-10-11 16:00:25,751 [INFO] [CPU] Occupy core for 5s (Level 7)
+2026-10-11 16:00:31,757 [INFO] --- Step Info: Mode=DOWN, CPU Lv=6, Mem=200MB ---
+2026-10-11 16:00:31,758 [INFO] [Memory] Releasing... (-25MB) Total: 175MB
+2026-10-11 16:00:31,758 [INFO] [CPU] Occupy core for 5s (Level 6)
+2026-10-11 16:00:37,763 [INFO] --- Step Info: Mode=DOWN, CPU Lv=5, Mem=175MB ---
+2026-10-11 16:00:37,764 [INFO] [Memory] Releasing... (-25MB) Total: 150MB
+2026-10-11 16:00:37,764 [INFO] [CPU] Occupy core for 5s (Level 5)
+2026-10-11 16:00:43,770 [INFO] --- Step Info: Mode=DOWN, CPU Lv=4, Mem=150MB ---
+2026-10-11 16:00:43,771 [INFO] [Memory] Releasing... (-25MB) Total: 125MB
+2026-10-11 16:00:43,772 [INFO] [CPU] Occupy core for 4s (Level 4)
+2026-10-11 16:00:48,777 [INFO] --- Step Info: Mode=DOWN, CPU Lv=3, Mem=125MB ---
+2026-10-11 16:00:48,778 [INFO] [Memory] Releasing... (-25MB) Total: 100MB
+2026-10-11 16:00:48,779 [INFO] [CPU] Occupy core for 3s (Level 3)
+2026-10-11 16:00:52,781 [INFO] --- Step Info: Mode=DOWN, CPU Lv=2, Mem=100MB ---
+2026-10-11 16:00:52,782 [INFO] [Memory] Releasing... (-25MB) Total: 75MB
+2026-10-11 16:00:52,782 [INFO] [CPU] Occupy core for 2s (Level 2)
+2026-10-11 16:00:55,785 [INFO] --- Step Info: Mode=DOWN, CPU Lv=1, Mem=75MB ---
+2026-10-11 16:00:55,786 [INFO] [Memory] Releasing... (-25MB) Total: 50MB
+2026-10-11 16:00:55,786 [INFO] [CPU] Occupy core for 1s (Level 1)
+2026-10-11 16:00:57,788 [INFO] --- Step Info: Mode=DOWN, CPU Lv=0, Mem=50MB ---
+2026-10-11 16:00:57,789 [INFO] [Memory] Releasing... (-25MB) Total: 25MB
+2026-10-11 16:00:58,795 [INFO] --- Step Info: Mode=DOWN, CPU Lv=0, Mem=25MB ---
+2026-10-11 16:00:58,795 [INFO] [Memory] Releasing... (-25MB) Total: 0MB
+2026-10-11 16:00:59,797 [INFO] >>> BOTTOM REACHED (Idle). Switching to RAMP UP. ▲ <<<
+2026-10-11 16:00:59,797 [INFO] --- Step Info: Mode=UP, CPU Lv=1, Mem=0MB ---
+2026-10-11 16:00:59,799 [INFO] [Memory] Increasing... (+25 MB) Total: 25 MB
+2026-10-11 16:00:59,800 [INFO] [CPU] Occupy core for 1s (Level 1)
+2026-10-11 16:01:01,806 [INFO] --- Step Info: Mode=UP, CPU Lv=2, Mem=25MB ---
+2026-10-11 16:01:01,809 [INFO] [Memory] Increasing... (+25 MB) Total: 50 MB
+2026-10-11 16:01:01,810 [INFO] [CPU] Occupy core for 2s (Level 2)
+2026-10-11 16:01:04,815 [INFO] --- Step Info: Mode=UP, CPU Lv=3, Mem=50MB ---
+2026-10-11 16:01:04,818 [INFO] [Memory] Increasing... (+25 MB) Total: 75 MB
+2026-10-11 16:01:04,818 [INFO] [CPU] Occupy core for 3s (Level 3)
+2026-10-11 16:01:08,820 [INFO] --- Step Info: Mode=UP, CPU Lv=4, Mem=75MB ---
+2026-10-11 16:01:08,823 [INFO] [Memory] Increasing... (+25 MB) Total: 100 MB
+2026-10-11 16:01:08,823 [INFO] [CPU] Occupy core for 4s (Level 4)
+2026-10-11 16:01:13,830 [INFO] --- Step Info: Mode=UP, CPU Lv=5, Mem=100MB ---
+2026-10-11 16:01:13,834 [INFO] [Memory] Increasing... (+25 MB) Total: 125 MB
+2026-10-11 16:01:13,834 [INFO] [CPU] Occupy core for 5s (Level 5)
+2026-10-11 16:01:19,837 [INFO] --- Step Info: Mode=UP, CPU Lv=6, Mem=125MB ---
+2026-10-11 16:01:19,841 [INFO] [Memory] Increasing... (+25 MB) Total: 150 MB
+2026-10-11 16:01:19,842 [INFO] [CPU] Occupy core for 5s (Level 6)
+2026-10-11 16:01:25,844 [INFO] --- Step Info: Mode=UP, CPU Lv=7, Mem=150MB ---
+2026-10-11 16:01:25,846 [INFO] [Memory] Increasing... (+25 MB) Total: 175 MB
+2026-10-11 16:01:25,846 [INFO] [CPU] Occupy core for 5s (Level 7)
+2026-10-11 16:01:31,852 [INFO] --- Step Info: Mode=UP, CPU Lv=8, Mem=175MB ---
+2026-10-11 16:01:31,856 [INFO] [Memory] Increasing... (+25 MB) Total: 200 MB
+2026-10-11 16:01:31,857 [INFO] [CPU] Occupy core for 5s (Level 8)
+2026-10-11 16:01:37,863 [INFO] --- Step Info: Mode=UP, CPU Lv=9, Mem=200MB ---
+2026-10-11 16:01:37,866 [INFO] [Memory] Increasing... (+25 MB) Total: 225 MB
+2026-10-11 16:01:37,866 [INFO] [CPU] Occupy core for 5s (Level 9)
+2026-10-11 16:01:43,873 [INFO] --- Step Info: Mode=UP, CPU Lv=10, Mem=225MB ---
+2026-10-11 16:01:43,877 [INFO] [Memory] Increasing... (+25 MB) Total: 250 MB
+2026-10-11 16:01:43,877 [INFO] [CPU] Occupy core for 5s (Level 10)
+2026-10-11 16:01:49,880 [INFO] --- Step Info: Mode=UP, CPU Lv=10, Mem=250MB ---
+2026-10-11 16:01:49,883 [INFO] [Memory] Increasing... (+25 MB) Total: 275 MB
+2026-10-11 16:01:49,883 [INFO] [CPU] Occupy core for 5s (Level 10)
+2026-10-11 16:01:55,888 [INFO] >>> PEAK REACHED (Max Load). Switching to RAMP DOWN. ▼ <<<
+2026-10-11 16:01:55,890 [INFO] --- Step Info: Mode=DOWN, CPU Lv=9, Mem=275MB ---
+2026-10-11 16:01:55,890 [INFO] [Memory] Releasing... (-25MB) Total: 250MB
+2026-10-11 16:01:55,890 [INFO] [CPU] Occupy core for 5s (Level 9)
+2026-10-11 16:02:01,896 [INFO] --- Step Info: Mode=DOWN, CPU Lv=8, Mem=250MB ---
+2026-10-11 16:02:01,897 [INFO] [Memory] Releasing... (-25MB) Total: 225MB
+2026-10-11 16:02:01,897 [INFO] [CPU] Occupy core for 5s (Level 8)
+2026-10-11 16:02:07,901 [INFO] --- Step Info: Mode=DOWN, CPU Lv=7, Mem=225MB ---
+2026-10-11 16:02:07,902 [INFO] [Memory] Releasing... (-25MB) Total: 200MB
+2026-10-11 16:02:07,902 [INFO] [CPU] Occupy core for 5s (Level 7)
+2026-10-11 16:02:13,908 [INFO] --- Step Info: Mode=DOWN, CPU Lv=6, Mem=200MB ---
+2026-10-11 16:02:13,909 [INFO] [Memory] Releasing... (-25MB) Total: 175MB
+2026-10-11 16:02:13,910 [INFO] [CPU] Occupy core for 5s (Level 6)
+2026-10-11 16:02:19,912 [INFO] --- Step Info: Mode=DOWN, CPU Lv=5, Mem=175MB ---
+2026-10-11 16:02:19,913 [INFO] [Memory] Releasing... (-25MB) Total: 150MB
+2026-10-11 16:02:19,913 [INFO] [CPU] Occupy core for 5s (Level 5)
+2026-10-11 16:02:25,918 [INFO] --- Step Info: Mode=DOWN, CPU Lv=4, Mem=150MB ---
+2026-10-11 16:02:25,919 [INFO] [Memory] Releasing... (-25MB) Total: 125MB
+2026-10-11 16:02:25,920 [INFO] [CPU] Occupy core for 4s (Level 4)
+2026-10-11 16:02:30,921 [INFO] --- Step Info: Mode=DOWN, CPU Lv=3, Mem=125MB ---
+2026-10-11 16:02:30,922 [INFO] [Memory] Releasing... (-25MB) Total: 100MB
+2026-10-11 16:02:30,922 [INFO] [CPU] Occupy core for 3s (Level 3)
+2026-10-11 16:02:34,926 [INFO] --- Step Info: Mode=DOWN, CPU Lv=2, Mem=100MB ---
+2026-10-11 16:02:34,926 [INFO] [Memory] Releasing... (-25MB) Total: 75MB
+2026-10-11 16:02:34,927 [INFO] [CPU] Occupy core for 2s (Level 2)
+2026-10-11 16:02:37,931 [INFO] --- Step Info: Mode=DOWN, CPU Lv=1, Mem=75MB ---
+2026-10-11 16:02:37,932 [INFO] [Memory] Releasing... (-25MB) Total: 50MB
+2026-10-11 16:02:37,932 [INFO] [CPU] Occupy core for 1s (Level 1)
+2026-10-11 16:02:39,938 [INFO] --- Step Info: Mode=DOWN, CPU Lv=0, Mem=50MB ---
+2026-10-11 16:02:39,939 [INFO] [Memory] Releasing... (-25MB) Total: 25MB
+2026-10-11 16:02:40,939 [INFO] --- Step Info: Mode=DOWN, CPU Lv=0, Mem=25MB ---
+2026-10-11 16:02:40,940 [INFO] [Memory] Releasing... (-25MB) Total: 0MB
+2026-10-11 16:02:41,944 [INFO] >>> BOTTOM REACHED (Idle). Switching to RAMP UP. ▲ <<<
+2026-10-11 16:02:41,944 [INFO] --- Step Info: Mode=UP, CPU Lv=1, Mem=0MB ---
+2026-10-11 16:02:41,947 [INFO] [Memory] Increasing... (+25 MB) Total: 25 MB
+2026-10-11 16:02:41,947 [INFO] [CPU] Occupy core for 1s (Level 1)
+2026-10-11 16:02:43,950 [INFO] --- Step Info: Mode=UP, CPU Lv=2, Mem=25MB ---
+2026-10-11 16:02:43,955 [INFO] [Memory] Increasing... (+25 MB) Total: 50 MB
+2026-10-11 16:02:43,956 [INFO] [CPU] Occupy core for 2s (Level 2)
+2026-10-11 16:02:46,962 [INFO] --- Step Info: Mode=UP, CPU Lv=3, Mem=50MB ---
+2026-10-11 16:02:46,967 [INFO] [Memory] Increasing... (+25 MB) Total: 75 MB
+2026-10-11 16:02:46,968 [INFO] [CPU] Occupy core for 3s (Level 3)
+2026-10-11 16:02:50,971 [INFO] --- Step Info: Mode=UP, CPU Lv=4, Mem=75MB ---
+2026-10-11 16:02:50,975 [INFO] [Memory] Increasing... (+25 MB) Total: 100 MB
+2026-10-11 16:02:50,976 [INFO] [CPU] Occupy core for 4s (Level 4)
+2026-10-11 16:02:55,980 [INFO] --- Step Info: Mode=UP, CPU Lv=5, Mem=100MB ---
+2026-10-11 16:02:55,985 [INFO] [Memory] Increasing... (+25 MB) Total: 125 MB
+2026-10-11 16:02:55,985 [INFO] [CPU] Occupy core for 5s (Level 5)
+2026-10-11 16:03:01,992 [INFO] --- Step Info: Mode=UP, CPU Lv=6, Mem=125MB ---
+2026-10-11 16:03:01,994 [INFO] [Memory] Increasing... (+25 MB) Total: 150 MB
+2026-10-11 16:03:01,995 [INFO] [CPU] Occupy core for 5s (Level 6)
+2026-10-11 16:03:07,996 [INFO] --- Step Info: Mode=UP, CPU Lv=7, Mem=150MB ---
+2026-10-11 16:03:07,999 [INFO] [Memory] Increasing... (+25 MB) Total: 175 MB
+2026-10-11 16:03:07,999 [INFO] [CPU] Occupy core for 5s (Level 7)
+2026-10-11 16:03:14,000 [INFO] --- Step Info: Mode=UP, CPU Lv=8, Mem=175MB ---
+2026-10-11 16:03:14,003 [INFO] [Memory] Increasing... (+25 MB) Total: 200 MB
+2026-10-11 16:03:14,004 [INFO] [CPU] Occupy core for 5s (Level 8)
+2026-10-11 16:03:20,010 [INFO] --- Step Info: Mode=UP, CPU Lv=9, Mem=200MB ---
+2026-10-11 16:03:20,015 [INFO] [Memory] Increasing... (+25 MB) Total: 225 MB
+2026-10-11 16:03:20,015 [INFO] [CPU] Occupy core for 5s (Level 9)
+2026-10-11 16:03:26,018 [INFO] --- Step Info: Mode=UP, CPU Lv=10, Mem=225MB ---
+2026-10-11 16:03:26,022 [INFO] [Memory] Increasing... (+25 MB) Total: 250 MB
+2026-10-11 16:03:26,022 [INFO] [CPU] Occupy core for 5s (Level 10)
+2026-10-11 16:03:32,029 [INFO] --- Step Info: Mode=UP, CPU Lv=10, Mem=250MB ---
+2026-10-11 16:03:32,033 [INFO] [Memory] Increasing... (+25 MB) Total: 275 MB
+2026-10-11 16:03:32,033 [INFO] [CPU] Occupy core for 5s (Level 10)
+2026-10-11 16:03:38,038 [INFO] >>> PEAK REACHED (Max Load). Switching to RAMP DOWN. ▼ <<<
+2026-10-11 16:03:38,039 [INFO] --- Step Info: Mode=DOWN, CPU Lv=9, Mem=275MB ---
+2026-10-11 16:03:38,039 [INFO] [Memory] Releasing... (-25MB) Total: 250MB
+2026-10-11 16:03:38,039 [INFO] [CPU] Occupy core for 5s (Level 9)
+2026-10-11 16:03:44,045 [INFO] --- Step Info: Mode=DOWN, CPU Lv=8, Mem=250MB ---
+2026-10-11 16:03:44,046 [INFO] [Memory] Releasing... (-25MB) Total: 225MB
+2026-10-11 16:03:44,046 [INFO] [CPU] Occupy core for 5s (Level 8)
+2026-10-11 16:03:50,049 [INFO] --- Step Info: Mode=DOWN, CPU Lv=7, Mem=225MB ---
+2026-10-11 16:03:50,049 [INFO] [Memory] Releasing... (-25MB) Total: 200MB
+2026-10-11 16:03:50,049 [INFO] [CPU] Occupy core for 5s (Level 7)
+2026-10-11 16:03:56,050 [INFO] --- Step Info: Mode=DOWN, CPU Lv=6, Mem=200MB ---
+2026-10-11 16:03:56,051 [INFO] [Memory] Releasing... (-25MB) Total: 175MB
+2026-10-11 16:03:56,051 [INFO] [CPU] Occupy core for 5s (Level 6)
+2026-10-11 16:04:02,055 [INFO] --- Step Info: Mode=DOWN, CPU Lv=5, Mem=175MB ---
+2026-10-11 16:04:02,056 [INFO] [Memory] Releasing... (-25MB) Total: 150MB
+2026-10-11 16:04:02,056 [INFO] [CPU] Occupy core for 5s (Level 5)
+2026-10-11 16:04:08,062 [INFO] --- Step Info: Mode=DOWN, CPU Lv=4, Mem=150MB ---
+2026-10-11 16:04:08,063 [INFO] [Memory] Releasing... (-25MB) Total: 125MB
+2026-10-11 16:04:08,063 [INFO] [CPU] Occupy core for 4s (Level 4)
+2026-10-11 16:04:13,068 [INFO] --- Step Info: Mode=DOWN, CPU Lv=3, Mem=125MB ---
+2026-10-11 16:04:13,069 [INFO] [Memory] Releasing... (-25MB) Total: 100MB
+2026-10-11 16:04:13,069 [INFO] [CPU] Occupy core for 3s (Level 3)
+2026-10-11 16:04:17,075 [INFO] --- Step Info: Mode=DOWN, CPU Lv=2, Mem=100MB ---
+2026-10-11 16:04:17,076 [INFO] [Memory] Releasing... (-25MB) Total: 75MB
+2026-10-11 16:04:17,076 [INFO] [CPU] Occupy core for 2s (Level 2)
+2026-10-11 16:04:20,082 [INFO] --- Step Info: Mode=DOWN, CPU Lv=1, Mem=75MB ---
+2026-10-11 16:04:20,083 [INFO] [Memory] Releasing... (-25MB) Total: 50MB
+2026-10-11 16:04:20,083 [INFO] [CPU] Occupy core for 1s (Level 1)
+2026-10-11 16:04:22,089 [INFO] --- Step Info: Mode=DOWN, CPU Lv=0, Mem=50MB ---
+2026-10-11 16:04:22,090 [INFO] [Memory] Releasing... (-25MB) Total: 25MB
+2026-10-11 16:04:23,094 [INFO] --- Step Info: Mode=DOWN, CPU Lv=0, Mem=25MB ---
+2026-10-11 16:04:23,094 [INFO] [Memory] Releasing... (-25MB) Total: 0MB
+2026-10-11 16:04:24,098 [INFO] >>> BOTTOM REACHED (Idle). Switching to RAMP UP. ▲ <<<
+2026-10-11 16:04:24,098 [INFO] --- Step Info: Mode=UP, CPU Lv=1, Mem=0MB ---
+2026-10-11 16:04:24,100 [INFO] [Memory] Increasing... (+25 MB) Total: 25 MB
+2026-10-11 16:04:24,100 [INFO] [CPU] Occupy core for 1s (Level 1)
+2026-10-11 16:04:26,102 [INFO] --- Step Info: Mode=UP, CPU Lv=2, Mem=25MB ---
+2026-10-11 16:04:26,105 [INFO] [Memory] Increasing... (+25 MB) Total: 50 MB
+2026-10-11 16:04:26,106 [INFO] [CPU] Occupy core for 2s (Level 2)
+2026-10-11 16:04:29,111 [INFO] --- Step Info: Mode=UP, CPU Lv=3, Mem=50MB ---
+2026-10-11 16:04:29,113 [INFO] [Memory] Increasing... (+25 MB) Total: 75 MB
+2026-10-11 16:04:29,114 [INFO] [CPU] Occupy core for 3s (Level 3)
+2026-10-11 16:04:33,119 [INFO] --- Step Info: Mode=UP, CPU Lv=4, Mem=75MB ---
+2026-10-11 16:04:33,121 [INFO] [Memory] Increasing... (+25 MB) Total: 100 MB
+2026-10-11 16:04:33,122 [INFO] [CPU] Occupy core for 4s (Level 4)
+2026-10-11 16:04:38,125 [INFO] --- Step Info: Mode=UP, CPU Lv=5, Mem=100MB ---
+2026-10-11 16:04:38,129 [INFO] [Memory] Increasing... (+25 MB) Total: 125 MB
+2026-10-11 16:04:38,129 [INFO] [CPU] Occupy core for 5s (Level 5)
+2026-10-11 16:04:44,136 [INFO] --- Step Info: Mode=UP, CPU Lv=6, Mem=125MB ---
+2026-10-11 16:04:44,139 [INFO] [Memory] Increasing... (+25 MB) Total: 150 MB
+2026-10-11 16:04:44,139 [INFO] [CPU] Occupy core for 5s (Level 6)
+2026-10-11 16:04:50,144 [INFO] --- Step Info: Mode=UP, CPU Lv=7, Mem=150MB ---
+2026-10-11 16:04:50,147 [INFO] [Memory] Increasing... (+25 MB) Total: 175 MB
+2026-10-11 16:04:50,147 [INFO] [CPU] Occupy core for 5s (Level 7)
+2026-10-11 16:04:56,149 [INFO] --- Step Info: Mode=UP, CPU Lv=8, Mem=175MB ---
+2026-10-11 16:04:56,155 [INFO] [Memory] Increasing... (+25 MB) Total: 200 MB
+2026-10-11 16:04:56,156 [INFO] [CPU] Occupy core for 5s (Level 8)
+2026-10-11 16:05:02,162 [INFO] --- Step Info: Mode=UP, CPU Lv=9, Mem=200MB ---
+2026-10-11 16:05:02,165 [INFO] [Memory] Increasing... (+25 MB) Total: 225 MB
+2026-10-11 16:05:02,165 [INFO] [CPU] Occupy core for 5s (Level 9)
+2026-10-11 16:05:08,171 [INFO] --- Step Info: Mode=UP, CPU Lv=10, Mem=225MB ---
+2026-10-11 16:05:08,176 [INFO] [Memory] Increasing... (+25 MB) Total: 250 MB
+2026-10-11 16:05:08,176 [INFO] [CPU] Occupy core for 5s (Level 10)
+2026-10-11 16:05:14,183 [INFO] --- Step Info: Mode=UP, CPU Lv=10, Mem=250MB ---
+2026-10-11 16:05:14,193 [INFO] [Memory] Increasing... (+25 MB) Total: 275 MB
+2026-10-11 16:05:14,193 [INFO] [CPU] Occupy core for 5s (Level 10)
+2026-10-11 16:05:20,198 [INFO] >>> PEAK REACHED (Max Load). Switching to RAMP DOWN. ▼ <<<
+2026-10-11 16:05:20,199 [INFO] --- Step Info: Mode=DOWN, CPU Lv=9, Mem=275MB ---
+2026-10-11 16:05:20,199 [INFO] [Memory] Releasing... (-25MB) Total: 250MB
+2026-10-11 16:05:20,199 [INFO] [CPU] Occupy core for 5s (Level 9)
+2026-10-11 16:05:26,201 [INFO] --- Step Info: Mode=DOWN, CPU Lv=8, Mem=250MB ---
+2026-10-11 16:05:26,201 [INFO] [Memory] Releasing... (-25MB) Total: 225MB
+2026-10-11 16:05:26,202 [INFO] [CPU] Occupy core for 5s (Level 8)
+2026-10-11 16:05:32,208 [INFO] --- Step Info: Mode=DOWN, CPU Lv=7, Mem=225MB ---
+2026-10-11 16:05:32,208 [INFO] [Memory] Releasing... (-25MB) Total: 200MB
+2026-10-11 16:05:32,208 [INFO] [CPU] Occupy core for 5s (Level 7)
+2026-10-11 16:05:38,214 [INFO] --- Step Info: Mode=DOWN, CPU Lv=6, Mem=200MB ---
+2026-10-11 16:05:38,214 [INFO] [Memory] Releasing... (-25MB) Total: 175MB
+2026-10-11 16:05:38,215 [INFO] [CPU] Occupy core for 5s (Level 6)
+2026-10-11 16:05:44,218 [INFO] --- Step Info: Mode=DOWN, CPU Lv=5, Mem=175MB ---
+2026-10-11 16:05:44,219 [INFO] [Memory] Releasing... (-25MB) Total: 150MB
+2026-10-11 16:05:44,219 [INFO] [CPU] Occupy core for 5s (Level 5)
+2026-10-11 16:05:50,222 [INFO] --- Step Info: Mode=DOWN, CPU Lv=4, Mem=150MB ---
+2026-10-11 16:05:50,223 [INFO] [Memory] Releasing... (-25MB) Total: 125MB
+2026-10-11 16:05:50,223 [INFO] [CPU] Occupy core for 4s (Level 4)
+2026-10-11 16:05:55,227 [INFO] --- Step Info: Mode=DOWN, CPU Lv=3, Mem=125MB ---
+2026-10-11 16:05:55,229 [INFO] [Memory] Releasing... (-25MB) Total: 100MB
+2026-10-11 16:05:55,229 [INFO] [CPU] Occupy core for 3s (Level 3)
+2026-10-11 16:05:59,235 [INFO] --- Step Info: Mode=DOWN, CPU Lv=2, Mem=100MB ---
+2026-10-11 16:05:59,236 [INFO] [Memory] Releasing... (-25MB) Total: 75MB
+2026-10-11 16:05:59,237 [INFO] [CPU] Occupy core for 2s (Level 2)
+2026-10-11 16:06:02,243 [INFO] --- Step Info: Mode=DOWN, CPU Lv=1, Mem=75MB ---
+2026-10-11 16:06:02,243 [INFO] [Memory] Releasing... (-25MB) Total: 50MB
+2026-10-11 16:06:02,244 [INFO] [CPU] Occupy core for 1s (Level 1)
+2026-10-11 16:06:04,245 [INFO] --- Step Info: Mode=DOWN, CPU Lv=0, Mem=50MB ---
+2026-10-11 16:06:04,246 [INFO] [Memory] Releasing... (-25MB) Total: 25MB
+2026-10-11 16:06:05,251 [INFO] --- Step Info: Mode=DOWN, CPU Lv=0, Mem=25MB ---
+2026-10-11 16:06:05,252 [INFO] [Memory] Releasing... (-25MB) Total: 0MB
+2026-10-11 16:06:06,256 [INFO] >>> BOTTOM REACHED (Idle). Switching to RAMP UP. ▲ <<<
+2026-10-11 16:06:06,257 [INFO] --- Step Info: Mode=UP, CPU Lv=1, Mem=0MB ---
+2026-10-11 16:06:06,264 [INFO] [Memory] Increasing... (+25 MB) Total: 25 MB
+2026-10-11 16:06:06,265 [INFO] [CPU] Occupy core for 1s (Level 1)
+2026-10-11 16:06:08,267 [INFO] --- Step Info: Mode=UP, CPU Lv=2, Mem=25MB ---
+2026-10-11 16:06:08,272 [INFO] [Memory] Increasing... (+25 MB) Total: 50 MB
+2026-10-11 16:06:08,272 [INFO] [CPU] Occupy core for 2s (Level 2)
+2026-10-11 16:06:11,276 [INFO] --- Step Info: Mode=UP, CPU Lv=3, Mem=50MB ---
+2026-10-11 16:06:11,280 [INFO] [Memory] Increasing... (+25 MB) Total: 75 MB
+2026-10-11 16:06:11,280 [INFO] [CPU] Occupy core for 3s (Level 3)
+2026-10-11 16:06:15,287 [INFO] --- Step Info: Mode=UP, CPU Lv=4, Mem=75MB ---
+2026-10-11 16:06:15,294 [INFO] [Memory] Increasing... (+25 MB) Total: 100 MB
+2026-10-11 16:06:15,294 [INFO] [CPU] Occupy core for 4s (Level 4)
+2026-10-11 16:06:20,301 [INFO] --- Step Info: Mode=UP, CPU Lv=5, Mem=100MB ---
+2026-10-11 16:06:20,307 [INFO] [Memory] Increasing... (+25 MB) Total: 125 MB
+2026-10-11 16:06:20,308 [INFO] [CPU] Occupy core for 5s (Level 5)
+2026-10-11 16:06:26,309 [INFO] --- Step Info: Mode=UP, CPU Lv=6, Mem=125MB ---
+2026-10-11 16:06:26,316 [INFO] [Memory] Increasing... (+25 MB) Total: 150 MB
+2026-10-11 16:06:26,317 [INFO] [CPU] Occupy core for 5s (Level 6)
+2026-10-11 16:06:32,323 [INFO] --- Step Info: Mode=UP, CPU Lv=7, Mem=150MB ---
+2026-10-11 16:06:32,328 [INFO] [Memory] Increasing... (+25 MB) Total: 175 MB
+2026-10-11 16:06:32,329 [INFO] [CPU] Occupy core for 5s (Level 7)
+2026-10-11 16:06:38,334 [INFO] --- Step Info: Mode=UP, CPU Lv=8, Mem=175MB ---
+2026-10-11 16:06:38,341 [INFO] [Memory] Increasing... (+25 MB) Total: 200 MB
+2026-10-11 16:06:38,341 [INFO] [CPU] Occupy core for 5s (Level 8)
+2026-10-11 16:06:44,347 [INFO] --- Step Info: Mode=UP, CPU Lv=9, Mem=200MB ---
+2026-10-11 16:06:44,352 [INFO] [Memory] Increasing... (+25 MB) Total: 225 MB
+2026-10-11 16:06:44,353 [INFO] [CPU] Occupy core for 5s (Level 9)

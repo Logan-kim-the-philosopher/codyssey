@@ -6,7 +6,8 @@
   "checks": {
     "localHtmlEqualsExport": true,
     "missingAssets": [],
-    "browser": "대표 다이어그램, W 코드 열기/닫기, Down 블록 선택, Right 탭 전환, E 목차 열기 확인"
+    "browser": "대표 다이어그램, W 코드 열기/닫기, Down 블록 선택, Right 탭 전환, E 목차 열기 확인",
+    "chatgptHandoff": "Chrome 실제 Shift+Enter: 선택 블록 50-54 코드·설명·시작 요청이 새 ChatGPT 탭 입력창에 채워짐. 전송은 사용자 Enter."
   },
   "limitations": [
     "이미지 슬라이드가 없어 이미지 popup 동작은 적용 대상 없음",
