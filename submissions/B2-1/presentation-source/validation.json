@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "slides": 15,
+  "questions": 16,
+  "codeTabs": 63,
+  "requirements": 23,
+  "criteria": 55,
+  "fullFileCode": true,
+  "slideSpecificExplanationsPreserved": true,
+  "runtimeChecks": [
+    "342-line service file, selected lines21-23 only",
+    "300-line CLI file, selected lines155-157 only",
+    "left/right tabs; up/down blocks",
+    "question context dialog and Escape focus restoration",
+    "image popup",
+    "dialog horizontal overflow absent"
+  ],
+  "publishedUrl": "https://allowance-b2-1.vercel.app/presentation/index.html"
+}

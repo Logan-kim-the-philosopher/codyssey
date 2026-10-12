@@ -24,7 +24,15 @@
 @media(max-width:1050px){.cover-slide[data-type="cover"]>.theme-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 16px}.cover-slide[data-type="cover"]>.theme-list>li{font-size:15px;min-height:34px}}
 @media(max-width:760px){.cover-slide[data-type="cover"]{padding:30px 22px 68px;gap:8px}.cover-slide[data-type="cover"]>.theme-list{grid-template-columns:repeat(2,minmax(0,1fr));width:calc(100vw - 44px);max-height:calc(100vh - 250px);overflow:auto;gap:10px 12px}.cover-slide[data-type="cover"]>.theme-list>li{font-size:14px}.cover-slide[data-type="cover"]>.chapter-purpose{font-size:14px}}
 </style>
-</head><body>
+<style>
+[data-image-zoom]{cursor:zoom-in}
+#evidence-zoom{width:96vw;height:94vh;max-width:96vw;max-height:94vh;padding:16px;border:1px solid #9cddff;background:#071733;color:#f7fbff;overflow:hidden}
+#evidence-zoom[open]{display:flex;flex-direction:column;gap:12px}
+#evidence-zoom::backdrop{background:rgba(0,0,0,.85)}
+#evidence-zoom .zoom-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex:none}
+#evidence-zoom button{padding:8px 16px;cursor:pointer;background:#15345d;color:#fff;border:1px solid #9cddff;border-radius:6px}
+#evidence-zoom img{display:block;width:100%;height:100%;min-height:0;flex:1;object-fit:contain}
+</style></head><body>
 <main class="deck" id="deck"><section class="slide cover-slide" data-slide data-slide-number="1" data-slide-id="b2-1-cover" data-type="cover"><p class="kicker">Codyssey Presentation</p><h1>B2-1 · 나만의 용돈 기입장 프로그램</h1><p class="chapter-purpose">B2-1 · Python 파일 기반 콘솔 가계부 · 별첨 발표자료</p><ul class="theme-list"><li>명령행 실행과 도움말</li><li>거래 데이터 모델</li><li>거래 추가와 입력 검증</li><li>거래 목록과 스트리밍</li><li>조건별 거래 검색</li><li>월별 요약과 지출 순위</li><li>월 예산과 초과 경고</li><li>카테고리 관리</li><li>거래 수정</li><li>거래 삭제</li><li>CSV 가져오기</li><li>조건별 CSV 내보내기</li><li>영구 저장과 초기 상태</li><li>모듈 분리와 타입 힌트</li><li>공통 관심사 데코레이터</li><li>오류 안내와 종료 코드</li><li>README 사용 및 CSV 문서</li><li>학습 목표 설명 가능성</li><li>개발 환경 및 외부 라이브러리 제약</li><li>선택 보너스: 백업 기능</li><li>선택 보너스: 반복 내역</li><li>선택 보너스: 표 정렬 출력</li><li>선택 보너스: 저장 원자성 강화</li></ul></section>
 <section class="slide cover-slide chapter-cover" data-slide data-slide-number="2" data-chapter="0" data-slide-id="ch01-cover" data-type="chapter-cover" data-chapter="0"><p class="kicker">Chapter 1</p><h1>명령행 실행과 도움말</h1><p class="chapter-purpose">가계부는 터미널 명령으로 실행되며 각 명령의 사용법을 확인할 수 있어야 합니다.</p><ul class="theme-list"><li>명령과 --help, 통일된 옵션으로 사용법 안내하기</li></ul></section>
 <section class="slide editor-slide" data-slide data-slide-number="3" data-chapter="0" data-slide-id="ch01-t01-part1" data-type="code" data-source-file="budget_app/__main__.py"><header class="slide-header"><p class="kicker">Chapter 1 · 명령행 실행과 도움말 · 모듈 실행에서 종료 코드까지</p></header><div class="slide-content code-content"><div class="editor-frame"><div class="editor-window"><div class="editor-tabs"><span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span><strong>에디터</strong><span class="editor-file">budget_app/__main__.py · python</span></div><div class="editor-body" data-editor data-language="python" role="region" aria-label="budget_app/__main__.py 전체 코드"><div class="editor-source language-python"><div class="editor-line selected"><span class="line-number">1</span><code class="source"><span class="hljs-keyword">from</span> .cli <span class="hljs-keyword">import</span> main</code></div>
@@ -13434,4 +13442,59 @@ document.addEventListener('keydown',(event)=>{if(!['KeyW','KeyE'].includes(event
 chapterToggle.addEventListener('click',()=>{const open=chapterMenu.hidden;chapterMenu.hidden=!open;chapterToggle.setAttribute('aria-expanded',String(open));});chapterMenu.querySelectorAll('[data-chapter-target]').forEach((button)=>button.addEventListener('click',()=>{const target=Number(button.dataset.chapterTarget);const index=slides.findIndex((slide)=>slide.dataset.chapter===String(target));if(index>=0)showSlide(index);chapterMenu.hidden=true;chapterToggle.setAttribute('aria-expanded','false');}));document.addEventListener('click',(event)=>{if(!picker.contains(event.target)){chapterMenu.hidden=true;chapterToggle.setAttribute('aria-expanded','false');}});
 document.querySelectorAll('[data-review-open]').forEach((button)=>{const dialog=button.nextElementSibling;button.addEventListener('click',()=>dialog.showModal());dialog.querySelector('[data-review-close]').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',(event)=>{if(event.target===dialog)dialog.close()})});
 document.addEventListener('keydown',(event)=>{if(event.key.toLowerCase()==='w'){const dialog=document.querySelector('dialog[open]');if(dialog){dialog.close();event.preventDefault()}}});document.addEventListener('keydown',(event)=>{const key=event.key.toLowerCase();if(event.code==='KeyQ'||key==='q'||event.key==='ㅂ'){if(event.target.closest?.('input,textarea,select,[contenteditable="true"]'))return;event.preventDefault();const path=location.pathname;location.href=path.includes('/annex/')?'../index.html':path.endsWith('/presentation/presentation.html')?'../presentation-main/index.html':'../presentation-main/index.html';return}if(document.querySelector('dialog[open]')){if(event.key==='Escape')return;return}if(key==='w'){const button=slides[slideIndex].querySelector('[data-review-open]');if(button){event.preventDefault();button.click();return}}if(key==='e'){event.preventDefault();chapterToggle.click();return}if(event.shiftKey&&event.key==='ArrowRight'){event.preventDefault();nextChapter();return}if(event.shiftKey&&event.key==='ArrowLeft'){event.preventDefault();previousChapter();return}if(event.key==='ArrowRight'||event.key==='PageDown'||event.key===' '){event.preventDefault();nextSlide()}else if(event.key==='ArrowLeft'||event.key==='PageUp'){event.preventDefault();previousSlide()}});showSlide(0);
+</script><dialog id="evidence-zoom" aria-label="원본 이미지 확대"><div class="zoom-head"><span>원본 이미지 · Esc로 닫기</span><button type="button" data-zoom-close>닫기</button></div><img alt="확대한 원본 이미지"></dialog><script>
+(() => {
+  const modal = document.getElementById('evidence-zoom');
+  const enlarged = modal.querySelector('img');
+  let trigger;
+  function close() {
+    modal.close();
+    trigger?.focus({preventScroll: true});
+  }
+  function open(image) {
+    trigger = image;
+    enlarged.src = image.tagName.toLowerCase() === 'svg'
+      ? 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(image))
+      : image.currentSrc || image.src;
+    enlarged.alt = image.alt || image.getAttribute('aria-label') || '원본 이미지';
+    modal.showModal();
+  }
+  function bindImages() { document.querySelectorAll('img, .mermaid-rendered svg').forEach(image => {
+    if (image.closest('dialog') || image.hasAttribute('data-image-zoom')) return;
+    image.dataset.imageZoom = '';
+    image.tabIndex = 0;
+    image.setAttribute('role', 'button');
+    image.setAttribute('aria-label', (image.alt || '이미지') + ' 확대');
+    image.addEventListener('click', event => {
+      event.preventDefault();
+      open(image);
+    });
+    image.addEventListener('keydown', event => {
+      if (!['Enter', ' '].includes(event.key)) return;
+      event.preventDefault();
+      event.stopPropagation();
+      open(image);
+    });
+  });
+  }
+  bindImages();
+  new MutationObserver(bindImages).observe(document.body, {childList: true, subtree: true, attributes: true, attributeFilter: ['class']});
+  modal.querySelector('[data-zoom-close]').addEventListener('click', close);
+  modal.addEventListener('click', event => {
+    if (event.target === modal) close();
+  });
+  modal.addEventListener('cancel', event => {
+    event.preventDefault();
+    close();
+  });
+  // Capture before deck shortcuts so arrows and Q cannot navigate behind the popup.
+  window.addEventListener('keydown', event => {
+    if (!modal.open) return;
+    event.stopImmediatePropagation();
+    if (event.key === 'Escape' || event.key.toLowerCase() === 'w' || event.key === 'ㅈ') {
+      event.preventDefault();
+      close();
+    }
+  }, true);
+})();
 </script></body></html>
