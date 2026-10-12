@@ -80,11 +80,13 @@ def main(argv: list[str] | None = None) -> int:
         convention = load_convention(args.convention)
         # status 경로도 개인정보를 포함할 수 있어 동일하게 마스킹한다.
         status = mask(changes.status, secrets) if args.safe_mode else changes.status
-        payload = build_payload(args.command, diff=safe.diff, status=status,
-                                why=mask(args.why, secrets), test_plan=mask(args.test_plan, secrets),
-                                convention=convention, model=args.model,
-                                temperature=args.temperature, max_tokens=args.max_tokens,
-                                truncated=safe.truncated)
+        payload = build_payload(
+            args.command, diff=safe.diff, status=status,
+            why=mask(args.why, secrets), test_plan=mask(args.test_plan, secrets),
+            convention=convention, model=args.model,
+            temperature=args.temperature, max_tokens=args.max_tokens,
+            truncated=safe.truncated,
+        )
         # OFF 모드에서도 현재 실행용 API Key는 어떤 필드로도 전송하지 않는다.
         serialized = json.dumps(payload, ensure_ascii=False)
         for secret in secrets:
