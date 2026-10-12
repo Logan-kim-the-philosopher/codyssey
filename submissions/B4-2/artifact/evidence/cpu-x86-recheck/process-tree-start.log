@@ -1,0 +1,5 @@
+UID        PID  PPID  C STIME TTY          TIME CMD
+ubuntu       1     0  3 15:42 ?        00:00:00 bash /work/scripts/run-cpu-case.sh cpu-x86-recheck 512 100 false 60
+ubuntu      10     1  5 15:42 ?        00:00:00 /work/bin/agent-leak-app-x86
+ubuntu      12    10 11 15:42 ?        00:00:00 /work/bin/agent-leak-app-x86
+ubuntu      16     1 99 15:42 ?        00:00:00 ps -ef

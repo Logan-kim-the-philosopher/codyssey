@@ -1,0 +1,10 @@
+started=2026-10-11T15:29:23Z
+uid=1000
+MEMORY_LIMIT=50
+CPU_MAX_OCCUPY=100
+MULTI_THREAD_ENABLE=false
+observation_limit_s=40
+pid=10
+exit_code=137
+elapsed_s=6
+ended=2026-10-11T15:29:29Z

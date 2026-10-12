@@ -1,0 +1,15 @@
+>>> Starting Agent Boot Sequence...
+[1/6] Checking User Account               [OK]
+   ... Running as service user 'ubuntu' (uid=1000)
+[2/6] Verifying Environment Variables     [OK]
+   ... All required Envs correct
+[3/6] Checking Required Files             [OK]
+   ... Verified 'secret.key' with correct key string.
+[4/6] Checking Port Availability          [FAIL]
+   >>> Port 15034 is already in use.
+[5/6] Verifying Log Permission            [FAIL]
+   >>> Skipped due to previous critical failure.
+[6/6] Verifying Mission Environment       [FAIL]
+   >>> Skipped due to previous critical failure.
+--------------------------------------------------
+System Boot Failed. Process Terminated.

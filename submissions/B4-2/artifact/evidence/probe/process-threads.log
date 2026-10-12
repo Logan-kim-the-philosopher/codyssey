@@ -1,0 +1,15 @@
+2026-10-11T15:29:23Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   10     1       0  0.0  0.0  1628    1 R    /work/bin/agent-leak-app-arm64
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   10    10  0.0 R    -                        agent-leak-app-
+2026-10-11T15:29:25Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   10     1       2  1.9  0.0  1704    1 S    /work/bin/agent-leak-app-arm64
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   10    10  1.9 S    do_wait                  agent-leak-app-
+2026-10-11T15:29:27Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   10     1       4  0.9  0.0  1704    1 S    /work/bin/agent-leak-app-arm64
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   10    10  0.9 S    do_wait                  agent-leak-app-

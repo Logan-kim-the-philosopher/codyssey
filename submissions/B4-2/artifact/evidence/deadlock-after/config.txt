@@ -1,0 +1,12 @@
+started=2026-10-11T15:32:38Z
+uid=1000
+MEMORY_LIMIT=512
+CPU_MAX_OCCUPY=30
+MULTI_THREAD_ENABLE=false
+observation_limit_s=25
+launcher_pid=10
+pid=12
+observation-ended: process still alive; harness sends SIGTERM
+exit_code=143
+elapsed_s=26
+ended=2026-10-11T15:33:05Z

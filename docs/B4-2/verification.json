@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "slideCount": 22,
+  "evaluationQuestions": 20,
+  "artifactFilesUnchanged": 134,
+  "fullFileCodePane": true,
+  "slideLocalBlocks": true,
+  "runtimeChecks": [
+    "full original file and original line numbers",
+    "only selected block explanations",
+    "block selection and exact 39-42 highlight",
+    "arrow block navigation",
+    "Shift+Enter copy dialog and Escape focus restoration"
+  ],
+  "sharedSuite": {
+    "passed": 15,
+    "failed": 6,
+    "reason": "Legacy fixtures omit newly required tab purpose/blockLines"
+  },
+  "checkedAt": "2026-10-12T02:42:23.664139+00:00"
+}

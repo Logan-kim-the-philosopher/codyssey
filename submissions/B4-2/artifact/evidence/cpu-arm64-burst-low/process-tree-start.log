@@ -1,0 +1,5 @@
+UID        PID  PPID  C STIME TTY          TIME CMD
+ubuntu       1     0  0 15:43 ?        00:00:00 bash /work/scripts/run-cpu-case.sh cpu-arm64-burst-low 512 10 false 45
+ubuntu      10     1  4 15:43 ?        00:00:00 /work/bin/agent-leak-app-arm64
+ubuntu      12    10  2 15:43 ?        00:00:00 /work/bin/agent-leak-app-arm64
+ubuntu      16     1  0 15:43 ?        00:00:00 ps -ef

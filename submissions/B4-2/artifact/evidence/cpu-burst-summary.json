@@ -1,0 +1,236 @@
+{
+  "cpu-arm64-recheck": {
+    "config": {
+      "started": "2026-10-11T15:41:08Z",
+      "uid": "1000",
+      "MEMORY_LIMIT": "512",
+      "CPU_MAX_OCCUPY": "100",
+      "MULTI_THREAD_ENABLE": "false",
+      "observation_limit_s": "60",
+      "launcher_pid": "10",
+      "pid": "12",
+      "exit_code": "143",
+      "elapsed_s": "36",
+      "ended": "2026-10-11T15:41:45Z"
+    },
+    "samples": 165,
+    "max_interval_cpu_pct": 23.81,
+    "over_50_samples": 0,
+    "peak": {
+      "timestamp": "2026-10-11T15:41:38Z",
+      "start_uptime": "880.35",
+      "end_uptime": "880.56",
+      "delta_cpu_ticks": 5,
+      "interval_cpu_pct": 23.81
+    },
+    "peak_context": [
+      {
+        "timestamp": "2026-10-11T15:41:38Z",
+        "start_uptime": "879.92",
+        "end_uptime": "880.13",
+        "delta_cpu_ticks": 0,
+        "interval_cpu_pct": 0.0
+      },
+      {
+        "timestamp": "2026-10-11T15:41:38Z",
+        "start_uptime": "880.13",
+        "end_uptime": "880.35",
+        "delta_cpu_ticks": 0,
+        "interval_cpu_pct": 0.0
+      },
+      {
+        "timestamp": "2026-10-11T15:41:38Z",
+        "start_uptime": "880.35",
+        "end_uptime": "880.56",
+        "delta_cpu_ticks": 5,
+        "interval_cpu_pct": 23.81
+      },
+      {
+        "timestamp": "2026-10-11T15:41:38Z",
+        "start_uptime": "880.56",
+        "end_uptime": "880.78",
+        "delta_cpu_ticks": 0,
+        "interval_cpu_pct": 0.0
+      },
+      {
+        "timestamp": "2026-10-11T15:41:39Z",
+        "start_uptime": "880.78",
+        "end_uptime": "880.99",
+        "delta_cpu_ticks": 0,
+        "interval_cpu_pct": 0.0
+      }
+    ]
+  },
+  "cpu-arm64-burst": {
+    "config": {
+      "started": "2026-10-11T15:42:47Z",
+      "uid": "1000",
+      "MEMORY_LIMIT": "512",
+      "CPU_MAX_OCCUPY": "100",
+      "MULTI_THREAD_ENABLE": "false",
+      "observation_limit_s": "60",
+      "launcher_pid": "10",
+      "pid": "12",
+      "exit_code": "143",
+      "elapsed_s": "34",
+      "ended": "2026-10-11T15:43:23Z"
+    },
+    "samples": 553,
+    "max_interval_cpu_pct": 83.33,
+    "over_50_samples": 4,
+    "peak": {
+      "timestamp": "2026-10-11T15:43:21Z",
+      "start_uptime": "983.01",
+      "end_uptime": "983.07",
+      "delta_cpu_ticks": 5,
+      "interval_cpu_pct": 83.33
+    },
+    "peak_context": [
+      {
+        "timestamp": "2026-10-11T15:43:21Z",
+        "start_uptime": "982.90",
+        "end_uptime": "982.96",
+        "delta_cpu_ticks": 0,
+        "interval_cpu_pct": 0.0
+      },
+      {
+        "timestamp": "2026-10-11T15:43:21Z",
+        "start_uptime": "982.96",
+        "end_uptime": "983.01",
+        "delta_cpu_ticks": 0,
+        "interval_cpu_pct": 0.0
+      },
+      {
+        "timestamp": "2026-10-11T15:43:21Z",
+        "start_uptime": "983.01",
+        "end_uptime": "983.07",
+        "delta_cpu_ticks": 5,
+        "interval_cpu_pct": 83.33
+      }
+    ]
+  },
+  "cpu-arm64-burst-low": {
+    "config": {
+      "started": "2026-10-11T15:43:10Z",
+      "uid": "1000",
+      "MEMORY_LIMIT": "512",
+      "CPU_MAX_OCCUPY": "10",
+      "MULTI_THREAD_ENABLE": "false",
+      "observation_limit_s": "45",
+      "launcher_pid": "10",
+      "pid": "12",
+      "exit_code": "143",
+      "elapsed_s": "47",
+      "ended": "2026-10-11T15:43:58Z"
+    },
+    "samples": 742,
+    "max_interval_cpu_pct": 20.0,
+    "over_50_samples": 0,
+    "peak": {
+      "timestamp": "2026-10-11T15:43:13Z",
+      "start_uptime": "975.15",
+      "end_uptime": "975.20",
+      "delta_cpu_ticks": 1,
+      "interval_cpu_pct": 20.0
+    },
+    "peak_context": [
+      {
+        "timestamp": "2026-10-11T15:43:13Z",
+        "start_uptime": "975.03",
+        "end_uptime": "975.09",
+        "delta_cpu_ticks": 0,
+        "interval_cpu_pct": 0.0
+      },
+      {
+        "timestamp": "2026-10-11T15:43:13Z",
+        "start_uptime": "975.09",
+        "end_uptime": "975.15",
+        "delta_cpu_ticks": 0,
+        "interval_cpu_pct": 0.0
+      },
+      {
+        "timestamp": "2026-10-11T15:43:13Z",
+        "start_uptime": "975.15",
+        "end_uptime": "975.20",
+        "delta_cpu_ticks": 1,
+        "interval_cpu_pct": 20.0
+      },
+      {
+        "timestamp": "2026-10-11T15:43:13Z",
+        "start_uptime": "975.20",
+        "end_uptime": "975.26",
+        "delta_cpu_ticks": 0,
+        "interval_cpu_pct": 0.0
+      },
+      {
+        "timestamp": "2026-10-11T15:43:13Z",
+        "start_uptime": "975.26",
+        "end_uptime": "975.32",
+        "delta_cpu_ticks": 0,
+        "interval_cpu_pct": 0.0
+      }
+    ]
+  },
+  "cpu-x86-recheck": {
+    "config": {
+      "started": "2026-10-11T15:42:44Z",
+      "uid": "1000",
+      "MEMORY_LIMIT": "512",
+      "CPU_MAX_OCCUPY": "100",
+      "MULTI_THREAD_ENABLE": "false",
+      "observation_limit_s": "60",
+      "launcher_pid": "10",
+      "pid": "12",
+      "exit_code": "143",
+      "elapsed_s": "36",
+      "ended": "2026-10-11T15:43:21Z"
+    },
+    "samples": 125,
+    "max_interval_cpu_pct": 14.29,
+    "over_50_samples": 0,
+    "peak": {
+      "timestamp": "2026-10-11T15:43:17Z",
+      "start_uptime": "979.29",
+      "end_uptime": "979.57",
+      "delta_cpu_ticks": 4,
+      "interval_cpu_pct": 14.29
+    },
+    "peak_context": [
+      {
+        "timestamp": "2026-10-11T15:43:17Z",
+        "start_uptime": "978.75",
+        "end_uptime": "979.02",
+        "delta_cpu_ticks": 0,
+        "interval_cpu_pct": 0.0
+      },
+      {
+        "timestamp": "2026-10-11T15:43:17Z",
+        "start_uptime": "979.02",
+        "end_uptime": "979.29",
+        "delta_cpu_ticks": 0,
+        "interval_cpu_pct": 0.0
+      },
+      {
+        "timestamp": "2026-10-11T15:43:17Z",
+        "start_uptime": "979.29",
+        "end_uptime": "979.57",
+        "delta_cpu_ticks": 4,
+        "interval_cpu_pct": 14.29
+      },
+      {
+        "timestamp": "2026-10-11T15:43:18Z",
+        "start_uptime": "979.57",
+        "end_uptime": "979.84",
+        "delta_cpu_ticks": 0,
+        "interval_cpu_pct": 0.0
+      },
+      {
+        "timestamp": "2026-10-11T15:43:18Z",
+        "start_uptime": "979.84",
+        "end_uptime": "980.12",
+        "delta_cpu_ticks": 0,
+        "interval_cpu_pct": 0.0
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+started=2026-10-11T15:31:03Z
+uid=1000
+MEMORY_LIMIT=512
+CPU_MAX_OCCUPY=100
+MULTI_THREAD_ENABLE=false
+observation_limit_s=45
+launcher_pid=461
+pid=461

@@ -1,0 +1,80 @@
+2026-10-11T15:32:39Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10       0  2.0  0.2 18372    1 SN   /work/bin/agent-leak-app-arm64
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  2.0 SN   do_select                agent-leak-app-
+2026-10-11T15:32:41Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10       2  1.0  0.2 18372    1 SN   /work/bin/agent-leak-app-arm64
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  1.0 SN   do_select                agent-leak-app-
+2026-10-11T15:32:43Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10       5  0.6  0.5 48196    3 SNl  /work/bin/agent-leak-app-arm64
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  0.5 SNl  futex_wait_queue         agent-leak-app-
+   12    40  0.0 SNl  do_select                agent-leak-app-
+   12    41  0.0 SNl  do_select                agent-leak-app-
+2026-10-11T15:32:45Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10       7  0.5  0.9 73800    3 SNl  /work/bin/agent-leak-app-arm64
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  0.4 SNl  futex_wait_queue         agent-leak-app-
+   12    40  0.0 SNl  do_select                agent-leak-app-
+   12    41  0.2 SNl  do_select                agent-leak-app-
+2026-10-11T15:32:48Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10       9  0.4  0.9 73800    3 SNl  /work/bin/agent-leak-app-arm64
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  0.3 SNl  futex_wait_queue         agent-leak-app-
+   12    40  0.0 SNl  do_select                agent-leak-app-
+   12    41  0.1 SNl  do_select                agent-leak-app-
+2026-10-11T15:32:50Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10      11  0.5  1.2 99404    3 SNl  /work/bin/agent-leak-app-arm64
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  0.2 SNl  futex_wait_queue         agent-leak-app-
+   12    40  0.0 SNl  do_select                agent-leak-app-
+   12    41  0.2 SNl  do_select                agent-leak-app-
+2026-10-11T15:32:52Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10      13  0.6  1.5 125008   3 SNl  /work/bin/agent-leak-app-arm64
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  0.2 SNl  futex_wait_queue         agent-leak-app-
+   12    40  0.0 SNl  do_select                agent-leak-app-
+   12    41  0.5 SNl  do_select                agent-leak-app-
+2026-10-11T15:32:54Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10      15  0.5  1.5 125008   3 SNl  /work/bin/agent-leak-app-arm64
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  0.1 SNl  futex_wait_queue         agent-leak-app-
+   12    40  0.0 SNl  do_select                agent-leak-app-
+   12    41  0.4 SNl  do_select                agent-leak-app-
+2026-10-11T15:32:56Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10      17  0.7  1.8 150612   3 SNl  /work/bin/agent-leak-app-arm64
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  0.1 SNl  futex_wait_queue         agent-leak-app-
+   12    40  0.0 SNl  do_select                agent-leak-app-
+   12    41  0.5 SNl  do_select                agent-leak-app-
+2026-10-11T15:32:58Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10      19  0.8  2.1 176216   3 SNl  /work/bin/agent-leak-app-arm64
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  0.1 SNl  futex_wait_queue         agent-leak-app-
+   12    40  0.0 SNl  do_select                agent-leak-app-
+   12    41  0.6 SNl  do_select                agent-leak-app-
+2026-10-11T15:33:00Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10      21  0.7  2.1 176216   3 SNl  /work/bin/agent-leak-app-arm64
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  0.1 SNl  futex_wait_queue         agent-leak-app-
+   12    40  0.0 SNl  do_select                agent-leak-app-
+   12    41  0.6 SNl  do_select                agent-leak-app-
+2026-10-11T15:33:02Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10      23  0.8  2.4 201820   3 SNl  /work/bin/agent-leak-app-arm64
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  0.1 SNl  futex_wait_queue         agent-leak-app-
+   12    40  0.0 SNl  do_select                agent-leak-app-
+   12    41  0.6 SNl  do_select                agent-leak-app-

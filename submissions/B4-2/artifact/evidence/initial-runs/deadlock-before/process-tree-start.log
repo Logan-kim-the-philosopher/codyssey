@@ -1,0 +1,9 @@
+UID        PID  PPID  C STIME TTY          TIME CMD
+ubuntu       1     0  0 15:29 ?        00:00:00 bash -c bash /work/scripts/run-case.sh oom-before 50 100 false 30; bash /work/scripts/run-case.sh oom-after 150 100 false 40; bash /work/scripts/run-case.sh cpu-before 512 10 false 45; bash /work/scripts/run-case.sh cpu-after 512 100 false 45; bash /work/scripts/run-case.sh deadlock-before 512 100 true 35; bash /work/scripts/run-case.sh deadlock-after 512 100 false 35
+ubuntu     175     1  0 15:30 ?        00:00:00 /work/bin/agent-leak-app-arm64
+ubuntu     177   175  0 15:30 ?        00:00:00 /work/bin/agent-leak-app-arm64
+ubuntu     182     1  0 15:30 ?        00:00:00 bash /work/scripts/monitor.sh 177
+ubuntu     473     1  0 15:31 ?        00:00:00 top -b -d 1 -p 461
+ubuntu     475     1  0 15:31 ?        00:00:00 bash /work/scripts/run-case.sh deadlock-before 512 100 true 35
+ubuntu     485   182  0 15:31 ?        00:00:00 sleep 1
+ubuntu     495   475  0 15:31 ?        00:00:00 ps -ef

@@ -1,0 +1,23 @@
+{
+  "binarySource": "/Users/hskim/Downloads/agent-app-leak.zip",
+  "binaryUnmodified": true,
+  "reverseEngineering": false,
+  "monitorScript": "authored because not included in supplied ZIP",
+  "imageDigest": "sha256:3131b4cc82a783df6c9df078f86e01819a13594b865c2cad47bd1bca2b7063bb",
+  "sha256": {
+    "bin/agent-leak-app-arm64": "2edd8eb1b6ae40ac611afe880b864f0399ff0977bfd72d9d0fd98aa41ca6d1ff",
+    "scripts/monitor.sh": "907f092b0132578c560c2ceaa6f3c682caff39ac697f9d3dc5fda542ff100cec",
+    "scripts/run-case.sh": "5d3e2e98f87d28386d6a42e2676ef99e383a0034ea95e0678a82c66292a13aa2",
+    "bin/agent-leak-app-x86": "7e0a19cfa80ece6b547a5008273661f0d4d71e526e96b51e0d0f341dd1bb3e40",
+    "scripts/cpu-interval.sh": "bfe809f5545bb7ef16d8056544a63013246ce681af47b06756b1c75f0aa8b803",
+    "scripts/run-cpu-case.sh": "30034f987d9140f500031b41ba32288fd12a7f235707f88496f2616fac596946",
+    "scripts/verify-cpu-burst.py": "3f0a749ff80ffb1c0e21dcf20d53fd4205cc3078190670f26ef9f582b91a3d3e"
+  },
+  "cpuRecheck": {
+    "CLK_TCK": 100,
+    "sampleIntervalRequested_s": 0.05,
+    "actualIntervalFrom": "/proc/uptime",
+    "x86Image": "sha256:4b013306aa3aa2c3c3f65e5b8b7eed235e5ab142089c8ab01fc64b2836c142f1",
+    "x86Execution": "amd64 emulation on ARM64 host"
+  }
+}

@@ -1,0 +1,37 @@
+>>> Starting Agent Boot Sequence...
+[1/6] Checking User Account               [OK]
+   ... Running as service user 'ubuntu' (uid=1000)
+[2/6] Verifying Environment Variables     [OK]
+   ... All required Envs correct
+[3/6] Checking Required Files             [OK]
+   ... Verified 'secret.key' with correct key string.
+[4/6] Checking Port Availability          [OK]
+   ... Port 15034 is available.
+[5/6] Verifying Log Permission            [OK]
+   ... Log directory is writable: /tmp/agent-home/logs
+[6/6] Verifying Mission Environment       [OK]
+   ... MEMORY_LIMIT=150MB, CPU_MAX_OCCUPY=100%, MULTI_THREAD_ENABLE=False
+------------------------------------------------------------
+All Boot Checks Passed!
+Agent READY
+2026-10-11 15:29:58,825 [INFO] [SafetyGuard] Process priority lowered (nice=10).
+2026-10-11 15:29:58,825 [INFO] Agent listening at port 15034
+
+==================================================
+ [ Agent Initiate ] Resource Check 
+==================================================
+ [ MEMORY ] Limit: 150MB 		[ WARNING: Recommend Over 256MB ]
+ [ CPU    ] Limit: 100%  		[ WARNING: Recommend Under 50% ]
+ [ THREAD ] Concurrency: False 		[ OK ]
+--------------------------------------------------
+ >>> SYSTEM STATUS: STABLE. STARTING WORKLOAD MONITORING...
+==================================================
+
+2026-10-11 15:30:00,839 [INFO] [MemoryWorker] Current Heap: 25MB
+2026-10-11 15:30:03,860 [INFO] [MemoryWorker] Current Heap: 50MB
+2026-10-11 15:30:06,884 [INFO] [MemoryWorker] Current Heap: 75MB
+2026-10-11 15:30:09,908 [INFO] [MemoryWorker] Current Heap: 100MB
+2026-10-11 15:30:12,930 [INFO] [MemoryWorker] Current Heap: 125MB
+2026-10-11 15:30:15,954 [INFO] [MemoryWorker] Current Heap: 150MB
+2026-10-11 15:30:15,954 [CRITICAL] [MemoryGuard] Memory limit exceeded (150MB >= 150MB) / (Recommend Over 256MB)
+2026-10-11 15:30:15,954 [CRITICAL] [MemoryGuard] Self-terminating process 59 to prevent system instability.

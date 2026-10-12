@@ -1,0 +1,85 @@
+2026-10-11T15:42:45Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10       1  9.0  0.3 28736    1 SN   /work/bin/agent-leak-app-x86
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  8.8 SN   do_select                agent-leak-app-
+2026-10-11T15:42:47Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10       3  3.4  0.3 28808    1 SN   /work/bin/agent-leak-app-x86
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  3.4 SN   do_select                agent-leak-app-
+2026-10-11T15:42:49Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10       5  2.3  0.3 28812    1 SN   /work/bin/agent-leak-app-x86
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  2.3 SN   do_select                agent-leak-app-
+2026-10-11T15:42:51Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10       7  1.7  0.3 28812    1 SN   /work/bin/agent-leak-app-x86
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  1.7 SN   do_select                agent-leak-app-
+2026-10-11T15:42:53Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10       9  1.5  0.3 28812    1 SN   /work/bin/agent-leak-app-x86
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  1.5 SN   do_select                agent-leak-app-
+2026-10-11T15:42:56Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10      11  1.4  0.3 28812    1 SN   /work/bin/agent-leak-app-x86
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  1.4 SN   do_select                agent-leak-app-
+2026-10-11T15:42:58Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10      13  1.2  0.3 28812    1 SN   /work/bin/agent-leak-app-x86
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  1.2 SN   do_select                agent-leak-app-
+2026-10-11T15:43:00Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10      16  1.1  0.3 28812    1 SN   /work/bin/agent-leak-app-x86
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  1.1 SN   do_select                agent-leak-app-
+2026-10-11T15:43:02Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10      18  1.1  0.3 28880    1 SN   /work/bin/agent-leak-app-x86
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  1.1 SN   do_select                agent-leak-app-
+2026-10-11T15:43:04Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10      20  1.0  0.3 28880    1 SN   /work/bin/agent-leak-app-x86
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  1.0 SN   do_select                agent-leak-app-
+2026-10-11T15:43:06Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10      22  1.0  0.3 28880    1 SN   /work/bin/agent-leak-app-x86
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  1.0 SN   do_select                agent-leak-app-
+2026-10-11T15:43:08Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10      24  1.1  0.3 28880    1 SN   /work/bin/agent-leak-app-x86
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  1.1 SN   do_select                agent-leak-app-
+2026-10-11T15:43:10Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10      26  1.0  0.3 28880    1 SN   /work/bin/agent-leak-app-x86
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  1.0 SN   do_select                agent-leak-app-
+2026-10-11T15:43:13Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10      28  1.0  0.3 28880    1 SN   /work/bin/agent-leak-app-x86
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  1.0 SN   do_select                agent-leak-app-
+2026-10-11T15:43:15Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10      30  1.1  0.3 28880    1 SN   /work/bin/agent-leak-app-x86
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  1.1 SN   do_select                agent-leak-app-
+2026-10-11T15:43:17Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10      32  1.0  0.3 28880    1 SN   /work/bin/agent-leak-app-x86
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  1.0 SN   do_select                agent-leak-app-
+2026-10-11T15:43:19Z
+  PID  PPID ELAPSED %CPU %MEM   RSS NLWP STAT COMMAND
+   12    10      34  1.1  0.3 28880    1 SN   /work/bin/agent-leak-app-x86
+  PID   TID %CPU STAT WCHAN                    COMMAND
+   12    12  1.1 SN   do_select                agent-leak-app-

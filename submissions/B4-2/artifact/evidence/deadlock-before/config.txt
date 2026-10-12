@@ -1,0 +1,11 @@
+started=2026-10-11T15:31:52Z
+uid=1000
+MEMORY_LIMIT=512
+CPU_MAX_OCCUPY=100
+MULTI_THREAD_ENABLE=true
+observation_limit_s=30
+launcher_pid=10
+pid=12
+exit_code=143
+elapsed_s=27
+ended=2026-10-11T15:32:20Z
