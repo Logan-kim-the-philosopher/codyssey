@@ -1,0 +1,1236 @@
+{
+  "version": 2,
+  "status": "complete",
+  "title": "B4-1 · 컴퓨터가 알아서 자기 상태를 점검하게 만들기",
+  "evaluationQuestionIds": [
+    "EVQ-001",
+    "EVQ-002",
+    "EVQ-003",
+    "EVQ-004",
+    "EVQ-005",
+    "EVQ-006",
+    "EVQ-007",
+    "EVQ-008",
+    "EVQ-009",
+    "EVQ-010",
+    "EVQ-011",
+    "EVQ-012",
+    "EVQ-013",
+    "EVQ-014",
+    "EVQ-015",
+    "EVQ-016",
+    "EVQ-017",
+    "EVQ-018",
+    "EVQ-019"
+  ],
+  "evidenceCoverage": [
+    {
+      "questionId": "EVQ-001",
+      "question": "SSH 포트가 20022로 변경되었고, Root 원격 접속이 차단되는가?",
+      "mode": "mixed",
+      "slideId": "boundary",
+      "answer": "sshd -T에 port 20022와 permitrootlogin no, ss에 20022 LISTEN을 확인했다.",
+      "evidence": [
+        {
+          "type": "code",
+          "codeSourceId": "security",
+          "lines": [
+            "31-36"
+          ]
+        },
+        {
+          "type": "runtime",
+          "reference": "evidence/environment.txt: sshd -T 및 ss"
+        }
+      ]
+    },
+    {
+      "questionId": "EVQ-002",
+      "question": "방화벽이 활성화되어있고(택1: UFW 또는 Firewalld), 20022/tcp와 15034/tcp만 허용되는가?",
+      "mode": "mixed",
+      "slideId": "boundary",
+      "answer": "UFW active, 기본 인바운드 deny이며 허용 서비스 포트는 IPv4/IPv6 TCP 20022와 15034다.",
+      "evidence": [
+        {
+          "type": "code",
+          "codeSourceId": "security",
+          "lines": [
+            "37-41"
+          ]
+        },
+        {
+          "type": "runtime",
+          "reference": "evidence/environment.txt: ufw status verbose"
+        }
+      ]
+    },
+    {
+      "questionId": "EVQ-003",
+      "question": "agent-admin/dev/test 계정과 agent-common/core 그룹이 요구사항대로 구성되어있는가?",
+      "mode": "mixed",
+      "slideId": "roles",
+      "answer": "세 계정은 common에 속하고 admin/dev만 core에 속한다. id와 실제 QA 접근 시험으로 확인했다.",
+      "evidence": [
+        {
+          "type": "code",
+          "codeSourceId": "permissions",
+          "lines": [
+            "4-6"
+          ]
+        },
+        {
+          "type": "runtime",
+          "reference": "evidence/environment.txt: id; evidence/permissions-test.txt"
+        }
+      ]
+    },
+    {
+      "questionId": "EVQ-004",
+      "question": "앱이 Boot Sequence 5단계 [OK]를 통과하고 \"Agent REDDY\"가 출력되는가?",
+      "mode": "mixed",
+      "slideId": "boot",
+      "answer": "일반 계정에서 5단계 OK와 Agent READY를 확인했다. 질문 REDDY와 실제 READY의 표기 차이를 보존했고 승인된 키 경로 호환을 적용했다.",
+      "evidence": [
+        {
+          "type": "code",
+          "codeSourceId": "launch",
+          "lines": [
+            "1-6"
+          ]
+        },
+        {
+          "type": "runtime",
+          "reference": "evidence/app-boot.txt: 다섯 OK와 Agent READY; evidence/live-monitor.txt: 0.0.0.0:15034"
+        }
+      ]
+    },
+    {
+      "questionId": "EVQ-005",
+      "question": "monitor.sh가 프로세스/포트 상태를 점검하고, 비정상 상태에서 exit 1로 종료되는가?",
+      "mode": "mixed",
+      "slideId": "health",
+      "answer": "프로세스 부재와 포트 부재는 각각 fail 함수의 exit 1로 종료한다. 두 실패 경로를 fixture로 확인했다.",
+      "evidence": [
+        {
+          "type": "code",
+          "codeSourceId": "health",
+          "lines": [
+            "23-24"
+          ]
+        },
+        {
+          "type": "runtime",
+          "reference": "tests/scripts-test.sh 및 evidence/scripts-tests.txt: 프로세스/포트 실패 테스트 PASS"
+        }
+      ]
+    },
+    {
+      "questionId": "EVQ-006",
+      "question": "/var/log/agent-app/monitor.log가 지정 포맷으로 누적 기록되는가?",
+      "mode": "mixed",
+      "slideId": "metrics",
+      "answer": "시간·PID·CPU·MEM·DISK_USED 지정 형식으로 monitor.log에 append한다. 실제 서로 다른 시각의 세 라인이 보존됐다.",
+      "evidence": [
+        {
+          "type": "code",
+          "codeSourceId": "logging",
+          "lines": [
+            "54",
+            "55-61",
+            "62-63"
+          ]
+        },
+        {
+          "type": "runtime",
+          "reference": "evidence/cron-after.txt: monitor.log 최근 3라인"
+        }
+      ]
+    },
+    {
+      "questionId": "EVQ-007",
+      "question": "cron 매분 실행으로 monitor.log가 자동 증가하는가?",
+      "mode": "mixed",
+      "slideId": "schedule",
+      "answer": "admin crontab의 매분 규칙이 profile을 읽고 monitor를 실행한다. 초기 1라인이 두 자동 실행 후 3라인으로 증가했다.",
+      "evidence": [
+        {
+          "type": "code",
+          "codeSourceId": "cron",
+          "lines": [
+            "8-15"
+          ]
+        },
+        {
+          "type": "runtime",
+          "reference": "evidence/live-monitor.txt: 1라인; evidence/cron-after.txt: 3라인"
+        }
+      ]
+    },
+    {
+      "questionId": "EVQ-008",
+      "question": "monitor.log 용량관리(10MB/10개)가 설정되어 있고 동작을 설명할 수 있는가?",
+      "mode": "mixed",
+      "slideId": "rotation",
+      "answer": "다음 줄까지 합한 크기가 10,000,000 byte를 넘으면 회전한다. 현재+9개 백업으로 총 10개를 유지한다.",
+      "evidence": [
+        {
+          "type": "code",
+          "codeSourceId": "logging",
+          "lines": [
+            "55-61",
+            "62-63"
+          ]
+        },
+        {
+          "type": "runtime",
+          "reference": "tests/scripts-test.sh: 10MB 회전·파일 개수; evidence/scripts-tests.txt: PASS"
+        }
+      ]
+    },
+    {
+      "questionId": "EVQ-009",
+      "question": "monitor.sh에서 프로세스 식별(pgrep/ps 등)과 포트 확인(ss/netstat 등)에 사용한 명령과 선택 이유를 설명할 수 있는가?",
+      "mode": "code",
+      "slideId": "health",
+      "answer": "comm의 긴 이름 잘림을 피하려 argv0 basename으로 실행 파일을 찾고 ss의 숫자 TCP LISTEN 목록에서 :15034 끝 패턴을 확인한다.",
+      "evidence": [
+        {
+          "type": "code",
+          "codeSourceId": "health",
+          "lines": [
+            "13-22",
+            "23-24"
+          ]
+        }
+      ]
+    },
+    {
+      "questionId": "EVQ-010",
+      "question": "CPU/MEM/DISK 값을 어떤 방식으로 추출/파싱했고, 로그/포맷을 왜 그 형태로 고정했는지 설명할 수 있는가?",
+      "mode": "code",
+      "slideId": "metrics",
+      "answer": "CPU 누적 시간 차이, MemTotal/MemAvailable, Root df Used %를 추출한다. 고정 라벨과 C locale은 로그의 안정적인 통계 파싱에 사용한다.",
+      "evidence": [
+        {
+          "type": "code",
+          "codeSourceId": "resources",
+          "lines": [
+            "36-42",
+            "43-45"
+          ]
+        }
+      ]
+    },
+    {
+      "questionId": "EVQ-011",
+      "question": "소유자(agent-dev)와 실행자(agent-admin, cron) 권한 정책을 어떻게 만족시켰는지(소유/그룹/권한) 설명할 수 있는가?",
+      "mode": "mixed",
+      "slideId": "roles",
+      "answer": "install의 dev/core 750은 dev 작성과 core 실행을 분리한다. admin은 core 소속이며 일반 계정 cron으로 실행하고 UFW 상태 단일 sudo 명령만 허용한다.",
+      "evidence": [
+        {
+          "type": "code",
+          "codeSourceId": "cron",
+          "lines": [
+            "4-7"
+          ]
+        },
+        {
+          "type": "runtime",
+          "reference": "evidence/environment.txt: 소유자·그룹·750 및 crontab"
+        }
+      ]
+    },
+    {
+      "questionId": "EVQ-012",
+      "question": "용량 기반 로그 관리(10MB/10개)를 어떤 방식(logrotate/스크립트)으로 구현했는지 설명할 수 있는가?",
+      "mode": "code",
+      "slideId": "rotation",
+      "answer": "쓰기 전 크기 검사와 .9 제거, .8부터 역순 이동, 현재를 .1로 이동하는 Bash 로직으로 구현했다. flock으로 보존 작업과 충돌을 막는다.",
+      "evidence": [
+        {
+          "type": "code",
+          "codeSourceId": "logging",
+          "lines": [
+            "55-61",
+            "62-63"
+          ]
+        }
+      ]
+    },
+    {
+      "questionId": "EVQ-013",
+      "question": "SSH 포트 변경과 Root 접속 차단이 왜 보안에 효과적인지 위협 모델 관점에서 설명할 수 있는가?",
+      "mode": "narrative",
+      "slideId": "boundary",
+      "answer": "포트 변경은 기본 포트 자동 스캔을 줄이고 Root 원격 차단은 즉시 최고 권한 탈취 경로를 줄인다. 공개키 인증과 최소 허용을 함께 적용한다.",
+      "evidence": [
+        {
+          "type": "oral",
+          "reference": "README.md: 운영 설계와 설명"
+        }
+      ]
+    },
+    {
+      "questionId": "EVQ-014",
+      "question": "api_keys와 로그 디렉토리를 agent-core로 제한한 이유를 \"최소 권한 원칙\"으로 설명할 수 있는가?",
+      "mode": "narrative",
+      "slideId": "roles",
+      "answer": "QA에는 업로드 공유 접근만 필요하므로 common으로 허용하고, 키와 운영 로그는 core로 제한해 불필요한 읽기·변조 범위를 줄인다.",
+      "evidence": [
+        {
+          "type": "oral",
+          "reference": "README.md: 계정·그룹·디렉토리 및 최소 권한 설명; evidence/permissions-test.txt"
+        }
+      ]
+    },
+    {
+      "questionId": "EVQ-015",
+      "question": "\"경고는 출력하되 종료하지 않는 항목\"(방화벽 비활성/임계치 초과)을 분리한 운영상의 이유를 설명할 수 있는가?",
+      "mode": "mixed",
+      "slideId": "warnings",
+      "answer": "서비스 부재는 실패지만 방화벽/자원 경고는 기록을 계속해 장애 추적 자료를 남긴다. 실제 MEM 11.36% 경고 시 로그가 추가됐다.",
+      "evidence": [
+        {
+          "type": "code",
+          "codeSourceId": "resources",
+          "lines": [
+            "25-35",
+            "36-42",
+            "43-45",
+            "46-49"
+          ]
+        },
+        {
+          "type": "runtime",
+          "reference": "evidence/cron-after.txt: WARNING 및 다음 로그 기록"
+        }
+      ]
+    },
+    {
+      "questionId": "EVQ-016",
+      "question": "리다이렉션 기호 >와 >>의 차이를 설명하고, 로그 누적에 >>가 필요한 이유를 설명할 수 있는가?",
+      "mode": "code",
+      "slideId": "metrics",
+      "answer": ">는 대상 파일을 덮어쓰고 >>는 끝에 추가한다. monitor는 >>를 사용해 이전 시점 기록을 보존한다.",
+      "evidence": [
+        {
+          "type": "code",
+          "codeSourceId": "logging",
+          "lines": [
+            "62-63"
+          ]
+        }
+      ]
+    },
+    {
+      "questionId": "EVQ-017",
+      "question": "모니터링 대상이 웹 서버(Nginx 등)로 바뀐다면, monitor.sh에서 바꿔야 할 핵심 포인트(프로세스/포트/로그/임계값)를 설명할 수 있는가?",
+      "mode": "code",
+      "slideId": "operations",
+      "answer": "Nginx 대상에서는 PROCESS_NAME·PORT·LOG_DIR를 변경하고 새 대상 부하에 맞게 resources 코드의 CPU/MEM/DISK 임계값을 검토한다.",
+      "evidence": [
+        {
+          "type": "code",
+          "codeSourceId": "health",
+          "lines": [
+            "6-10"
+          ]
+        }
+      ]
+    },
+    {
+      "questionId": "EVQ-018",
+      "question": "\"프로세스는 살아있는데 포트가 안 열리는 상황\"을 발견했다면, 원인 후보와 확인 순서를 설명할 수 있는가?",
+      "mode": "narrative",
+      "slideId": "operations",
+      "answer": "프로세스 시작 상태와 인자·환경을 먼저 확인한 뒤 ss의 실제 포트, bind 주소·충돌, 서비스 로그를 확인한다. LISTEN 부재와 방화벽 차단은 구별한다.",
+      "evidence": [
+        {
+          "type": "oral",
+          "reference": "README.md: 운영 응용과 장애 대응"
+        }
+      ]
+    },
+    {
+      "questionId": "EVQ-019",
+      "question": "로그가 급증해 디스크가 가득 찰 위험이 있다면, 운영자가 취할 대응(단기/중기)을 설명할 수 있는가?",
+      "mode": "narrative",
+      "slideId": "operations",
+      "answer": "단기에는 df·큰 로그·열린 삭제 파일을 확인하고 증거를 보존하며 회전/압축한다. 중기에는 로그 급증 원인, 용량·시간 정책, 경고와 외부 보관을 개선한다.",
+      "evidence": [
+        {
+          "type": "oral",
+          "reference": "README.md: 로그 급증 단기/중기 대응"
+        }
+      ]
+    }
+  ],
+  "codeSources": [
+    {
+      "id": "security",
+      "file": "environment/setup.sh",
+      "regions": [
+        {
+          "lineStart": 29,
+          "lineEnd": 36
+        },
+        {
+          "lineStart": 37,
+          "lineEnd": 43
+        }
+      ],
+      "learning": {
+        "purpose": "SSH와 UFW로 접속 경계를 설정하고 구성 검증 후 서비스를 시작한다.",
+        "codeBlocks": [
+          {
+            "lines": "29-36",
+            "title": "SSH 인증과 포트",
+            "details": [
+              "mkdir -p는 sshd 런타임·추가 설정 디렉토리를 준비한다. quoted heredoc은 SSH 설정을 그대로 파일에 쓴다.",
+              "Port 20022가 접속 포트를 정하고 PermitRootLogin no가 Root 원격 인증을 차단한다. PasswordAuthentication no와 PubkeyAuthentication yes는 공개키 인증을 사용하게 한다.",
+              "sshd -t는 설정 문법을 검사한다. set -e가 활성화된 setup에서는 검사 실패 시 이후 실행을 중단한다."
+            ]
+          },
+          {
+            "lines": "37-43",
+            "title": "인바운드 최소 허용",
+            "details": [
+              "ufw default deny incoming은 기본 인바운드를 차단하고 allow outgoing은 외부로 나가는 통신을 허용한다.",
+              "allow 20022/tcp와 15034/tcp만 추가한다. --force enable은 대화 입력 없이 과제 컨테이너 방화벽을 활성화한다.",
+              "sshd와 cron을 시작한다. 이 설정은 전용 컨테이너에서 수행했으며 호스트 원격 접속 설정을 바꾸지 않는다."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "permissions",
+      "file": "environment/setup.sh",
+      "regions": [
+        {
+          "lineStart": 3,
+          "lineEnd": 6
+        },
+        {
+          "lineStart": 7,
+          "lineEnd": 11
+        },
+        {
+          "lineStart": 12,
+          "lineEnd": 15
+        }
+      ],
+      "learning": {
+        "purpose": "역할별 그룹과 setgid·기본 ACL로 공유 영역과 core 영역을 분리한다.",
+        "codeBlocks": [
+          {
+            "lines": "3-6",
+            "title": "계정과 역할 그룹",
+            "details": [
+              "EUID는 현재 실행자의 유효 UID다. 0이 아니면 오류를 출력하고 exit 1로 설정 작업을 중단한다.",
+              "getent/id 조회 성공 시 기존 그룹·계정을 재사용한다. || 뒤 생성 명령은 조회가 실패할 때만 실행한다. useradd -m -s /bin/bash는 홈과 로그인 셸을 만든다.",
+              "usermod -aG는 기존 보조 그룹을 유지하면서 추가한다. common은 세 계정, core는 admin/dev만 포함한다."
+            ]
+          },
+          {
+            "lines": "7-11",
+            "title": "디렉토리 소유권과 탐색",
+            "details": [
+              "/opt/agent-app은 개인 홈의 상위 탐색 권한 충돌을 피하는 공유 루트다. install -d는 디렉토리 생성과 소유자·그룹·모드를 한 번에 지정한다.",
+              "2750의 2는 setgid로 새 항목에 디렉토리 그룹을 상속한다. 그룹 r-x는 목록 읽기와 경로 탐색을 허용하며 쓰기는 허용하지 않는다.",
+              "upload_files는 common 2770, api_keys·로그·archive는 core 2770이다. 770은 소유자와 그룹 rwx, 기타 사용자는 접근 없음이다. bin은 dev 작성·core 탐색 가능이다."
+            ]
+          },
+          {
+            "lines": "12-15",
+            "title": "현재 ACL과 기본 ACL",
+            "details": [
+              "setfacl -m은 현재 디렉토리 접근 ACL을 설정한다. u::rwx/g::rwx/o::---는 소유자·그룹·기타 권한이며 m::rwx는 ACL 유효 권한의 상한이다.",
+              "-d는 새 파일·디렉토리가 물려받는 기본 ACL을 설정한다. 파일은 생성 모드와 ACL 마스크에 따라 실행 권한이 제한될 수 있다.",
+              "common 공유 권한과 core 제한이 신규 항목에도 이어지도록 각각의 그룹 소유 디렉토리에 같은 ACL 규칙을 적용한다."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "environment",
+      "file": "environment/setup.sh",
+      "regions": [
+        {
+          "lineStart": 16,
+          "lineEnd": 20
+        },
+        {
+          "lineStart": 21,
+          "lineEnd": 27
+        }
+      ],
+      "learning": {
+        "purpose": "원문 환경 변수와 테스트 키를 보존하고 제공 앱이 요구하는 키 이름 별칭을 준비한다.",
+        "codeBlocks": [
+          {
+            "lines": "16-20",
+            "title": "키 파일과 바이너리 배치",
+            "details": [
+              "printf는 과제의 공개 테스트 문자열 한 줄을 t_secret.key에 쓴다. chown과 chmod 660으로 admin/core에 읽기·쓰기를 허용하고 기타 접근은 막는다.",
+              "ln -sfn은 secret.key가 t_secret.key를 가리키는 심볼릭 링크를 만든다. 제공 앱의 파일명 요구를 맞추며 원문 키 파일을 유지한다.",
+              "install은 ARM64 원본 앱을 admin/core 750으로 배치한다. 제공 바이너리의 내부 소스는 없으므로 내부 로직을 추정하지 않는다."
+            ]
+          },
+          {
+            "lines": "21-27",
+            "title": "실행 환경 원문 보존",
+            "details": [
+              "quoted ENV heredoc은 변수 치환 없이 /etc/profile.d/agent-app.sh를 만든다. export는 이후 실행한 프로세스가 변수를 상속하게 한다.",
+              "AGENT_HOME·PORT·UPLOAD_DIR·KEY_PATH·LOG_DIR를 명시한다. 이 profile의 KEY_PATH는 원문대로 t_secret.key 파일 경로다.",
+              "cron은 로그인 환경을 자동 상속하지 않으므로 cron 명령에서 profile을 별도로 읽는다. 앱 실행 시 디렉토리 override는 start-app.sh에만 둔다."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "launch",
+      "file": "environment/start-app.sh",
+      "regions": [
+        {
+          "lineStart": 1,
+          "lineEnd": 6
+        }
+      ],
+      "learning": {
+        "purpose": "일반 계정에서 원문 환경을 읽은 뒤 승인된 키 경로 호환 설정으로 제공 앱을 실행한다.",
+        "codeBlocks": [
+          {
+            "lines": "1-6",
+            "title": "앱 실행 시 호환 경계",
+            "details": [
+              "#!/usr/bin/env bash는 Bash로 실행할 것을 지정한다. set -euo pipefail은 실패 명령·미정의 변수·파이프 실패를 오류로 다루지만 조건문의 예외 규칙은 그대로 적용된다.",
+              "source는 profile을 현재 셸에 읽는다. export AGENT_KEY_PATH는 이 실행 경로에만 api_keys 디렉토리를 지정한다. 원문 profile 파일 자체는 바꾸지 않는다.",
+              "exec는 현재 셸을 앱 프로세스로 교체한다. 앱은 agent-admin으로 실행했다. t_secret.key 별칭과 함께 5단계 Boot 및 Agent READY를 실제 출력으로 확인했다."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "health",
+      "file": "bin/monitor.sh",
+      "regions": [
+        {
+          "lineStart": 1,
+          "lineEnd": 12
+        },
+        {
+          "lineStart": 13,
+          "lineEnd": 22
+        },
+        {
+          "lineStart": 23,
+          "lineEnd": 24
+        }
+      ],
+      "learning": {
+        "purpose": "실제 argv0로 앱을 식별하고 LISTEN이 없으면 자원 기록 전에 실패 종료한다.",
+        "codeBlocks": [
+          {
+            "lines": "1-12",
+            "title": "관제 설정과 종료 함수",
+            "details": [
+              "LC_ALL=C는 명령 출력·소수점 표현을 안정화한다. umask 007은 기본 생성 권한에서 기타 사용자 접근을 제한한다.",
+              "${변수:-기본값}은 변수가 없거나 비어 있으면 기본값을 쓴다. 기본 프로세스는 agent-app-linux-arm64, 포트는 15034, 로그는 /var/log/agent-app이다.",
+              "MAX_BYTES=10000000은 decimal 10MB 해석이다. warning은 stderr에 메시지만 쓰고 fail은 오류 출력 후 exit 1로 종료한다."
+            ]
+          },
+          {
+            "lines": "13-22",
+            "title": "긴 실행 파일 이름 식별",
+            "details": [
+              "Linux comm은 이름이 15자로 잘릴 수 있어 /proc/PID/cmdline의 첫 인자를 읽는다. 숫자 디렉토리 glob을 순회하고 읽을 수 없는 항목은 continue로 건너뛴다.",
+              "IFS=와 read -r는 공백 분리와 백슬래시 처리를 막는다. -d 빈 문자열은 NUL 구분으로 argv0를 읽는다. || true는 읽기 종료 상태 때문에 전체 스크립트가 종료되지 않게 한다.",
+              "${argv0##*/}는 마지막 슬래시까지 제거해 실행 파일 basename을 얻는다. 이름이 같으면 cmdline 경로에서 PID를 뽑고 첫 일치에서 break한다. 프로세스가 검사 중 사라지는 경쟁 상황은 별도 감시 범위의 한계다."
+            ]
+          },
+          {
+            "lines": "23-24",
+            "title": "필수 상태 실패 종료",
+            "details": [
+              "[[ -n $pid ]]가 거짓이면 fail 호출로 exit 1이다. PID가 없으면 포트·자원 검사로 진행하지 않는다.",
+              "ss -H -ltn은 헤더 없이 TCP LISTEN 목록을 숫자로 출력한다. awk의 네 번째 필드가 :15034로 끝나는지 검사하고 발견 여부에 맞춰 exit 상태를 반환한다.",
+              "프로세스와 포트가 각각 존재함을 검사한다. 포트를 해당 PID가 소유하는지까지 증명하거나 HTTP 응답 내용을 확인하는 검사는 아니다."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "resources",
+      "file": "bin/monitor.sh",
+      "regions": [
+        {
+          "lineStart": 25,
+          "lineEnd": 35
+        },
+        {
+          "lineStart": 36,
+          "lineEnd": 42
+        },
+        {
+          "lineStart": 43,
+          "lineEnd": 45
+        },
+        {
+          "lineStart": 46,
+          "lineEnd": 49
+        }
+      ],
+      "learning": {
+        "purpose": "방화벽·자원 경고를 기록하면서 시스템 전체 사용률을 계산한다.",
+        "codeBlocks": [
+          {
+            "lines": "25-35",
+            "title": "방화벽 상태와 조회 실패",
+            "details": [
+              "command -v는 방화벽 도구 존재를 확인한다. UFW status를 일반 계정으로 시도하고 실패하면 허용된 sudo -n 읽기 명령으로 재시도한다.",
+              "-n은 비대화 방식이라 cron에서 비밀번호 입력을 기다리지 않는다. 조회가 불가능하거나 Status: active가 없으면 경고하고 계속한다. firewalld에서는 running 문자열을 확인한다.",
+              "상태를 확인하지 못한 상황과 확실한 비활성은 경고 문구에서 함께 표시한다. 스크립트가 방화벽 설정을 변경하지는 않는다."
+            ]
+          },
+          {
+            "lines": "36-42",
+            "title": "CPU 두 시점 차이",
+            "details": [
+              "/proc/stat의 cpu 행은 시스템 누적 CPU 시간이다. $5 idle와 $6 iowait를 유휴 시간으로 합하고 2~9 필드를 total로 합한다. guest 필드는 중복 합산을 피하려 제외한다.",
+              "< <(read_cpu)는 프로세스 치환 결과를 read에 입력한다. 샘플 간 기본 1초를 기다려 total과 idle의 증가량을 구한다.",
+              "CPU=100×(전체 증가−유휴 증가)/전체 증가다. awk -v로 값들을 전달하고 전체 증가가 0이면 0.00을 출력한다. 측정값은 앱 한 프로세스가 아닌 Linux 환경 전체 기준이다."
+            ]
+          },
+          {
+            "lines": "43-45",
+            "title": "메모리와 Root 디스크",
+            "details": [
+              "MemTotal은 전체 메모리, MemAvailable은 즉시 사용 가능한 추정량이다. 100×(Total−Available)/Total로 사용률을 계산하며 단순 free 메모리와 구별한다.",
+              "df -P /는 Root partition을 대상으로 고정 열 형식을 사용한다. 두 번째 행의 Used %에서 %를 제거한다.",
+              "정수 패턴 검사는 디스크 값 파싱 오류를 실패로 처리한다. Docker 실습에서 /proc와 디스크 수치는 Linux VM·컨테이너 환경 범위로 해석해야 한다."
+            ]
+          },
+          {
+            "lines": "46-49",
+            "title": "임계값 초과 경고",
+            "details": [
+              "case가 CPU 20, MEM 10, DISK_USED 80을 각각 선택한다. awk 비교는 부동소수점 수치에 >를 사용하므로 같을 때는 경고하지 않는다.",
+              "초과하면 warning을 호출하지만 exit하지 않는다. 이후 잠금·로그 기록까지 이어져 과부하 중에도 시간순 관제 자료를 남긴다."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "logging",
+      "file": "bin/monitor.sh",
+      "regions": [
+        {
+          "lineStart": 50,
+          "lineEnd": 54
+        },
+        {
+          "lineStart": 55,
+          "lineEnd": 61
+        },
+        {
+          "lineStart": 62,
+          "lineEnd": 63
+        }
+      ],
+      "learning": {
+        "purpose": "잠금을 잡고 한도 초과 전 회전한 후 시간·PID·자원값을 한 줄씩 누적한다.",
+        "codeBlocks": [
+          {
+            "lines": "50-54",
+            "title": "공유 잠금과 포맷",
+            "details": [
+              "디렉토리가 없거나 쓰기 불가능하면 fail로 종료한다. exec 9>는 잠금 파일을 파일 설명자 9로 열고 flock -x 9가 배타 잠금을 얻는다.",
+              "retention도 동일 잠금을 쓰므로 활성 로그 압축과 관제 append가 동시에 파일을 바꾸지 않는다. 잠금 파일의 내용이 아니라 열린 설명자에 잠금이 걸린다.",
+              "printf -v line은 문자열을 변수에 저장한다. date는 초 단위 시각, %%는 리터럴 %다. PID·CPU·MEM·DISK_USED 라벨을 고정해 report가 파싱 가능하게 한다."
+            ]
+          },
+          {
+            "lines": "55-61",
+            "title": "쓰기 전 용량 회전",
+            "details": [
+              "stat -c %s로 현재 바이트 크기를 읽는다. ${#line}+1은 ASCII 로그 문자열과 줄바꿈 크기이며 추가 후 10MB를 넘길 때 회전한다.",
+              "가장 오래된 .9를 삭제하고 .8부터 역순으로 한 칸씩 이동해 덮어쓰기 충돌을 피한다. 현재 monitor.log는 .1이 되고 다음 쓰기에서 새 파일이 생성된다.",
+              "현재 파일과 .1~.9를 합쳐 최대 10개다. 회전 테스트는 실제 10,000,000 byte 경계와 파일 개수를 확인했다."
+            ]
+          },
+          {
+            "lines": "62-63",
+            "title": "파일 누적과 콘솔 출력",
+            "details": [
+              ">>는 기존 로그를 덮어쓰지 않고 끝에 추가한다. >를 사용하면 실행 때마다 이전 관제 기록이 사라진다.",
+              "같은 줄을 콘솔에도 출력한다. cron은 stdout와 stderr를 별도 cron.log로 받아 실행 기록과 경고를 보존한다."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cron",
+      "file": "environment/install-monitoring.sh",
+      "regions": [
+        {
+          "lineStart": 1,
+          "lineEnd": 7
+        },
+        {
+          "lineStart": 8,
+          "lineEnd": 15
+        }
+      ],
+      "learning": {
+        "purpose": "개발자 소유 스크립트를 운영자 cron에서 최소 권한으로 매분 실행한다.",
+        "codeBlocks": [
+          {
+            "lines": "1-7",
+            "title": "설치 권한과 읽기 전용 sudo",
+            "details": [
+              "root 여부를 검사한 뒤 monitor/report/retention을 dev/core 750으로 설치한다. 소유자 dev는 변경 가능하며 core의 admin은 읽기·실행 가능하다.",
+              "sudoers에는 agent-admin이 /usr/sbin/ufw status 한 명령만 root로 실행하도록 허용한다. 다른 UFW 변경 명령 전체를 허용하지 않는다.",
+              "440으로 sudoers 파일 권한을 제한하고 visudo -cf로 문법을 검사한다. 설치 작업의 root 권한과 관제 런타임 일반 계정을 분리한다."
+            ]
+          },
+          {
+            "lines": "8-15",
+            "title": "cron 환경과 주기",
+            "details": [
+              "quoted heredoc은 cron 텍스트를 그대로 쓴다. SHELL=/bin/bash와 PATH로 비로그인 실행 환경을 고정한다.",
+              "별표 다섯 개는 매분이다. . /etc/profile.d/agent-app.sh는 환경을 현재 cron 셸에 읽고 monitor를 실행한다. >>는 누적, 2>&1은 stderr를 현재 stdout 대상으로 합친다.",
+              "5 0 * * *는 컨테이너 UTC 매일 00:05에 retention을 실행한다. crontab -u agent-admin이 지정 계정에 등록하고 임시 입력 파일을 삭제한다."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "report",
+      "file": "bin/report.sh",
+      "regions": [
+        {
+          "lineStart": 1,
+          "lineEnd": 7
+        },
+        {
+          "lineStart": 8,
+          "lineEnd": 14
+        },
+        {
+          "lineStart": 15,
+          "lineEnd": 20
+        },
+        {
+          "lineStart": 21,
+          "lineEnd": 22
+        }
+      ],
+      "learning": {
+        "purpose": "고정 로그를 선택 시간 구간에 맞춰 집계하고 빈 데이터·잘못된 입력을 분리한다.",
+        "codeBlocks": [
+          {
+            "lines": "1-7",
+            "title": "선택 입력과 기본 경로",
+            "details": [
+              "Bash와 엄격 오류 옵션·C locale을 사용한다. 인자가 세 개보다 많으면 사용법과 exit 1을 출력한다.",
+              "첫 인자는 로그 경로이며 생략 시 AGENT_LOG_DIR/monitor.log를 사용한다. 두 번째와 세 번째 인자는 시작·종료 시각이며 빈 값은 제한 없음이다."
+            ]
+          },
+          {
+            "lines": "8-14",
+            "title": "시간과 파일 검증",
+            "details": [
+              "입력 시각은 YYYY-MM-DD HH:MM:SS 패턴과 GNU date -d 파싱을 모두 통과해야 한다. stderr는 버리고 오류 메시지를 별도로 출력한다.",
+              "고정 ISO 형식은 문자열 순서가 시간 순서와 일치한다. 시작이 종료보다 뒤면 실패하며 같은 시각은 허용한다.",
+              "-f와 -r은 일반 파일 존재와 읽기 가능을 검사한다. 로그 부재는 경고 후 exit 1이므로 샘플 0인 정상 빈 결과와 다르다."
+            ]
+          },
+          {
+            "lines": "15-20",
+            "title": "필터와 통계 누적",
+            "details": [
+              "awk -v로 시간 경계를 넘긴다. substr($0,2,19)는 대괄호 안의 시각을 얻고 범위 밖이면 next로 건너뛴다. 양쪽 경계 시각은 포함한다.",
+              "NF=6과 PID/CPU/MEM/DISK_USED 수치 패턴을 검사해 다른 출력이 섞여 있어도 통계에 넣지 않는다.",
+              "각 자원 필드에서 라벨·%를 제거하고 v+=0으로 수치화한다. n을 증가시키고 합계·최소·최대를 갱신한다. 첫 샘플은 비교 초기값이다."
+            ]
+          },
+          {
+            "lines": "21-22",
+            "title": "샘플 수와 빈 결과",
+            "details": [
+              "END는 입력 완료 후 샘플 수와 세 자원의 AVG/MAX/MIN을 출력한다. 평균은 sum/n이며 소수 둘째 자리로 표시한다.",
+              "n=0이면 No samples in selected interval을 출력하고 나눗셈을 수행하지 않는다. 실제 테스트에서 전체 2개·구간 1개·빈 구간 0개를 확인했다."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "retention",
+      "file": "bin/retention.sh",
+      "regions": [
+        {
+          "lineStart": 1,
+          "lineEnd": 11
+        },
+        {
+          "lineStart": 12,
+          "lineEnd": 19
+        },
+        {
+          "lineStart": 20,
+          "lineEnd": 31
+        },
+        {
+          "lineStart": 32,
+          "lineEnd": 36
+        }
+      ],
+      "learning": {
+        "purpose": "mtime 기반 7일 압축과 30일 삭제를 잠금 아래 실행하고 권한·빈 대상 오류를 경고한다.",
+        "codeBlocks": [
+          {
+            "lines": "1-11",
+            "title": "대상 경로와 잠금",
+            "details": [
+              "기본 로그·아카이브 경로를 사용하며 umask 007로 기타 접근을 막는다. 디렉토리 존재·쓰기·탐색 권한이 없으면 경고 후 정상 종료한다.",
+              "monitor와 같은 .monitor.lock을 9번 설명자로 열어 flock -x로 잠근다. 열 수 없으면 경고하며 압축을 시도하지 않는다."
+            ]
+          },
+          {
+            "lines": "12-19",
+            "title": "7일 경과와 고유 경로",
+            "details": [
+              "date +%s는 현재 epoch 초이고 stat -c %Y는 파일 mtime 초다. 차이가 7×86400 이상인 로그만 처리한다.",
+              "find -print0와 read -d 빈 문자열은 파일명의 공백을 안전하게 처리한다. mktemp의 고유 이름은 같은 이름 아카이브를 덮어쓰지 않는다.",
+              "읽기·쓰기 권한을 확인하고 대상이 없으면 while 본문을 실행하지 않아 압축 수 0을 출력한다."
+            ]
+          },
+          {
+            "lines": "20-31",
+            "title": "압축 성공 뒤 원본 처리",
+            "details": [
+              "gzip -c는 원본을 유지하며 압축 데이터를 출력한다. 성공 후 archive를 660으로 제한하고 touch -r로 원본 mtime을 보존한다.",
+              "활성 monitor.log는 공유 잠금 상태에서 제거·재생성해 다음 monitor 실행이 새 파일에 기록하도록 한다. 다른 파일은 압축 완료 후 제거한다.",
+              "실패하면 생성된 압축 파일을 제거하고 경고한다. 활성 파일을 다른 비협조 프로세스가 계속 쓰는 상황까지 보장하지 않으며 monitor와의 잠금 협약을 전제로 한다."
+            ]
+          },
+          {
+            "lines": "32-36",
+            "title": "30일 삭제와 결과",
+            "details": [
+              "archive/*.gz의 mtime이 30×86400 초 이상 경과하면 삭제한다. 삭제 실패는 경고로 남긴다.",
+              "압축 파일이 원본 mtime을 보존하므로 30일은 압축 생성 시점이 아니라 원본 로그 수정 시점 기준이다. 이 해석은 수행 내역서에 명시했다.",
+              "Archived는 이번 실행에서 성공적으로 압축한 수다. 보존 테스트는 7일 파일·오래된 활성 로그·공백 파일명·30일 삭제를 확인했다."
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "slides": [
+    {
+      "id": "cover",
+      "kind": "cover",
+      "title": "컴퓨터가 알아서 자기 상태를 점검하게 만들기",
+      "lead": "B4-1 · 보안 설정부터 기록·보존·운영 대응까지",
+      "sections": [
+        "접근 경계",
+        "앱 준비",
+        "상태 판정",
+        "자동 기록",
+        "보존과 분석",
+        "장애 대응"
+      ]
+    },
+    {
+      "id": "boundary",
+      "kind": "content",
+      "title": "두 포트만 열고 Root 원격 접속을 막는다",
+      "part": "S01",
+      "sectionIds": [
+        "S01"
+      ],
+      "questions": [
+        "EVQ-001",
+        "EVQ-002",
+        "EVQ-013"
+      ],
+      "points": [
+        "SSH 20022 · PermitRootLogin no · 공개키 인증",
+        "UFW 기본 인바운드 deny · 20022/tcp와 15034/tcp 허용",
+        "포트 변경은 자동 스캔을 줄이며, 인증과 권한 제한을 함께 적용한다"
+      ],
+      "codeTabs": [
+        {
+          "codeSourceId": "security",
+          "title": "SSH·UFW",
+          "blockLines": [
+            "29-36",
+            "37-43"
+          ],
+          "purpose": "SSH 인증 제한과 UFW 최소 허용 정책을 확인한다."
+        }
+      ]
+    },
+    {
+      "id": "roles",
+      "kind": "content",
+      "title": "공유와 보안을 그룹·ACL로 분리한다",
+      "part": "S01",
+      "sectionIds": [
+        "S01"
+      ],
+      "questions": [
+        "EVQ-003",
+        "EVQ-011",
+        "EVQ-014"
+      ],
+      "points": [
+        "common: admin/dev/test · core: admin/dev",
+        "upload_files는 common R/W · 키와 로그는 core 전용",
+        "monitor 소유자 dev · 그룹 core · 750 · cron 실행자 admin"
+      ],
+      "codeTabs": [
+        {
+          "codeSourceId": "permissions",
+          "title": "계정·그룹·ACL",
+          "blockLines": [
+            "3-6",
+            "7-11",
+            "12-15"
+          ],
+          "purpose": "common/core 역할과 공유·기밀 디렉토리의 접근 권한을 확인한다."
+        },
+        {
+          "codeSourceId": "cron",
+          "title": "권한·cron",
+          "blockLines": [
+            "1-7"
+          ],
+          "purpose": "monitor 소유자·실행 그룹과 제한된 sudo 권한을 확인한다."
+        }
+      ],
+      "visual": {
+        "type": "mermaid",
+        "chart": "flowchart LR\n A[admin dev test] --> C[agent-common]\n C --> U[upload_files R/W]\n B[admin dev] --> K[agent-core]\n K --> P[api_keys와 로그 R/W]",
+        "caption": "공유와 보안을 그룹·ACL로 분리한다"
+      }
+    },
+    {
+      "id": "boot",
+      "kind": "content",
+      "title": "일반 계정의 5단계 Boot를 검증한다",
+      "part": "S02",
+      "sectionIds": [
+        "S02"
+      ],
+      "questions": [
+        "EVQ-004"
+      ],
+      "points": [
+        "Boot 5단계 [OK] · Agent READY · 0.0.0.0:15034",
+        "평가표 REDDY 표기는 보존하고 실제 출력 READY를 제시한다",
+        "키 경로: 원문 파일 설정 유지 + 실행 시 디렉토리 override와 secret.key 별칭"
+      ],
+      "codeTabs": [
+        {
+          "codeSourceId": "environment",
+          "title": "환경과 키",
+          "blockLines": [
+            "16-20",
+            "21-27"
+          ],
+          "purpose": "키 배치와 원문 환경 설정의 보존을 확인한다."
+        },
+        {
+          "codeSourceId": "launch",
+          "title": "앱 실행",
+          "blockLines": [
+            "1-6"
+          ],
+          "purpose": "일반 계정 실행과 승인된 키 경로 호환 처리를 확인한다."
+        }
+      ]
+    },
+    {
+      "id": "health",
+      "kind": "content",
+      "title": "프로세스와 LISTEN이 없으면 exit 1",
+      "part": "S03",
+      "sectionIds": [
+        "S03"
+      ],
+      "questions": [
+        "EVQ-005",
+        "EVQ-009",
+        "EVQ-018"
+      ],
+      "points": [
+        "긴 실행 파일명은 /proc/PID/cmdline의 argv0로 식별",
+        "ss -H -ltn으로 TCP 15034 LISTEN 검사",
+        "프로세스만 있다면 실행 인자·설정 → bind·포트 충돌 → 서비스 로그를 확인"
+      ],
+      "codeTabs": [
+        {
+          "codeSourceId": "health",
+          "title": "프로세스·포트",
+          "blockLines": [
+            "1-12",
+            "13-22",
+            "23-24"
+          ],
+          "purpose": "프로세스 식별·TCP LISTEN 검사와 실패 종료를 확인한다."
+        }
+      ],
+      "visual": {
+        "type": "mermaid",
+        "chart": "flowchart LR\n A[cron 호출] --> B{프로세스 존재}\n B -->|아니오| X[exit 1]\n B -->|예| C{15034 LISTEN}\n C -->|아니오| X\n C -->|예| D[자원 수집 계속]",
+        "caption": "프로세스와 LISTEN이 없으면 exit 1"
+      }
+    },
+    {
+      "id": "warnings",
+      "kind": "content",
+      "title": "경고가 발생해도 자원 기록은 계속한다",
+      "part": "S03",
+      "sectionIds": [
+        "S03"
+      ],
+      "questions": [
+        "EVQ-015"
+      ],
+      "points": [
+        "방화벽 비활성·조회 불가 시 경고",
+        "CPU >20% · MEM >10% · DISK_USED >80% 경고",
+        "실제 MEM 11.36% 경고 후 cron 로그 누적을 확인"
+      ],
+      "codeTabs": [
+        {
+          "codeSourceId": "resources",
+          "title": "자원·경고",
+          "blockLines": [
+            "25-35",
+            "36-42",
+            "43-45",
+            "46-49"
+          ],
+          "purpose": "방화벽·자원 경고를 출력하고 기록을 계속하는 흐름을 확인한다."
+        }
+      ]
+    },
+    {
+      "id": "metrics",
+      "kind": "content",
+      "title": "Linux 자원 값을 같은 형식으로 남긴다",
+      "part": "S04",
+      "sectionIds": [
+        "S04"
+      ],
+      "questions": [
+        "EVQ-006",
+        "EVQ-010",
+        "EVQ-016"
+      ],
+      "points": [
+        "CPU: /proc/stat 두 시점의 전체−유휴 증가 비율",
+        "MEM: MemTotal−MemAvailable · DISK: df -P /의 Used %",
+        "[시각] PID CPU MEM DISK_USED · >>로 이전 기록 보존"
+      ],
+      "codeTabs": [
+        {
+          "codeSourceId": "resources",
+          "title": "자원·경고",
+          "blockLines": [
+            "36-42",
+            "43-45"
+          ],
+          "purpose": "CPU·메모리·Root 디스크의 값 추출과 계산을 확인한다."
+        },
+        {
+          "codeSourceId": "logging",
+          "title": "잠금·회전·누적",
+          "blockLines": [
+            "50-54",
+            "55-61",
+            "62-63"
+          ],
+          "purpose": "고정 형식의 기록을 잠금·용량 관리 후 누적하는 흐름을 확인한다."
+        }
+      ]
+    },
+    {
+      "id": "schedule",
+      "kind": "content",
+      "title": "운영자 cron이 매분 실행 환경을 읽는다",
+      "part": "S04",
+      "sectionIds": [
+        "S04"
+      ],
+      "questions": [
+        "EVQ-007"
+      ],
+      "points": [
+        "agent-admin crontab · 별표 다섯 개로 매분 실행",
+        "profile·PATH·Bash를 명시해 비로그인 환경 차이 해결",
+        "실제 monitor.log 1줄 → 3줄 · 두 차례 자동 실행"
+      ],
+      "codeTabs": [
+        {
+          "codeSourceId": "cron",
+          "title": "권한·cron",
+          "blockLines": [
+            "8-15"
+          ],
+          "purpose": "cron의 명시적 환경과 매분 실행·보존 작업 일정을 확인한다."
+        },
+        {
+          "codeSourceId": "logging",
+          "title": "잠금·회전·누적",
+          "blockLines": [
+            "50-54",
+            "62-63"
+          ],
+          "purpose": "자동 실행 때 지정 포맷의 로그를 누적하는 부분을 확인한다."
+        }
+      ]
+    },
+    {
+      "id": "rotation",
+      "kind": "content",
+      "title": "쓰기 전에 회전해 10MB·10개를 지킨다",
+      "part": "S05",
+      "sectionIds": [
+        "S05"
+      ],
+      "questions": [
+        "EVQ-008",
+        "EVQ-012",
+        "EVQ-019"
+      ],
+      "points": [
+        "10MB = 10,000,000 bytes · 현재 포함 최대 10개",
+        "잠금 → 크기 계산 → 오래된 .9 제거 → 역순 이동 → append",
+        "급증 대응: 공간·열린 파일 확인과 회전, 이후 보존 정책·원인 개선"
+      ],
+      "codeTabs": [
+        {
+          "codeSourceId": "logging",
+          "title": "잠금·회전·누적",
+          "blockLines": [
+            "50-54",
+            "55-61",
+            "62-63"
+          ],
+          "purpose": "공유 잠금 아래 쓰기 전 회전으로 10MB·10개 제한을 지킨다."
+        }
+      ]
+    },
+    {
+      "id": "retention",
+      "kind": "content",
+      "title": "기록 수명과 통계를 함께 관리한다",
+      "part": "S05",
+      "sectionIds": [
+        "S05"
+      ],
+      "questions": [
+        "EVQ-019"
+      ],
+      "points": [
+        "7일 이상 .log 압축 → archive · 30일 이상 .gz 삭제",
+        "mtime 기준 · 활성 로그는 monitor와 공유 잠금",
+        "report: CPU/MEM/DISK 평균·최대·최소·샘플 수와 선택 구간",
+        "빈 구간·대상 없음·권한 부족은 별도 처리"
+      ],
+      "codeTabs": [
+        {
+          "codeSourceId": "report",
+          "title": "통계·시간 필터",
+          "blockLines": [
+            "1-7",
+            "8-14",
+            "15-20",
+            "21-22"
+          ],
+          "purpose": "선택 기간의 로그에서 통계와 빈 결과를 처리한다."
+        },
+        {
+          "codeSourceId": "retention",
+          "title": "압축·보존·삭제",
+          "blockLines": [
+            "1-11",
+            "12-19",
+            "20-31",
+            "32-36"
+          ],
+          "purpose": "공유 잠금과 7일 압축·30일 삭제의 보존 정책을 확인한다."
+        }
+      ]
+    },
+    {
+      "id": "operations",
+      "kind": "content",
+      "title": "대상 변경과 장애 대응의 순서를 설명한다",
+      "part": "S06",
+      "sectionIds": [
+        "S06"
+      ],
+      "questions": [
+        "EVQ-017",
+        "EVQ-018",
+        "EVQ-019"
+      ],
+      "points": [
+        "Nginx 전환: 프로세스 이름·포트·로그 경로·임계값 검토",
+        "포트 부재: 시작 상태 → 설정·bind 충돌 → 서비스 로그",
+        "디스크 부족: 안전한 회전·압축, 이후 로그 원인·보존·용량 개선",
+        "수행 내역서·소스·실행 증거는 artifact에 함께 보존"
+      ],
+      "codeTabs": [
+        {
+          "codeSourceId": "health",
+          "title": "프로세스·포트",
+          "blockLines": [
+            "1-12",
+            "23-24"
+          ],
+          "purpose": "대상 변경 설정과 프로세스·포트 실패 조건을 확인한다."
+        },
+        {
+          "codeSourceId": "resources",
+          "title": "자원·경고",
+          "blockLines": [
+            "46-49"
+          ],
+          "purpose": "새 대상에 맞게 검토할 자원 임계값을 확인한다."
+        },
+        {
+          "codeSourceId": "logging",
+          "title": "잠금·회전·누적",
+          "blockLines": [
+            "55-61",
+            "62-63"
+          ],
+          "purpose": "로그 급증 시 용량 회전과 누적 기록의 구현을 확인한다."
+        }
+      ]
+    },
+    {
+      "id": "thanks",
+      "kind": "thanks",
+      "title": "감사합니다",
+      "lead": "설정은 최소 권한으로, 상태는 기록으로, 장애는 근거로 확인합니다."
+    }
+  ],
+  "gaps": []
+}

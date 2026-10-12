@@ -1,0 +1,14 @@
+{
+  "fullFileTabsVerified": 17,
+  "slidesPreserved": 12,
+  "evaluationQuestionsPreserved": 19,
+  "codeSourcesAndExplanationsPreserved": true,
+  "browserChecks": [
+    "initial button hidden",
+    "only 36-42 highlighted",
+    "slide-local 36-42 and 43-45 explanations",
+    "button and Shift+Enter open selected context",
+    "Escape restores selection"
+  ],
+  "harnessTestGap": "15/21 pass; six old fixtures lack newly mandatory slide-local purpose/blockLines."
+}
