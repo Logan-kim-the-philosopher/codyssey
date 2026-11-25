@@ -351,7 +351,7 @@
       "questionId": "EVQ-007",
       "question": "오류 상황에서 종료 코드가 0이 아님을 확인할 수 있는가?",
       "mode": "mixed",
-      "slideId": "errors",
+      "slideId": "exit-code",
       "answer": "CLI가 반환한 0 또는 2를 __main__.py의 SystemExit가 프로세스 종료 코드로 전달합니다. 오류 검사에서 0이 아닌 반환 코드를 확인했습니다.",
       "evidence": [
         {
@@ -444,8 +444,8 @@
       "questionId": "EVQ-009",
       "question": "최소 2개 이상의 클래스에 부여한 책임 경계를 \"어떻게\" 정했는지 설명할 수 있는가?",
       "mode": "code",
-      "slideId": "architecture",
-      "answer": "최소 2개 클래스 조건을 충족합니다. Transaction은 값과 검증 계약, BudgetService는 기능 흐름, JsonlBudgetStore는 영구 저장 책임을 맡아 변경 이유가 다른 역할을 구분합니다.",
+      "slideId": "class-boundaries",
+      "answer": "경계는 각 책임이 바뀌는 이유와 의존 방향을 기준으로 정했습니다. Transaction은 거래 데이터와 유효성, BudgetService는 용돈 기입장 업무 규칙과 처리 순서, JsonlBudgetStore는 JSONL 파일 경로·변환·읽기·쓰기를 맡습니다. 서비스가 저장소를 주입받고 Transaction 객체를 전달하므로 파일 형식 변경이 업무 규칙을 바꾸지 않습니다.",
       "evidence": [
         {
           "type": "code",
@@ -675,7 +675,7 @@
       "questionId": "EVQ-013",
       "question": "타입 힌트를 적용해 얻는 이점을 실제 코드 예로 \"어떻게\" 확인했고 \"왜\" 도움이 되는지 설명할 수 있는가?",
       "mode": "mixed",
-      "slideId": "contracts",
+      "slideId": "type-hints",
       "answer": "amount:int, tags:tuple[str,...], 선택 조건 str|None, Iterator[Transaction], import의 tuple[int,int,list[str]]는 입력과 반환 구조를 명시합니다. 실제 잘못된 값 거부는 조건 검사에서 수행하므로 힌트가 검증을 대신하지 않는다고 설명합니다.",
       "evidence": [
         {
@@ -925,226 +925,94 @@
       "subtitle": "B2-1 · Python 파일 기반 콘솔 가계부 · 메인 발표자료"
     },
     {
+      "id": "overview",
+      "kind": "content",
+      "title": "전체 과제 한눈에 보기",
+      "part": "전체 개요",
+      "points": [],
+      "questions": [],
+      "codeTabs": [],
+      "visual": {
+        "type": "image",
+        "src": "web-demo/public/presentation/overview.png",
+        "alt": "용돈 기입장 전체 구조: 터미널 CLI의 add, list, search, summary, budget, category, update, delete 명령이 업무 규칙과 Transaction 데이터 모델을 거쳐 거래·카테고리·예산 JSONL 파일에 저장됩니다. CSV 가져오기·내보내기와 임시 파일을 사용한 안전한 수정·삭제, 제너레이터·데코레이터·타입 힌트 개념도 함께 보여줍니다.",
+        "caption": ""
+      }
+    },
+    {
       "id": "commands",
       "kind": "content",
-      "title": "명령으로 완성한 작은 가계부",
-      "part": "1 · 기능과 데이터",
-      "points": [
-        "추가·조회·검색·요약·수정·삭제·CSV 입출력을 구현했습니다.",
-        "CLI는 입력과 출력을, 서비스는 거래 규칙을 처리합니다.",
-        "실제 CLI 기능 검사 87개를 통과했습니다."
-      ],
+      "title": "기능 동작 시연",
+      "part": "",
       "questions": [
         "EVQ-001"
       ],
-      "codeTabs": [
-        {
-          "annexSlideId": "ch03-t01-part2"
-        },
-        {
-          "annexSlideId": "ch04-t01-part2"
-        },
-        {
-          "annexSlideId": "ch05-t01-part1"
-        },
-        {
-          "annexSlideId": "ch06-t01-part1"
-        },
-        {
-          "annexSlideId": "ch09-t01-part1"
-        },
-        {
-          "annexSlideId": "ch10-t01-part1"
-        },
-        {
-          "annexSlideId": "ch11-t01-rows"
-        },
-        {
-          "annexSlideId": "ch12-t01-write"
-        }
-      ],
-      "visual": {
-        "type": "mermaid",
-        "chart": "flowchart LR\n A[\"터미널 명령\"] --> B[\"CLI 입력 해석\"]\n B --> C[\"서비스 검증과 처리\"]\n C --> D[\"JSONL 저장소\"]\n C --> E[\"목록·요약·CSV 결과\"]",
-        "caption": "입력에서 저장과 결과 출력까지의 책임 분리"
-      }
+      "codeTabs": []
     },
     {
       "id": "persistence",
       "kind": "content",
-      "title": "재실행해도 남는 데이터",
+      "title": "다시 실행해도 데이터가 남는다",
       "part": "1 · 기능과 데이터",
-      "points": [
-        "거래·카테고리·예산을 서로 다른 JSONL 파일에 저장합니다.",
-        "반복 규칙도 별도 파일로 보관하며 --data-dir로 위치를 바꿉니다.",
-        "처음에는 파일과 기본 카테고리를 만들고, 이후 실행은 파일에서 복원합니다."
-      ],
       "questions": [
         "EVQ-002"
-      ],
-      "codeTabs": [
-        {
-          "annexSlideId": "ch13-t01-part1"
-        },
-        {
-          "annexSlideId": "ch13-t02-part1"
-        },
-        {
-          "annexSlideId": "ch13-t02-model"
-        },
-        {
-          "annexSlideId": "ch07-t01-storage"
-        },
-        {
-          "annexSlideId": "ch08-t01-storage"
-        }
-      ],
-      "visual": {
-        "type": "mermaid",
-        "chart": "flowchart LR\n A[\"실행\"] --> B[\"저장 경로와 초기 파일 확인\"]\n B --> C[\"transactions.jsonl\"]\n B --> D[\"categories.jsonl\"]\n B --> E[\"budgets.jsonl\"]\n C --> F[\"거래 객체 복원\"]",
-        "caption": "메모리 상태가 아닌 저장 파일에서 복원하는 구조"
-      }
+      ]
     },
     {
       "id": "categories",
       "kind": "content",
-      "title": "카테고리 삭제가 데이터 관계를 보호한다",
+      "title": "사용 중인 카테고리 삭제는 거부된다",
       "part": "1 · 기능과 데이터",
-      "points": [
-        "add/list/remove로 등록 목록을 관리합니다.",
-        "거래나 반복 규칙에서 사용하는 카테고리는 삭제를 거부합니다.",
-        "미등록 카테고리로 거래를 추가하면 등록 안내를 제공합니다."
-      ],
       "questions": [
         "EVQ-003"
-      ],
-      "codeTabs": [
-        {
-          "annexSlideId": "ch08-t01-part1"
-        },
-        {
-          "annexSlideId": "ch08-t01-part2"
-        },
-        {
-          "annexSlideId": "ch08-t01-storage"
-        },
-        {
-          "annexSlideId": "ch03-t01-part2"
-        }
-      ],
-      "visual": {
-        "type": "mermaid",
-        "chart": "flowchart TD\n A[\"카테고리 삭제 요청\"] --> B{\"등록된 이름인가\"}\n B -->|\"아니오\"| C[\"없는 이름 안내\"]\n B -->|\"예\"| D{\"거래·반복 규칙에서 사용 중인가\"}\n D -->|\"예\"| E[\"삭제 거부\"]\n D -->|\"아니오\"| F[\"목록 갱신\"]",
-        "caption": "참조 중인 카테고리를 보호하는 삭제 조건"
-      }
+      ]
     },
     {
       "id": "budget",
       "kind": "content",
-      "title": "저장된 예산을 월 지출과 비교한다",
+      "title": "예산 사용률과 초과 경고를 확인한다",
       "part": "1 · 기능과 데이터",
-      "points": [
-        "budget set은 해당 월 예산을 저장하거나 갱신합니다.",
-        "summary는 지출 ÷ 예산 × 100으로 사용률을 계산합니다.",
-        "지출이 예산보다 클 때 초과 경고를 출력합니다."
-      ],
       "questions": [
         "EVQ-004"
-      ],
-      "codeTabs": [
-        {
-          "annexSlideId": "ch07-t01-part1"
-        },
-        {
-          "annexSlideId": "ch07-t01-storage"
-        },
-        {
-          "annexSlideId": "ch07-t02-part1"
-        }
-      ],
-      "visual": {
-        "type": "mermaid",
-        "chart": "flowchart LR\n A[\"월 예산 설정\"] --> B[\"budgets.jsonl\"]\n B --> C[\"월별 summary\"]\n D[\"해당 월 지출 합계\"] --> C\n C --> E[\"사용률과 초과 경고\"]",
-        "caption": "저장된 예산과 계산된 지출을 결합하는 흐름"
-      }
+      ]
     },
     {
       "id": "csv",
       "kind": "content",
-      "title": "CSV는 저장 형식과 분리한 교환 계약이다",
+      "title": "CSV로 거래를 내보내고 다시 가져온다",
       "part": "1 · 기능과 데이터",
-      "points": [
-        "UTF-8과 헤더를 사용하며 date/type/category/amount는 필수입니다.",
-        "memo/tags는 선택이고 태그는 쉼표 문자열로 교환합니다.",
-        "export는 월 또는 양쪽 날짜 조건을 요구합니다."
-      ],
       "questions": [
         "EVQ-005"
-      ],
-      "codeTabs": [
-        {
-          "annexSlideId": "ch11-t01-part1"
-        },
-        {
-          "annexSlideId": "ch11-t01-rows"
-        },
-        {
-          "annexSlideId": "ch12-t01-part1"
-        },
-        {
-          "annexSlideId": "ch12-t01-write"
-        }
-      ],
-      "visual": {
-        "type": "mermaid",
-        "chart": "flowchart LR\n A[\"UTF-8 CSV와 헤더\"] --> B[\"행별 거래 검증\"]\n B --> C[\"내부 Transaction\"]\n C --> D[\"JSONL 저장\"]\n C --> E[\"기간 필터\"]\n E --> F[\"고정 스키마 CSV\"]",
-        "caption": "내부 저장 모델과 외부 CSV 교환 형식의 경계"
-      }
+      ]
     },
     {
       "id": "errors",
       "kind": "content",
-      "title": "사용자 오류와 프로세스 실패를 함께 전달한다",
+      "title": "오류가 나면 원인과 해결 방법을 안내한다",
       "part": "2 · 설계와 안전성",
-      "points": [
-        "원인과 해결 힌트를 출력하고 사용자 콘솔에 스택트레이스를 노출하지 않습니다.",
-        "정상 실행은 0, 처리한 오류는 2를 반환합니다.",
-        "손상된 JSONL·파일 누락·CSV 헤더 오류 등 5가지 파일 오류를 추가 검사했습니다."
-      ],
       "questions": [
-        "EVQ-006",
+        "EVQ-006"
+      ]
+    },
+    {
+      "id": "exit-code",
+      "kind": "content",
+      "title": "종료 코드로 오류 결과를 확인한다",
+      "part": "1 · 기능과 데이터",
+      "questions": [
         "EVQ-007"
-      ],
-      "codeTabs": [
-        {
-          "annexSlideId": "ch16-t01-part1"
-        },
-        {
-          "annexSlideId": "ch16-t01-part2"
-        },
-        {
-          "annexSlideId": "ch01-t01-part1"
-        }
-      ],
-      "visual": {
-        "type": "mermaid",
-        "chart": "flowchart LR\n A[\"입력·파일 오류\"] --> B[\"CLI 예외 경계\"]\n B --> C[\"원인과 해결 힌트\"]\n B --> D[\"반환값 2\"]\n D --> E[\"SystemExit\"]\n E --> F[\"프로세스 오류 종료\"]",
-        "caption": "오류 안내와 종료 코드는 동일한 실패를 서로 다른 방식으로 전달"
-      }
+      ]
     },
     {
       "id": "architecture",
       "kind": "content",
-      "title": "모듈과 클래스에 다른 책임을 부여했다",
+      "title": "Python 모듈마다 책임을 나눴다",
       "part": "2 · 설계와 안전성",
       "points": [
-        "8개 Python 모듈로 CLI·서비스·저장소·모델·공통 처리를 나눴습니다.",
-        "Transaction은 거래 데이터, BudgetService는 거래 규칙, JsonlBudgetStore는 파일 접근을 맡습니다.",
-        "서비스는 외부에서 받은 저장소 객체를 사용합니다."
+        "CLI → Service → Storage 흐름을 분리하고, Models를 데이터 계약으로 공유합니다."
       ],
       "questions": [
-        "EVQ-008",
-        "EVQ-009"
+        "EVQ-008"
       ],
       "codeTabs": [
         {
@@ -1155,15 +1023,42 @@
         },
         {
           "annexSlideId": "ch13-t01-part1"
-        },
-        {
-          "annexSlideId": "ch02-t01-part1"
         }
       ],
       "visual": {
-        "type": "mermaid",
-        "chart": "flowchart LR\n A[\"cli.py · 사용자 입출력\"] --> B[\"service.py · 거래 규칙\"]\n B --> C[\"storage.py · 파일 I/O\"]\n B --> D[\"models.py · 데이터 계약\"]\n C --> D",
-        "caption": "호출 관계를 따라 나눈 모듈과 클래스 책임"
+        "type": "image",
+        "src": "web-demo/public/presentation/module-responsibilities.png",
+        "alt": "cli.py가 명령 입력을 service.py에 전달하고, service.py가 storage.py에 JSONL 조회·저장을 요청합니다. models.py는 거래·예산의 데이터 형태를 제공하며 service.py가 생성·검증하고 storage.py가 변환·복원합니다.",
+        "caption": "네 모듈의 역할과 요청 흐름"
+      }
+    },
+    {
+      "id": "class-boundaries",
+      "kind": "content",
+      "title": "책임 경계는 변경 이유와 협력 지점으로 정했다",
+      "part": "2 · 설계와 안전성",
+      "points": [
+        "각 책임이 바뀌는 이유가 다르기 때문에 데이터·업무 규칙·파일 저장을 별도 클래스로 나눴습니다."
+      ],
+      "questions": [
+        "EVQ-009"
+      ],
+      "codeTabs": [
+        {
+          "annexSlideId": "ch02-t01-part1"
+        },
+        {
+          "annexSlideId": "ch03-t01-part2"
+        },
+        {
+          "annexSlideId": "ch13-t01-part1"
+        }
+      ],
+      "visual": {
+        "type": "image",
+        "src": "web-demo/public/presentation/class-responsibilities.png",
+        "alt": "Transaction은 거래 데이터와 유효성을, BudgetService는 업무 규칙을, JsonlBudgetStore는 JSONL 파일 처리를 맡습니다. BudgetService가 Transaction을 만들고 JsonlBudgetStore에 insert_transaction으로 저장을 요청합니다.",
+        "caption": "클래스별 역할과 거래 객체가 전달되는 경계"
       }
     },
     {
@@ -1172,9 +1067,8 @@
       "title": "수정·삭제는 완성한 임시 파일로 교체한다",
       "part": "2 · 설계와 안전성",
       "points": [
-        "수정은 지정 필드만 바꾸고, 삭제는 해당 ID를 제외합니다.",
-        "결과를 정렬한 뒤 임시 파일에 기록·flush·fsync합니다.",
-        "완성 후 os.replace로 교체하고 실패 시 임시 파일을 정리합니다."
+        "수정·삭제 결과를 정렬해 임시 JSONL에 기록·동기화한 뒤 os.replace로 교체합니다.",
+        "교체 실패 시 원본은 유지하고 임시 파일을 정리합니다. 동시 실행 잠금과 부모 디렉터리 fsync는 구현하지 않았습니다."
       ],
       "questions": [
         "EVQ-010"
@@ -1194,20 +1088,21 @@
         }
       ],
       "visual": {
-        "type": "mermaid",
-        "chart": "flowchart LR\n A[\"수정·삭제 결과\"] --> B[\"정렬\"]\n B --> C[\"임시 파일 기록\"]\n C --> D[\"flush와 fsync\"]\n D --> E[\"os.replace\"]\n C -->|\"실패\"| F[\"원본 유지·임시 파일 정리\"]",
-        "caption": "파일을 완성한 뒤 교체하는 저장 안전장치"
+        "type": "image",
+        "src": "web-demo/public/presentation/safe-update-delete.png",
+        "alt": "수정·삭제 결과를 최신순 정렬하고 같은 폴더의 임시 JSONL에 기록한 뒤 flush와 fsync를 수행합니다. os.replace로 원본을 교체하고, 실패하면 원본 유지와 임시 파일 정리를 합니다.",
+        "caption": "완성한 임시 파일만 원본 위치로 교체"
       }
     },
     {
       "id": "streaming",
       "kind": "content",
-      "title": "정렬된 파일과 제너레이터가 조회 부담을 줄인다",
+      "title": "list/search는 필요한 결과만 메모리에 담는다",
       "part": "3 · 구현 선택과 한계",
       "points": [
-        "추가 시 최신순을 유지하여 조회할 때 전체 정렬을 하지 않습니다.",
-        "파일 → JSON 행 → Transaction → 검색 필터를 yield로 전달합니다.",
-        "islice 뒤에서만 표시용 리스트를 만들며 검색은 조건에 따라 많은 행을 읽을 수 있습니다."
+        "저장소는 JSONL을 한 줄씩 읽어 Transaction으로 만들고 yield로 전달합니다.",
+        "서비스가 조건에 맞는 거래를 yield하고 CLI가 islice(limit)까지만 리스트로 만들어 출력합니다.",
+        "전체 파일 리스트를 만들지 않아 메모리를 아낍니다. 단, 일치 항목이 적으면 검색은 파일 끝까지 읽을 수 있습니다."
       ],
       "questions": [
         "EVQ-011"
@@ -1233,24 +1128,24 @@
         }
       ],
       "visual": {
-        "type": "mermaid",
-        "chart": "flowchart LR\n A[\"최신순 JSONL\"] --> B[\"한 줄 JSON 객체\"]\n B --> C[\"Transaction\"]\n C --> D[\"선택한 조건 통과\"]\n D --> E[\"islice로 개수 제한\"]\n E --> F[\"표시용 리스트\"]",
-        "caption": "요청한 개수까지 소비하며 파일 전체 리스트 생성을 피하는 조회 흐름"
+        "type": "image",
+        "src": "web-demo/public/presentation/streaming-flow.png",
+        "alt": "JSONL을 한 줄씩 읽어 Transaction을 yield하고 검색 조건에 맞는 결과만 통과시킵니다. islice로 최대 N건만 표시용 리스트에 담아 전체 파일 적재를 피합니다. 검색 결과가 적으면 파일 전체를 읽을 수 있습니다.",
+        "caption": "한 줄씩 생성하고 요청한 개수만 결과로 모으는 조회 흐름"
       }
     },
     {
       "id": "contracts",
       "kind": "content",
-      "title": "공통 처리와 데이터 계약을 코드에 드러냈다",
+      "title": "공통 로그와 시간 측정은 데코레이터에 모았다",
       "part": "3 · 구현 선택과 한계",
       "points": [
-        "데코레이터는 서비스 본문과 로그·시간 측정을 분리합니다.",
-        "타입 힌트는 필드, 선택 입력, 반복자, 반환 튜플의 의미를 보여 줍니다.",
-        "타입 힌트와 실제 런타임 값 검증은 서로 다른 역할입니다."
+        "add·import·export에 @logged_and_timed를 붙여 같은 래퍼를 적용합니다.",
+        "성공하면 작업명과 실행 시간을 로그 파일에 기록하고 원래 결과를 반환합니다. 실패하면 예외를 기록한 뒤 다시 발생시켜 CLI의 기존 오류 처리를 유지합니다.",
+        "반복되는 기록 코드를 한곳에 두어 각 서비스 메서드는 업무 규칙에 집중합니다."
       ],
       "questions": [
-        "EVQ-012",
-        "EVQ-013"
+        "EVQ-012"
       ],
       "codeTabs": [
         {
@@ -1258,7 +1153,29 @@
         },
         {
           "annexSlideId": "ch15-t01-logging"
-        },
+        }
+      ],
+      "visual": {
+        "type": "image",
+        "src": "web-demo/public/presentation/decorator-flow.png",
+        "alt": "add, import, export 호출이 공통 래퍼를 거칩니다. 래퍼는 실행 시간을 측정하고 성공은 결과와 시간 로그 후 결과를 반환하며, 오류는 오류 로그 후 예외를 다시 발생시킵니다. CLI 출력과 로그 파일은 분리됩니다.",
+        "caption": "공통 래퍼가 성공·오류를 기록하고 원래 반환과 예외 흐름을 유지"
+      }
+    },
+    {
+      "id": "type-hints",
+      "kind": "content",
+      "title": "타입 힌트는 형태를 알리고, 검증 코드는 값을 검사한다",
+      "part": "3 · 구현 선택과 한계",
+      "points": [
+        "Transaction의 amount: int와 tags: tuple[str, ...]는 거래 데이터의 형태를 보여 줍니다.",
+        "search(...) -> Iterator[Transaction]과 import_csv(...) -> tuple[int, int, list[str]]은 함수가 돌려주는 결과의 구조를 나타냅니다.",
+        "타입 힌트는 읽기·자동완성·정적 분석을 돕습니다. 잘못된 실제 입력을 거부하는 일은 별도의 검증 코드가 합니다."
+      ],
+      "questions": [
+        "EVQ-013"
+      ],
+      "codeTabs": [
         {
           "annexSlideId": "ch03-t01-part2"
         },
@@ -1266,9 +1183,6 @@
           "annexSlideId": "ch02-t01-part1"
         },
         {
-          "annexSlideId": "ch02-t01-validation"
-        },
-        {
           "annexSlideId": "ch05-t01-part1"
         },
         {
@@ -1276,119 +1190,185 @@
         }
       ],
       "visual": {
-        "type": "mermaid",
-        "chart": "flowchart LR\n A[\"타입이 명시된 호출\"] --> B[\"로그·시간 래퍼\"]\n B --> C[\"서비스 본문\"]\n C --> D[\"모델 값 검증\"]\n C --> E[\"반환 계약\"]\n B --> F[\"파일 로그\"]",
-        "caption": "함수 계약과 공통 관심사를 서로 다른 위치에 표현"
+        "type": "image",
+        "src": "web-demo/public/presentation/type-hints.png",
+        "alt": "Transaction 필드와 search, import_csv 함수의 타입 힌트가 데이터와 반환값의 모양을 알립니다. 별도로 실행 중 조건 검사가 실제 사용자 값을 확인하고 잘못된 값은 오류로 거부합니다.",
+        "caption": "코드의 형태 안내와 실행 중 값 검증은 서로 다른 역할"
       }
     },
     {
       "id": "format-choice",
       "kind": "content",
-      "title": "JSONL로 저장하고 CSV로 교환하는 이유",
+      "title": "JSONL은 내부 보존, CSV는 표 도구와 교환",
       "part": "3 · 구현 선택과 한계",
       "points": [
-        "JSONL은 거래 객체와 태그·반복 출처를 한 줄에 보관하기 쉽습니다.",
-        "CSV는 표 도구와 교환하기 쉽지만 내부 ID·생성 시각·반복 출처는 교환 스키마에 없습니다.",
-        "JSONL은 수기 표 편집에 불편하고 저장 크기가 커질 수 있다는 절충이 있습니다."
+        "asdict(transaction)는 ID·생성 시각·반복 출처를 포함한 객체를 JSONL 한 줄로 저장하고, 저장소는 줄마다 읽어 Transaction으로 복원합니다.",
+        "CSV는 date·type·category·amount·memo·tags 여섯 열로 표 도구와 교환합니다. 내부 ID·생성 시각·반복 정보는 CSV에 포함되지 않습니다.",
+        "그래서 내부 저장은 전체 객체와 줄 단위 처리를, CSV는 익숙한 표 형식의 입출력을 맡깁니다. JSONL은 직접 표 편집이 불편하고 키 이름이 반복되어 파일이 커질 수 있습니다."
       ],
       "questions": [
         "EVQ-014"
       ],
-      "codeTabs": [
-        {
-          "annexSlideId": "ch02-t01-part1"
-        },
-        {
-          "annexSlideId": "ch13-t02-model"
-        },
-        {
-          "annexSlideId": "ch04-t01-part1"
-        },
-        {
-          "annexSlideId": "ch12-t01-write"
-        },
-        {
-          "annexSlideId": "ch23-t01-part1"
-        }
-      ],
+      "codeTabs": [],
       "visual": {
-        "type": "mermaid",
-        "chart": "flowchart LR\n A[\"거래 객체·태그·반복 출처\"] --> B[\"JSONL 내부 저장\"]\n B --> C[\"줄 단위 복원\"]\n A --> D[\"여섯 열만 선택\"]\n D --> E[\"CSV 교환\"]",
-        "caption": "내부 모델 보존과 외부 표 교환의 역할을 분리한 선택"
+        "type": "image",
+        "src": "web-demo/public/presentation/format-choice.png",
+        "alt": "JSONL은 거래 객체를 한 줄씩 저장하며 내부 ID, 생성 시각, 반복 출처를 보존합니다. CSV는 date, type, category, amount, memo, tags 여섯 열로 표 도구와 교환하지만 내부 ID·생성 시각·반복 정보는 포함하지 않습니다.",
+        "caption": "내부 데이터 보존에는 JSONL, 표 도구 교환에는 CSV"
       }
     },
     {
       "id": "scale",
       "kind": "content",
-      "title": "10만 건에서 먼저 확인할 병목",
+      "title": "10만 건에서 병목은 행별 저장, 개선은 일괄 병합",
       "part": "3 · 구현 선택과 한계",
       "points": [
-        "정적 분석: 거래 N건, 가져올 행 k건 기준으로 처리 비용을 구분했습니다.",
-        "add는 전체 파일을 읽고 다시 쓰며 import가 반복 호출하면 O(kN + k²) 규모의 비용이 생깁니다.",
-        "update/delete는 O(N) 메모리와 재정렬 비용을 사용합니다.",
-        "개선안은 일괄 검증 후 한 번 병합·저장하는 방식입니다. 10만 건 성능 측정은 수행하지 않았습니다."
+        "N=100,000일 때 CSV의 유효한 각 행은 insert_transaction으로 기존 N건을 스캔·병합하고 전체 파일을 다시 기록합니다. k개 행이면 대략 O(kN + k²) 작업입니다.",
+        "update/delete도 거래 전체를 메모리에 읽고 정렬합니다: 메모리 O(N), 정렬 O(N log N).",
+        "개선안은 새 k건만 모아 정렬(O(k log k))하고, 정렬된 기존 N건과 한 번 병합(O(N+k))한 뒤 임시 파일 기록·동기화·교체를 한 번 수행하는 것입니다. 추가 메모리는 O(k)이며, 부분 성공 동작을 유지해야 합니다. 미구현·10만 건 실측 전입니다."
       ],
       "questions": [
         "EVQ-015"
       ],
-      "codeTabs": [
-        {
-          "annexSlideId": "ch04-t01-order"
-        },
-        {
-          "annexSlideId": "ch23-t01-part1"
-        },
-        {
-          "annexSlideId": "ch11-t01-rows"
-        },
-        {
-          "annexSlideId": "ch09-t01-part1"
-        },
-        {
-          "annexSlideId": "ch10-t01-part1"
-        },
-        {
-          "annexSlideId": "ch09-t01-storage"
-        },
-        {
-          "annexSlideId": "ch05-t01-part1"
-        }
-      ],
+      "codeTabs": [],
       "visual": {
-        "type": "mermaid",
-        "chart": "flowchart LR\n A[\"CSV k행\"] --> B[\"행별 검증\"]\n B --> C[\"각 행마다 전체 파일 병합\"]\n C --> D[\"각 행마다 fsync·교체\"]\n E[\"개선안 · 일괄 검증\"] -.-> F[\"한 번 병합·기록\"]",
-        "caption": "현재 행별 쓰기 비용과 향후 일괄 저장 개선안의 차이"
+        "type": "image",
+        "src": "web-demo/public/presentation/scale-bottlenecks.png",
+        "alt": "기존 10만 건에 CSV 유효 행 k건을 행별 추가하면 매번 기존 파일을 스캔·병합하고 다시 기록해 작업량이 약 O(kN+k²)입니다. 개선안은 새 k건만 정렬하고 정렬된 기존 N건과 한 번 병합한 다음 파일을 한 번 교체합니다. 추가 메모리는 O(k)이며 부분 성공 동작 유지가 필요합니다. 미구현이며 실측하지 않았습니다.",
+        "caption": "행별 전체 파일 재작성에서 신규 행 묶음 병합으로"
       }
     },
     {
       "id": "partial-import",
       "kind": "content",
-      "title": "깨진 CSV 행과 파일 오류를 구분한다",
+      "title": "CSV 행 오류는 건너뛰고 파일 오류는 중단한다",
       "part": "3 · 구현 선택과 한계",
       "points": [
-        "필수 헤더가 없으면 행 등록 전에 중단합니다.",
-        "정상 행은 즉시 저장하고 검증 실패 행은 건너뜁니다.",
-        "등록·건너뜀 건수와 최대 10개의 오류를 보여 줍니다.",
-        "읽기 오류로 중단되면 이전 성공 행은 남습니다. 전체 롤백·재실행 중복 방지·전체 오류 파일은 미구현입니다."
+        "필수 헤더가 빠졌다면 어떤 행도 저장하기 전에 가져오기를 중단합니다.",
+        "행 검증에 실패하면 그 행만 건너뛰고, 정상 행은 즉시 저장합니다.",
+        "가져온 수·건너뛴 수와 최대 10개의 행 오류를 안내합니다.",
+        "파일 읽기 오류가 나도 앞서 저장된 행은 남습니다. 전체 롤백과 재실행 중복 방지는 지원하지 않습니다."
       ],
       "questions": [
         "EVQ-016"
       ],
+      "codeTabs": [],
+      "visual": {
+        "type": "image",
+        "src": "web-demo/public/presentation/partial-import.png",
+        "alt": "CSV 가져오기 흐름. 필수 헤더가 빠지면 저장 전에 중단합니다. 헤더가 유효하면 정상 행은 한 건씩 저장하고, 잘못된 행은 건너뛰어 오류 목록에 담습니다. 마지막에 가져온 수와 건너뛴 수를 안내합니다. 파일 읽기 자체가 중단되어도 앞서 저장한 정상 행은 남습니다.",
+        "caption": ""
+      }
+    },
+    {
+      "id": "bonus-features",
+      "kind": "content",
+      "title": "선택 보너스 기능 네 가지를 구현했다",
+      "part": "선택 보너스",
+      "points": [
+        "백업은 타임스탬프 폴더에 거래·카테고리·예산·반복 규칙 파일을 복사합니다.",
+        "반복 규칙으로 지정 월 거래를 만들고, 같은 규칙의 중복 생성을 막습니다.",
+        "표 출력은 열별 너비를 계산해 정렬합니다. 한글 표시 너비에 따른 정렬 오차는 남아 있습니다.",
+        "수정·삭제 저장은 임시 파일을 동기화한 뒤 원본 파일과 교체합니다."
+      ],
+      "questions": [],
       "codeTabs": [
         {
-          "annexSlideId": "ch11-t01-part1"
+          "annexSlideId": "ch20-t01-part1",
+          "explanations": [
+            {
+              "lines": "327-329",
+              "title": "백업 경로에 시간 기록",
+              "body": "현재 시각을 마이크로초까지 붙여 폴더 이름을 만듭니다. 같은 초에 백업을 여러 번 실행해도 서로 덮어쓰지 않도록 구분합니다."
+            },
+            {
+              "lines": "330-338",
+              "title": "저장 파일 네 개 복사",
+              "body": "새 폴더를 만든 뒤 거래·카테고리·예산·반복 규칙 파일을 각각 복사합니다. 복사가 모두 끝나면 백업 경로를 돌려줍니다."
+            },
+            {
+              "lines": "339-341",
+              "title": "실패 안내와 경로 반환",
+              "body": "파일 작업 오류는 원인과 해결 힌트가 있는 BudgetError로 바꿉니다. 중간 실패 때 이미 복사한 파일은 자동 삭제되지 않습니다."
+            }
+          ]
         },
         {
-          "annexSlideId": "ch11-t01-rows"
+          "annexSlideId": "ch21-t01-part2",
+          "explanations": [
+            {
+              "lines": "305-306",
+              "title": "대상 월 검증",
+              "body": "YYYY-MM 형식의 월인지 먼저 검사해 잘못된 날짜 계산을 막습니다."
+            },
+            {
+              "lines": "307-311",
+              "title": "이미 만든 규칙·월 확인",
+              "body": "기존 거래에서 반복 규칙 ID와 생성 월을 모읍니다. 같은 규칙을 같은 달에 다시 실행해 중복 생성하지 않기 위한 기준입니다."
+            },
+            {
+              "lines": "312-316",
+              "title": "월말과 중복 처리",
+              "body": "달력에서 해당 월의 마지막 날짜를 구합니다. 이미 생성한 규칙은 건너뛰고, 생성일이 월말보다 뒤면 마지막 날짜로 맞춥니다."
+            },
+            {
+              "lines": "317-325",
+              "title": "거래 생성 후 저장",
+              "body": "반복 출처 ID와 생성 월을 거래에 남기고 저장합니다. created는 실제 새로 추가한 건수만 셉니다."
+            }
+          ]
         },
         {
-          "annexSlideId": "ch11-t01-part2"
+          "annexSlideId": "ch22-t01-part1",
+          "explanations": [
+            {
+              "lines": "160-163",
+              "title": "빈 결과 처리",
+              "body": "행이 없으면 “데이터 없음”을 출력하고 끝냅니다. 열 너비 계산에서 빈 목록을 처리하지 못하는 상황도 피합니다."
+            },
+            {
+              "lines": "164-164",
+              "title": "열마다 필요한 너비 계산",
+              "body": "헤더와 모든 행 값 중 가장 긴 문자열 길이를 열 너비로 씁니다. 다만 len은 화면 표시 폭이 아니라 글자 수라 한글이 섞이면 칸이 어긋날 수 있습니다."
+            },
+            {
+              "lines": "165-168",
+              "title": "머리글·구분선·행 정렬",
+              "body": "ljust로 각 값을 열 너비만큼 왼쪽 정렬하고 구분선을 넣습니다. 같은 함수가 거래·예산·카테고리 표에 재사용됩니다."
+            }
+          ]
+        },
+        {
+          "annexSlideId": "ch23-t01-part1",
+          "explanations": [
+            {
+              "lines": "120-126",
+              "title": "같은 폴더에 임시 파일 만들기",
+              "body": "원본과 같은 디렉터리에 임시 파일을 둬 마지막 교체가 같은 파일 시스템 안에서 이뤄지게 합니다."
+            },
+            {
+              "lines": "127-130",
+              "title": "JSONL 내용 기록",
+              "body": "각 데이터를 JSON 한 줄로 기록합니다. 원본 파일을 바로 덮어쓰지 않아 기록 도중 실패해도 원본 내용은 보존됩니다."
+            },
+            {
+              "lines": "131-134",
+              "title": "기록 완료 후 원본 교체",
+              "body": "버퍼를 비우고 fsync로 파일 내용을 동기화한 다음 os.replace로 원본을 교체합니다. 교체 완료 후에는 임시 파일 정리 대상으로 보지 않습니다."
+            },
+            {
+              "lines": "135-139",
+              "title": "오류 변환과 임시 파일 정리",
+              "body": "파일 오류를 사용자용 BudgetError로 바꾸며, 교체 전에 실패해 남은 임시 파일은 finally에서 지웁니다."
+            }
+          ]
         }
       ],
       "visual": {
-        "type": "mermaid",
-        "chart": "flowchart TD\n A[\"헤더 검사\"] --> B{\"스키마 유효\"}\n B -->|\"아니오\"| C[\"등록 전 중단\"]\n B -->|\"예\"| D[\"레코드 검증\"]\n D -->|\"정상\"| E[\"저장·imported 증가\"]\n D -->|\"실패\"| F[\"건너뜀·오류 기록\"]\n E --> G[\"처리 건수와 오류 안내\"]\n F --> G",
-        "caption": "부분 성공과 전체 롤백의 차이를 명시한 CSV 정책"
+        "type": "image",
+        "src": "web-demo/public/presentation/bonus-features.png",
+        "alt": "네 가지 선택 보너스 기능: 타임스탬프 백업 파일 보관, 지정 월의 반복 거래 생성, 열 너비 계산을 통한 표 정렬, 임시 파일 기록 후 안전한 교체.",
+        "caption": ""
       }
     },
     {
