@@ -399,7 +399,7 @@
   }, true);
 
   let commandMap = {};
-  fetch('/presentation/terminal-demo.json')
+  fetch(new URL('terminal-demo.json', document.currentScript?.src || location.href))
     .then(response => {
       if (!response.ok) throw new Error('시연 명령을 불러오지 못했습니다.');
       return response.json();

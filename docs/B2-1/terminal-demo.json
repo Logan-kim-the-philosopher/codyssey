@@ -1,0 +1,523 @@
+{
+  "EVQ-001": {
+    "title": "기능 동작 시연",
+    "commands": [
+      {
+        "title": "준비 · 프로그램 폴더로 이동하고 카테고리 확인",
+        "code": "cd ~/Projects/codyssey/submissions/B2-1/artifact\npython3 -m budget_app category list"
+      },
+      {
+        "title": "add · 지출 거래 한 번에 입력",
+        "code": "printf '2026-11-02\\nexpense\\nfood\\n5000\\n점심\\nmeal\\n' | python3 -m budget_app add"
+      },
+      {
+        "title": "add · 수입 거래 한 번에 입력",
+        "code": "printf '2026-11-03\\nincome\\nsalary\\n50000\\n용돈\\nallowance\\n' | python3 -m budget_app add"
+      },
+      {
+        "title": "list · 입력한 거래와 ID 확인",
+        "code": "python3 -m budget_app list"
+      },
+      {
+        "title": "search · food 카테고리 검색",
+        "code": "python3 -m budget_app search --category food"
+      },
+      {
+        "title": "summary · 2026년 11월 수입·지출 요약",
+        "code": "python3 -m budget_app summary --month 2026-11"
+      },
+      {
+        "title": "export · 11월 거래를 CSV로 저장",
+        "code": "python3 -m budget_app export --month 2026-11 --out ./data/export.csv"
+      },
+      {
+        "title": "import · CSV 한 건 가져오고 목록 확인",
+        "code": "python3 -m budget_app import --from ./demo-import.csv\npython3 -m budget_app list"
+      },
+      {
+        "title": "update · TX-ID를 점심 ID로 바꿔 수정 후 확인",
+        "code": "python3 -m budget_app update --id TX-ID --amount 6000 --memo 팀점심\npython3 -m budget_app list"
+      },
+      {
+        "title": "delete · TX-ID를 용돈 ID로 바꿔 삭제 후 확인",
+        "code": "python3 -m budget_app delete --id TX-ID\npython3 -m budget_app list"
+      }
+    ],
+    "logs": [
+      {
+        "commandIndex": 0,
+        "title": "준비 · 프로그램 폴더로 이동하고 카테고리 확인",
+        "output": "CATEGORY\n---------\neducation\nfood\nmedical\nother\nrent\nsalary\nshopping\ntransport",
+        "explanation": [
+          "기본 카테고리 목록이 표로 출력됩니다.",
+          "이후 거래 입력에서 사용할 food·salary가 등록되어 있는지 확인합니다. 이 단계는 add 시연에 필요한 카테고리 전제를 확인합니다. food와 salary가 등록되어 있어 다음 거래 입력이 유효한 조건에서 진행됩니다."
+        ],
+        "explanationLines": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          [
+            4,
+            8
+          ]
+        ]
+      },
+      {
+        "commandIndex": 1,
+        "title": "add · 지출 거래 한 번에 입력",
+        "output": "날짜(YYYY-MM-DD): 타입(income/expense): 카테고리: 금액(양수 정수): 메모 (선택): 태그(쉼표로 구분) (선택): [저장 완료] id=<생성 ID>",
+        "explanation": [
+          "printf가 여섯 입력값을 순서대로 제공해 대화형 질문에 자동 응답합니다.",
+          "저장 완료와 생성 ID가 나오면 지출 거래 한 건이 기록된 것입니다. 체크리스트의 add 항목에 대한 답은 “거래가 실제 저장된다”입니다. 성공 문구와 ID가 입력이 거래로 기록됐다는 결과입니다."
+        ],
+        "explanationLines": [
+          [
+            1
+          ],
+          [
+            1
+          ]
+        ]
+      },
+      {
+        "commandIndex": 2,
+        "title": "add · 수입 거래 한 번에 입력",
+        "output": "날짜(YYYY-MM-DD): 타입(income/expense): 카테고리: 금액(양수 정수): 메모 (선택): 태그(쉼표로 구분) (선택): [저장 완료] id=<생성 ID>",
+        "explanation": [
+          "같은 입력 순서로 income 거래를 등록합니다.",
+          "새 생성 ID가 발급되어 이후 목록에서 구분할 수 있습니다. 이 결과는 지출뿐 아니라 수입도 add로 저장할 수 있음을 보여 줍니다. 새 ID가 발급되어 수입 건도 조회 가능한 거래가 됐습니다."
+        ],
+        "explanationLines": [
+          [
+            1
+          ],
+          [
+            1
+          ]
+        ]
+      },
+      {
+        "commandIndex": 3,
+        "title": "list · 입력한 거래와 ID 확인",
+        "output": "ID              | DATE       | TYPE    | CATEGORY | AMOUNT | MEMO | TAGS\n----------------+------------+---------+----------+--------+------+----------\n<수입 ID>        | 2026-11-03 | income  | salary   | 50,000 | 용돈   | allowance\n<지출 ID>        | 2026-11-02 | expense | food     | 5,000  | 점심   | meal",
+        "explanation": [
+          "최근 날짜 거래가 먼저 표시됩니다.",
+          "각 거래의 ID를 확인해 수정·삭제 명령에 사용합니다. 체크리스트의 list 동작을 이 표로 확인합니다. 거래가 최신 날짜 순으로 나타나고 각 행에 ID와 거래 정보가 표시됩니다."
+        ],
+        "explanationLines": [
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      {
+        "commandIndex": 4,
+        "title": "search · food 카테고리 검색",
+        "output": "ID       | DATE       | TYPE    | CATEGORY | AMOUNT | MEMO | TAGS\n---------+------------+---------+----------+--------+------+-----\n<지출 ID> | 2026-11-02 | expense | food     | 5,000  | 점심   | meal",
+        "explanation": [
+          "검색 조건 category=food와 일치하는 거래만 남습니다.",
+          "수입 salary 거래가 결과에서 제외된 것을 확인합니다. 이 결과가 search 동작의 근거입니다. food 조건과 일치한 행만 남고 salary 수입은 제외됩니다."
+        ],
+        "explanationLines": [
+          [
+            3
+          ],
+          [
+            1,
+            3
+          ]
+        ]
+      },
+      {
+        "commandIndex": 5,
+        "title": "summary · 2026년 11월 수입·지출 요약",
+        "output": "총 수입: 50,000원\n총 지출: 5,000원\n잔액: 45,000원\n\n지출 TOP 5\n1) food 5,000원",
+        "explanation": [
+          "두 거래를 합산해 수입 50,000원과 지출 5,000원을 집계합니다.",
+          "잔액은 수입에서 지출을 뺀 45,000원입니다. summary 항목에 대한 답은 합계와 잔액이 계산되어 출력된다는 것입니다. 50,000원 수입과 5,000원 지출로 잔액 45,000원이 맞게 나옵니다."
+        ],
+        "explanationLines": [
+          [
+            1,
+            2,
+            6
+          ],
+          [
+            3
+          ]
+        ]
+      },
+      {
+        "commandIndex": 6,
+        "title": "export · 11월 거래를 CSV로 저장",
+        "output": "[완료] data/export.csv (2 records)\ndate,type,category,amount,memo,tags\n2026-11-03,income,salary,50000,용돈,allowance\n2026-11-02,expense,food,5000,점심,meal",
+        "explanation": [
+          "조회 조건에 맞는 두 거래를 CSV 파일에 기록합니다.",
+          "records 수는 내보낸 거래 행의 개수입니다. 체크리스트의 export 동작을 파일 생성 메시지와 CSV 본문으로 함께 확인합니다. 두 거래가 고정 헤더 순서로 기록되고 한글 메모도 보존됩니다."
+        ],
+        "explanationLines": [
+          [
+            2,
+            3,
+            4
+          ],
+          [
+            1
+          ]
+        ]
+      },
+      {
+        "commandIndex": 7,
+        "title": "import · CSV 한 건 가져오고 목록 확인",
+        "output": "[완료] imported=1, skipped=0\nID       | DATE       | TYPE    | CATEGORY | AMOUNT | MEMO | TAGS\n---------+------------+---------+----------+--------+------+-----\n<가져온 ID> | 2026-11-04 | expense | food     | 2,500  | 간식   | snack\n<수입 ID>   | 2026-11-03 | income  | salary   | 50,000 | 용돈   | allowance\n<지출 ID>   | 2026-11-02 | expense | food     | 5,000  | 점심   | meal",
+        "explanation": [
+          "imported=1은 CSV의 정상 행 한 건을 추가했다는 뜻입니다.",
+          "skipped=0이므로 건너뛴 행은 없고, 이어진 목록에서 새 거래가 보입니다. 이 결과는 import가 한 행을 추가하고 처리 건수를 보고한다는 답입니다. 목록의 새 ID 거래로 실제 반영까지 확인합니다."
+        ],
+        "explanationLines": [
+          [
+            1
+          ],
+          [
+            1,
+            4,
+            5,
+            6
+          ]
+        ]
+      },
+      {
+        "commandIndex": 8,
+        "title": "update · TX-ID를 점심 ID로 바꿔 수정 후 확인",
+        "output": "[수정 완료] id=<지출 ID>\n...\n<지출 ID> | 2026-11-02 | expense | food | 6,000 | 팀점심 | meal",
+        "explanation": [
+          "[수정 완료]는 지정한 ID의 거래를 갱신했다는 뜻입니다.",
+          "목록에서 금액이 6,000원, 메모가 팀점심으로 바뀐 것을 확인합니다. 체크리스트의 update 동작은 같은 ID의 금액과 메모가 바뀐 것으로 확인됩니다. 수정 완료 메시지만이 아니라 다시 조회한 값까지 근거입니다."
+        ],
+        "explanationLines": [
+          [
+            1
+          ],
+          [
+            3
+          ]
+        ]
+      },
+      {
+        "commandIndex": 9,
+        "title": "delete · TX-ID를 용돈 ID로 바꿔 삭제 후 확인",
+        "output": "[삭제 완료] id=<수입 ID>\n...\n<가져온 ID> | 2026-11-04 | expense | food | 2,500 | 간식 | snack\n<지출 ID>   | 2026-11-02 | expense | food | 6,000 | 팀점심 | meal",
+        "explanation": [
+          "삭제 완료 뒤 목록을 다시 출력합니다.",
+          "수입 ID 행이 사라지고, 나머지 거래는 유지됩니다. 체크리스트의 delete 동작은 대상 수입 행이 사라지고 다른 두 거래는 남은 것으로 확인됩니다."
+        ],
+        "explanationLines": [
+          [
+            1
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      }
+    ]
+  },
+  "EVQ-002": {
+    "title": "파일 저장과 재실행 후 유지",
+    "commands": [
+      {
+        "title": "거래와 예산 저장용 임시 폴더 준비",
+        "code": "export DATA_DIR=\"$(mktemp -d)\"\nprintf '2026-11-05\\nexpense\\nfood\\n3200\\n간식\\nsnack\\n' | python3 -m budget_app add --data-dir \"$DATA_DIR\"\npython3 -m budget_app budget set --data-dir \"$DATA_DIR\" --month 2026-11 --amount 100000"
+      },
+      {
+        "title": "세 종류의 JSONL 파일에 저장됐는지 확인",
+        "code": "ls \"$DATA_DIR\"\ncat \"$DATA_DIR/transactions.jsonl\"\ncat \"$DATA_DIR/categories.jsonl\"\ncat \"$DATA_DIR/budgets.jsonl\""
+      },
+      {
+        "title": "새 CLI 실행으로 데이터를 다시 조회",
+        "code": "python3 -m budget_app list --data-dir \"$DATA_DIR\"\npython3 -m budget_app budget show --data-dir \"$DATA_DIR\" --month 2026-11"
+      }
+    ],
+    "logs": [
+      {
+        "commandIndex": 0,
+        "title": "거래와 예산 저장용 임시 폴더 준비",
+        "output": "날짜(YYYY-MM-DD): 타입(income/expense): 카테고리: 금액(양수 정수): 메모 (선택): 태그(쉼표로 구분) (선택): [저장 완료] id=<생성 ID>\n[저장 완료] 2026-11 예산 100,000원",
+        "explanation": [
+          "mktemp가 이번 시연 전용 데이터 폴더를 만듭니다.",
+          "거래 추가와 예산 설정이 각각 성공해 저장 파일에 기록됩니다. 이 단계는 재실행 검증에 필요한 거래와 예산을 저장합니다. 저장 성공은 전제이고, 영속성은 새 프로세스로 조회하는 다음 출력에서 입증합니다."
+        ],
+        "explanationLines": [
+          [
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      {
+        "commandIndex": 1,
+        "title": "세 종류의 JSONL 파일에 저장됐는지 확인",
+        "output": "budget.log\nbudgets.jsonl\ncategories.jsonl\nrecurring.jsonl\ntransactions.jsonl\n\n{\"id\":\"<생성 ID>\",\"type\":\"expense\",\"date\":\"2026-11-05\",\"amount\":3200,\"category\":\"food\",\"memo\":\"간식\",\"tags\":[\"snack\"],\"created_at\":\"<생성 시각>\",\"recurring_rule_id\":null,\"recurring_month\":null}\n{\"name\":\"food\"}\n...\n{\"month\":\"2026-11\",\"amount\":100000}",
+        "explanation": [
+          "거래·카테고리·예산이 서로 다른 JSONL 파일에 저장된 것을 확인합니다.",
+          "JSONL은 한 줄에 JSON 객체 하나를 기록합니다. 반복 규칙·작업 로그 파일도 함께 생성될 수 있습니다. 파일 3개 이상이라는 조건에 transactions.jsonl, categories.jsonl, budgets.jsonl이 대응합니다. 각 파일 안의 실제 레코드가 저장 데이터가 파일에 기록됐음을 보여줍니다."
+        ],
+        "explanationLines": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          [
+            7,
+            8,
+            10
+          ]
+        ]
+      },
+      {
+        "commandIndex": 2,
+        "title": "새 CLI 실행으로 데이터를 다시 조회",
+        "output": "ID       | DATE       | TYPE    | CATEGORY | AMOUNT | MEMO | TAGS\n---------+------------+---------+----------+--------+------+------\n<생성 ID> | 2026-11-05 | expense | food     | 3,200  | 간식   | snack\n2026-11 예산: 100,000원",
+        "explanation": [
+          "각 python 명령은 종료된 뒤 새 CLI 프로세스로 다시 시작합니다.",
+          "목록의 거래와 budget show 결과가 남아 있어 파일에서 복원됐음을 확인합니다. 체크리스트의 재실행 후 유지 항목에 대한 직접 답입니다. 새 프로세스에서도 거래와 예산이 조회되므로 메모리가 아니라 저장 파일에서 복원된 것입니다."
+        ],
+        "explanationLines": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      }
+    ]
+  },
+  "EVQ-003": {
+    "title": "카테고리 추가·조회·삭제와 사용 중 삭제 방지",
+    "commands": [
+      {
+        "title": "미사용 book 추가·목록 확인, 사용 중 food 삭제 거부, book 삭제",
+        "code": "python3 -m budget_app category add --data-dir \"$DATA_DIR\" --name book\npython3 -m budget_app category list --data-dir \"$DATA_DIR\"\npython3 -m budget_app category remove --data-dir \"$DATA_DIR\" --name food\npython3 -m budget_app category remove --data-dir \"$DATA_DIR\" --name book\npython3 -m budget_app category list --data-dir \"$DATA_DIR\""
+      }
+    ],
+    "logs": [
+      {
+        "commandIndex": 0,
+        "title": "미사용 book 추가·목록 확인, 사용 중 food 삭제 거부, book 삭제",
+        "output": "[저장 완료] category=book\nCATEGORY\nbook\n...\nfood\n...\n[오류] 거래에서 사용 중인 카테고리는 삭제할 수 없습니다: food\n[힌트] 해당 거래의 카테고리를 먼저 변경하세요.\n[삭제 완료] category=book\nCATEGORY\n...\nfood\n...",
+        "explanation": [
+          "첫 category list에는 새로 추가한 book이 보입니다.",
+          "food는 저장된 거래가 참조하므로 삭제가 거부되고 해결 힌트가 출력됩니다.",
+          "미사용 book은 삭제에 성공하고 마지막 목록에서 사라집니다. category add/list/remove가 모두 동작하는지 한 시연에서 확인합니다. book은 추가 후 목록에 나타나고 마지막에는 삭제되어 사라집니다. food는 사용 중이므로 삭제가 차단되고 원인과 해결 힌트가 표시됩니다."
+        ],
+        "explanationLines": [
+          [
+            2,
+            3
+          ],
+          [
+            7,
+            8
+          ],
+          [
+            9,
+            10,
+            11,
+            12,
+            13
+          ]
+        ]
+      }
+    ]
+  },
+  "EVQ-004": {
+    "title": "예산 저장과 월 요약",
+    "commands": [
+      {
+        "title": "예산 설정 후 같은 월의 지출과 비교",
+        "code": "python3 -m budget_app budget set --data-dir \"$DATA_DIR\" --month 2026-11 --amount 2000\npython3 -m budget_app summary --data-dir \"$DATA_DIR\" --month 2026-11\ncat \"$DATA_DIR/budgets.jsonl\""
+      }
+    ],
+    "logs": [
+      {
+        "commandIndex": 0,
+        "title": "예산 설정 후 같은 월의 지출과 비교",
+        "output": "[저장 완료] 2026-11 예산 2,000원\n총 수입: 0원\n총 지출: 3,200원\n잔액: -3,200원\n예산: 2,000원 (사용률 160.0%)\n[경고] 월 예산을 초과했습니다.\n\n지출 TOP 5\n1) food 3,200원\n{\"month\":\"2026-11\",\"amount\":2000}",
+        "explanation": [
+          "budget set이 11월 예산 2,000원을 파일에 저장합니다.",
+          "summary가 지출 3,200원을 예산으로 나눠 사용률 160.0%를 계산합니다.",
+          "지출이 예산보다 커서 초과 경고가 표시됩니다. 체크리스트의 예산 항목은 저장 완료와 JSONL 값, summary의 160.0% 사용률, 초과 경고로 확인됩니다. budget set으로 저장한 2,000원이 3,200원 지출과 비교되고 초과 여부까지 출력됩니다."
+        ],
+        "explanationLines": [
+          [
+            1
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            6
+          ]
+        ]
+      }
+    ]
+  },
+  "EVQ-005": {
+    "title": "CSV 가져오기·내보내기",
+    "commands": [
+      {
+        "title": "월별 내보내기와 CSV 스키마 확인",
+        "code": "python3 -m budget_app export --data-dir \"$DATA_DIR\" --out \"$DATA_DIR/export.csv\" --month 2026-11\ncat \"$DATA_DIR/export.csv\""
+      },
+      {
+        "title": "샘플 CSV를 만든 뒤 가져오기",
+        "code": "cat > \"$DATA_DIR/import.csv\" <<'CSV'\ndate,type,category,amount,memo,tags\n2026-11-04,expense,food,2500,간식,snack\nCSV\npython3 -m budget_app import --data-dir \"$DATA_DIR\" --from \"$DATA_DIR/import.csv\"\npython3 -m budget_app list --data-dir \"$DATA_DIR\" --limit 10"
+      }
+    ],
+    "logs": [
+      {
+        "commandIndex": 0,
+        "title": "월별 내보내기와 CSV 스키마 확인",
+        "output": "[완료] $DATA_DIR/export.csv (1 records)\ndate,type,category,amount,memo,tags\n2026-11-05,expense,food,3200,간식,snack",
+        "explanation": [
+          "첫 줄은 CSV 헤더로, 각 열의 이름과 순서를 보여줍니다.",
+          "records=1은 조건에 맞는 거래 한 건이 내보내졌다는 뜻입니다. 간식이라는 한글 메모가 깨지지 않고 출력되어 문자가 보존됐음을 확인합니다. 화면은 바이트 인코딩을 직접 표시하지 않으므로 UTF-8 지정 자체는 소스의 파일 인코딩 설정과 함께 답하면 정확합니다."
+        ],
+        "explanationLines": [
+          [
+            2,
+            3
+          ],
+          [
+            1
+          ]
+        ]
+      },
+      {
+        "commandIndex": 1,
+        "title": "샘플 CSV를 만든 뒤 가져오기",
+        "output": "[완료] imported=1, skipped=0\nID       | DATE       | TYPE    | CATEGORY | AMOUNT | MEMO | TAGS\n---------+------------+---------+----------+--------+------+------\n<기존 ID> | 2026-11-05 | expense | food | 3,200 | 간식 | snack\n<새 ID>   | 2026-11-04 | expense | food | 2,500 | 간식 | snack",
+        "explanation": [
+          "here-document가 헤더와 샘플 행을 가진 CSV 파일을 만듭니다.",
+          "한 행을 가져왔고 건너뛴 행은 없으며, 목록에 두 번째 거래가 추가됩니다. imported=1, skipped=0으로 정상 행 한 건이 들어왔습니다. 목록에서 새 거래가 추가되고 기존 거래가 유지되어 CSV import가 저장 데이터에 반영됨을 확인합니다."
+        ],
+        "explanationLines": [
+          [
+            1
+          ],
+          [
+            1,
+            4,
+            5
+          ]
+        ]
+      }
+    ]
+  },
+  "EVQ-006": {
+    "title": "사용자 오류 안내와 해결 힌트",
+    "commands": [
+      {
+        "title": "잘못된 금액 입력을 직접 확인",
+        "code": "printf '%s\\n' '2026-11-06' 'expense' 'food' '만원' | python3 -m budget_app add --data-dir \"$DATA_DIR\""
+      },
+      {
+        "title": "없는 CSV 파일을 지정해 안내 확인",
+        "code": "python3 -m budget_app import --data-dir \"$DATA_DIR\" --from \"$DATA_DIR/missing.csv\""
+      }
+    ],
+    "logs": [
+      {
+        "commandIndex": 0,
+        "title": "잘못된 금액 입력을 직접 확인",
+        "output": "날짜(YYYY-MM-DD): 타입(income/expense): 카테고리: 금액(양수 정수):\n[오류] 금액은 양수 정수여야 합니다.\n[힌트] 예: 15000",
+        "explanation": [
+          "입력값 만원은 양의 정수로 변환할 수 없어 거래 저장을 중단합니다.",
+          "[힌트]가 올바른 금액 예시를 알려줍니다. 스택트레이스는 오류가 난 코드 위치와 그때까지 거친 함수 호출을 길게 나열한 기록입니다. 이 시연에서는 그런 내부 기록을 숨기고 사용자가 조치할 원인과 입력 예시만 보여줍니다."
+        ],
+        "explanationLines": [
+          [
+            1
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      {
+        "commandIndex": 1,
+        "title": "없는 CSV 파일을 지정해 안내 확인",
+        "output": "[오류] CSV 파일을 읽지 못했습니다: $DATA_DIR/missing.csv\n[힌트] 파일 경로와 UTF-8 인코딩을 확인하세요.",
+        "explanation": [
+          "지정한 CSV 파일이 없어 읽기 오류가 발생합니다.",
+          "[힌트]는 파일 경로와 문자 인코딩을 확인하라고 안내합니다. 스택트레이스는 오류가 난 코드 위치와 그때까지 거친 함수 호출을 길게 나열한 기록입니다. 여기서는 그 내부 기록 대신 읽지 못한 파일과 해결 방향만 보여줍니다."
+        ],
+        "explanationLines": [
+          [
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      }
+    ]
+  },
+  "EVQ-007": {
+    "title": "프로세스 오류 종료 코드",
+    "commands": [
+      {
+        "title": "없는 CSV 파일 오류와 비정상 종료 코드 확인",
+        "code": "python3 -m budget_app import --data-dir \"$DATA_DIR\" --from \"$DATA_DIR/missing.csv\"\nSTATUS=$?\nprintf '종료 코드: %s\\n' \"$STATUS\""
+      }
+    ],
+    "logs": [
+      {
+        "commandIndex": 0,
+        "title": "없는 CSV 파일과 종료 코드 확인",
+        "output": "[오류] CSV 파일을 읽지 못했습니다: $DATA_DIR/missing.csv\n[힌트] 파일 경로와 UTF-8 인코딩을 확인하세요.\n종료 코드: 2",
+        "explanation": [
+          "없는 파일을 지정해 import가 실패하도록 합니다. 오류 메시지와 해결 힌트는 실패 이유를, 뒤에 출력되는 종료 코드는 프로그램이 셸에 돌려준 결과를 보여줍니다.",
+          "종료 코드는 프로그램이 끝날 때 셸에 돌려주는 숫자입니다. 명령 직후 STATUS=$?로 직전 명령 결과를 저장하고 출력합니다. 2는 실패를 뜻하므로, 정상 완료 값 0과 구분되는 비정상 종료를 직접 확인합니다."
+        ],
+        "explanationLines": [
+          [
+            1,
+            2
+          ],
+          [
+            3
+          ]
+        ]
+      }
+    ]
+  }
+}
